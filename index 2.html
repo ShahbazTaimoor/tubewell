@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ur-Latn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-title" content="Aslam Tubewell"><meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#176b55">
+<title>Aslam Tubewell App</title>
+<style>
+:root{--g:#176b55;--g2:#e8f5ef;--ink:#18312b;--mut:#687b75;--line:#dce8e2;--bg:#f4f8f6;--card:#fff;--red:#b23b3b;--redbg:#fff0f0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g:#3fb58f;--g2:#173a30;--ink:#e6f2ed;--mut:#93a8a0;--line:#2a403a;--bg:#0f1b17;--card:#16261f;--red:#ff8a8a;--redbg:#3a1c1c}}
+:root[data-theme="dark"]{--g:#3fb58f;--g2:#173a30;--ink:#e6f2ed;--mut:#93a8a0;--line:#2a403a;--bg:#0f1b17;--card:#16261f;--red:#ff8a8a;--redbg:#3a1c1c}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px -apple-system,"Segoe UI",Arial,sans-serif}
+.app{max-width:640px;margin:auto;padding:0 14px 40px}
+.top{background:linear-gradient(135deg,#125b49,#218265);color:#fff;padding:22px 16px;border-radius:0 0 22px 22px;margin:0 -14px 14px}
+.top h1{margin:0;font-size:23px}.top small{opacity:.85}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 14px;font-weight:700}
+.p{background:var(--g);color:#fff}.s{background:var(--g2);color:var(--g)}.d{background:var(--redbg);color:var(--red)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.big{text-align:center;padding:18px}.big span{font-size:13px;color:var(--mut)}.big strong{display:block;font-size:34px;margin-top:4px;color:var(--g)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid div{background:var(--bg);border-radius:10px;padding:10px}
+.grid span{display:block;font-size:11px;color:var(--mut);margin-bottom:3px}.grid b{font-size:15px}
+.f{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}.f label{font-size:13px;font-weight:700;color:var(--mut)}
+input{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit}
+.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}
+.fm{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1px solid var(--line);padding:14px;margin-bottom:9px;border-radius:14px}
+.fm small{display:block;color:var(--mut);font-weight:400;margin-top:3px}
+.pill{font-size:12px;padding:5px 9px;border-radius:99px;background:var(--g2);color:var(--g);white-space:nowrap}.pill.r{background:var(--redbg);color:var(--red)}
+h2{font-size:17px;margin:0 0 12px}.mut{color:var(--mut)}.sm{font-size:12px}
+.prev{background:var(--g2);color:var(--g);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;font-weight:700}
+.ent{border-top:1px solid var(--line);padding:11px 0}.ent:first-of-type{border:0}
+.ent .h{display:flex;justify-content:space-between;font-weight:700}
+.empty{text-align:center;color:var(--mut);padding:18px}
+.hide{display:none!important}
+.mini{padding:6px 10px;font-size:12px}
+</style></head>
+<body><div class="app">
+<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<div id="v"></div>
+</div>
+<script>
+const RATE=500,KEY='aslam_tubewell_v1';
+let db={farmers:[],ts:0},cur=null,ref=null,dl=null,timer=null;
+try{const r=localStorage.getItem(KEY);if(r)db=JSON.parse(r)}catch(e){}
+function st(t){const s=document.getElementById('sync');if(s)s.textContent=t}
+function push(){if(!ref)return;clearTimeout(timer);timer=setTimeout(async()=>{try{await ref.set({json:JSON.stringify(db),ts:db.ts});st('☁️ Account mein save ho gaya')}catch(e){st('⚠️ Cloud save nahi hua (phone mein save hai)')}},600)}
+const save=()=>{db.ts=Date.now();try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}push()};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rs=n=>'Rs '+Math.round(n).toLocaleString('en-US');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const pad=n=>String(n).padStart(2,'0');
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const nowT=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
+const dur=m=>m<=0?'0 min':(m>=60?Math.floor(m/60)+' ghanta ':'')+(m%60?m%60+' min':'');
+const t12=t=>{if(!t)return'';let[h,m]=t.split(':').map(Number);const a=h>=12?'PM':'AM';h=h%12||12;return h+':'+pad(m)+' '+a};
+const mins=(s,e)=>{if(!s||!e)return 0;const a=s.split(':'),b=e.split(':');let m=(b[0]*60+ +b[1])-(a[0]*60+ +a[1]);if(m<0)m+=1440;return m};
+const tot=f=>{const bill=f.entries.reduce((a,e)=>a+e.amt,0),paid=f.pays.reduce((a,p)=>a+p.amt,0),mn=f.entries.reduce((a,e)=>a+e.mins,0);return{bill,paid,mn,due:bill-paid}};
+const dueP=t=>`<span class="pill ${t.due>0?'r':''}">${t.due>0?'Baqaya '+rs(t.due):t.due<0?'Ziada '+rs(-t.due):'Hisab saaf'}</span>`;
+
+function home(){cur=null;
+const all=db.farmers.map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0);
+$('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${rs(bill)}</strong>
+<div class="grid" style="margin-top:12px;text-align:left"><div><span>Wasool hua</span><b>${rs(paid)}</b></div><div><span>Baqaya</span><b>${rs(bill-paid)}</b></div></div></div>
+<button class="p" style="width:100%;margin-bottom:12px" onclick="$('addBox').classList.toggle('hide')">＋ Naya Kesan</button>
+<div id="addBox" class="card hide"><h2>Naya Kesan</h2>
+<div class="f"><label>Kesan ka naam</label><input id="fn" placeholder="Naam"></div>
+<div class="f"><label>Number</label><input id="fp" type="tel" placeholder="03xx-xxxxxxx"></div>
+<div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div>
+<button class="p" style="width:100%" onclick="addF()">Save karein</button></div>
+${db.farmers.length?db.farmers.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div><b>${esc(f.name)}</b><small>${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')} • ${dur(t.mn)||'0 min'}</small></div>${dueP(t)}</button>`}).join(''):'<div class="empty">Abhi koi kesan nahi. Upar se "Naya Kesan" dabayein.</div>'}
+<div class="card" style="margin-top:14px"><h2>Backup</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"></div>`}
+
+function addF(){const n=$('fn').value.trim();if(!n){alert('Kesan ka naam likhein');return}
+db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[]});save();home()}
+
+function open_(id){cur=id;const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f);
+const ents=[...f.entries].sort((a,b)=>(b.date+b.start).localeCompare(a.date+a.start));
+$('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="home()">← Wapas</button><button class="s" onclick="editF()">✎ Kesan edit</button></div>
+<div class="card"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut sm" style="margin-top:4px">📞 ${esc(f.phone||'—')} &nbsp; 🏠 ${esc(f.addr||'—')}</div></div>
+<div class="card"><h2>Pani ki nayi entry</h2>
+<div class="f"><label>Date</label><input id="ed" type="date" value="${today()}"></div>
+<div class="row"><div class="f"><label>Pani shuru (time)</label><input id="es" type="time" oninput="pv()"><button class="s mini" onclick="$('es').value=nowT();pv()">Abhi</button></div>
+<div class="f"><label>Pani khatam (time)</label><input id="ee" type="time" oninput="pv()"><button class="s mini" onclick="$('ee').value=nowT();pv()">Abhi</button></div></div>
+<div class="prev"><span>Total time: <span id="pt">—</span></span><span id="pa">Rs 0</span></div>
+<button class="p" style="width:100%" onclick="addE()">Entry save karein</button></div>
+<div class="card"><h2>Is kesan ka poora hisab</h2><div class="grid">
+<div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div><div><span>Total paisay</span><b>${rs(t.bill)}</b></div>
+<div><span>Wasool hua</span><b>${rs(t.paid)}</b></div><div><span>Baqaya</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div></div>
+<div class="row" style="margin-bottom:12px"><button class="p" onclick="sheet()">🖼 Hisab ki tasveer</button><button class="s" onclick="sendS()">📝 Message</button></div><div id="sbox"></div><div class="card"><h2>Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
+<button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button>
+${f.pays.length?'<div style="margin-top:10px">'+[...f.pays].sort((a,b)=>b.date.localeCompare(a.date)).map(p=>`<div class="ent"><div class="h"><span>${p.date}</span><span>${rs(p.amt)}</span></div><button class="d mini" onclick="delP('${p.id}')">Hazf</button></div>`).join('')+'</div>':''}</div>
+<div class="card"><h2>Entries (${ents.length})</h2>${ents.length?ents.map(e=>`<div class="ent"><div class="h"><span>${e.date}</span><span>${rs(e.amt)}</span></div>
+<div class="mut sm">${t12(e.start)} se ${t12(e.end)} • ${dur(e.mins)}</div><button class="d mini" style="margin-top:6px" onclick="delE('${e.id}')">Hazf</button></div>`).join(''):'<div class="empty">Abhi koi entry nahi.</div>'}</div>
+<button class="d" style="width:100%" onclick="delF()">Yeh kesan hazf karein</button>`}
+
+function pv(){const m=mins($('es').value,$('ee').value);$('pt').textContent=m?dur(m):'—';$('pa').textContent=rs(m/60*RATE)}
+const F=()=>db.farmers.find(x=>x.id===cur);
+function addE(){const s=$('es').value,e=$('ee').value,d=$('ed').value;if(!d||!s||!e){alert('Date, shuru aur khatam time likhein');return}
+const m=mins(s,e);if(!m){alert('Shuru aur khatam time ek jaisa hai');return}
+F().entries.push({id:uid(),date:d,start:s,end:e,mins:m,amt:Math.round(m/60*RATE)});save();open_(cur)}
+function addP(){const a=Math.round(+$('pm').value);if(!(a>0)){alert('Sahi rakam likhein');return}
+F().pays.push({id:uid(),date:$('pd').value||today(),amt:a});save();open_(cur)}
+function delE(id){if(!confirm('Yeh entry hazf karein?'))return;const f=F();f.entries=f.entries.filter(x=>x.id!==id);save();open_(cur)}
+function delP(id){if(!confirm('Yeh wasooli hazf karein?'))return;const f=F();f.pays=f.pays.filter(x=>x.id!==id);save();open_(cur)}
+function delF(){if(!confirm('Kesan aur uska saara hisab hazf ho jayega. Pakka?'))return;db.farmers=db.farmers.filter(x=>x.id!==cur);save();home()}
+function editF(){const f=F();const n=prompt('Kesan ka naam',f.name);if(n===null)return;const p=prompt('Number',f.phone);if(p===null)return;const a=prompt('Rehaish',f.addr);if(a===null)return;
+f.name=n.trim()||f.name;f.phone=p.trim();f.addr=a.trim();save();open_(cur)}
+function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
+let s='*Aslam Tubewell - Hisab*\nKesan: '+f.name+'\nTareekh: '+today()+'\n\n*Pani ki entries*\n';
+s+=E.length?E.map((e,i)=>(i+1)+') '+e.date+' | '+t12(e.start)+' se '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
+s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)\n\n*Wasooli (jama)*\n';
+s+=P.length?P.map((p,i)=>(i+1)+') '+p.date+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
+return s+'\n\nTotal jama: '+rs(t.paid)+'\n*Baqaya: '+rs(t.due)+'*'}
+function sendS(){$('sbox').innerHTML='<div class="card"><h2>Hisab ka message</h2><textarea id="stx" readonly rows="12" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit;font-size:13px"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wa()">WhatsApp</button><button class="s" onclick="sh()">Share</button><button class="s" onclick="cp()">Copy</button></div></div>';$('stx').value=stmt(F());$('sbox').scrollIntoView({behavior:'smooth'})}
+function wa(){const f=F();let n=(f.phone||'').replace(/\D/g,'');if(n.startsWith('0'))n='92'+n.slice(1);window.open('https://wa.me/'+n+'?text='+encodeURIComponent($('stx').value),'_blank')}
+async function sh(){try{await navigator.share({text:$('stx').value})}catch(e){}}
+function cp(){const x=$('stx');x.select();try{navigator.clipboard.writeText(x.value)}catch(e){document.execCommand('copy')}alert('Copy ho gaya')}
+const fmtD=d=>d.split('-').reverse().join('-');
+const rs0=n=>Math.round(n).toLocaleString('en-US')+' روپے';
+const durU=m=>((m>=60?Math.floor(m/60)+' گھنٹے ':'')+(m%60?m%60+' منٹ':'')).trim()||'0 منٹ';
+const urT=t=>{if(!t)return'';const[h,m]=t.split(':').map(Number);const p=h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات';return (h%12||12)+':'+pad(m)+' '+p};
+function mkImg(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
+const W=1080,M=40,RH=72,nE=Math.max(E.length,1),nP=Math.max(P.length,1);
+const H=380+70+(nE+2)*RH+40+70+(nP+2)*RH+40+270+90;
+const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.direction='rtl';
+const FF='"Geeza Pro","Noto Naskh Arabic","Noto Nastaliq Urdu",Arial,sans-serif';
+const font=(sz,b)=>{x.font=(b?'bold ':'')+sz+'px '+FF};
+x.fillStyle='#fff';x.fillRect(0,0,W,H);
+const g=x.createLinearGradient(0,0,W,0);g.addColorStop(0,'#125b49');g.addColorStop(1,'#218265');x.fillStyle=g;x.fillRect(0,0,W,210);
+x.fillStyle='#fff';x.textAlign='center';font(64,1);x.fillText('اسلم ٹیوب ویل',W/2,95);font(34);x.fillText('پانی کا حساب  •  500 روپے فی گھنٹہ',W/2,155);
+x.fillStyle='#18312b';x.textAlign='right';font(44,1);x.fillText('کسان: '+f.name,W-M,285);
+x.fillStyle='#687b75';font(32);x.fillText([f.phone&&'فون: '+f.phone,f.addr&&'رہائش: '+f.addr].filter(Boolean).join('   '),W-M,335);
+x.textAlign='left';x.fillText('تاریخ: '+fmtD(today()),M,285);
+const tbl=(y,title,cols,heads,rows,tr,empty)=>{x.textAlign='right';x.fillStyle='#18312b';font(40,1);x.fillText(title,W-M,y+48);y+=70;
+const row=(cells,bg,fg,b)=>{x.fillStyle=bg;x.fillRect(M,y,W-2*M,RH);x.strokeStyle='#dce8e2';x.lineWidth=2;x.strokeRect(M,y,W-2*M,RH);x.fillStyle=fg;font(b?34:32,b);x.textAlign='center';
+if(typeof cells==='string'){x.fillText(cells,W/2,y+RH/2+12)}else{let r=W-M;cols.forEach((cl,i)=>{x.fillText(cells[i]||'',r-cl/2,y+RH/2+12);r-=cl;if(i<cols.length-1){x.beginPath();x.moveTo(r,y);x.lineTo(r,y+RH);x.stroke()}})}y+=RH};
+row(heads,'#176b55','#fff',1);
+if(rows.length)rows.forEach((r,i)=>row(r,i%2?'#f4f8f6':'#fff','#18312b'));else row(empty,'#fff','#687b75');
+row(tr,'#e8f5ef','#176b55',1);return y};
+let y=tbl(380,'پانی کا حساب',[210,180,180,190,240],['تاریخ','شروع','ختم','کل وقت','پیسے'],E.map(e=>[fmtD(e.date),urT(e.start),urT(e.end),e.mins+' منٹ',rs0(e.amt)]),['کل','','',t.mn+' منٹ',rs0(t.bill)],'ابھی کوئی اندراج نہیں');
+y=tbl(y+40,'ادائیگیاں (جمع کی گئی رقم)',[450,550],['تاریخ','رقم'],P.map(p=>[fmtD(p.date),rs0(p.amt)]),['کل جمع',rs0(t.paid)],'ابھی کوئی ادائیگی نہیں');
+y+=40;x.fillStyle='#e8f5ef';x.beginPath();x.roundRect(M,y,W-2*M,250,24);x.fill();
+const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
+L.forEach((l,i)=>{const yy=y+58+i*58,last=i==3;font(last?46:36,last);x.fillStyle='#18312b';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#b23b3b':'#176b55'):'#18312b';x.textAlign='left';x.fillText(l[1],M+30,yy)});
+x.fillStyle='#687b75';x.textAlign='center';font(26);x.fillText('اسلم ٹیوب ویل ایپ',W/2,y+250+50);return c}
+async function sheet(){$('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';try{await document.fonts.ready}catch(e){}
+const b=await new Promise(r=>mkImg(F()).toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
+$('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px" onclick="shImg()">Share / Save karein</button><div class="mut sm" style="margin-top:8px">Share dabane par WhatsApp ya "Save Image" chun sakte hain.</div></div>'}
+async function shImg(){const fl=new File([window._b],'hisab.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(window._b);a.download=fl.name;a.click()}}catch(e){}}
+async function bk(){const data=JSON.stringify(db,null,2),fn='aslam-tubewell-backup-'+today()+'.json';try{if(dl){await dl.save({filename:fn,data});return}}catch(e){if(e&&e.code==='declined')return}
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;a.click()}
+function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;db=x;save();home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
+home();
+(async()=>{try{if(!window.claude){st('Data is phone mein save hai (backup lete rahein)');return}
+const[u,d]=await Promise.all([claude.use('user'),claude.use('db')]);dl=await claude.use('downloads');
+const id=u&&await u.id();if(!id||!d){st('Data is phone mein save hai (backup lete rahein) (login nahi)');return}
+ref=d.doc('data/users/'+id+'/main');const sn=await ref.get();
+if(sn.exists){const r=sn.data();if((r.ts||0)>(db.ts||0)){db=JSON.parse(r.json);try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}cur?open_(cur):home();st('☁️ Account se data load hua');return}}
+if(db.farmers.length){await ref.set({json:JSON.stringify(db),ts:db.ts||Date.now()})}
+st('☁️ Account mein save ho raha hai')}catch(e){st('Data is phone mein save hai (backup lete rahein)')}})();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script></body></html>
