@@ -44,7 +44,7 @@ input[type=date],input[type=time]{display:block;min-width:0;max-width:100%;-webk
 .call{background:var(--g);color:#fff;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;white-space:nowrap}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v5</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v6</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script>
@@ -142,7 +142,7 @@ const rs0=n=>Math.round(n).toLocaleString('en-US')+' روپے';
 const durU=m=>{const h=Math.floor(m/60),r=m%60;return[h?(h===1?'1 گھنٹہ':h+' گھنٹے'):'',r?r+' منٹ':''].filter(Boolean).join(' ')||'0 منٹ'};
 const urT=t=>{if(!t)return'';const[h,m]=t.split(':').map(Number);const p=h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات';return (h%12||12)+':'+pad(m)+' '+p};
 function mkImg(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
-const W=1080,M=40,RH=72,nE=Math.max(E.length,1),nP=Math.max(P.length,1);
+const W=1080,M=24,RH=72,nE=Math.max(E.length,1),nP=Math.max(P.length,1);
 const H=380+70+(nE+2)*RH+40+70+(nP+2)*RH+40+270+90;
 const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.direction='rtl';
 const FF='"Geeza Pro","Noto Naskh Arabic","Noto Nastaliq Urdu",Arial,sans-serif';
@@ -154,13 +154,13 @@ x.fillStyle='#18312b';x.textAlign='right';font(44,1);x.fillText('کسان: '+f.n
 x.fillStyle='#687b75';font(32);x.fillText([f.phone&&'فون: '+f.phone,f.addr&&'رہائش: '+f.addr].filter(Boolean).join('   '),W-M,335);
 x.textAlign='left';x.fillText('تاریخ: '+fmtD(today()),M,285);
 const tbl=(y,title,cols,heads,rows,tr,empty)=>{x.textAlign='right';x.fillStyle='#18312b';font(40,1);x.fillText(title,W-M,y+48);y+=70;
-const row=(cells,bg,fg,b)=>{x.fillStyle=bg;x.fillRect(M,y,W-2*M,RH);x.strokeStyle='#dce8e2';x.lineWidth=2;x.strokeRect(M,y,W-2*M,RH);x.fillStyle=fg;font(b?34:32,b);x.textAlign='center';
+const row=(cells,bg,fg,b)=>{x.fillStyle=bg;x.fillRect(M,y,W-2*M,RH);x.strokeStyle='#dce8e2';x.lineWidth=2;x.strokeRect(M,y,W-2*M,RH);x.fillStyle=fg;font(b?30:28,b);x.textAlign='center';
 if(typeof cells==='string'){x.fillText(cells,W/2,y+RH/2+12)}else{let r=W-M;cols.forEach((cl,i)=>{x.fillText(cells[i]||'',r-cl/2,y+RH/2+12);r-=cl;if(i<cols.length-1){x.beginPath();x.moveTo(r,y);x.lineTo(r,y+RH);x.stroke()}})}y+=RH};
 row(heads,'#176b55','#fff',1);
 if(rows.length)rows.forEach((r,i)=>row(r,i%2?'#f4f8f6':'#fff','#18312b'));else row(empty,'#fff','#687b75');
 row(tr,'#e8f5ef','#176b55',1);return y};
-let y=tbl(380,'پانی کا حساب',[210,180,180,190,240],['تاریخ','شروع','ختم','کل وقت','پیسے'],E.map(e=>[fmtD(e.date),urT(e.start),urT(e.end),e.mins+' منٹ',rs0(e.amt)]),['کل','','',t.mn+' منٹ',rs0(t.bill)],'ابھی کوئی اندراج نہیں');
-y=tbl(y+40,'ادائیگیاں (جمع کی گئی رقم)',[450,550],['تاریخ','رقم'],P.map(p=>[fmtD(p.date),rs0(p.amt)]),['کل جمع',rs0(t.paid)],'ابھی کوئی ادائیگی نہیں');
+let y=tbl(380,'پانی کا حساب',[160,150,150,100,270,202],['تاریخ','شروع','ختم','منٹ','گھنٹے','پیسے'],E.map(e=>[fmtD(e.date),urT(e.start),urT(e.end),e.mins,durU(e.mins),rs0(e.amt)]),['کل','','',t.mn,durU(t.mn),rs0(t.bill)],'ابھی کوئی اندراج نہیں');
+y=tbl(y+40,'ادائیگیاں (جمع کی گئی رقم)',[450,582],['تاریخ','رقم'],P.map(p=>[fmtD(p.date),rs0(p.amt)]),['کل جمع',rs0(t.paid)],'ابھی کوئی ادائیگی نہیں');
 y+=40;x.fillStyle='#e8f5ef';x.beginPath();x.roundRect(M,y,W-2*M,250,24);x.fill();
 const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
 L.forEach((l,i)=>{const yy=y+58+i*58,last=i==3;font(last?46:36,last);x.fillStyle='#18312b';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#b23b3b':'#176b55'):'#18312b';x.textAlign='left';x.fillText(l[1],M+30,yy)});
