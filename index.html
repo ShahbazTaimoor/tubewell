@@ -32,9 +32,18 @@ h2{font-size:17px;margin:0 0 12px}.mut{color:var(--mut)}.sm{font-size:12px}
 .empty{text-align:center;color:var(--mut);padding:18px}
 .hide{display:none!important}
 .mini{padding:6px 10px;font-size:12px}
+input[type=date],input[type=time]{display:block;min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;text-align:left}
+.f{min-width:0}
+.bar{height:10px;background:var(--g2);border-radius:99px;overflow:hidden;margin:12px 0 6px}.bar i{display:block;height:100%;background:var(--g);border-radius:99px}
+.it{display:flex;gap:11px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line)}.it:first-of-type{border:0}
+.db{min-width:56px;text-align:center;background:var(--g2);color:var(--g);border-radius:12px;padding:7px 4px}.db b{display:block;font-size:21px;line-height:1.1}.db span{display:block;font-size:10px}
+.it.p .db{background:#fff4d6;color:#8a6200}
+.im{flex:1;min-width:0}.im b{font-size:14px}.im small{display:block;color:var(--mut);margin-top:3px}
+.ac{display:flex;gap:6px;margin-top:8px}.ia{text-align:right;white-space:nowrap}.ia b{display:block;font-size:15px}.ia small{display:block;font-size:11px;color:var(--mut);margin-top:3px}
+.pos{color:var(--g)}.neg{color:var(--red)}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v3</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v4</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script>
@@ -76,31 +85,40 @@ ${db.farmers.length?'<input id="q" type="search" placeholder="🔍 Kesan ka naam
 function addF(){const n=$('fn').value.trim();if(!n){alert('Kesan ka naam likhein');return}
 db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[]});save();home()}
 
-function open_(id){cur=id;const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f);
-const ents=[...f.entries].sort((a,b)=>(b.date+b.start).localeCompare(a.date+a.start));
+let eid=null;
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const dbx=d=>{const[y,m,dd]=d.split('-');return`<div class="db"><b>${+dd}</b><span>${MN[m-1]}</span><span>${y}</span></div>`};
+function open_(id,ed){cur=id;eid=ed||null;const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
+const pct=t.bill>0?Math.min(100,Math.round(t.paid/t.bill*100)):0;
+const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
+let run=0;L.forEach(r=>{run+=r.k==='e'?r.o.amt:-r.o.amt;r.run=run});L.reverse();
 $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="home()">← Wapas</button><button class="s" onclick="editF()">✎ Kesan edit</button></div>
 <div class="card"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut sm" style="margin-top:4px">📞 ${esc(f.phone||'—')} &nbsp; 🏠 ${esc(f.addr||'—')}</div></div>
-<div class="card"><h2>Pani ki nayi entry</h2>
-<div class="f"><label>Date</label><input id="ed" type="date" value="${today()}"></div>
-<div class="row"><div class="f"><label>Pani shuru (time)</label><input id="es" type="time" oninput="pv()"><button class="s mini" onclick="$('es').value=nowT();pv()">Abhi</button></div>
-<div class="f"><label>Pani khatam (time)</label><input id="ee" type="time" oninput="pv()"><button class="s mini" onclick="$('ee').value=nowT();pv()">Abhi</button></div></div>
-<div class="prev"><span>Total time: <span id="pt">—</span></span><span id="pa">Rs 0</span></div>
-<button class="p" style="width:100%" onclick="addE()">Entry save karein</button></div>
 <div class="card"><h2>Is kesan ka poora hisab</h2><div class="grid">
 <div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div><div><span>Total paisay</span><b>${rs(t.bill)}</b></div>
-<div><span>Wasool hua</span><b>${rs(t.paid)}</b></div><div><span>Baqaya</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div></div>
-<div class="row" style="margin-bottom:12px"><button class="p" onclick="sheet()">🖼 Hisab ki tasveer</button><button class="s" onclick="sendS()">📝 Message</button></div><div id="sbox"></div><div class="card"><h2>Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
-<button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button>
-${f.pays.length?'<div style="margin-top:10px">'+[...f.pays].sort((a,b)=>b.date.localeCompare(a.date)).map(p=>`<div class="ent"><div class="h"><span>${p.date}</span><span>${rs(p.amt)}</span></div><button class="d mini" onclick="delP('${p.id}')">Hazf</button></div>`).join('')+'</div>':''}</div>
-<div class="card"><h2>Entries (${ents.length})</h2>${ents.length?ents.map(e=>`<div class="ent"><div class="h"><span>${e.date}</span><span>${rs(e.amt)}</span></div>
-<div class="mut sm">${t12(e.start)} se ${t12(e.end)} • ${dur(e.mins)}</div><button class="d mini" style="margin-top:6px" onclick="delE('${e.id}')">Hazf</button></div>`).join(''):'<div class="empty">Abhi koi entry nahi.</div>'}</div>
-<button class="d" style="width:100%" onclick="delF()">Yeh kesan hazf karein</button>`}
+<div><span>Wasool hua</span><b class="pos">${rs(t.paid)}</b></div><div><span>Baqaya</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div>
+<div class="bar"><i style="width:${pct}%"></i></div><div class="mut sm">${pct}% wasool • ${f.entries.length} entries</div></div>
+<div class="row" style="margin-bottom:12px"><button class="p" onclick="sheet()">🖼 Hisab ki tasveer</button><button class="s" onclick="sendS()">📝 Message</button></div><div id="sbox"></div>
+<div class="card" id="fm"><h2>${E?'✎ Entry edit karein':'💧 Pani ki nayi entry'}</h2>
+<div class="f"><label>Date</label><input id="ed" type="date" value="${E?E.date:today()}"></div>
+<div class="row"><div class="f"><label>Pani shuru (time)</label><input id="es" type="time" value="${E?E.start:''}" oninput="pv()"><button class="s mini" onclick="$('es').value=nowT();pv()">Abhi</button></div>
+<div class="f"><label>Pani khatam (time)</label><input id="ee" type="time" value="${E?E.end:''}" oninput="pv()"><button class="s mini" onclick="$('ee').value=nowT();pv()">Abhi</button></div></div>
+<div class="prev"><span>Total time: <span id="pt">—</span></span><span id="pa">Rs 0</span></div>
+<div class="f"><label>Note (marzi)</label><input id="en" placeholder="Jaise: gandum ka pani" value="${esc(E?E.note:'')}"></div>
+<button class="p" style="width:100%" onclick="addE()">${E?'Tabdeeli save karein':'Entry save karein'}</button>${E?'<button class="s" style="width:100%;margin-top:8px" onclick="open_(cur)">Cancel</button>':''}</div>
+<div class="card"><h2>💰 Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
+<button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button></div>
+<div class="card"><h2>📒 Poori kitab (${L.length})</h2>${L.length?L.map(r=>{const o=r.o,bq=r.run;const sub='Baqaya '+rs(bq);
+return r.k==='e'?`<div class="it">${dbx(o.date)}<div class="im"><b>💧 ${t12(o.start)} → ${t12(o.end)}</b><small>${dur(o.mins)}${o.note?' • '+esc(o.note):''}</small><div class="ac"><button class="s mini" onclick="open_('${f.id}','${o.id}');window.scrollTo(0,0)">✎ Edit</button><button class="d mini" onclick="delE('${o.id}')">Hazf</button></div></div><div class="ia"><b>${rs(o.amt)}</b><small class="${bq>0?'neg':''}">${sub}</small></div></div>`
+:`<div class="it p">${dbx(o.date)}<div class="im"><b>💰 Wasooli</b><small>Paisay jama hue</small><div class="ac"><button class="d mini" onclick="delP('${o.id}')">Hazf</button></div></div><div class="ia"><b class="pos">− ${rs(o.amt)}</b><small class="${bq>0?'neg':''}">${sub}</small></div></div>`}).join(''):'<div class="empty">Abhi koi entry nahi.</div>'}</div>
+<button class="d" style="width:100%" onclick="delF()">Yeh kesan hazf karein</button>`;if(E)pv()}
 
 function pv(){const m=mins($('es').value,$('ee').value);$('pt').textContent=m?dur(m):'—';$('pa').textContent=rs(m/60*RATE)}
 const F=()=>db.farmers.find(x=>x.id===cur);
 function addE(){const s=$('es').value,e=$('ee').value,d=$('ed').value;if(!d||!s||!e){alert('Date, shuru aur khatam time likhein');return}
 const m=mins(s,e);if(!m){alert('Shuru aur khatam time ek jaisa hai');return}
-F().entries.push({id:uid(),date:d,start:s,end:e,mins:m,amt:Math.round(m/60*RATE)});save();open_(cur)}
+const o={date:d,start:s,end:e,mins:m,amt:Math.round(m/60*RATE),note:$('en').value.trim()},f=F();
+if(eid){Object.assign(f.entries.find(z=>z.id===eid),o)}else f.entries.push({id:uid(),...o});save();open_(cur)}
 function addP(){const a=Math.round(+$('pm').value);if(!(a>0)){alert('Sahi rakam likhein');return}
 F().pays.push({id:uid(),date:$('pd').value||today(),amt:a});save();open_(cur)}
 function delE(id){if(!confirm('Yeh entry hazf karein?'))return;const f=F();f.entries=f.entries.filter(x=>x.id!==id);save();open_(cur)}
