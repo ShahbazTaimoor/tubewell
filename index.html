@@ -34,7 +34,7 @@ h2{font-size:17px;margin:0 0 12px}.mut{color:var(--mut)}.sm{font-size:12px}
 .mini{padding:6px 10px;font-size:12px}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v3</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script>
@@ -57,6 +57,9 @@ const mins=(s,e)=>{if(!s||!e)return 0;const a=s.split(':'),b=e.split(':');let m=
 const tot=f=>{const bill=f.entries.reduce((a,e)=>a+e.amt,0),paid=f.pays.reduce((a,p)=>a+p.amt,0),mn=f.entries.reduce((a,e)=>a+e.mins,0);return{bill,paid,mn,due:bill-paid}};
 const dueP=t=>`<span class="pill ${t.due>0?'r':''}">${t.due>0?'Baqaya '+rs(t.due):t.due<0?'Ziada '+rs(-t.due):'Hisab saaf'}</span>`;
 
+function listH(q){q=(q||'').trim().toLowerCase();const a=db.farmers.filter(f=>!q||(f.name+' '+f.phone+' '+f.addr).toLowerCase().includes(q));
+return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div><b>${esc(f.name)}</b><small>${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')} • ${dur(t.mn)||'0 min'}</small></div>${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kesan nahi mila.':'Abhi koi kesan nahi. Upar se "Naya Kesan" dabayein.')+'</div>'}
+function filt(){$('list').innerHTML=listH($('q').value)}
 function home(){cur=null;
 const all=db.farmers.map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0);
 $('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${rs(bill)}</strong>
@@ -67,7 +70,7 @@ $('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${r
 <div class="f"><label>Number</label><input id="fp" type="tel" placeholder="03xx-xxxxxxx"></div>
 <div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div>
 <button class="p" style="width:100%" onclick="addF()">Save karein</button></div>
-${db.farmers.length?db.farmers.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div><b>${esc(f.name)}</b><small>${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')} • ${dur(t.mn)||'0 min'}</small></div>${dueP(t)}</button>`}).join(''):'<div class="empty">Abhi koi kesan nahi. Upar se "Naya Kesan" dabayein.</div>'}
+${db.farmers.length?'<input id="q" type="search" placeholder="🔍 Kesan ka naam dhoondein" oninput="filt()" style="margin-bottom:10px">':''}<div id="list">${listH('')}</div>
 <div class="card" style="margin-top:14px"><h2>Backup</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"></div>`}
 
 function addF(){const n=$('fn').value.trim();if(!n){alert('Kesan ka naam likhein');return}
@@ -86,7 +89,7 @@ $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" 
 <div class="card"><h2>Is kesan ka poora hisab</h2><div class="grid">
 <div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div><div><span>Total paisay</span><b>${rs(t.bill)}</b></div>
 <div><span>Wasool hua</span><b>${rs(t.paid)}</b></div><div><span>Baqaya</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div></div>
-<button class="p" style="width:100%;margin-bottom:12px" onclick="sendS()">📤 Is kesan ka hisab bhejein</button><div id="sbox"></div><div class="card"><h2>Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
+<div class="row" style="margin-bottom:12px"><button class="p" onclick="sheet()">🖼 Hisab ki tasveer</button><button class="s" onclick="sendS()">📝 Message</button></div><div id="sbox"></div><div class="card"><h2>Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
 <button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button>
 ${f.pays.length?'<div style="margin-top:10px">'+[...f.pays].sort((a,b)=>b.date.localeCompare(a.date)).map(p=>`<div class="ent"><div class="h"><span>${p.date}</span><span>${rs(p.amt)}</span></div><button class="d mini" onclick="delP('${p.id}')">Hazf</button></div>`).join('')+'</div>':''}</div>
 <div class="card"><h2>Entries (${ents.length})</h2>${ents.length?ents.map(e=>`<div class="ent"><div class="h"><span>${e.date}</span><span>${rs(e.amt)}</span></div>
@@ -115,6 +118,38 @@ function sendS(){$('sbox').innerHTML='<div class="card"><h2>Hisab ka message</h2
 function wa(){const f=F();let n=(f.phone||'').replace(/\D/g,'');if(n.startsWith('0'))n='92'+n.slice(1);window.open('https://wa.me/'+n+'?text='+encodeURIComponent($('stx').value),'_blank')}
 async function sh(){try{await navigator.share({text:$('stx').value})}catch(e){}}
 function cp(){const x=$('stx');x.select();try{navigator.clipboard.writeText(x.value)}catch(e){document.execCommand('copy')}alert('Copy ho gaya')}
+const fmtD=d=>d.split('-').reverse().join('-');
+const rs0=n=>Math.round(n).toLocaleString('en-US')+' روپے';
+const durU=m=>((m>=60?Math.floor(m/60)+' گھنٹے ':'')+(m%60?m%60+' منٹ':'')).trim()||'0 منٹ';
+const urT=t=>{if(!t)return'';const[h,m]=t.split(':').map(Number);const p=h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات';return (h%12||12)+':'+pad(m)+' '+p};
+function mkImg(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
+const W=1080,M=40,RH=72,nE=Math.max(E.length,1),nP=Math.max(P.length,1);
+const H=380+70+(nE+2)*RH+40+70+(nP+2)*RH+40+270+90;
+const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.direction='rtl';
+const FF='"Geeza Pro","Noto Naskh Arabic","Noto Nastaliq Urdu",Arial,sans-serif';
+const font=(sz,b)=>{x.font=(b?'bold ':'')+sz+'px '+FF};
+x.fillStyle='#fff';x.fillRect(0,0,W,H);
+const g=x.createLinearGradient(0,0,W,0);g.addColorStop(0,'#125b49');g.addColorStop(1,'#218265');x.fillStyle=g;x.fillRect(0,0,W,210);
+x.fillStyle='#fff';x.textAlign='center';font(64,1);x.fillText('اسلم ٹیوب ویل',W/2,95);font(34);x.fillText('پانی کا حساب  •  500 روپے فی گھنٹہ',W/2,155);
+x.fillStyle='#18312b';x.textAlign='right';font(44,1);x.fillText('کسان: '+f.name,W-M,285);
+x.fillStyle='#687b75';font(32);x.fillText([f.phone&&'فون: '+f.phone,f.addr&&'رہائش: '+f.addr].filter(Boolean).join('   '),W-M,335);
+x.textAlign='left';x.fillText('تاریخ: '+fmtD(today()),M,285);
+const tbl=(y,title,cols,heads,rows,tr,empty)=>{x.textAlign='right';x.fillStyle='#18312b';font(40,1);x.fillText(title,W-M,y+48);y+=70;
+const row=(cells,bg,fg,b)=>{x.fillStyle=bg;x.fillRect(M,y,W-2*M,RH);x.strokeStyle='#dce8e2';x.lineWidth=2;x.strokeRect(M,y,W-2*M,RH);x.fillStyle=fg;font(b?34:32,b);x.textAlign='center';
+if(typeof cells==='string'){x.fillText(cells,W/2,y+RH/2+12)}else{let r=W-M;cols.forEach((cl,i)=>{x.fillText(cells[i]||'',r-cl/2,y+RH/2+12);r-=cl;if(i<cols.length-1){x.beginPath();x.moveTo(r,y);x.lineTo(r,y+RH);x.stroke()}})}y+=RH};
+row(heads,'#176b55','#fff',1);
+if(rows.length)rows.forEach((r,i)=>row(r,i%2?'#f4f8f6':'#fff','#18312b'));else row(empty,'#fff','#687b75');
+row(tr,'#e8f5ef','#176b55',1);return y};
+let y=tbl(380,'پانی کا حساب',[210,180,180,190,240],['تاریخ','شروع','ختم','کل وقت','پیسے'],E.map(e=>[fmtD(e.date),urT(e.start),urT(e.end),e.mins+' منٹ',rs0(e.amt)]),['کل','','',t.mn+' منٹ',rs0(t.bill)],'ابھی کوئی اندراج نہیں');
+y=tbl(y+40,'ادائیگیاں (جمع کی گئی رقم)',[450,550],['تاریخ','رقم'],P.map(p=>[fmtD(p.date),rs0(p.amt)]),['کل جمع',rs0(t.paid)],'ابھی کوئی ادائیگی نہیں');
+y+=40;x.fillStyle='#e8f5ef';x.beginPath();x.roundRect(M,y,W-2*M,250,24);x.fill();
+const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
+L.forEach((l,i)=>{const yy=y+58+i*58,last=i==3;font(last?46:36,last);x.fillStyle='#18312b';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#b23b3b':'#176b55'):'#18312b';x.textAlign='left';x.fillText(l[1],M+30,yy)});
+x.fillStyle='#687b75';x.textAlign='center';font(26);x.fillText('اسلم ٹیوب ویل ایپ',W/2,y+250+50);return c}
+async function sheet(){$('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';try{await document.fonts.ready}catch(e){}
+const b=await new Promise(r=>mkImg(F()).toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
+$('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px" onclick="shImg()">Share / Save karein</button><div class="mut sm" style="margin-top:8px">Share dabane par WhatsApp ya "Save Image" chun sakte hain.</div></div>'}
+async function shImg(){const fl=new File([window._b],'hisab.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(window._b);a.download=fl.name;a.click()}}catch(e){}}
 async function bk(){const data=JSON.stringify(db,null,2),fn='aslam-tubewell-backup-'+today()+'.json';try{if(dl){await dl.save({filename:fn,data});return}}catch(e){if(e&&e.code==='declined')return}
 const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;a.click()}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;db=x;save();home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
