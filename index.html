@@ -49,15 +49,24 @@ input[type=date],input[type=time]{display:block;min-width:0;max-width:100%;-webk
 .sw{width:58px;height:40px;border-radius:10px;position:relative;display:block;overflow:hidden}.sw i{position:absolute;bottom:6px;width:16px;height:16px;border-radius:50%}.sw i:first-child{left:8px}.sw i:last-child{left:30px}
 </style></head>
 <body><div class="app">
-<header class="top"><button class="th" onclick="thPick()">🎨 Theme</button><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v8</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><button class="th" onclick="thPick()">🎨 Theme</button><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v9</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 const RATE=500,KEY='aslam_tubewell_v1';
-let db={farmers:[],ts:0},cur=null,ref=null,dl=null,timer=null;
+let db={farmers:[],ts:0},cur=null,dl=null,timer=null,U=null,FS=null,AU=null,lastP={},unsub=null;
 try{const r=localStorage.getItem(KEY);if(r)db=JSON.parse(r)}catch(e){}
 function st(t){const s=document.getElementById('sync');if(s)s.textContent=t}
-function push(){if(!ref)return;clearTimeout(timer);timer=setTimeout(async()=>{try{await ref.set({json:JSON.stringify(db),ts:db.ts});st('☁️ Account mein save ho gaya')}catch(e){st('⚠️ Cloud save nahi hua (phone mein save hai)')}},600)}
+const sig=f=>JSON.stringify([f.name,f.phone,f.addr,f.entries,f.pays]);
+function push(){if(!U||!FS)return;clearTimeout(timer);timer=setTimeout(async()=>{try{
+const col=FS.collection('users').doc(U.uid).collection('farmers'),bt=FS.batch();let n=0;
+db.farmers.forEach(f=>{const g=sig(f);if(lastP[f.id]!==g){f.ts=Date.now();bt.set(col.doc(f.id),{json:JSON.stringify(f),ts:f.ts});lastP[f.id]=g;n++}});
+Object.keys(lastP).forEach(id=>{if(!db.farmers.some(f=>f.id===id)){bt.delete(col.doc(id));delete lastP[id];n++}});
+if(n){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}await bt.commit()}
+st('☁️ Online save ho gaya')}catch(e){st('⚠️ Online save nahi hua (phone mein save hai)')}},500)}
 const save=()=>{db.ts=Date.now();try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}push()};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -86,7 +95,7 @@ $('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${r
 <div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div>
 <button class="p" style="width:100%" onclick="addF()">Save karein</button></div>
 ${db.farmers.length?'<input id="q" type="search" placeholder="🔍 Kisan ka naam dhoondein" oninput="filt()" style="margin-bottom:10px">':''}<div id="list">${listH('')}</div>
-<div class="card" style="margin-top:14px"><h2>Backup</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"></div>`}
+<div class="card" style="margin-top:14px"><h2>Backup</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"></div><div class="card"><h2>Account</h2><div class="mut sm" style="margin-bottom:10px">${esc(U?U.email:'Login nahi')}</div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>`}
 
 function addF(){const n=$('fn').value.trim();if(!n){alert('Kisan ka naam likhein');return}
 db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[]});save();home()}
@@ -185,16 +194,41 @@ const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t.tc;try
 applyTh(th);
 function thPick(){let o=$('thm');if(o){o.remove();return}o=document.createElement('div');o.id='thm';o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};
 o.innerHTML='<div class="sh"><h2>🎨 Theme chunein</h2>'+Object.keys(TH).map(k=>{const t=TH[k];return`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');thPick()"><span class="sw" style="background:linear-gradient(135deg,${t.h1},${t.h2})"><i style="background:${t.g}"></i><i style="background:${t.bg}"></i></span><b>${t.n}</b><span>${k===th?'✓':''}</span></button>`}).join('')+'<button class="s" style="width:100%;margin-top:6px" onclick="thPick()">Band karein</button></div>';document.body.appendChild(o)}
+const CFG={apiKey:"AIzaSyAiHYgg613HVa-3ca2g90K-wPw3ZguOgPg",authDomain:"aslam-tubewell.firebaseapp.com",projectId:"aslam-tubewell",storageBucket:"aslam-tubewell.firebasestorage.app",messagingSenderId:"668678347271",appId:"1:668678347271:web:d876035122ce1f8d6fe8a2"};
+const EM={'auth/invalid-credential':'Email ya password galat hai','auth/wrong-password':'Email ya password galat hai','auth/user-not-found':'Ye email registered nahi. "Register" dabayein','auth/email-already-in-use':'Ye email pehle se registered hai. Login karein','auth/weak-password':'Password kam az kam 6 huroof ka rakhein','auth/invalid-email':'Email sahi likhein','auth/network-request-failed':'Internet nahi hai','auth/too-many-requests':'Bohat koshishein ho gayin, thori der baad try karein','auth/operation-not-allowed':'Firebase mein Email/Password chalu nahi hai'};
+function refresh(){const a=document.activeElement;if(a&&/INPUT|TEXTAREA/.test(a.tagName))return;cur&&db.farmers.some(x=>x.id===cur)?open_(cur,eid):home()}
+function listen(){const col=FS.collection('users').doc(U.uid).collection('farmers');
+unsub=col.onSnapshot(sn=>{let ch=false;
+sn.docChanges().forEach(c=>{const id=c.doc.id;
+if(c.type==='removed'){if(db.farmers.some(x=>x.id===id)){db.farmers=db.farmers.filter(x=>x.id!==id);ch=true}delete lastP[id];return}
+const r=c.doc.data();let f;try{f=JSON.parse(r.json)}catch(e){return}f.ts=r.ts;
+const i=db.farmers.findIndex(x=>x.id===id);
+if(i<0){db.farmers.push(f);lastP[id]=sig(f);ch=true}
+else if((r.ts||0)>(db.farmers[i].ts||0)){db.farmers[i]=f;lastP[id]=sig(f);ch=true}
+else if(sig(db.farmers[i])===sig(f))lastP[id]=sig(f)});
+if(ch){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}refresh()}
+st('☁️ Sync chal raha hai');push()},e=>st('⚠️ Sync error: '+(e.code||'')))}
+function showLogin(msg){let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov';o.style.alignItems='center';o.style.background='var(--bg)';o.style.zIndex=20;document.body.appendChild(o)}
+o.innerHTML='<div class="sh" style="border-radius:22px;max-width:420px;margin:16px"><h2 style="font-size:21px">💧 Aslam Tubewell App</h2><div class="mut sm" style="margin-bottom:14px">Login karein ya naya account banayein</div><div class="f"><label>Email</label><input id="le" type="email" autocomplete="email" inputmode="email"></div><div class="f"><label>Password</label><input id="lp" type="password" autocomplete="current-password"></div><div id="lm" class="sm" style="color:var(--red);min-height:18px;margin-bottom:8px">'+(msg||'')+'</div><button class="p" style="width:100%" onclick="doAuth(0)">Login</button><button class="s" style="width:100%;margin-top:8px" onclick="doAuth(1)">Naya account banayein (Register)</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgot()">Password bhool gaye?</button></div>'}
+async function doAuth(reg){const e=$('le').value.trim(),p=$('lp').value;if(!e||!p){$('lm').textContent='Email aur password likhein';return}
+if(!AU){$('lm').textContent='Internet chahiye (online service load nahi hui)';return}
+$('lm').textContent='Intezar karein…';
+try{reg?await AU.createUserWithEmailAndPassword(e,p):await AU.signInWithEmailAndPassword(e,p)}catch(x){$('lm').textContent=EM[x.code]||('Masla: '+x.code)}}
+async function forgot(){const e=$('le').value.trim();if(!e){$('lm').textContent='Pehle upar email likhein';return}
+try{await AU.sendPasswordResetEmail(e);$('lm').style.color='var(--g)';$('lm').textContent='Password reset ka email bhej diya gaya hai'}catch(x){$('lm').textContent=EM[x.code]||('Masla: '+x.code)}}
+async function logout(){if(!confirm('Logout karne se is phone ka data hat jayega (online save hai, dobara login par wapas aa jayega). Agar internet nahi tha to pehle Backup download kar lein. Logout karein?'))return;
+if(unsub){unsub();unsub=null}U=null;db={farmers:[],ts:0};lastP={};try{localStorage.removeItem(KEY);localStorage.removeItem('aslam_uid')}catch(e){}
+try{await AU.signOut()}catch(e){}}
+function initFB(){try{firebase.initializeApp(CFG);AU=firebase.auth();FS=firebase.firestore();FS.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+AU.onAuthStateChanged(u=>{if(u){U=u;let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}
+if(last&&last!==u.uid){db={farmers:[],ts:0};lastP={};try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
+const o=$('lg');if(o)o.remove();home();st('☁️ Sync ho raha hai…');listen()}
+else{U=null;if(unsub){unsub();unsub=null}home();showLogin()}})}catch(e){showLogin('Online service load nahi hui. Internet check karein.')}}
 async function bk(){const data=JSON.stringify(db,null,2),fn='aslam-tubewell-backup-'+today()+'.json';try{if(dl){await dl.save({filename:fn,data});return}}catch(e){if(e&&e.code==='declined')return}
 const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;a.click()}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;db=x;save();home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 home();
-(async()=>{try{if(!window.claude){st('Data is phone mein save hai (backup lete rahein)');return}
-const[u,d]=await Promise.all([claude.use('user'),claude.use('db')]);dl=await claude.use('downloads');
-const id=u&&await u.id();if(!id||!d){st('Data is phone mein save hai (backup lete rahein) (login nahi)');return}
-ref=d.doc('data/users/'+id+'/main');const sn=await ref.get();
-if(sn.exists){const r=sn.data();if((r.ts||0)>(db.ts||0)){db=JSON.parse(r.json);try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}cur?open_(cur):home();st('☁️ Account se data load hua');return}}
-if(db.farmers.length){await ref.set({json:JSON.stringify(db),ts:db.ts||Date.now()})}
-st('☁️ Account mein save ho raha hai')}catch(e){st('Data is phone mein save hai (backup lete rahein)')}})();
+if(typeof firebase!=='undefined')initFB();else{let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}if(!last)showLogin('Pehli baar login ke liye internet chahiye.');else st('⚠️ Offline: data phone mein save hai')}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script></body></html>
