@@ -37,13 +37,14 @@ input[type=date],input[type=time]{display:block;min-width:0;max-width:100%;-webk
 .bar{height:10px;background:var(--g2);border-radius:99px;overflow:hidden;margin:12px 0 6px}.bar i{display:block;height:100%;background:var(--g);border-radius:99px}
 .it{display:flex;gap:11px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line)}.it:first-of-type{border:0}
 .db{min-width:56px;text-align:center;background:var(--g2);color:var(--g);border-radius:12px;padding:7px 4px}.db b{display:block;font-size:21px;line-height:1.1}.db span{display:block;font-size:10px}
-.it.p .db{background:#fff4d6;color:#8a6200}
+.it.pay .db{background:#fff4d6;color:#8a6200}
 .im{flex:1;min-width:0}.im b{font-size:14px}.im small{display:block;color:var(--mut);margin-top:3px}
 .ac{display:flex;gap:6px;margin-top:8px}.ia{text-align:right;white-space:nowrap}.ia b{display:block;font-size:15px}.ia small{display:block;font-size:11px;color:var(--mut);margin-top:3px}
 .pos{color:var(--g)}.neg{color:var(--red)}
+.call{background:var(--g);color:#fff;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;white-space:nowrap}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v4</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v5</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script>
@@ -60,29 +61,29 @@ const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const pad=n=>String(n).padStart(2,'0');
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
 const nowT=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
-const dur=m=>m<=0?'0 min':(m>=60?Math.floor(m/60)+' ghanta ':'')+(m%60?m%60+' min':'');
+const dur=m=>m<=0?'0 min':((m>=60?(Math.floor(m/60)===1?'1 ghanta':Math.floor(m/60)+' ghantay'):'')+(m>=60&&m%60?' ':'')+(m%60?m%60+' min':''));
 const t12=t=>{if(!t)return'';let[h,m]=t.split(':').map(Number);const a=h>=12?'PM':'AM';h=h%12||12;return h+':'+pad(m)+' '+a};
 const mins=(s,e)=>{if(!s||!e)return 0;const a=s.split(':'),b=e.split(':');let m=(b[0]*60+ +b[1])-(a[0]*60+ +a[1]);if(m<0)m+=1440;return m};
 const tot=f=>{const bill=f.entries.reduce((a,e)=>a+e.amt,0),paid=f.pays.reduce((a,p)=>a+p.amt,0),mn=f.entries.reduce((a,e)=>a+e.mins,0);return{bill,paid,mn,due:bill-paid}};
 const dueP=t=>`<span class="pill ${t.due>0?'r':''}">${t.due>0?'Baqaya '+rs(t.due):t.due<0?'Ziada '+rs(-t.due):'Hisab saaf'}</span>`;
 
 function listH(q){q=(q||'').trim().toLowerCase();const a=db.farmers.filter(f=>!q||(f.name+' '+f.phone+' '+f.addr).toLowerCase().includes(q));
-return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div><b>${esc(f.name)}</b><small>${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')} • ${dur(t.mn)||'0 min'}</small></div>${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kesan nahi mila.':'Abhi koi kesan nahi. Upar se "Naya Kesan" dabayein.')+'</div>'}
+return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div><b>${esc(f.name)}</b><small>${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')} • ${dur(t.mn)||'0 min'}</small></div>${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kisan nahi mila.':'Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.')+'</div>'}
 function filt(){$('list').innerHTML=listH($('q').value)}
 function home(){cur=null;
 const all=db.farmers.map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0);
 $('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${rs(bill)}</strong>
 <div class="grid" style="margin-top:12px;text-align:left"><div><span>Wasool hua</span><b>${rs(paid)}</b></div><div><span>Baqaya</span><b>${rs(bill-paid)}</b></div></div></div>
-<button class="p" style="width:100%;margin-bottom:12px" onclick="$('addBox').classList.toggle('hide')">＋ Naya Kesan</button>
-<div id="addBox" class="card hide"><h2>Naya Kesan</h2>
-<div class="f"><label>Kesan ka naam</label><input id="fn" placeholder="Naam"></div>
+<button class="p" style="width:100%;margin-bottom:12px" onclick="$('addBox').classList.toggle('hide')">＋ Naya Kisan</button>
+<div id="addBox" class="card hide"><h2>Naya Kisan</h2>
+<div class="f"><label>Kisan ka naam</label><input id="fn" placeholder="Naam"></div>
 <div class="f"><label>Number</label><input id="fp" type="tel" placeholder="03xx-xxxxxxx"></div>
 <div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div>
 <button class="p" style="width:100%" onclick="addF()">Save karein</button></div>
-${db.farmers.length?'<input id="q" type="search" placeholder="🔍 Kesan ka naam dhoondein" oninput="filt()" style="margin-bottom:10px">':''}<div id="list">${listH('')}</div>
+${db.farmers.length?'<input id="q" type="search" placeholder="🔍 Kisan ka naam dhoondein" oninput="filt()" style="margin-bottom:10px">':''}<div id="list">${listH('')}</div>
 <div class="card" style="margin-top:14px"><h2>Backup</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"></div>`}
 
-function addF(){const n=$('fn').value.trim();if(!n){alert('Kesan ka naam likhein');return}
+function addF(){const n=$('fn').value.trim();if(!n){alert('Kisan ka naam likhein');return}
 db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[]});save();home()}
 
 let eid=null;
@@ -92,9 +93,9 @@ function open_(id,ed){cur=id;eid=ed||null;const f=db.farmers.find(x=>x.id===id);
 const pct=t.bill>0?Math.min(100,Math.round(t.paid/t.bill*100)):0;
 const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
 let run=0;L.forEach(r=>{run+=r.k==='e'?r.o.amt:-r.o.amt;r.run=run});L.reverse();
-$('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="home()">← Wapas</button><button class="s" onclick="editF()">✎ Kesan edit</button></div>
-<div class="card"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut sm" style="margin-top:4px">📞 ${esc(f.phone||'—')} &nbsp; 🏠 ${esc(f.addr||'—')}</div></div>
-<div class="card"><h2>Is kesan ka poora hisab</h2><div class="grid">
+$('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="home()">← Wapas</button><button class="s" onclick="editF()">✎ Kisan edit</button></div>
+<div class="card"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut" style="margin-top:8px">🏠 ${esc(f.addr||'—')}</div><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px"><span>📞 ${esc(f.phone||'Number nahi likha')}</span>${f.phone?`<a class="call" href="tel:${f.phone.replace(/[^\d+]/g,'')}">📞 Call karein</a>`:''}</div></div>
+<div class="card"><h2>Is kisan ka poora hisab</h2><div class="grid">
 <div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div><div><span>Total paisay</span><b>${rs(t.bill)}</b></div>
 <div><span>Wasool hua</span><b class="pos">${rs(t.paid)}</b></div><div><span>Baqaya</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div>
 <div class="bar"><i style="width:${pct}%"></i></div><div class="mut sm">${pct}% wasool • ${f.entries.length} entries</div></div>
@@ -109,9 +110,9 @@ $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" 
 <div class="card"><h2>💰 Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
 <button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button></div>
 <div class="card"><h2>📒 Poori kitab (${L.length})</h2>${L.length?L.map(r=>{const o=r.o,bq=r.run;const sub='Baqaya '+rs(bq);
-return r.k==='e'?`<div class="it">${dbx(o.date)}<div class="im"><b>💧 ${t12(o.start)} → ${t12(o.end)}</b><small>${dur(o.mins)}${o.note?' • '+esc(o.note):''}</small><div class="ac"><button class="s mini" onclick="open_('${f.id}','${o.id}');window.scrollTo(0,0)">✎ Edit</button><button class="d mini" onclick="delE('${o.id}')">Hazf</button></div></div><div class="ia"><b>${rs(o.amt)}</b><small class="${bq>0?'neg':''}">${sub}</small></div></div>`
-:`<div class="it p">${dbx(o.date)}<div class="im"><b>💰 Wasooli</b><small>Paisay jama hue</small><div class="ac"><button class="d mini" onclick="delP('${o.id}')">Hazf</button></div></div><div class="ia"><b class="pos">− ${rs(o.amt)}</b><small class="${bq>0?'neg':''}">${sub}</small></div></div>`}).join(''):'<div class="empty">Abhi koi entry nahi.</div>'}</div>
-<button class="d" style="width:100%" onclick="delF()">Yeh kesan hazf karein</button>`;if(E)pv()}
+return r.k==='e'?`<div class="it">${dbx(o.date)}<div class="im"><b>💧 ${t12(o.start)} → ${t12(o.end)}</b><small>${dur(o.mins)}${o.note?' • '+esc(o.note):''}</small><div class="ac"><button class="s mini" onclick="open_('${f.id}','${o.id}');window.scrollTo(0,0)">✎ Edit</button><button class="d mini" onclick="delE('${o.id}')">🗑 Delete</button></div></div><div class="ia"><b>${rs(o.amt)}</b><small class="${bq>0?'neg':''}">${sub}</small></div></div>`
+:`<div class="it pay">${dbx(o.date)}<div class="im"><b>💰 Wasooli</b><small>Paisay jama hue</small><div class="ac"><button class="d mini" onclick="delP('${o.id}')">🗑 Delete</button></div></div><div class="ia"><b class="pos">− ${rs(o.amt)}</b><small class="${bq>0?'neg':''}">${sub}</small></div></div>`}).join(''):'<div class="empty">Abhi koi entry nahi.</div>'}</div>
+<button class="d" style="width:100%" onclick="delF()">🗑 Yeh Kisan Delete karein</button>`;if(E)pv()}
 
 function pv(){const m=mins($('es').value,$('ee').value);$('pt').textContent=m?dur(m):'—';$('pa').textContent=rs(m/60*RATE)}
 const F=()=>db.farmers.find(x=>x.id===cur);
@@ -121,13 +122,13 @@ const o={date:d,start:s,end:e,mins:m,amt:Math.round(m/60*RATE),note:$('en').valu
 if(eid){Object.assign(f.entries.find(z=>z.id===eid),o)}else f.entries.push({id:uid(),...o});save();open_(cur)}
 function addP(){const a=Math.round(+$('pm').value);if(!(a>0)){alert('Sahi rakam likhein');return}
 F().pays.push({id:uid(),date:$('pd').value||today(),amt:a});save();open_(cur)}
-function delE(id){if(!confirm('Yeh entry hazf karein?'))return;const f=F();f.entries=f.entries.filter(x=>x.id!==id);save();open_(cur)}
-function delP(id){if(!confirm('Yeh wasooli hazf karein?'))return;const f=F();f.pays=f.pays.filter(x=>x.id!==id);save();open_(cur)}
-function delF(){if(!confirm('Kesan aur uska saara hisab hazf ho jayega. Pakka?'))return;db.farmers=db.farmers.filter(x=>x.id!==cur);save();home()}
-function editF(){const f=F();const n=prompt('Kesan ka naam',f.name);if(n===null)return;const p=prompt('Number',f.phone);if(p===null)return;const a=prompt('Rehaish',f.addr);if(a===null)return;
+function delE(id){if(!confirm('Yeh entry Delete karein?'))return;const f=F();f.entries=f.entries.filter(x=>x.id!==id);save();open_(cur)}
+function delP(id){if(!confirm('Yeh wasooli Delete karein?'))return;const f=F();f.pays=f.pays.filter(x=>x.id!==id);save();open_(cur)}
+function delF(){if(!confirm('Kisan aur uska saara hisab Delete ho jayega. Pakka?'))return;db.farmers=db.farmers.filter(x=>x.id!==cur);save();home()}
+function editF(){const f=F();const n=prompt('Kisan ka naam',f.name);if(n===null)return;const p=prompt('Number',f.phone);if(p===null)return;const a=prompt('Rehaish',f.addr);if(a===null)return;
 f.name=n.trim()||f.name;f.phone=p.trim();f.addr=a.trim();save();open_(cur)}
 function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
-let s='*Aslam Tubewell - Hisab*\nKesan: '+f.name+'\nTareekh: '+today()+'\n\n*Pani ki entries*\n';
+let s='*Aslam Tubewell - Hisab*\nKisan: '+f.name+'\nTareekh: '+today()+'\n\n*Pani ki entries*\n';
 s+=E.length?E.map((e,i)=>(i+1)+') '+e.date+' | '+t12(e.start)+' se '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
 s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)\n\n*Wasooli (jama)*\n';
 s+=P.length?P.map((p,i)=>(i+1)+') '+p.date+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
@@ -138,7 +139,7 @@ async function sh(){try{await navigator.share({text:$('stx').value})}catch(e){}}
 function cp(){const x=$('stx');x.select();try{navigator.clipboard.writeText(x.value)}catch(e){document.execCommand('copy')}alert('Copy ho gaya')}
 const fmtD=d=>d.split('-').reverse().join('-');
 const rs0=n=>Math.round(n).toLocaleString('en-US')+' روپے';
-const durU=m=>((m>=60?Math.floor(m/60)+' گھنٹے ':'')+(m%60?m%60+' منٹ':'')).trim()||'0 منٹ';
+const durU=m=>{const h=Math.floor(m/60),r=m%60;return[h?(h===1?'1 گھنٹہ':h+' گھنٹے'):'',r?r+' منٹ':''].filter(Boolean).join(' ')||'0 منٹ'};
 const urT=t=>{if(!t)return'';const[h,m]=t.split(':').map(Number);const p=h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات';return (h%12||12)+':'+pad(m)+' '+p};
 function mkImg(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
 const W=1080,M=40,RH=72,nE=Math.max(E.length,1),nP=Math.max(P.length,1);
