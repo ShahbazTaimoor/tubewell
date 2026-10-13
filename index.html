@@ -5,16 +5,16 @@
 <link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B3C6B">
 <title>Aslam Tubewell App</title>
 <style>
-:root{--g:#0E6A99;--g2:#E1F1FA;--ink:#12283D;--mut:#5F7487;--line:#D9E6EF;--bg:#F2F7FB;--card:#fff;--red:#B4373F;--redbg:#FDEBEC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--h1:#0B3C6B;--h2:#1580B8;--pt:#fff;--g:#0E6A99;--g2:#E1F1FA;--ink:#12283D;--mut:#5F7487;--line:#D9E6EF;--bg:#F2F7FB;--card:#fff;--red:#B4373F;--redbg:#FDEBEC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g:#4FB3E8;--g2:#16303F;--ink:#E4EFF7;--mut:#8FA6B8;--line:#25404F;--bg:#0E1A24;--card:#14232F;--red:#ff8a8a;--redbg:#3A2124}}
 :root[data-theme="dark"]{--g:#4FB3E8;--g2:#16303F;--ink:#E4EFF7;--mut:#8FA6B8;--line:#25404F;--bg:#0E1A24;--card:#14232F;--red:#ff8a8a;--redbg:#3A2124}
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px -apple-system,"Segoe UI",Arial,sans-serif}
 .app{max-width:640px;margin:auto;padding:0 14px 40px}
-.top{background:linear-gradient(135deg,#0B3C6B,#1580B8);color:#fff;padding:22px 16px;border-radius:0 0 22px 22px;margin:0 -14px 14px}
+.top{background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;padding:22px 16px;border-radius:0 0 22px 22px;margin:0 -14px 14px}
 .top h1{margin:0;font-size:23px}.top small{opacity:.85}
 button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 14px;font-weight:700}
-.p{background:var(--g);color:#fff}.s{background:var(--g2);color:var(--g)}.d{background:var(--redbg);color:var(--red)}
+.p{background:var(--g);color:var(--pt)}.s{background:var(--g2);color:var(--g)}.d{background:var(--redbg);color:var(--red)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
 .big{text-align:center;padding:18px}.big span{font-size:13px;color:var(--mut)}.big strong{display:block;font-size:34px;margin-top:4px;color:var(--g)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid div{background:var(--bg);border-radius:10px;padding:10px}
@@ -41,11 +41,15 @@ input[type=date],input[type=time]{display:block;min-width:0;max-width:100%;-webk
 .im{flex:1;min-width:0}.im b{font-size:14px}.im small{display:block;color:var(--mut);margin-top:3px}
 .ac{display:flex;gap:6px;margin-top:8px}.ia{text-align:right;white-space:nowrap}.ia b{display:block;font-size:15px}.ia small{display:block;font-size:11px;color:var(--mut);margin-top:3px}
 .pos{color:var(--g)}.neg{color:var(--red)}
-.call{background:var(--g);color:#fff;text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;white-space:nowrap}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .p,:root:not([data-theme="light"]) .call{color:#052033}}
+.call{background:var(--g);color:var(--pt);text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;white-space:nowrap}
+.top{position:relative}.th{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.2);color:#fff;padding:8px 12px;font-size:13px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:9}
+.sh{background:var(--card);color:var(--ink);width:100%;max-width:640px;border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.to{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--bg);color:var(--ink);border:2px solid transparent;margin-bottom:8px;padding:12px}.to.on{border-color:var(--g)}.to b{flex:1}
+.sw{width:58px;height:40px;border-radius:10px;position:relative;display:block;overflow:hidden}.sw i{position:absolute;bottom:6px;width:16px;height:16px;border-radius:50%}.sw i:first-child{left:8px}.sw i:last-child{left:30px}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v7</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><button class="th" onclick="thPick()">🎨 Theme</button><small>Pani ka hisab</small><h1>💧 Aslam Tubewell App</h1><small>Rate: Rs 500 fi ghanta • v8</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script>
@@ -149,7 +153,7 @@ const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getConte
 const FF='"Geeza Pro","Noto Naskh Arabic","Noto Nastaliq Urdu",Arial,sans-serif';
 const font=(sz,b)=>{x.font=(b?'bold ':'')+sz+'px '+FF};
 x.fillStyle='#fff';x.fillRect(0,0,W,H);
-const g=x.createLinearGradient(0,0,W,0);g.addColorStop(0,'#0B3C6B');g.addColorStop(1,'#1580B8');x.fillStyle=g;x.fillRect(0,0,W,210);
+const g=x.createLinearGradient(0,0,W,0);g.addColorStop(0,TH[th].h1);g.addColorStop(1,TH[th].h2);x.fillStyle=g;x.fillRect(0,0,W,210);
 x.fillStyle='#fff';x.textAlign='center';font(64,1);x.fillText('اسلم ٹیوب ویل',W/2,95);font(34);x.fillText('پانی کا حساب  •  500 روپے فی گھنٹہ',W/2,155);
 x.fillStyle='#12283D';x.textAlign='right';font(44,1);x.fillText('کسان: '+f.name,W-M,285);
 x.fillStyle='#5F7487';font(32);x.fillText([f.phone&&'فون: '+f.phone,f.addr&&'رہائش: '+f.addr].filter(Boolean).join('   '),W-M,335);
@@ -157,19 +161,30 @@ x.textAlign='left';x.fillText('تاریخ: '+fmtD(today()),M,285);
 const tbl=(y,title,cols,heads,rows,tr,empty)=>{x.textAlign='right';x.fillStyle='#12283D';font(40,1);x.fillText(title,W-M,y+48);y+=70;
 const row=(cells,bg,fg,b)=>{x.fillStyle=bg;x.fillRect(M,y,W-2*M,RH);x.strokeStyle='#D9E6EF';x.lineWidth=2;x.strokeRect(M,y,W-2*M,RH);x.fillStyle=fg;font(b?30:28,b);x.textAlign='center';
 if(typeof cells==='string'){x.fillText(cells,W/2,y+RH/2+12)}else{let r=W-M;cols.forEach((cl,i)=>{x.fillText(cells[i]||'',r-cl/2,y+RH/2+12);r-=cl;if(i<cols.length-1){x.beginPath();x.moveTo(r,y);x.lineTo(r,y+RH);x.stroke()}})}y+=RH};
-row(heads,'#0E6A99','#fff',1);
+row(heads,TH[th].ig,'#fff',1);
 if(rows.length)rows.forEach((r,i)=>row(r,i%2?'#F2F7FB':'#fff','#12283D'));else row(empty,'#fff','#5F7487');
-row(tr,'#E1F1FA','#0E6A99',1);return y};
+row(tr,TH[th].il,TH[th].ig,1);return y};
 let y=tbl(380,'پانی کا حساب',[160,150,150,100,270,202],['تاریخ','شروع','ختم','منٹ','گھنٹے','پیسے'],E.map(e=>[fmtD(e.date),urT(e.start),urT(e.end),e.mins,durU(e.mins),rs0(e.amt)]),['کل','','',t.mn,durU(t.mn),rs0(t.bill)],'ابھی کوئی اندراج نہیں');
 y=tbl(y+40,'ادائیگیاں (جمع کی گئی رقم)',[450,582],['تاریخ','رقم'],P.map(p=>[fmtD(p.date),rs0(p.amt)]),['کل جمع',rs0(t.paid)],'ابھی کوئی ادائیگی نہیں');
-y+=40;x.fillStyle='#E1F1FA';x.beginPath();x.roundRect(M,y,W-2*M,250,24);x.fill();
+y+=40;x.fillStyle=TH[th].il;x.beginPath();x.roundRect(M,y,W-2*M,250,24);x.fill();
 const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
-L.forEach((l,i)=>{const yy=y+58+i*58,last=i==3;font(last?46:36,last);x.fillStyle='#12283D';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#B4373F':'#0E6A99'):'#12283D';x.textAlign='left';x.fillText(l[1],M+30,yy)});
+L.forEach((l,i)=>{const yy=y+58+i*58,last=i==3;font(last?46:36,last);x.fillStyle='#12283D';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#B4373F':TH[th].ig):'#12283D';x.textAlign='left';x.fillText(l[1],M+30,yy)});
 x.fillStyle='#5F7487';x.textAlign='center';font(26);x.fillText('اسلم ٹیوب ویل ایپ',W/2,y+250+50);return c}
 async function sheet(){$('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';try{await document.fonts.ready}catch(e){}
 const b=await new Promise(r=>mkImg(F()).toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
 $('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px" onclick="shImg()">Share / Save karein</button><div class="mut sm" style="margin-top:8px">Share dabane par WhatsApp ya "Save Image" chun sakte hain.</div></div>'}
 async function shImg(){const fl=new File([window._b],'hisab.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(window._b);a.download=fl.name;a.click()}}catch(e){}}
+const TH={
+hara:{n:'Hara Kheti',g:'#17795E',g2:'#E3F2EC',ink:'#17302A',mut:'#657A72',line:'#DCE8E2',bg:'#F3F7F4',card:'#FFFFFF',red:'#B03A3A',redbg:'#FCE8E8',h1:'#0F5A46',h2:'#1F8266',pt:'#FFFFFF',ig:'#17795E',il:'#E3F2EC',tc:'#0F5A46'},
+neela:{n:'Pani Neela',g:'#0E6A99',g2:'#E1F1FA',ink:'#12283D',mut:'#5F7487',line:'#D9E6EF',bg:'#F2F7FB',card:'#FFFFFF',red:'#B4373F',redbg:'#FDEBEC',h1:'#0B3C6B',h2:'#1580B8',pt:'#FFFFFF',ig:'#0E6A99',il:'#E1F1FA',tc:'#0B3C6B'},
+raat:{n:'Raat (Dark)',g:'#F2B544',g2:'#2A3338',ink:'#EDEFEA',mut:'#8E9A9E',line:'#2B353A',bg:'#12171A',card:'#1B2226',red:'#FF9A9A',redbg:'#3A2124',h1:'#1D2428',h2:'#2F3A40',pt:'#1A1304',ig:'#2A3338',il:'#F6ECD2',tc:'#12171A'},
+sunehri:{n:'Sunehri Zameen',g:'#9A6A0E',g2:'#F4EBC9',ink:'#2B2A1A',mut:'#7A765F',line:'#E6DEC3',bg:'#F7F3E8',card:'#FFFDF6',red:'#A53C26',redbg:'#F9E4DD',h1:'#3B4A1F',h2:'#6B7F2E',pt:'#FFFFFF',ig:'#4F6122',il:'#F4EBC9',tc:'#3B4A1F'}};
+let th='neela';try{th=localStorage.getItem('aslam_theme')||'neela'}catch(e){}
+function applyTh(k){if(!TH[k])k='neela';th=k;const t=TH[k],r=document.documentElement.style;['g','g2','ink','mut','line','bg','card','red','redbg','h1','h2','pt'].forEach(v=>r.setProperty('--'+v,t[v]));
+const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t.tc;try{localStorage.setItem('aslam_theme',k)}catch(e){}}
+applyTh(th);
+function thPick(){let o=$('thm');if(o){o.remove();return}o=document.createElement('div');o.id='thm';o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};
+o.innerHTML='<div class="sh"><h2>🎨 Theme chunein</h2>'+Object.keys(TH).map(k=>{const t=TH[k];return`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');thPick()"><span class="sw" style="background:linear-gradient(135deg,${t.h1},${t.h2})"><i style="background:${t.g}"></i><i style="background:${t.bg}"></i></span><b>${t.n}</b><span>${k===th?'✓':''}</span></button>`}).join('')+'<button class="s" style="width:100%;margin-top:6px" onclick="thPick()">Band karein</button></div>';document.body.appendChild(o)}
 async function bk(){const data=JSON.stringify(db,null,2),fn='aslam-tubewell-backup-'+today()+'.json';try{if(dl){await dl.save({filename:fn,data});return}}catch(e){if(e&&e.code==='declined')return}
 const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;a.click()}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;db=x;save();home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
