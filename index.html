@@ -58,14 +58,16 @@ select{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line)
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:#222;color:#fff;padding:10px 18px;border-radius:99px;z-index:40;font-size:14px}
 .call{display:flex;align-items:center;justify-content:center;gap:8px}.wa{background:#1FAF55;color:#fff}
 html,body{touch-action:pan-x pan-y}input,select,textarea{font-size:16px}
-.tm{margin:14px 0 8px 66px}.tm span{background:var(--g2);color:var(--g);font-weight:800;font-size:12px;padding:5px 12px;border-radius:99px}
-.tl{display:flex;gap:10px;margin-bottom:10px}.td{width:44px;text-align:right}.td b{display:block;font-size:17px}.td span{font-size:11px;color:var(--mut)}
+.tm{margin:14px 0 8px;margin-inline-start:66px}.tm span{background:var(--g2);color:var(--g);font-weight:800;font-size:12px;padding:5px 12px;border-radius:99px}
+.tl{display:flex;gap:10px;margin-bottom:10px}.td{width:44px;text-align:end}.td b{display:block;font-size:17px}.td span{font-size:11px;color:var(--mut)}
 .tx{width:12px;display:flex;flex-direction:column;align-items:center}.tx i{width:12px;height:12px;border-radius:50%;background:var(--g);margin-top:5px;flex:none}.tx i.pd{background:#1FAF55}.tx u{flex:1;width:2px;background:var(--line)}
 .tc{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 12px}.tc.pc{background:rgba(31,175,85,.14)}.tc .h2d b{font-size:13px}
 .bi{border-top:1px solid var(--line);padding:12px 0}
+html[lang=ur] body{font-family:"Geeza Pro","Noto Naskh Arabic",system-ui,sans-serif;line-height:1.7}
+html[dir=rtl] .fm,html[dir=rtl] .to{text-align:right}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1 style="display:flex;align-items:center;gap:10px"><img class="lg" src="logo-192.png" alt="" style="width:40px;height:40px;border-radius:10px"><span id="appn">Aslam Tubewell App</span></h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v18</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><small>Pani ka hisab</small><h1 style="display:flex;align-items:center;gap:10px"><img class="lg" src="logo-192.png" alt="" style="width:40px;height:40px;border-radius:10px"><span id="appn">Aslam Tubewell App</span></h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v19</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -146,7 +148,7 @@ $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" 
 <div class="f"><label>Note (marzi)</label><input id="en" placeholder="Jaise: gandum ka pani" value="${esc(E?E.note:'')}"></div>
 <button class="p" style="width:100%" onclick="addE()">${E?'Tabdeeli save karein':'Entry save karein'}</button>${E?'<button class="s" style="width:100%;margin-top:8px" onclick="open_(cur)">Cancel</button>':''}</div>
 <div class="card"><h2>💰 Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
-<div class="f"><label>Tareeqa (kaise diye)</label><select id="ph"><option>Cash</option><option>JazzCash</option><option>Easypaisa</option><option>Bank</option><option>Aur</option></select></div><div class="f"><label>Saboot ki tasveer (marzi)</label><input id="pimg" type="file" accept="image/*"></div><button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button></div>
+<div class="f"><label>Tareeqa (kaise diye)</label><select id="ph"><option value="Cash">Cash</option><option value="JazzCash">JazzCash</option><option value="Easypaisa">Easypaisa</option><option value="Bank">Bank</option><option value="Aur">Aur</option></select></div><div class="f"><label>Saboot ki tasveer (marzi)</label><input id="pimg" type="file" accept="image/*"></div><button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button></div>
 <div class="card"><div class="h2d" style="margin-bottom:10px"><h2 style="margin:0">📒 Poori kitab (${L.length})</h2><button class="s mini" onclick="$('tlend').scrollIntoView({behavior:'smooth',block:'center'})">⬇ Naye tak</button></div>${tlH(L,f)}<div id="tlend"></div></div>
 <button class="d" style="width:100%" onclick="delF()">🗑 Yeh Kisan Delete karein</button>`;loadPh();if(E)pv()}
 
@@ -170,11 +172,11 @@ function editF(){const f=F();const n=prompt('Kisan ka naam',f.name);if(n===null)
 f.name=n.trim()||f.name;f.phone=p.trim();f.addr=a.trim();save();open_(cur)}
 function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
 let s='*Aslam Tubewell - Hisab*\nKisan: '+f.name+'\nTareekh: '+today()+'\n\n*Pani ki entries*\n';
-s+=E.length?E.map((e,i)=>(i+1)+') '+e.date+' | '+t12(e.start)+' se '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
+s+=E.length?E.map((e,i)=>(i+1)+') '+e.date+' | '+t12(e.start)+' → '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
 s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)\n\n*Wasooli (jama)*\n';
 s+=P.length?P.map((p,i)=>(i+1)+') '+p.date+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
 return s+'\n\nTotal jama: '+rs(t.paid)+'\n*Baqaya: '+rs(t.due)+'*'}
-function sendS(){$('sbox').innerHTML='<div class="card"><h2>Hisab ka message</h2><textarea id="stx" readonly rows="12" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit;font-size:13px"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wa()">WhatsApp</button><button class="s" onclick="sh()">Share</button><button class="s" onclick="cp()">Copy</button></div></div>';$('stx').value=stmt(F());$('sbox').scrollIntoView({behavior:'smooth'})}
+function sendS(){$('sbox').innerHTML='<div class="card"><h2>Hisab ka message</h2><textarea id="stx" readonly rows="12" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit;font-size:13px"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wa()">WhatsApp</button><button class="s" onclick="sh()">Share</button><button class="s" onclick="cp()">Copy</button></div></div>';$('stx').value=trT(stmt(F()));$('sbox').scrollIntoView({behavior:'smooth'})}
 function wa(){const f=F();let n=(f.phone||'').replace(/\D/g,'');if(n.startsWith('0'))n='92'+n.slice(1);window.open('https://wa.me/'+n+'?text='+encodeURIComponent($('stx').value),'_blank')}
 async function sh(){try{await navigator.share({text:$('stx').value})}catch(e){}}
 function cp(){const x=$('stx');x.select();try{navigator.clipboard.writeText(x.value)}catch(e){document.execCommand('copy')}alert('Copy ho gaya')}
@@ -304,6 +306,7 @@ $('v').innerHTML=`<div class="card"><h2>📊 Report</h2><div class="grid"><div><
 function setV(){view='set';cur=null;navR();const lk=ST.cred?'Face ID chalu hai':ST.pin?'Sirf PIN chalu hai':'Band hai';
 $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>Tubewell / App ka naam</label><input id="sn" value="${esc(ST.name)}"></div><div class="f"><label>Urdu naam (tasveer ke liye)</label><input id="su" value="${esc(ST.urdu)}"></div><button class="p" style="width:100%" onclick="svP()">Save karein</button></div>
 <div class="card"><h2>💰 Rate</h2><div class="mut sm" style="margin-bottom:8px">Abhi: <span class="rate">Rs ${RATE} fi ghanta</span></div><div class="f"><label>Naya rate (Rs fi ghanta)</label><input id="sr" type="number" inputmode="numeric" value="${RATE}"></div><div class="mut sm" style="margin-bottom:10px">Naya rate sirf nayi entries par lagega. Purani entries ke paisay nahi badlenge.</div><button class="p" style="width:100%" onclick="svR()">Rate save karein</button></div>
+<div class="card"><h2>🌐 Zuban / Language / زبان</h2><div class="row"><button class="${(ST.lang||'ro')==='ro'?'p':'s'}" onclick="setLang('ro')">Roman Urdu</button><button class="${ST.lang==='ur'?'p':'s'}" onclick="setLang('ur')">اردو</button><button class="${ST.lang==='en'?'p':'s'}" onclick="setLang('en')">English</button></div></div>
 <div class="card"><h2>🖼 App ka Logo</h2><div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><img class="lg" src="${ST.logo||'logo-192.png'}" alt="" style="width:72px;height:72px;border-radius:18px"><div class="mut sm">Naya logo chunein, app ke andar foran badal jata hai.</div></div><input id="lgf" type="file" accept="image/*" class="hide" onchange="pickLogo(this)"><div class="row"><button class="p" onclick="$('lgf').click()">Logo chunein</button><button class="s" onclick="logoSave()">⬇ Icon save</button></div>${ST.logo?'<button class="s" style="width:100%;margin-top:8px" onclick="logoReset()">Default logo wapas</button>':''}<div class="mut sm" style="margin-top:10px">Home screen ka icon iPhone khud badalne nahi deta. Naya icon lagane ke liye Safari mein link khol kar login karein, phir Share → Add to Home Screen.</div></div>
 <div class="card"><h2>🎨 Theme</h2>${Object.keys(TH).map(k=>`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');setV()"><span class="sw" style="background:linear-gradient(135deg,${TH[k].h1},${TH[k].h2})"><i style="background:${TH[k].g}"></i><i style="background:${TH[k].bg}"></i></span><b>${TH[k].n}</b><span>${k===th?'✓':''}</span></button>`).join('')}</div>
 <div class="card"><h2>🔒 App Lock</h2><div class="mut sm" style="margin-bottom:10px">Halat: <b>${lk}</b></div><div class="f"><label>Backup PIN (4 se 6 ank)</label><input id="npin" type="password" inputmode="numeric" maxlength="6" placeholder="Naya PIN"></div><button class="p" style="width:100%" onclick="svPin()">PIN save karein</button>
@@ -366,10 +369,261 @@ async function pickLogo(el){const fl=el.files[0];if(!fl)return;try{ST.logo=await
 function logoReset(){delete ST.logo;saveST();applyLogo();if(U&&FS)profDoc().set({logo:'',ts:Date.now()}).catch(()=>{});setV()}
 async function logoSave(){const b=await (await fetch(ST.logo||'logo-512.png')).blob(),fl=new File([b],'aslam-logo.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fl.name;a.click()}}catch(e){}}
 function listenProf(){profDoc().onSnapshot(sn=>{if(!sn.exists)return;const d=sn.data();if((d.logo||'')!==(ST.logo||'')){if(d.logo)ST.logo=d.logo;else delete ST.logo;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}applyLogo();if(view==='set')setV()}})}
+const LX=`
+Home|ہوم|Home
+Rozana ka hisab|روزانہ کا حساب|Daily account
+Rozana|روزانہ|Daily
+Report|رپورٹ|Report
+Settings|سیٹنگز|Settings
+Pani ka hisab|پانی کا حساب|Water account
+Rate:|ریٹ:|Rate:
+Rate|ریٹ|Rate
+fi ghanta|فی گھنٹہ|per hour
+Meri Total Kamai|میری کل کمائی|My Total Earnings
+Total kamai|کل کمائی|Total earnings
+Mahine ke hisab se kamai|مہینے کے حساب سے کمائی|Earnings by month
+Kamai|کمائی|Earnings
+Mahina|مہینہ|Month
+Wasool hua|وصول ہوا|Received
+wasool|وصول|received
+Baqaya wale kisan|باقی رقم والے کسان|Farmers with balance
+Baqaya|باقی رقم|Balance
+Hisab saaf|حساب صاف|All clear
+Ziada|زائد|Extra
+Naya Kisan|نیا کسان|New Farmer
+Kisan ka naam dhoondein|کسان کا نام تلاش کریں|Search farmer name
+Kisan ka naam likhein|کسان کا نام لکھیں|Enter the farmer's name
+Kisan ka naam|کسان کا نام|Farmer's name
+Kisan edit|کسان ایڈٹ|Edit farmer
+Kisan ko wapas layein|کسان کو واپس لائیں|restore the farmer
+kisan ko wapas layein|کسان کو واپس لائیں|restore the farmer
+Yeh Kisan Delete karein|یہ کسان ڈیلیٹ کریں|Delete this farmer
+Kisan|کسان|Farmer
+Number nahi likha|نمبر نہیں لکھا|No number
+Number|نمبر|Number
+Rehaish|رہائش|Address
+Gaon / ilaqa|گاؤں / علاقہ|Village / area
+Naam|نام|Name
+Save karein|محفوظ کریں|Save
+Wapas layein|واپس لائیں|Restore
+Wapas aa gaya|واپس آ گیا|Restored
+Wapas|واپس|Back
+Call karein|کال کریں|Call
+Is kisan ka poora hisab|اس کسان کا پورا حساب|This farmer's full account
+Total time:|کل وقت:|Total time:
+Total time|کل وقت|Total time
+Total paisay:|کل پیسے:|Total amount:
+Total paisay|کل پیسے|Total amount
+Total jama:|کل جمع:|Total received:
+Hisab ki tasveer|حساب کی تصویر|Account image
+Hisab ka message|حساب کا میسج|Account message
+Message|میسج|Message
+Pani ki nayi entry|پانی کی نئی اندراج|New water entry
+Entry edit karein|اندراج ایڈٹ کریں|Edit entry
+Entry save karein|اندراج محفوظ کریں|Save entry
+Tabdeeli save karein|تبدیلی محفوظ کریں|Save changes
+Date, shuru aur khatam time likhein|تاریخ، شروع اور ختم کا وقت لکھیں|Enter date, start and end time
+Shuru aur khatam time ek jaisa hai|شروع اور ختم کا وقت ایک جیسا ہے|Start and end time are the same
+Pani shuru (time)|پانی شروع (وقت)|Water start (time)
+Pani khatam (time)|پانی ختم (وقت)|Water end (time)
+Date|تاریخ|Date
+Abhi koi data nahi.|ابھی کوئی ڈیٹا نہیں۔|No data yet.
+Abhi koi entry nahi.|ابھی کوئی اندراج نہیں۔|No entries yet.
+Abhi koi wasooli nahi|ابھی کوئی وصولی نہیں|No payments yet
+Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.|ابھی کوئی کسان نہیں۔ اوپر سے "نیا کسان" دبائیں۔|No farmers yet. Tap "New Farmer" above.
+Abhi:|ابھی:|Now:
+Abhi|ابھی|Now
+Note (marzi)|نوٹ (مرضی)|Note (optional)
+Jaise: gandum ka pani|جیسے: گندم کا پانی|e.g. wheat watering
+Jaise: Ali Khan|جیسے: علی خان|e.g. Ali Khan
+Cancel|منسوخ|Cancel
+Paisay wasool kiye|پیسے وصول کیے|Payments received
+Rakam|رقم|Amount
+Tareeqa (kaise diye)|طریقہ (کیسے دیے)|Method (how paid)
+Saboot ki tasveer (marzi)|ثبوت کی تصویر (مرضی)|Proof photo (optional)
+Wasooli save karein|وصولی محفوظ کریں|Save payment
+Wasooli (jama)|وصولی (جمع)|Payments (received)
+Wasooli|وصولی|Payment
+wasooli|وصولی|payments
+Poori kitab|پوری کتاب|Full ledger
+Naye tak|نئے تک|Jump to latest
+Cash|نقد|Cash
+Aur|دیگر|Other
+Edit|ایڈٹ|Edit
+Delete hua:|ڈیلیٹ ہوا:|Deleted:
+Delete|ڈیلیٹ|Delete
+din baqi|دن باقی|days left
+Entries|اندراجات|Entries
+entries|اندراجات|entries
+Pani ki entries|پانی کی اندراجات|Water entries
+Koi entry nahi|کوئی اندراج نہیں|No entries
+Is mahine mein koi entry nahi.|اس مہینے میں کوئی اندراج نہیں۔|No entries this month.
+Kisi ka baqaya nahi|کسی کا باقی نہیں|Nobody owes anything
+Koi kisan nahi mila.|کوئی کسان نہیں ملا۔|No farmer found.
+Share dabane par WhatsApp ya "Save Image" chun sakte hain.|شیئر دبانے پر واٹس ایپ یا "Save Image" چن سکتے ہیں۔|Tap Share to pick WhatsApp or "Save Image".
+Share / Save karein|شیئر / محفوظ کریں|Share / Save
+Share|شیئر|Share
+Copy ho gaya|کاپی ہو گیا|Copied
+Copy|کاپی|Copy
+Band karein|بند کریں|Close
+Profile|پروفائل|Profile
+Tubewell / App ka naam|ٹیوب ویل / ایپ کا نام|Tubewell / app name
+Urdu naam (tasveer ke liye)|اردو نام (تصویر کے لیے)|Urdu name (for the image)
+Naya rate (Rs fi ghanta)|نیا ریٹ (روپے فی گھنٹہ)|New rate (Rs per hour)
+Naya rate sirf nayi entries par lagega. Purani entries ke paisay nahi badlenge.|نیا ریٹ صرف نئی اندراجات پر لگے گا۔ پرانی اندراجات کے پیسے نہیں بدلیں گے۔|The new rate applies only to new entries. Old entries won't change.
+Rate save karein|ریٹ محفوظ کریں|Save rate
+Rate save ho gaya|ریٹ محفوظ ہو گیا|Rate saved
+Sahi rate likhein|درست ریٹ لکھیں|Enter a valid rate
+Sahi rakam likhein|درست رقم لکھیں|Enter a valid amount
+Theme chunein|تھیم چنیں|Choose theme
+Theme|تھیم|Theme
+Hara Kheti|ہرا کھیت|Green Field
+Pani Neela|پانی نیلا|Water Blue
+Raat (Dark)|رات (ڈارک)|Night (Dark)
+Sunehri Zameen|سنہری زمین|Golden Land
+App Lock|ایپ لاک|App Lock
+Halat:|حالت:|Status:
+Face ID chalu hai|فیس آئی ڈی چالو ہے|Face ID is on
+Sirf PIN chalu hai|صرف پن چالو ہے|Only PIN is on
+Band hai|بند ہے|Off
+Backup PIN (4 se 6 ank)|بیک اپ پن (4 سے 6 ہندسے)|Backup PIN (4-6 digits)
+Naya PIN|نیا پن|New PIN
+PIN save karein|پن محفوظ کریں|Save PIN
+PIN save ho gaya|پن محفوظ ہو گیا|PIN saved
+PIN 4 se 6 ankon ka hona chahiye|پن 4 سے 6 ہندسوں کا ہونا چاہیے|PIN must be 4-6 digits
+Pehle backup PIN set karein|پہلے بیک اپ پن سیٹ کریں|Set a backup PIN first
+Face ID band karein|فیس آئی ڈی بند کریں|Turn off Face ID
+Face ID chalu karein|فیس آئی ڈی چالو کریں|Turn on Face ID
+Face ID chalu ho gaya|فیس آئی ڈی چالو ہو گیا|Face ID turned on
+Face ID chalu nahi hui. Dobara koshish karein.|فیس آئی ڈی چالو نہیں ہوئی۔ دوبارہ کوشش کریں۔|Couldn't turn on Face ID. Try again.
+Is phone ya browser mein Face ID support nahi|اس فون یا براؤزر میں فیس آئی ڈی سپورٹ نہیں|Face ID isn't supported on this phone or browser
+PIN hatayein|پن ہٹائیں|Remove PIN
+App lock laga hua hai|ایپ لاک لگا ہوا ہے|App is locked
+Face ID se kholein|فیس آئی ڈی سے کھولیں|Unlock with Face ID
+PIN se kholein|پن سے کھولیں|Unlock with PIN
+PIN likhein|پن لکھیں|Enter PIN
+PIN bhool gaye?|پن بھول گئے؟|Forgot PIN?
+PIN galat hai|پن غلط ہے|Wrong PIN
+Face ID nahi hui. Dobara dabayein ya PIN likhein|فیس آئی ڈی نہیں ہوئی۔ دوبارہ دبائیں یا پن لکھیں|Face ID failed. Tap again or enter PIN
+Is ke liye online login chahiye|اس کے لیے آن لائن لاگ اِن چاہیے|Online login is needed for this
+Apne account ka password likhein|اپنے اکاؤنٹ کا پاس ورڈ لکھیں|Enter your account password
+Password galat hai|پاس ورڈ غلط ہے|Wrong password
+Data|ڈیٹا|Data
+Backup download|بیک اپ ڈاؤن لوڈ|Download backup
+Backup wapas|بیک اپ واپس|Restore backup
+Backup mein tasveerein shamil nahi hotin.|بیک اپ میں تصویریں شامل نہیں ہوتیں۔|Backups don't include photos.
+Maujooda data backup se badal jayega. Pakka?|موجودہ ڈیٹا بیک اپ سے بدل جائے گا۔ پکا؟|Current data will be replaced by the backup. Sure?
+Yeh sahi backup file nahi hai|یہ درست بیک اپ فائل نہیں ہے|This isn't a valid backup file
+Account|اکاؤنٹ|Account
+Logout karne se is phone ka data hat jayega (online save hai, dobara login par wapas aa jayega). Agar internet nahi tha to pehle Backup download kar lein. Logout karein?|لاگ آؤٹ کرنے سے اس فون کا ڈیٹا ہٹ جائے گا (آن لائن محفوظ ہے، دوبارہ لاگ اِن پر واپس آ جائے گا)۔ اگر انٹرنیٹ نہیں تھا تو پہلے بیک اپ ڈاؤن لوڈ کر لیں۔ لاگ آؤٹ کریں؟|Logging out removes this phone's data (it is saved online and returns when you log in again). If you had no internet, download a backup first. Log out?
+Logout|لاگ آؤٹ|Logout
+App ke baare mein|ایپ کے بارے میں|About the app
+Version|ورژن|Version
+Rate aur lock sirf is phone ke liye hain.|ریٹ اور لاک صرف اس فون کے لیے ہیں۔|Rate and lock apply to this phone only.
+App ka Logo|ایپ کا لوگو|App Logo
+Logo chunein|لوگو چنیں|Choose logo
+Icon save|آئیکن محفوظ کریں|Save icon
+Default logo wapas|ڈیفالٹ لوگو واپس|Reset to default logo
+Naya logo chunein, app ke andar foran badal jata hai.|نیا لوگو چنیں، ایپ کے اندر فوراً بدل جاتا ہے۔|Pick a new logo; it changes inside the app immediately.
+Home screen ka icon iPhone khud badalne nahi deta. Naya icon lagane ke liye Safari mein link khol kar login karein, phir Share → Add to Home Screen.|ہوم اسکرین کا آئیکن آئی فون خود بدلنے نہیں دیتا۔ نیا آئیکن لگانے کے لیے سفاری میں لنک کھول کر لاگ اِن کریں، پھر Share → Add to Home Screen۔|iPhone doesn't let apps change the home screen icon. To use a new icon, open the link in Safari, log in, then Share → Add to Home Screen.
+Logo badal gaya|لوگو بدل گیا|Logo changed
+Tasveer save nahi hui|تصویر محفوظ نہیں ہوئی|Photo wasn't saved
+Tasveer nahi khuli|تصویر نہیں کھلی|Couldn't open the photo
+Save ho gaya|محفوظ ہو گیا|Saved
+Deleted Box|ڈیلیٹڈ باکس|Deleted Box
+Delete ki hui cheezein yahan 30 din tak rehti hain. Wapas lane par wo pehle ki tarah ho jati hain.|ڈیلیٹ کی ہوئی چیزیں یہاں 30 دن تک رہتی ہیں۔ واپس لانے پر وہ پہلے کی طرح ہو جاتی ہیں۔|Deleted items stay here for 30 days. Restoring puts them back as they were.
+Deleted box khali hai.|ڈیلیٹڈ باکس خالی ہے۔|Deleted box is empty.
+Hamesha ke liye|ہمیشہ کے لیے|Delete forever
+Poora box khali karein|پورا باکس خالی کریں|Empty the whole box
+Yeh entry Delete karein?|یہ اندراج ڈیلیٹ کریں؟|Delete this entry?
+Yeh wasooli Delete karein?|یہ وصولی ڈیلیٹ کریں؟|Delete this payment?
+Yeh kisan aur uska saara hisab Delete ho jayega.|یہ کسان اور اس کا سارا حساب ڈیلیٹ ہو جائے گا۔|This farmer and all their records will be deleted.
+Deleted Box mein 30 din rahegi, wahan se wapas la sakte hain|ڈیلیٹڈ باکس میں 30 دن رہے گی، وہاں سے واپس لا سکتے ہیں|It stays in the Deleted Box for 30 days; you can restore it
+Deleted Box mein 30 din rahega, wahan se wapas la sakte hain|ڈیلیٹڈ باکس میں 30 دن رہے گا، وہاں سے واپس لا سکتے ہیں|It stays in the Deleted Box for 30 days; you can restore it
+Ye hamesha ke liye hat jayega, wapas nahi aayega. Pakka?|یہ ہمیشہ کے لیے ہٹ جائے گا، واپس نہیں آئے گا۔ پکا؟|This will be removed forever. Sure?
+Deleted box ki saari cheezein hamesha ke liye hat jayengi. Pakka?|ڈیلیٹڈ باکس کی ساری چیزیں ہمیشہ کے لیے ہٹ جائیں گی۔ پکا؟|Everything in the Deleted Box will be removed forever. Sure?
+Ye kisan pehle se maujood hai|یہ کسان پہلے سے موجود ہے|This farmer already exists
+Pakka?|پکا؟|Sure?
+Pehle|پہلے|First
+Naya account banayein (Register)|نیا اکاؤنٹ بنائیں (رجسٹر)|Create new account (Register)
+Naya account banayein|نیا اکاؤنٹ بنائیں|Create new account
+Apne account mein login karein|اپنے اکاؤنٹ میں لاگ اِن کریں|Log in to your account
+Aap ka naam|آپ کا نام|Your name
+Email (Gmail)|ای میل (جی میل)|Email (Gmail)
+Password dobara likhein|پاس ورڈ دوبارہ لکھیں|Re-enter password
+Password dikhayein|پاس ورڈ دکھائیں|Show password
+Password chhupayein|پاس ورڈ چھپائیں|Hide password
+Password bhool gaye?|پاس ورڈ بھول گئے؟|Forgot password?
+Password|پاس ورڈ|Password
+Kam az kam 6 huroof|کم از کم 6 حروف|At least 6 characters
+Register karein|رجسٹر کریں|Register
+Pehle se account hai? Login|پہلے سے اکاؤنٹ ہے؟ لاگ اِن|Already have an account? Login
+Login|لاگ اِن|Login
+Intezar karein…|انتظار کریں…|Please wait…
+Email aur password dono likhein|ای میل اور پاس ورڈ دونوں لکھیں|Enter both email and password
+Email sahi likhein, jaise aap@gmail.com|ای میل درست لکھیں، جیسے aap@gmail.com|Enter a valid email, like you@gmail.com
+Email sahi likhein|ای میل درست لکھیں|Enter a valid email
+Apna naam likhein|اپنا نام لکھیں|Enter your name
+Password kam az kam 6 huroof ka rakhein|پاس ورڈ کم از کم 6 حروف کا رکھیں|Use at least 6 characters
+Dono password ek jaise nahi hain|دونوں پاس ورڈ ایک جیسے نہیں ہیں|Passwords don't match
+Internet nahi hai ya online service load nahi hui. Internet chala kar app dobara kholein|انٹرنیٹ نہیں ہے یا آن لائن سروس لوڈ نہیں ہوئی۔ انٹرنیٹ چلا کر ایپ دوبارہ کھولیں|No internet or the online service didn't load. Turn on internet and reopen the app
+Internet nahi hai|انٹرنیٹ نہیں ہے|No internet
+Masla aaya:|مسئلہ آیا:|Problem:
+Pehle upar email likhein|پہلے اوپر ای میل لکھیں|Enter your email above first
+Password reset ka email bhej diya gaya hai. Gmail kholein (Spam bhi dekhein)|پاس ورڈ ری سیٹ کی ای میل بھیج دی گئی ہے۔ جی میل کھولیں (اسپام بھی دیکھیں)|Password reset email sent. Check Gmail (and Spam)
+Account ban gaya! Gmail par verification email bheji gayi|اکاؤنٹ بن گیا! جی میل پر تصدیقی ای میل بھیجی گئی|Account created! A verification email was sent to your Gmail
+Email ya password galat hai|ای میل یا پاس ورڈ غلط ہے|Email or password is wrong
+Ye email registered nahi. "Register" dabayein|یہ ای میل رجسٹرڈ نہیں۔ "رجسٹر" دبائیں|This email isn't registered. Tap "Register"
+Ye email pehle se registered hai. Login karein|یہ ای میل پہلے سے رجسٹرڈ ہے۔ لاگ اِن کریں|This email is already registered. Log in
+Bohat koshishein ho gayin, thori der baad try karein|بہت کوششیں ہو گئیں، تھوڑی دیر بعد کوشش کریں|Too many attempts, try again later
+Firebase mein Email/Password chalu nahi hai|فائر بیس میں ای میل/پاس ورڈ چالو نہیں ہے|Email/Password isn't enabled in Firebase
+Ye account band hai|یہ اکاؤنٹ بند ہے|This account is disabled
+Online service load nahi hui. Internet check karein.|آن لائن سروس لوڈ نہیں ہوئی۔ انٹرنیٹ چیک کریں۔|Online service didn't load. Check your internet.
+Pehli baar login ke liye internet chahiye.|پہلی بار لاگ اِن کے لیے انٹرنیٹ چاہیے۔|Internet is needed for the first login.
+Check ho raha hai…|چیک ہو رہا ہے…|Checking…
+Online save ho gaya|آن لائن محفوظ ہو گیا|Saved online
+Sync chal raha hai|سنک چل رہا ہے|Sync is running
+Sync ho raha hai…|سنک ہو رہا ہے…|Syncing…
+Offline: data phone mein save hai|آف لائن: ڈیٹا فون میں محفوظ ہے|Offline: data is saved on the phone
+Online save nahi hua (phone mein save hai)|آن لائن محفوظ نہیں ہوا (فون میں محفوظ ہے)|Not saved online (saved on the phone)
+Sync error:|سنک ایرر:|Sync error:
+Aslam Tubewell - Hisab|اسلم ٹیوب ویل - حساب|Aslam Tubewell - Account
+Tareekh:|تاریخ:|Date:
+Baqaya:|باقی رقم:|Balance:
+ghantay|گھنٹے|hours
+ghanta|گھنٹہ|hour
+min|منٹ|min
+AM|صبح|AM
+PM|شام|PM
+Jan|جنوری|Jan
+Feb|فروری|Feb
+Mar|مارچ|Mar
+Apr|اپریل|Apr
+May|مئی|May
+Jun|جون|Jun
+Jul|جولائی|Jul
+Aug|اگست|Aug
+Sep|ستمبر|Sep
+Oct|اکتوبر|Oct
+Nov|نومبر|Nov
+Dec|دسمبر|Dec
+`.split('\n').filter(Boolean).map(l=>l.split('|')).sort((a,b)=>b[0].length-a[0].length);
+const LR=LX.map(x=>[new RegExp('(^|[^A-Za-z])'+x[0].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![A-Za-z])','g'),x[1],x[2]]);
+function trT(s){const L=ST.lang;if(!L||L==='ro')return s;const i=L==='ur'?1:2;let o=String(s);LR.forEach(x=>{o=o.replace(x[0],(m,p)=>p+x[i])});return o}
+const TN=new WeakMap();
+function trNode(n){if(n.nodeType===3){const p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName))return;const v=n.nodeValue,i=TN.get(n);if(i&&v===i.t)return;const t=trT(v);TN.set(n,{o:v,t});if(t!==v)n.nodeValue=t}
+else if(n.nodeType===1){if(/^(SCRIPT|STYLE)$/.test(n.nodeName))return;if(n.hasAttribute('placeholder')){n._po=n._po||n.getAttribute('placeholder');n.setAttribute('placeholder',trT(n._po))}n.childNodes.forEach(trNode)}}
+function relang(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName))continue;const i=TN.get(n),o=i&&n.nodeValue===i.t?i.o:n.nodeValue,t=trT(o);TN.set(n,{o,t});if(n.nodeValue!==t)n.nodeValue=t}
+document.querySelectorAll('[placeholder]').forEach(e=>{e._po=e._po||e.getAttribute('placeholder');e.setAttribute('placeholder',trT(e._po))})}
+function applyDir(){const L=ST.lang||'ro',h=document.documentElement;h.dir=L==='ur'?'rtl':'ltr';h.lang=L==='ur'?'ur':L==='en'?'en':'ur-Latn'}
+function startLang(){applyDir();new MutationObserver(ms=>ms.forEach(m=>{m.addedNodes.forEach(trNode);if(m.type==='characterData')trNode(m.target)})).observe(document.body,{childList:true,subtree:true,characterData:true});relang()}
+function setLang(l){ST.lang=l;saveST();applyDir();relang();setV();toast('Save ho gaya')}
+const _al=window.alert.bind(window),_cf=window.confirm.bind(window),_pr=window.prompt.bind(window);
+window.alert=m=>_al(trT(m));window.confirm=m=>_cf(trT(m));window.prompt=(m,d)=>_pr(trT(m),d);
 async function bk(){const data=JSON.stringify(db,null,2),fn='aslam-tubewell-backup-'+today()+'.json';try{if(dl){await dl.save({filename:fn,data});return}}catch(e){if(e&&e.code==='declined')return}
 const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;a.click()}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;db=x;save();home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
-purgeBin();applySt();applyLogo();navR();lockNow();home();
+purgeBin();applySt();applyLogo();startLang();navR();lockNow();home();
 if(typeof firebase!=='undefined')initFB();else{let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}if(!last)showLogin('Pehli baar login ke liye internet chahiye.');else st('⚠️ Offline: data phone mein save hai')}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script></body></html>
