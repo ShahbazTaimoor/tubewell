@@ -87,9 +87,19 @@ button{transition:transform .12s ease,background .25s,color .25s,opacity .2s}but
 .wl{position:fixed;inset:0;z-index:25;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;animation:fade .25s ease}
 .wl img{width:96px;height:96px;border-radius:24px;animation:pop .7s ease}.wl h2{margin:6px 0 0;animation:pg .5s .2s ease both}.wl div{animation:pg .5s .3s ease both}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.top{overflow:hidden;padding:20px 18px 22px}
+.wv{position:absolute;left:0;right:0;bottom:0;width:100%;height:48px;fill:rgba(255,255,255,.1)}
+.hr{display:flex;align-items:center;gap:13px;position:relative}.hr img{width:54px;height:54px;border-radius:15px;border:2px solid rgba(255,255,255,.9);box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.hn h1{margin:0;font-size:21px;letter-spacing:.2px}.hs{font-size:12px;opacity:.95;margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chip{position:relative;display:inline-flex;align-items:center;gap:7px;margin-top:13px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);padding:5px 12px;border-radius:99px;font-size:11px;max-width:100%}
+.chip i{flex:none;width:7px;height:7px;border-radius:50%;background:#7CF2A5;box-shadow:0 0 0 3px rgba(124,242,165,.28);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(124,242,165,0)}}
+.tx i.od{background:#E0A030}.tc.oc{background:rgba(224,160,48,.16)}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1 style="display:flex;align-items:center;gap:10px"><img class="lg" src="logo-192.png" alt="" style="width:40px;height:40px;border-radius:10px"><span id="appn">Aslam Tubewell App</span></h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v20</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
+<div class="hr"><img class="lg" src="logo-192.png" alt=""><div class="hn"><h1 id="appn">Aslam Tubewell App</h1><div class="hs">Pani ka hisab <span class="rate" id="rt">Rs 500 fi ghanta</span></div></div></div>
+<div class="chip"><i></i><span id="sync">Check ho raha hai…</span></div></header>
 <div id="v"></div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -103,7 +113,7 @@ function st(t){const s=document.getElementById('sync');if(s)s.textContent=t}
 const wnum=p=>{let n=String(p||'').replace(/\D/g,'');if(n.startsWith('00'))n=n.slice(2);else if(n.startsWith('0'))n='92'+n.slice(1);else if(n.length===10)n='92'+n;return n};
 ['gesturestart','gesturechange','gestureend'].forEach(t=>document.addEventListener(t,x=>x.preventDefault()));
 document.addEventListener('touchmove',e=>{if(e.touches.length>1||(e.scale&&e.scale!==1))e.preventDefault()},{passive:false});
-const sig=f=>JSON.stringify([f.name,f.phone,f.addr,f.entries,f.pays]);
+const sig=f=>JSON.stringify([f.name,f.phone,f.addr,f.entries,f.pays,f.olds]);
 function push(){if(!U||!FS)return;clearTimeout(timer);timer=setTimeout(async()=>{try{
 const col=FS.collection('users').doc(U.uid).collection('farmers'),bt=FS.batch();let n=0;
 db.farmers.forEach(f=>{const g=sig(f);if(lastP[f.id]!==g){f.ts=Date.now();bt.set(col.doc(f.id),{json:JSON.stringify(f),ts:f.ts});lastP[f.id]=g;n++}});
@@ -121,45 +131,45 @@ const nowT=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes
 const dur=m=>m<=0?'0 min':((m>=60?(Math.floor(m/60)===1?'1 ghanta':Math.floor(m/60)+' ghantay'):'')+(m>=60&&m%60?' ':'')+(m%60?m%60+' min':''));
 const t12=t=>{if(!t)return'';let[h,m]=t.split(':').map(Number);const a=h>=12?'PM':'AM';h=h%12||12;return h+':'+pad(m)+' '+a};
 const mins=(s,e)=>{if(!s||!e)return 0;const a=s.split(':'),b=e.split(':');let m=(b[0]*60+ +b[1])-(a[0]*60+ +a[1]);if(m<0)m+=1440;return m};
-const tot=f=>{const bill=f.entries.reduce((a,e)=>a+e.amt,0),paid=f.pays.reduce((a,p)=>a+p.amt,0),mn=f.entries.reduce((a,e)=>a+e.mins,0);return{bill,paid,mn,due:bill-paid}};
+const tot=f=>{const bill=f.entries.reduce((a,e)=>a+e.amt,0),old=(f.olds||[]).reduce((a,o)=>a+o.amt,0),paid=f.pays.reduce((a,p)=>a+p.amt,0),mn=f.entries.reduce((a,e)=>a+e.mins,0);return{bill,old,paid,mn,due:bill+old-paid}};
 const dueP=t=>`<span class="pill ${t.due>0?'r':''}">${t.due>0?'Baqaya '+rs(t.due):t.due<0?'Ziada '+rs(-t.due):'Hisab saaf'}</span>`;
 
 function listH(q){q=(q||'').trim().toLowerCase();const a=db.farmers.filter(f=>!q||(f.name+' '+f.phone+' '+f.addr).toLowerCase().includes(q));
 return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div><b>${esc(f.name)}</b><small>${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')} • ${dur(t.mn)||'0 min'}</small></div>${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kisan nahi mila.':'Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.')+'</div>'}
 function filt(){$('list').innerHTML=listH($('q').value)}
 function home(){cur=null;view='home';navR();
-const all=db.farmers.map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0);
+const all=db.farmers.map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0),old=all.reduce((a,t)=>a+t.old,0);
 $('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${rs(bill)}</strong>
-<div class="grid" style="margin-top:12px;text-align:left"><div><span>Wasool hua</span><b>${rs(paid)}</b></div><div><span>Baqaya</span><b>${rs(bill-paid)}</b></div></div></div>
+<div class="grid" style="margin-top:12px;text-align:left"><div><span>Wasool hua</span><b>${rs(paid)}</b></div><div><span>Baqaya</span><b>${rs(bill+old-paid)}</b></div></div></div>
 <button class="p" style="width:100%;margin-bottom:12px" onclick="$('addBox').classList.toggle('hide')">＋ Naya Kisan</button>
 <div id="addBox" class="card hide"><h2>Naya Kisan</h2>
 <div class="f"><label>Kisan ka naam</label><input id="fn" placeholder="Naam"></div>
 <div class="f"><label>Number</label><input id="fp" type="tel" placeholder="03xx-xxxxxxx"></div>
-<div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div>
+<div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div><div class="f"><label>Purana baqaya (pichle saal ka, marzi)</label><input id="fo" type="number" inputmode="numeric" placeholder="Rs"></div>
 <button class="p" style="width:100%" onclick="addF()">Save karein</button></div>
 ${db.farmers.length?'<input id="q" type="search" placeholder="🔍 Kisan ka naam dhoondein" oninput="filt()" style="margin-bottom:10px">':''}<div id="list">${listH('')}</div>
 `}
 
 function addF(){const n=$('fn').value.trim();if(!n){alert('Kisan ka naam likhein');return}
-db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[]});save();home()}
+const ov=Math.round(+($('fo').value||0));db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[],olds:ov>0?[{id:uid(),date:(new Date().getFullYear()-1)+'-12-31',amt:ov,note:''}]:[]});save();home()}
 
 let eid=null;
 const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const dbx=d=>{const[y,m,dd]=d.split('-');return`<div class="db"><b>${+dd}</b><span>${MN[m-1]}</span><span>${y}</span></div>`};
 function tlH(L,f){if(!L.length)return'<div class="empty">Abhi koi entry nahi.</div>';let cm='',h='';
-L.forEach(r=>{const o=r.o,p=r.k==='p',mk=o.date.slice(0,7);
+L.forEach(r=>{const o=r.o,p=r.k==='p',od=r.k==='o',mk=o.date.slice(0,7);
 if(mk!==cm){cm=mk;h+=`<div class="tm"><span>${MN[+mk.slice(5)-1]} ${mk.slice(0,4)}</span></div>`}
 const d=+o.date.slice(8),mo=MN[+o.date.slice(5,7)-1];
-h+=`<div class="tl"><div class="td"><b>${d}</b><span>${mo}</span></div><div class="tx"><i class="${p?'pd':''}"></i><u></u></div><div class="tc${p?' pc':''}"><div class="h2d"><b>${p?'Wasooli':t12(o.start)+' → '+t12(o.end)}</b><b class="${p?'pos':''}">${p?'− ':''}${rs(o.amt)}</b></div><div class="h2d sm mut"><span>${p?esc(o.how||'Cash'):dur(o.mins)+(o.note?' • '+esc(o.note):'')}</span><span class="${r.run>0?'neg':''}">Baqaya ${rs(r.run)}</span></div>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="viewPh(this)">':''}<div class="ac">${p?'':`<button class="s mini" onclick="open_('${f.id}','${o.id}');window.scrollTo(0,0)">✎ Edit</button>`}<button class="d mini" onclick="${p?'delP':'delE'}('${o.id}')">🗑 Delete</button></div></div></div>`});return h}
+h+=`<div class="tl"><div class="td"><b>${d}</b><span>${mo}</span></div><div class="tx"><i class="${p?'pd':od?'od':''}"></i><u></u></div><div class="tc${p?' pc':od?' oc':''}"><div class="h2d"><b>${p?'Wasooli':od?'📜 Purana baqaya':t12(o.start)+' → '+t12(o.end)}</b><b class="${p?'pos':''}">${p?'− ':''}${rs(o.amt)}</b></div><div class="h2d sm mut"><span>${p?esc(o.how||'Cash'):od?esc(o.note||'Pichle saal ka baqaya'):dur(o.mins)+(o.note?' • '+esc(o.note):'')}</span><span class="${r.run>0?'neg':''}">Baqaya ${rs(r.run)}</span></div>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="viewPh(this)">':''}<div class="ac">${p||od?'':`<button class="s mini" onclick="open_('${f.id}','${o.id}');window.scrollTo(0,0)">✎ Edit</button>`}<button class="d mini" onclick="${p?'delP':od?'delO':'delE'}('${o.id}')">🗑 Delete</button></div></div></div>`});return h}
 function open_(id,ed){cur=id;eid=ed||null;view='home';navR();const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
-const pct=t.bill>0?Math.min(100,Math.round(t.paid/t.bill*100)):0;
-const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
-let run=0;L.forEach(r=>{run+=r.k==='e'?r.o.amt:-r.o.amt;r.run=run});
+const tb=t.bill+t.old,pct=tb>0?Math.min(100,Math.round(t.paid/tb*100)):0;
+const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o})),...(f.olds||[]).map(o=>({k:'o',d:o.date,s:'00',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
+let run=0;L.forEach(r=>{run+=(r.k==='p'?-1:1)*r.o.amt;r.run=run});
 $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="home()">← Wapas</button><button class="s" onclick="editF()">✎ Kisan edit</button></div>
 <div class="card"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut" style="margin-top:8px">🏠 ${esc(f.addr||'—')}</div><div style="margin-top:8px">📞 ${esc(f.phone||'Number nahi likha')}</div>${f.phone?`<div class="row" style="margin-top:10px"><a class="call" href="tel:${f.phone.replace(/[^\d+]/g,'')}">📞 Call karein</a><a class="call wa" target="_blank" rel="noopener" href="https://wa.me/${wnum(f.phone)}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#1FAF55" d="M8.6 7.6c-.3.3-.7 1-.3 2 .6 1.5 1.900 3 3.400 3.900 1 .6 1.900.4 2.300 0l.5-.8-1.800-1-.6.6c-.8-.3-1.900-1.400-2.300-2.300l.6-.6-1-1.800z"/></svg>WhatsApp</a></div>`:''}</div>
 <div class="card"><h2>Is kisan ka poora hisab</h2><div class="grid">
 <div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div><div><span>Total paisay</span><b>${rs(t.bill)}</b></div>
-<div><span>Wasool hua</span><b class="pos">${rs(t.paid)}</b></div><div><span>Baqaya</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div>
+<div><span>Purana baqaya</span><b>${rs(t.old)}</b></div><div><span>Wasool hua</span><b class="pos">${rs(t.paid)}</b></div><div style="grid-column:span 2"><span>Baqaya (kul)</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div>
 <div class="bar"><i style="width:${pct}%"></i></div><div class="mut sm">${pct}% wasool • ${f.entries.length} entries</div></div>
 <div class="row" style="margin-bottom:12px"><button class="p" onclick="sheet()">🖼 Hisab ki tasveer</button><button class="s" onclick="sendS()">📝 Message</button></div><div id="sbox"></div>
 <div class="card" id="fm"><h2>${E?'✎ Entry edit karein':'💧 Pani ki nayi entry'}</h2>
@@ -169,6 +179,7 @@ $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" 
 <div class="mut sm" style="margin-bottom:8px">Rate: <span class="rate">Rs ${RATE} fi ghanta</span></div><div class="prev"><span>Total time: <span id="pt">—</span></span><span id="pa">Rs 0</span></div>
 <div class="f"><label>Note (marzi)</label><input id="en" placeholder="Jaise: gandum ka pani" value="${esc(E?E.note:'')}"></div>
 <button class="p" style="width:100%" onclick="addE()">${E?'Tabdeeli save karein':'Entry save karein'}</button>${E?'<button class="s" style="width:100%;margin-top:8px" onclick="open_(cur)">Cancel</button>':''}</div>
+<div class="card"><h2>📜 Purana Baqaya</h2><div class="mut sm" style="margin-bottom:10px">Pichle saal ka baqaya jo is kisan se lena hai, yahan likhein. Ye kul baqaya mein jud jayega.</div><div class="row"><div class="f"><label>Rakam</label><input id="orm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="od" type="date" value="${new Date().getFullYear()-1}-12-31"></div></div><div class="f"><label>Note (marzi)</label><input id="on" placeholder="Jaise: 2025 ka baqaya"></div><button class="s" style="width:100%" onclick="addO()">Purana baqaya add karein</button></div>
 <div class="card"><h2>💰 Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
 <div class="f"><label>Tareeqa (kaise diye)</label><select id="ph"><option value="Cash">Cash</option><option value="JazzCash">JazzCash</option><option value="Easypaisa">Easypaisa</option><option value="Bank">Bank</option><option value="Aur">Aur</option></select></div><div class="f"><label>Saboot ki tasveer (marzi)</label><input id="pimg" type="file" accept="image/*"></div><button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button></div>
 <div class="card"><div class="h2d" style="margin-bottom:10px"><h2 style="margin:0">📒 Poori kitab (${L.length})</h2><button class="s mini" onclick="$('tlend').scrollIntoView({behavior:'smooth',block:'center'})">⬇ Naye tak</button></div>${tlH(L,f)}<div id="tlend"></div></div>
@@ -190,12 +201,14 @@ function delP(id){if(!confirm('Yeh wasooli Delete karein?\n(Deleted Box mein 30 
 if(p){BIN.unshift({id:uid(),type:'wasooli',fid:f.id,fname:f.name,data:p,del:Date.now()});saveBin()}f.pays=f.pays.filter(x=>x.id!==id);save();open_(cur)}
 function delF(){if(!confirm('Yeh kisan aur uska saara hisab Delete ho jayega.\n(Deleted Box mein 30 din rahega, wahan se wapas la sakte hain). Pakka?'))return;const f=F();
 BIN.unshift({id:uid(),type:'kisan',fid:f.id,fname:f.name,data:f,del:Date.now()});saveBin();db.farmers=db.farmers.filter(x=>x.id!==cur);save();home()}
+function addO(){const a=Math.round(+$('orm').value);if(!(a>0)){alert('Sahi rakam likhein');return}const f=F();(f.olds=f.olds||[]).push({id:uid(),date:$('od').value||today(),amt:a,note:$('on').value.trim()});save();open_(cur)}
+function delO(id){if(!confirm('Yeh purana baqaya Delete karein?\n(Deleted Box mein 30 din rahega, wahan se wapas la sakte hain)'))return;const f=F(),p=(f.olds||[]).find(x=>x.id===id);if(p){BIN.unshift({id:uid(),type:'purana',fid:f.id,fname:f.name,data:p,del:Date.now()});saveBin()}f.olds=(f.olds||[]).filter(x=>x.id!==id);save();open_(cur)}
 function editF(){const f=F();const n=prompt('Kisan ka naam',f.name);if(n===null)return;const p=prompt('Number',f.phone);if(p===null)return;const a=prompt('Rehaish',f.addr);if(a===null)return;
 f.name=n.trim()||f.name;f.phone=p.trim();f.addr=a.trim();save();open_(cur)}
 function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
 let s='*Aslam Tubewell - Hisab*\nKisan: '+f.name+'\nTareekh: '+today()+'\n\n*Pani ki entries*\n';
 s+=E.length?E.map((e,i)=>(i+1)+') '+e.date+' | '+t12(e.start)+' → '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
-s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)\n\n*Wasooli (jama)*\n';
+s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)'+(t.old?'\nPurana baqaya: '+rs(t.old):'')+'\n\n*Wasooli (jama)*\n';
 s+=P.length?P.map((p,i)=>(i+1)+') '+p.date+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
 return s+'\n\nTotal jama: '+rs(t.paid)+'\n*Baqaya: '+rs(t.due)+'*'}
 function sendS(){$('sbox').innerHTML='<div class="card"><h2>Hisab ka message</h2><textarea id="stx" readonly rows="12" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit;font-size:13px"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wa()">WhatsApp</button><button class="s" onclick="sh()">Share</button><button class="s" onclick="cp()">Copy</button></div></div>';$('stx').value=trT(stmt(F()));$('sbox').scrollIntoView({behavior:'smooth'})}
@@ -211,7 +224,7 @@ const HW={Cash:'نقد',JazzCash:'جاز کیش',Easypaisa:'ایزی پیسہ',B
 for(const p of P){if(!p.img)continue;let d=await phGet(p.img);if(!d&&U&&FS){try{const sn=await FS.collection('users').doc(U.uid).collection('photos').doc(p.img).get();if(sn.exists)d=sn.data().d}catch(e){}}
 if(d){const im=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=d});if(im)PH.push({p,im})}}
 const W=1080,M=24,RH=72,nE=Math.max(E.length,1),nP=Math.max(P.length,1);
-const H=380+70+(nE+2)*RH+40+70+(nP+2)*RH+40+270+90+(PH.length?100+Math.ceil(PH.length/3)*396:0);
+const H=380+70+(nE+2)*RH+40+70+(nP+2)*RH+40+270+90+(t.old>0?58:0)+(PH.length?100+Math.ceil(PH.length/3)*396:0);
 const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.direction='rtl';
 const FF='"Geeza Pro","Noto Naskh Arabic","Noto Nastaliq Urdu",Arial,sans-serif';
 const font=(sz,b)=>{x.font=(b?'bold ':'')+sz+'px '+FF};
@@ -235,10 +248,10 @@ x.save();x.beginPath();x.roundRect(gx,gy,320,320,20);x.clip();x.drawImage(q.im,g
 x.strokeStyle='#D9E6EF';x.lineWidth=2;x.beginPath();x.roundRect(gx,gy,320,320,20);x.stroke();
 x.textAlign='center';x.fillStyle='#12283D';font(26,1);x.fillText(fmtD(q.p.date)+'  •  '+rs0(q.p.amt),gx+160,gy+358)});
 y+=Math.ceil(PH.length/3)*396-20}
-y+=40;x.fillStyle=TH[th].il;x.beginPath();x.roundRect(M,y,W-2*M,250,24);x.fill();
-const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
-L.forEach((l,i)=>{const yy=y+58+i*58,last=i==3;font(last?46:36,last);x.fillStyle='#12283D';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#B4373F':TH[th].ig):'#12283D';x.textAlign='left';x.fillText(l[1],M+30,yy)});
-x.fillStyle='#5F7487';x.textAlign='center';font(26);x.fillText(ST.urdu+' ایپ',W/2,y+250+50);return c}
+y+=40;x.fillStyle=TH[th].il;x.beginPath();x.roundRect(M,y,W-2*M,250+(t.old>0?58:0),24);x.fill();
+const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],...(t.old>0?[['پچھلا باقی',rs0(t.old)]]:[]),['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
+L.forEach((l,i)=>{const yy=y+58+i*58,last=i==L.length-1;font(last?46:36,last);x.fillStyle='#12283D';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#B4373F':TH[th].ig):'#12283D';x.textAlign='left';x.fillText(l[1],M+30,yy)});
+x.fillStyle='#5F7487';x.textAlign='center';font(26);x.fillText(ST.urdu+' ایپ',W/2,y+250+(t.old>0?58:0)+50);return c}
 async function sheet(){$('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';try{await document.fonts.ready}catch(e){}
 const cv=await mkImg(F());const b=await new Promise(r=>cv.toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
 $('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px" onclick="shImg()">Share / Save karein</button><div class="mut sm" style="margin-top:8px">Share dabane par WhatsApp ya "Save Image" chun sakte hain.</div></div>'}
@@ -320,10 +333,10 @@ const mn=R.reduce((a,r)=>a+r.e.mins,0),am=R.reduce((a,r)=>a+r.e.amt,0),D={};R.fo
 $('v').innerHTML=`<div class="card"><h2>📅 Rozana ka hisab</h2><div class="f"><label>Mahina</label><input type="month" value="${calM}" onchange="calM=this.value;calV()"></div>
 <div class="grid"><div><span>Entries</span><b>${R.length}</b></div><div><span>Total time</span><b>${dur(mn)||'0 min'}</b></div><div style="grid-column:span 2"><span>Kamai</span><b>${rs(am)}</b></div></div></div>`+
 (Object.keys(D).length?Object.keys(D).map(d=>`<div class="card"><div class="h2d"><b>${fmtD(d)}</b><span class="pill">${rs(D[d].reduce((a,r)=>a+r.e.amt,0))}</span></div>`+D[d].map(r=>`<button class="fm" style="margin:8px 0 0" onclick="open_('${r.f.id}')"><div><b>${esc(r.f.name)}</b><small>${t12(r.e.start)} → ${t12(r.e.end)} • ${dur(r.e.mins)}</small></div><b>${rs(r.e.amt)}</b></button>`).join('')+'</div>').join(''):'<div class="empty">Is mahine mein koi entry nahi.</div>')}
-function repV(){view='rep';cur=null;navR();const A=db.farmers.map(f=>({f,t:tot(f)})),bill=A.reduce((a,x)=>a+x.t.bill,0),paid=A.reduce((a,x)=>a+x.t.paid,0),mn=A.reduce((a,x)=>a+x.t.mn,0),ne=A.reduce((a,x)=>a+x.f.entries.length,0);
+function repV(){view='rep';cur=null;navR();const A=db.farmers.map(f=>({f,t:tot(f)})),bill=A.reduce((a,x)=>a+x.t.bill,0),paid=A.reduce((a,x)=>a+x.t.paid,0),old=A.reduce((a,x)=>a+x.t.old,0),mn=A.reduce((a,x)=>a+x.t.mn,0),ne=A.reduce((a,x)=>a+x.f.entries.length,0);
 const M={};db.farmers.forEach(f=>f.entries.forEach(e=>{const k=e.date.slice(0,7);(M[k]=M[k]||{a:0,m:0}).a+=e.amt;M[k].m+=e.mins}));
 const ks=Object.keys(M).sort().slice(-6).reverse(),mx=Math.max(1,...ks.map(k=>M[k].a)),due=A.filter(x=>x.t.due>0).sort((a,b)=>b.t.due-a.t.due);
-$('v').innerHTML=`<div class="card"><h2>📊 Report</h2><div class="grid"><div><span>Total kamai</span><b>${rs(bill)}</b></div><div><span>Wasool hua</span><b class="pos">${rs(paid)}</b></div><div><span>Baqaya</span><b class="neg">${rs(bill-paid)}</b></div><div><span>Total time</span><b>${dur(mn)||'0 min'}</b></div><div><span>Kisan</span><b>${db.farmers.length}</b></div><div><span>Entries</span><b>${ne}</b></div></div></div>
+$('v').innerHTML=`<div class="card"><h2>📊 Report</h2><div class="grid"><div><span>Total kamai</span><b>${rs(bill)}</b></div><div><span>Wasool hua</span><b class="pos">${rs(paid)}</b></div><div><span>Baqaya</span><b class="neg">${rs(bill+old-paid)}</b></div><div><span>Total time</span><b>${dur(mn)||'0 min'}</b></div><div><span>Kisan</span><b>${db.farmers.length}</b></div><div><span>Entries</span><b>${ne}</b></div><div style="grid-column:span 2"><span>Purana baqaya</span><b>${rs(old)}</b></div></div></div>
 <div class="card"><h2>Mahine ke hisab se kamai</h2>${ks.length?ks.map(k=>`<div style="margin-bottom:10px"><div class="h2d sm"><span>${MN[+k.slice(5)-1]} ${k.slice(0,4)} • ${dur(M[k].m)}</span><b>${rs(M[k].a)}</b></div><div class="bar" style="margin:5px 0 0"><i style="width:${Math.round(M[k].a/mx*100)}%"></i></div></div>`).join(''):'<div class="empty">Abhi koi data nahi.</div>'}</div>
 <div class="card"><h2>Baqaya wale kisan</h2>${due.length?due.map(x=>`<button class="fm" style="margin:0 0 8px" onclick="open_('${x.f.id}')"><b>${esc(x.f.name)}</b><span class="pill r">${rs(x.t.due)}</span></button>`).join(''):'<div class="empty">Kisi ka baqaya nahi 🎉</div>'}</div>`}
 function setV(){view='set';cur=null;navR();const lk=ST.cred?'Face ID chalu hai':ST.pin?'Sirf PIN chalu hai':'Band hai';
@@ -336,7 +349,7 @@ $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>T
 ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()">Face ID band karein</button>':'<button class="s" style="width:100%;margin-top:8px" onclick="onBio()">Face ID chalu karein</button>'}${ST.pin&&!ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offPin()">PIN hatayein</button>':''}</div>
 <div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
 ${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b>${esc((U&&U.displayName)||'')}</b><div class="mut sm">${esc(U?U.email:'Login nahi')}</div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
-<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v10<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
+<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v21<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}ST.rate=r;saveST();toast('Rate save ho gaya');setV()}
 const hx=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('aslam'+t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -376,12 +389,12 @@ function purgeBin(){const old=BIN.filter(b=>Date.now()-b.del>30*864e5);if(old.le
 function binH(){const it=BIN.slice().sort((a,b)=>b.del-a.del);
 return`<div class="card"><h2>🗑 Deleted Box (${it.length})</h2><div class="mut sm" style="margin-bottom:10px">Delete ki hui cheezein yahan 30 din tak rehti hain. Wapas lane par wo pehle ki tarah ho jati hain.</div>`+
 (it.length?it.map(b=>{const d=b.data,left=Math.max(0,30-Math.floor((Date.now()-b.del)/864e5));
-const ti=b.type==='kisan'?'👤 Kisan':b.type==='entry'?'💧 Entry':'💰 Wasooli';
+const ti=b.type==='kisan'?'👤 Kisan':b.type==='entry'?'💧 Entry':b.type==='purana'?'📜 Purana baqaya':'💰 Wasooli';
 const inf=b.type==='kisan'?`${d.entries.length} entries • ${d.pays.length} wasooli`:b.type==='entry'?`${fmtD(d.date)} • ${t12(d.start)} → ${t12(d.end)} • ${rs(d.amt)}`:`${fmtD(d.date)} • ${rs(d.amt)}`;
 return`<div class="bi"><div class="h2d"><b>${ti}: ${esc(b.type==='kisan'?d.name:b.fname)}</b><span class="pill${left<4?' r':''}">${left} din baqi</span></div><div class="mut sm" style="margin:4px 0 8px">${inf}<br>Delete hua: ${new Date(b.del).toLocaleDateString('en-GB')}</div><div class="row"><button class="s mini" onclick="binRest('${b.id}')">↩ Wapas layein</button><button class="d mini" onclick="binDel('${b.id}')">❌ Hamesha ke liye</button></div></div>`}).join('')+'<button class="d" style="width:100%;margin-top:6px" onclick="binClear()">Poora box khali karein</button>':'<div class="empty">Deleted box khali hai.</div>')+'</div>'}
 function binRest(id){const b=BIN.find(x=>x.id===id);if(!b)return;
 if(b.type==='kisan'){if(db.farmers.some(f=>f.id===b.fid)){toast('Ye kisan pehle se maujood hai')}else db.farmers.push(b.data)}
-else{const f=db.farmers.find(x=>x.id===b.fid);if(!f){alert('Pehle "'+b.fname+'" kisan ko wapas layein');return}(b.type==='entry'?f.entries:f.pays).push(b.data)}
+else{const f=db.farmers.find(x=>x.id===b.fid);if(!f){alert('Pehle "'+b.fname+'" kisan ko wapas layein');return}(b.type==='entry'?f.entries:b.type==='purana'?(f.olds=f.olds||[]):f.pays).push(b.data)}
 BIN=BIN.filter(x=>x.id!==id);saveBin();save();toast('Wapas aa gaya');setV()}
 function binDel(id){const b=BIN.find(x=>x.id===id);if(!b||!confirm('Ye hamesha ke liye hat jayega, wapas nahi aayega. Pakka?'))return;binPh(b);BIN=BIN.filter(x=>x.id!==id);saveBin();setV()}
 function binClear(){if(!BIN.length||!confirm('Deleted box ki saari cheezein hamesha ke liye hat jayengi. Pakka?'))return;BIN.forEach(binPh);BIN=[];saveBin();setV()}
@@ -502,6 +515,16 @@ Theme chunein|تھیم چنیں|Choose theme
 Theme|تھیم|Theme
 Khush aamdeed!|خوش آمدید!|Welcome!
 Agar neeche sheet aaye to "Use Passkey" dabayein|اگر نیچے شیٹ آئے تو "Use Passkey" دبائیں|If a sheet appears below, tap "Use Passkey"
+Purana Baqaya|پرانا باقی|Previous Balance
+Purana baqaya (pichle saal ka, marzi)|پرانا باقی (پچھلے سال کا، مرضی)|Previous balance (last year's, optional)
+Purana baqaya add karein|پرانا باقی شامل کریں|Add previous balance
+Purana baqaya:|پرانا باقی:|Previous balance:
+Purana baqaya|پرانا باقی|Previous balance
+Pichle saal ka baqaya jo is kisan se lena hai, yahan likhein. Ye kul baqaya mein jud jayega.|پچھلے سال کا باقی جو اس کسان سے لینا ہے، یہاں لکھیں۔ یہ کل باقی میں شامل ہو جائے گا۔|Enter last year's balance owed by this farmer. It is added to the total balance.
+Pichle saal ka baqaya|پچھلے سال کا باقی|Last year's balance
+Jaise: 2025 ka baqaya|جیسے: 2025 کا باقی|e.g. 2025 balance
+Baqaya (kul)|باقی (کل)|Balance (total)
+Yeh purana baqaya Delete karein?|یہ پرانا باقی ڈیلیٹ کریں؟|Delete this previous balance?
 Hara Kheti|ہرا کھیت|Green Field
 Pani Neela|پانی نیلا|Water Blue
 Raat (Dark)|رات (ڈارک)|Night (Dark)
