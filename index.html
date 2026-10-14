@@ -65,9 +65,31 @@ html,body{touch-action:pan-x pan-y}input,select,textarea{font-size:16px}
 .bi{border-top:1px solid var(--line);padding:12px 0}
 html[lang=ur] body{font-family:"Geeza Pro","Noto Naskh Arabic",system-ui,sans-serif;line-height:1.7}
 html[dir=rtl] .fm,html[dir=rtl] .to{text-align:right}
+@keyframes pg{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes fout{to{opacity:0;transform:scale(1.04)}}
+@keyframes grow{from{width:0}}
+@keyframes tin{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+#v>*{animation:pg .38s cubic-bezier(.2,.8,.2,1) both}
+#v>*:nth-child(2){animation-delay:.05s}#v>*:nth-child(3){animation-delay:.1s}#v>*:nth-child(4){animation-delay:.15s}#v>*:nth-child(5){animation-delay:.2s}#v>*:nth-child(6){animation-delay:.25s}#v>*:nth-child(n+7){animation-delay:.3s}
+#sbox>*{animation:pg .35s ease both}
+.tl{animation:pg .4s ease both}.fm{animation:pg .35s ease both}
+.bar i{animation:grow .9s cubic-bezier(.2,.8,.2,1)}
+.ov{animation:fade .2s ease}.sh{animation:up .32s cubic-bezier(.2,.9,.3,1)}
+.ov.out,.wl.out{animation:fout .3s ease forwards}
+.toast{animation:tin .25s ease}
+button{transition:transform .12s ease,background .25s,color .25s,opacity .2s}button:active{transform:scale(.96)}
+.nb{width:auto;padding:0 15px;gap:0;transition:background .3s,color .3s,gap .3s,transform .15s}
+.nb span{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .35s ease,opacity .25s .05s}
+.nb.on{padding:0 15px;gap:8px}.nb.on span{max-width:90px;opacity:1}.nb.on svg{animation:pop .45s ease}.nb:active{transform:scale(.9)}
+.wl{position:fixed;inset:0;z-index:25;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;animation:fade .25s ease}
+.wl img{width:96px;height:96px;border-radius:24px;animation:pop .7s ease}.wl h2{margin:6px 0 0;animation:pg .5s .2s ease both}.wl div{animation:pg .5s .3s ease both}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1 style="display:flex;align-items:center;gap:10px"><img class="lg" src="logo-192.png" alt="" style="width:40px;height:40px;border-radius:10px"><span id="appn">Aslam Tubewell App</span></h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v19</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><small>Pani ka hisab</small><h1 style="display:flex;align-items:center;gap:10px"><img class="lg" src="logo-192.png" alt="" style="width:40px;height:40px;border-radius:10px"><span id="appn">Aslam Tubewell App</span></h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v20</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -246,7 +268,8 @@ else if((r.ts||0)>(db.farmers[i].ts||0)){db.farmers[i]=f;lastP[id]=sig(f);ch=tru
 else if(sig(db.farmers[i])===sig(f))lastP[id]=sig(f)});
 if(ch){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}refresh()}
 st('☁️ Sync chal raha hai');push()},e=>st('⚠️ Sync error: '+(e.code||'')))}
-let lgM='in';
+let lgM='in',justLogged=false;
+function showWelcome(n){const o=document.createElement('div');o.className='wl';o.innerHTML='<img class="lg" src="'+(ST.logo||'logo-192.png')+'" alt=""><h2>Khush aamdeed!</h2><div class="mut">'+esc(n||'')+'</div>';document.body.appendChild(o);setTimeout(()=>o.classList.add('out'),1100);setTimeout(()=>o.remove(),1450)}
 function lgSw(m){lgM=m;showLogin()}
 function lmsg(t,ok){const m=$('lm');if(!m)return;m.style.cssText='display:block;margin-bottom:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;background:'+(ok?'rgba(31,175,85,.15)':'var(--redbg)')+';color:'+(ok?'var(--g)':'var(--red)');m.textContent=t}
 function pw(el){['lp','lp2'].forEach(i=>{const x=$(i);if(x)x.type=x.type==='password'?'text':'password'});el.textContent=$('lp').type==='password'?'👁 Password dikhayein':'🙈 Password chhupayein'}
@@ -267,9 +290,9 @@ if(!e||!p){lmsg('Email aur password dono likhein');return}
 if(!/^\S+@\S+\.\S+$/.test(e)){lmsg('Email sahi likhein, jaise aap@gmail.com');return}
 if(reg){if(!$('ln').value.trim()){lmsg('Apna naam likhein');return}if(p.length<6){lmsg('Password kam az kam 6 huroof ka rakhein');return}if(p!==$('lp2').value){lmsg('Dono password ek jaise nahi hain');return}}
 if(!AU){lmsg('Internet nahi hai ya online service load nahi hui. Internet chala kar app dobara kholein');return}
-const b=$('lbtn');b.disabled=true;b.textContent='Intezar karein…';
+justLogged=true;const b=$('lbtn');b.disabled=true;b.textContent='Intezar karein…';
 try{if(reg){const c=await AU.createUserWithEmailAndPassword(e,p);try{await c.user.updateProfile({displayName:$('ln').value.trim()})}catch(x){}try{await c.user.sendEmailVerification()}catch(x){}toast('Account ban gaya! Gmail par verification email bheji gayi')}else await AU.signInWithEmailAndPassword(e,p)}
-catch(x){const m=$('lbtn');if(m){m.disabled=false;m.textContent=reg?'Register karein':'Login'}lmsg(EM[x.code]||('Masla aaya: '+(x.code||x.message)))}}
+catch(x){justLogged=false;const m=$('lbtn');if(m){m.disabled=false;m.textContent=reg?'Register karein':'Login'}lmsg(EM[x.code]||('Masla aaya: '+(x.code||x.message)))}}
 async function forgot(){const e=$('le').value.trim();if(!e){lmsg('Pehle upar email likhein');return}
 try{await AU.sendPasswordResetEmail(e);lmsg('Password reset ka email bhej diya gaya hai. Gmail kholein (Spam bhi dekhein)',1)}catch(x){lmsg(EM[x.code]||('Masla: '+(x.code||x.message)))}}
 async function logout(){if(!confirm('Logout karne se is phone ka data hat jayega (online save hai, dobara login par wapas aa jayega). Agar internet nahi tha to pehle Backup download kar lein. Logout karein?'))return;
@@ -279,7 +302,7 @@ function initFB(){try{firebase.initializeApp(CFG);AU=firebase.auth();FS=firebase
 AU.onAuthStateChanged(u=>{if(u){U=u;let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}
 if(last&&last!==u.uid){db={farmers:[],ts:0};lastP={};BIN=[];lastB={};try{localStorage.removeItem('aslam_bin')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
 try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
-lgM='in';const o=$('lg');if(o)o.remove();home();st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
+lgM='in';const o=$('lg');if(o)o.remove();home();if(justLogged){justLogged=false;showWelcome(u.displayName||u.email)}st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
 else{U=null;if(unsub){unsub();unsub=null}home();showLogin()}})}catch(e){showLogin('Online service load nahi hui. Internet check karein.')}}
 let ST={name:'Aslam Tubewell',urdu:'اسلم ٹیوب ویل',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
 try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}RATE=ST.rate;
@@ -288,8 +311,8 @@ const saveST=()=>{try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(
 function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1800)}
 const ic=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],['cal','Rozana',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['rep','Report',ic('<path d="M5 20V11M12 20V4M19 20v-6"/>')],['set','Settings',ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>')]];
-function navR(){let n=$('nav');if(!n){n=document.createElement('nav');n.id='nav';n.className='nav';document.body.appendChild(n)}
-n.innerHTML='<div>'+NV.map(x=>`<button class="nb${view===x[0]?' on':''}" onclick="go('${x[0]}')" aria-label="${x[1]}">${x[2]}${view===x[0]?'<span>'+x[1]+'</span>':''}</button>`).join('')+'</div>'}
+function navR(){let n=$('nav');if(!n){n=document.createElement('nav');n.id='nav';n.className='nav';n.innerHTML='<div>'+NV.map(x=>`<button class="nb" onclick="go('${x[0]}')" aria-label="${x[1]}">${x[2]}<span>${x[1]}</span></button>`).join('')+'</div>';document.body.appendChild(n)}
+n.querySelectorAll('.nb').forEach((b,i)=>b.classList.toggle('on',NV[i][0]===view))}
 function go(k){eid=null;({home:home,cal:calV,rep:repV,set:setV})[k]();window.scrollTo(0,0)}
 function calV(){view='cal';cur=null;navR();const R=[];db.farmers.forEach(f=>f.entries.forEach(e=>{if(!calM||e.date.startsWith(calM))R.push({f,e})}));
 R.sort((a,b)=>(b.e.date+b.e.start).localeCompare(a.e.date+a.e.start));
@@ -321,14 +344,14 @@ const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-')
 const unb64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
 async function svPin(){const v=$('npin').value;if(!/^\d{4,6}$/.test(v)){alert('PIN 4 se 6 ankon ka hona chahiye');return}ST.pin=await hx(v);saveST();toast('PIN save ho gaya');setV()}
 async function onBio(){if(!ST.pin){alert('Pehle backup PIN set karein');return}if(!window.PublicKeyCredential){alert('Is phone ya browser mein Face ID support nahi');return}
-try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'Aslam Tubewell'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:'owner',displayName:'Owner'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
+try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'Aslam Tubewell'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:ST.name+' App',displayName:ST.name+' App'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
 function offBio(){ST.cred='';saveST();setV()}
 function offPin(){ST.pin='';saveST();setV()}
 function lockNow(){if(!ST.cred&&!ST.pin)return;locked=true;let o=$('lk');if(!o){o=document.createElement('div');o.id='lk';o.className='ov';o.style.cssText='align-items:center;background:var(--bg);z-index:30';document.body.appendChild(o)}
-o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:44px">🔒</div><h2>'+esc(ST.name)+' App</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
+o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:44px">🔒</div><h2>'+esc(ST.name)+' App</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button><div class="mut sm" style="margin-top:6px">Agar neeche sheet aaye to "Use Passkey" dabayein</div>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
 async function tryBio(){try{await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id:unb64(ST.cred)}],userVerification:'required',timeout:60000}});unlock()}catch(e){const m=$('lkm');if(m)m.textContent='Face ID nahi hui. Dobara dabayein ya PIN likhein'}}
 async function tryPin(){const v=$('lkp').value;if(await hx(v)===ST.pin)unlock();else{$('lkm').textContent='PIN galat hai';$('lkp').value=''}}
-function unlock(){const o=$('lk');if(o)o.remove();locked=false}
+function unlock(){const o=$('lk');locked=false;if(o){o.classList.add('out');setTimeout(()=>o.remove(),300)}}
 async function forgotPin(){if(!U||!AU){alert('Is ke liye online login chahiye');return}const p=prompt('Apne account ka password likhein ('+U.email+')');if(!p)return;try{await AU.signInWithEmailAndPassword(U.email,p);unlock()}catch(e){$('lkm').textContent='Password galat hai'}}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)hid=Date.now();else if(!locked&&hid&&Date.now()-hid>30000)lockNow()});
 function idb(){return new Promise((r,j)=>{const q=indexedDB.open('aslam_ph',1);q.onupgradeneeded=()=>q.result.createObjectStore('p');q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)})}
@@ -477,6 +500,8 @@ Sahi rate likhein|درست ریٹ لکھیں|Enter a valid rate
 Sahi rakam likhein|درست رقم لکھیں|Enter a valid amount
 Theme chunein|تھیم چنیں|Choose theme
 Theme|تھیم|Theme
+Khush aamdeed!|خوش آمدید!|Welcome!
+Agar neeche sheet aaye to "Use Passkey" dabayein|اگر نیچے شیٹ آئے تو "Use Passkey" دبائیں|If a sheet appears below, tap "Use Passkey"
 Hara Kheti|ہرا کھیت|Green Field
 Pani Neela|پانی نیلا|Water Blue
 Raat (Dark)|رات (ڈارک)|Night (Dark)
