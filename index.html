@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="ur-Latn"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-title" content="Aslam Tubewell"><meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B3C6B">
 <title>Aslam Tubewell App</title>
 <style>
-:root{--h1:#0B3C6B;--h2:#1580B8;--pt:#fff;--g:#0E6A99;--g2:#E1F1FA;--ink:#12283D;--mut:#5F7487;--line:#D9E6EF;--bg:#F2F7FB;--card:#fff;--red:#B4373F;--redbg:#FDEBEC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--rb:#DCF8E9;--rc:#0A6B3C;--h1:#0B3C6B;--h2:#1580B8;--pt:#fff;--g:#0E6A99;--g2:#E1F1FA;--ink:#12283D;--mut:#5F7487;--line:#D9E6EF;--bg:#F2F7FB;--card:#fff;--red:#B4373F;--redbg:#FDEBEC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g:#4FB3E8;--g2:#16303F;--ink:#E4EFF7;--mut:#8FA6B8;--line:#25404F;--bg:#0E1A24;--card:#14232F;--red:#ff8a8a;--redbg:#3A2124}}
 :root[data-theme="dark"]{--g:#4FB3E8;--g2:#16303F;--ink:#E4EFF7;--mut:#8FA6B8;--line:#25404F;--bg:#0E1A24;--card:#14232F;--red:#ff8a8a;--redbg:#3A2124}
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -48,7 +48,7 @@ input[type=date],input[type=time]{display:block;min-width:0;max-width:100%;-webk
 .to{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--bg);color:var(--ink);border:2px solid transparent;margin-bottom:8px;padding:12px}.to.on{border-color:var(--g)}.to b{flex:1}
 .sw{width:58px;height:40px;border-radius:10px;position:relative;display:block;overflow:hidden}.sw i{position:absolute;bottom:6px;width:16px;height:16px;border-radius:50%}.sw i:first-child{left:8px}.sw i:last-child{left:30px}
 select{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit}
-.rate{background:#FFE08A;color:#5A3B00;padding:2px 9px;border-radius:8px;font-weight:800;white-space:nowrap}
+.rate{background:var(--rb);color:var(--rc);padding:2px 9px;border-radius:8px;font-weight:800;white-space:nowrap}
 .nav{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;z-index:5;pointer-events:none}
 .nav>div{pointer-events:auto;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:8px;display:flex;gap:8px;box-shadow:0 8px 26px rgba(0,0,0,.2)}
 .nb{background:var(--bg);color:var(--ink);border-radius:99px;width:52px;height:52px;padding:0;display:flex;align-items:center;justify-content:center;gap:8px}
@@ -56,9 +56,15 @@ select{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line)
 .h2d{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .ph{display:block;width:64px;height:64px;object-fit:cover;border-radius:10px;margin-top:8px;border:1px solid var(--line);background:var(--bg)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:#222;color:#fff;padding:10px 18px;border-radius:99px;z-index:40;font-size:14px}
+.call{display:flex;align-items:center;justify-content:center;gap:8px}.wa{background:#1FAF55;color:#fff}
+html,body{touch-action:pan-x pan-y}input,select,textarea{font-size:16px}
+.tm{margin:14px 0 8px 66px}.tm span{background:var(--g2);color:var(--g);font-weight:800;font-size:12px;padding:5px 12px;border-radius:99px}
+.tl{display:flex;gap:10px;margin-bottom:10px}.td{width:44px;text-align:right}.td b{display:block;font-size:17px}.td span{font-size:11px;color:var(--mut)}
+.tx{width:12px;display:flex;flex-direction:column;align-items:center}.tx i{width:12px;height:12px;border-radius:50%;background:var(--g);margin-top:5px;flex:none}.tx i.pd{background:#1FAF55}.tx u{flex:1;width:2px;background:var(--line)}
+.tc{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 12px}.tc.pc{background:rgba(31,175,85,.14)}.tc .h2d b{font-size:13px}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1 id="appn">💧 Aslam Tubewell App</h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v10</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><small>Pani ka hisab</small><h1 id="appn">💧 Aslam Tubewell App</h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v12</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -69,6 +75,9 @@ let RATE=500;const KEY='aslam_tubewell_v1';
 let db={farmers:[],ts:0},cur=null,dl=null,timer=null,U=null,FS=null,AU=null,lastP={},unsub=null;
 try{const r=localStorage.getItem(KEY);if(r)db=JSON.parse(r)}catch(e){}
 function st(t){const s=document.getElementById('sync');if(s)s.textContent=t}
+const wnum=p=>{let n=String(p||'').replace(/\D/g,'');if(n.startsWith('00'))n=n.slice(2);else if(n.startsWith('0'))n='92'+n.slice(1);else if(n.length===10)n='92'+n;return n};
+['gesturestart','gesturechange','gestureend'].forEach(t=>document.addEventListener(t,x=>x.preventDefault()));
+document.addEventListener('touchmove',e=>{if(e.touches.length>1||(e.scale&&e.scale!==1))e.preventDefault()},{passive:false});
 const sig=f=>JSON.stringify([f.name,f.phone,f.addr,f.entries,f.pays]);
 function push(){if(!U||!FS)return;clearTimeout(timer);timer=setTimeout(async()=>{try{
 const col=FS.collection('users').doc(U.uid).collection('farmers'),bt=FS.batch();let n=0;
@@ -112,12 +121,17 @@ db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.t
 let eid=null;
 const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const dbx=d=>{const[y,m,dd]=d.split('-');return`<div class="db"><b>${+dd}</b><span>${MN[m-1]}</span><span>${y}</span></div>`};
+function tlH(L,f){if(!L.length)return'<div class="empty">Abhi koi entry nahi.</div>';let cm='',h='';
+L.forEach(r=>{const o=r.o,p=r.k==='p',mk=o.date.slice(0,7);
+if(mk!==cm){cm=mk;h+=`<div class="tm"><span>${MN[+mk.slice(5)-1]} ${mk.slice(0,4)}</span></div>`}
+const d=+o.date.slice(8),mo=MN[+o.date.slice(5,7)-1];
+h+=`<div class="tl"><div class="td"><b>${d}</b><span>${mo}</span></div><div class="tx"><i class="${p?'pd':''}"></i><u></u></div><div class="tc${p?' pc':''}"><div class="h2d"><b>${p?'Wasooli':t12(o.start)+' → '+t12(o.end)}</b><b class="${p?'pos':''}">${p?'− ':''}${rs(o.amt)}</b></div><div class="h2d sm mut"><span>${p?esc(o.how||'Cash'):dur(o.mins)+(o.note?' • '+esc(o.note):'')}</span><span class="${r.run>0?'neg':''}">Baqaya ${rs(r.run)}</span></div>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="viewPh(this)">':''}<div class="ac">${p?'':`<button class="s mini" onclick="open_('${f.id}','${o.id}');window.scrollTo(0,0)">✎ Edit</button>`}<button class="d mini" onclick="${p?'delP':'delE'}('${o.id}')">🗑 Delete</button></div></div></div>`});return h}
 function open_(id,ed){cur=id;eid=ed||null;view='home';navR();const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
 const pct=t.bill>0?Math.min(100,Math.round(t.paid/t.bill*100)):0;
 const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
-let run=0;L.forEach(r=>{run+=r.k==='e'?r.o.amt:-r.o.amt;r.run=run});L.reverse();
+let run=0;L.forEach(r=>{run+=r.k==='e'?r.o.amt:-r.o.amt;r.run=run});
 $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="home()">← Wapas</button><button class="s" onclick="editF()">✎ Kisan edit</button></div>
-<div class="card"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut" style="margin-top:8px">🏠 ${esc(f.addr||'—')}</div><div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px"><span>📞 ${esc(f.phone||'Number nahi likha')}</span>${f.phone?`<a class="call" href="tel:${f.phone.replace(/[^\d+]/g,'')}">📞 Call karein</a>`:''}</div></div>
+<div class="card"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut" style="margin-top:8px">🏠 ${esc(f.addr||'—')}</div><div style="margin-top:8px">📞 ${esc(f.phone||'Number nahi likha')}</div>${f.phone?`<div class="row" style="margin-top:10px"><a class="call" href="tel:${f.phone.replace(/[^\d+]/g,'')}">📞 Call karein</a><a class="call wa" target="_blank" rel="noopener" href="https://wa.me/${wnum(f.phone)}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#1FAF55" d="M8.6 7.6c-.3.3-.7 1-.3 2 .6 1.5 1.900 3 3.400 3.900 1 .6 1.900.4 2.300 0l.5-.8-1.800-1-.6.6c-.8-.3-1.900-1.400-2.300-2.300l.6-.6-1-1.800z"/></svg>WhatsApp</a></div>`:''}</div>
 <div class="card"><h2>Is kisan ka poora hisab</h2><div class="grid">
 <div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div><div><span>Total paisay</span><b>${rs(t.bill)}</b></div>
 <div><span>Wasool hua</span><b class="pos">${rs(t.paid)}</b></div><div><span>Baqaya</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div>
@@ -132,9 +146,7 @@ $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" 
 <button class="p" style="width:100%" onclick="addE()">${E?'Tabdeeli save karein':'Entry save karein'}</button>${E?'<button class="s" style="width:100%;margin-top:8px" onclick="open_(cur)">Cancel</button>':''}</div>
 <div class="card"><h2>💰 Paisay wasool kiye</h2><div class="row"><div class="f"><label>Rakam</label><input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div><div class="f"><label>Date</label><input id="pd" type="date" value="${today()}"></div></div>
 <div class="f"><label>Tareeqa (kaise diye)</label><select id="ph"><option>Cash</option><option>JazzCash</option><option>Easypaisa</option><option>Bank</option><option>Aur</option></select></div><div class="f"><label>Saboot ki tasveer (marzi)</label><input id="pimg" type="file" accept="image/*"></div><button class="s" style="width:100%" onclick="addP()">Wasooli save karein</button></div>
-<div class="card"><h2>📒 Poori kitab (${L.length})</h2>${L.length?L.map(r=>{const o=r.o,bq=r.run;const sub='Baqaya '+rs(bq);
-return r.k==='e'?`<div class="it">${dbx(o.date)}<div class="im"><b>💧 ${t12(o.start)} → ${t12(o.end)}</b><small>${dur(o.mins)}${o.note?' • '+esc(o.note):''}</small><div class="ac"><button class="s mini" onclick="open_('${f.id}','${o.id}');window.scrollTo(0,0)">✎ Edit</button><button class="d mini" onclick="delE('${o.id}')">🗑 Delete</button></div></div><div class="ia"><b>${rs(o.amt)}</b><small class="${bq>0?'neg':''}">${sub}</small></div></div>`
-:`<div class="it pay">${dbx(o.date)}<div class="im"><b>💰 Wasooli</b><small>${esc(o.how||'Cash')}</small>${o.img?'<img class="ph" data-pid="'+o.img+'" onclick="viewPh(this)">':''}<div class="ac"><button class="d mini" onclick="delP('${o.id}')">🗑 Delete</button></div></div><div class="ia"><b class="pos">− ${rs(o.amt)}</b><small class="${bq>0?'neg':''}">${sub}</small></div></div>`}).join(''):'<div class="empty">Abhi koi entry nahi.</div>'}</div>
+<div class="card"><div class="h2d" style="margin-bottom:10px"><h2 style="margin:0">📒 Poori kitab (${L.length})</h2><button class="s mini" onclick="$('tlend').scrollIntoView({behavior:'smooth',block:'center'})">⬇ Naye tak</button></div>${tlH(L,f)}<div id="tlend"></div></div>
 <button class="d" style="width:100%" onclick="delF()">🗑 Yeh Kisan Delete karein</button>`;loadPh();if(E)pv()}
 
 function pv(){const m=mins($('es').value,$('ee').value);$('pt').textContent=m?dur(m):'—';$('pa').textContent=rs(m/60*RATE)}
@@ -176,7 +188,7 @@ const FF='"Geeza Pro","Noto Naskh Arabic","Noto Nastaliq Urdu",Arial,sans-serif'
 const font=(sz,b)=>{x.font=(b?'bold ':'')+sz+'px '+FF};
 x.fillStyle='#fff';x.fillRect(0,0,W,H);
 const g=x.createLinearGradient(0,0,W,0);g.addColorStop(0,TH[th].h1);g.addColorStop(1,TH[th].h2);x.fillStyle=g;x.fillRect(0,0,W,210);
-x.fillStyle='#fff';x.textAlign='center';font(64,1);x.fillText(ST.urdu,W/2,85);x.fillStyle='#FFE08A';x.beginPath();x.roundRect(W/2-200,112,400,56,28);x.fill();x.fillStyle='#5A3B00';font(32,1);x.fillText(RATE+' روپے فی گھنٹہ',W/2,152);
+x.fillStyle='#fff';x.textAlign='center';font(64,1);x.fillText(ST.urdu,W/2,85);x.fillStyle=TH[th].rb;x.beginPath();x.roundRect(W/2-200,112,400,56,28);x.fill();x.fillStyle=TH[th].rc;font(32,1);x.fillText(RATE+' روپے فی گھنٹہ',W/2,152);
 x.fillStyle='#12283D';x.textAlign='right';font(44,1);x.fillText('کسان: '+f.name,W-M,285);
 x.fillStyle='#5F7487';font(32);x.fillText([f.phone&&'فون: '+f.phone,f.addr&&'رہائش: '+f.addr].filter(Boolean).join('   '),W-M,335);
 x.textAlign='left';x.fillText('تاریخ: '+fmtD(today()),M,285);
@@ -197,12 +209,12 @@ const b=await new Promise(r=>mkImg(F()).toBlob(r,'image/png'));window._b=b;const
 $('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px" onclick="shImg()">Share / Save karein</button><div class="mut sm" style="margin-top:8px">Share dabane par WhatsApp ya "Save Image" chun sakte hain.</div></div>'}
 async function shImg(){const fl=new File([window._b],'hisab.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(window._b);a.download=fl.name;a.click()}}catch(e){}}
 const TH={
-hara:{n:'Hara Kheti',g:'#17795E',g2:'#E3F2EC',ink:'#17302A',mut:'#657A72',line:'#DCE8E2',bg:'#F3F7F4',card:'#FFFFFF',red:'#B03A3A',redbg:'#FCE8E8',h1:'#0F5A46',h2:'#1F8266',pt:'#FFFFFF',ig:'#17795E',il:'#E3F2EC',tc:'#0F5A46'},
-neela:{n:'Pani Neela',g:'#0E6A99',g2:'#E1F1FA',ink:'#12283D',mut:'#5F7487',line:'#D9E6EF',bg:'#F2F7FB',card:'#FFFFFF',red:'#B4373F',redbg:'#FDEBEC',h1:'#0B3C6B',h2:'#1580B8',pt:'#FFFFFF',ig:'#0E6A99',il:'#E1F1FA',tc:'#0B3C6B'},
-raat:{n:'Raat (Dark)',g:'#F2B544',g2:'#2A3338',ink:'#EDEFEA',mut:'#8E9A9E',line:'#2B353A',bg:'#12171A',card:'#1B2226',red:'#FF9A9A',redbg:'#3A2124',h1:'#1D2428',h2:'#2F3A40',pt:'#1A1304',ig:'#2A3338',il:'#F6ECD2',tc:'#12171A'},
-sunehri:{n:'Sunehri Zameen',g:'#9A6A0E',g2:'#F4EBC9',ink:'#2B2A1A',mut:'#7A765F',line:'#E6DEC3',bg:'#F7F3E8',card:'#FFFDF6',red:'#A53C26',redbg:'#F9E4DD',h1:'#3B4A1F',h2:'#6B7F2E',pt:'#FFFFFF',ig:'#4F6122',il:'#F4EBC9',tc:'#3B4A1F'}};
+hara:{n:'Hara Kheti',g:'#17795E',g2:'#E3F2EC',ink:'#17302A',mut:'#657A72',line:'#DCE8E2',bg:'#F3F7F4',card:'#FFFFFF',red:'#B03A3A',redbg:'#FCE8E8',h1:'#0F5A46',h2:'#1F8266',pt:'#FFFFFF',ig:'#17795E',il:'#E3F2EC',tc:'#0F5A46',rb:'#EAF0FF',rc:'#26379A'},
+neela:{n:'Pani Neela',g:'#0E6A99',g2:'#E1F1FA',ink:'#12283D',mut:'#5F7487',line:'#D9E6EF',bg:'#F2F7FB',card:'#FFFFFF',red:'#B4373F',redbg:'#FDEBEC',h1:'#0B3C6B',h2:'#1580B8',pt:'#FFFFFF',ig:'#0E6A99',il:'#E1F1FA',tc:'#0B3C6B',rb:'#DCF8E9',rc:'#0A6B3C'},
+raat:{n:'Raat (Dark)',g:'#F2B544',g2:'#2A3338',ink:'#EDEFEA',mut:'#8E9A9E',line:'#2B353A',bg:'#12171A',card:'#1B2226',red:'#FF9A9A',redbg:'#3A2124',h1:'#1D2428',h2:'#2F3A40',pt:'#1A1304',ig:'#2A3338',il:'#F6ECD2',tc:'#12171A',rb:'#CFE3FF',rc:'#0F2E57'},
+sunehri:{n:'Sunehri Zameen',g:'#9A6A0E',g2:'#F4EBC9',ink:'#2B2A1A',mut:'#7A765F',line:'#E6DEC3',bg:'#F7F3E8',card:'#FFFDF6',red:'#A53C26',redbg:'#F9E4DD',h1:'#3B4A1F',h2:'#6B7F2E',pt:'#FFFFFF',ig:'#4F6122',il:'#F4EBC9',tc:'#3B4A1F',rb:'#E6F0FF',rc:'#1D4E89'}};
 let th='neela';try{th=localStorage.getItem('aslam_theme')||'neela'}catch(e){}
-function applyTh(k){if(!TH[k])k='neela';th=k;const t=TH[k],r=document.documentElement.style;['g','g2','ink','mut','line','bg','card','red','redbg','h1','h2','pt'].forEach(v=>r.setProperty('--'+v,t[v]));
+function applyTh(k){if(!TH[k])k='neela';th=k;const t=TH[k],r=document.documentElement.style;['g','g2','ink','mut','line','bg','card','red','redbg','h1','h2','pt','rb','rc'].forEach(v=>r.setProperty('--'+v,t[v]));
 const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t.tc;try{localStorage.setItem('aslam_theme',k)}catch(e){}}
 applyTh(th);
 function thPick(){let o=$('thm');if(o){o.remove();return}o=document.createElement('div');o.id='thm';o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};
