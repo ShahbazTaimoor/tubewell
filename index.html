@@ -2,7 +2,7 @@
 <html lang="ur-Latn"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-title" content="Aslam Tubewell"><meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" id="ati" href="icon-180.png"><link rel="icon" id="fav" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B3C6B">
+<link rel="apple-touch-icon" id="ati" href="logo-180.png"><link rel="icon" id="fav" href="logo-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B3C6B">
 <title>Aslam Tubewell App</title>
 <style>
 :root{--rb:#DCF8E9;--rc:#0A6B3C;--h1:#0B3C6B;--h2:#1580B8;--pt:#fff;--g:#0E6A99;--g2:#E1F1FA;--ink:#12283D;--mut:#5F7487;--line:#D9E6EF;--bg:#F2F7FB;--card:#fff;--red:#B4373F;--redbg:#FDEBEC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -65,7 +65,7 @@ html,body{touch-action:pan-x pan-y}input,select,textarea{font-size:16px}
 .bi{border-top:1px solid var(--line);padding:12px 0}
 </style></head>
 <body><div class="app">
-<header class="top"><small>Pani ka hisab</small><h1 style="display:flex;align-items:center;gap:10px"><img class="lg" src="icon-192.png" alt="" style="width:40px;height:40px;border-radius:10px"><span id="appn">Aslam Tubewell App</span></h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v16</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
+<header class="top"><small>Pani ka hisab</small><h1 style="display:flex;align-items:center;gap:10px"><img class="lg" src="logo-192.png" alt="" style="width:40px;height:40px;border-radius:10px"><span id="appn">Aslam Tubewell App</span></h1><small>Rate: <span class="rate" id="rt">Rs 500 fi ghanta</span> • v18</small><div class="sm" id="sync" style="margin-top:6px;opacity:.9">Check ho raha hai…</div></header>
 <div id="v"></div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -231,7 +231,7 @@ applyTh(th);
 function thPick(){let o=$('thm');if(o){o.remove();return}o=document.createElement('div');o.id='thm';o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};
 o.innerHTML='<div class="sh"><h2>🎨 Theme chunein</h2>'+Object.keys(TH).map(k=>{const t=TH[k];return`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');thPick()"><span class="sw" style="background:linear-gradient(135deg,${t.h1},${t.h2})"><i style="background:${t.g}"></i><i style="background:${t.bg}"></i></span><b>${t.n}</b><span>${k===th?'✓':''}</span></button>`}).join('')+'<button class="s" style="width:100%;margin-top:6px" onclick="thPick()">Band karein</button></div>';document.body.appendChild(o)}
 const CFG={apiKey:"AIzaSyAiHYgg613HVa-3ca2g90K-wPw3ZguOgPg",authDomain:"aslam-tubewell.firebaseapp.com",projectId:"aslam-tubewell",storageBucket:"aslam-tubewell.firebasestorage.app",messagingSenderId:"668678347271",appId:"1:668678347271:web:d876035122ce1f8d6fe8a2"};
-const EM={'auth/invalid-credential':'Email ya password galat hai','auth/wrong-password':'Email ya password galat hai','auth/user-not-found':'Ye email registered nahi. "Register" dabayein','auth/email-already-in-use':'Ye email pehle se registered hai. Login karein','auth/weak-password':'Password kam az kam 6 huroof ka rakhein','auth/invalid-email':'Email sahi likhein','auth/network-request-failed':'Internet nahi hai','auth/too-many-requests':'Bohat koshishein ho gayin, thori der baad try karein','auth/operation-not-allowed':'Firebase mein Email/Password chalu nahi hai'};
+const EM={'auth/invalid-credential':'Email ya password galat hai','auth/wrong-password':'Email ya password galat hai','auth/user-not-found':'Ye email registered nahi. "Register" dabayein','auth/email-already-in-use':'Ye email pehle se registered hai. Login karein','auth/weak-password':'Password kam az kam 6 huroof ka rakhein','auth/invalid-email':'Email sahi likhein','auth/network-request-failed':'Internet nahi hai','auth/too-many-requests':'Bohat koshishein ho gayin, thori der baad try karein','auth/user-disabled':'Ye account band hai','auth/operation-not-allowed':'Firebase mein Email/Password chalu nahi hai'};
 function refresh(){const a=document.activeElement;if(a&&/INPUT|TEXTAREA/.test(a.tagName))return;cur&&db.farmers.some(x=>x.id===cur)?open_(cur,eid):home()}
 function listen(){const col=FS.collection('users').doc(U.uid).collection('farmers');
 unsub=col.onSnapshot(sn=>{let ch=false;
@@ -244,14 +244,32 @@ else if((r.ts||0)>(db.farmers[i].ts||0)){db.farmers[i]=f;lastP[id]=sig(f);ch=tru
 else if(sig(db.farmers[i])===sig(f))lastP[id]=sig(f)});
 if(ch){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}refresh()}
 st('☁️ Sync chal raha hai');push()},e=>st('⚠️ Sync error: '+(e.code||'')))}
-function showLogin(msg){let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov';o.style.alignItems='center';o.style.background='var(--bg)';o.style.zIndex=20;document.body.appendChild(o)}
-o.innerHTML='<div class="sh" style="border-radius:22px;max-width:420px;margin:16px"><img class="lg" src="icon-192.png" alt="" style="width:72px;height:72px;border-radius:18px;margin-bottom:8px"><h2 style="font-size:21px">Aslam Tubewell App</h2><div class="mut sm" style="margin-bottom:14px">Login karein ya naya account banayein</div><div class="f"><label>Email</label><input id="le" type="email" autocomplete="email" inputmode="email"></div><div class="f"><label>Password</label><input id="lp" type="password" autocomplete="current-password"></div><div id="lm" class="sm" style="color:var(--red);min-height:18px;margin-bottom:8px">'+(msg||'')+'</div><button class="p" style="width:100%" onclick="doAuth(0)">Login</button><button class="s" style="width:100%;margin-top:8px" onclick="doAuth(1)">Naya account banayein (Register)</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgot()">Password bhool gaye?</button></div>';applyLogo()}
-async function doAuth(reg){const e=$('le').value.trim(),p=$('lp').value;if(!e||!p){$('lm').textContent='Email aur password likhein';return}
-if(!AU){$('lm').textContent='Internet chahiye (online service load nahi hui)';return}
-$('lm').textContent='Intezar karein…';
-try{reg?await AU.createUserWithEmailAndPassword(e,p):await AU.signInWithEmailAndPassword(e,p)}catch(x){$('lm').textContent=EM[x.code]||('Masla: '+x.code)}}
-async function forgot(){const e=$('le').value.trim();if(!e){$('lm').textContent='Pehle upar email likhein';return}
-try{await AU.sendPasswordResetEmail(e);$('lm').style.color='var(--g)';$('lm').textContent='Password reset ka email bhej diya gaya hai'}catch(x){$('lm').textContent=EM[x.code]||('Masla: '+x.code)}}
+let lgM='in';
+function lgSw(m){lgM=m;showLogin()}
+function lmsg(t,ok){const m=$('lm');if(!m)return;m.style.cssText='display:block;margin-bottom:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;background:'+(ok?'rgba(31,175,85,.15)':'var(--redbg)')+';color:'+(ok?'var(--g)':'var(--red)');m.textContent=t}
+function pw(el){['lp','lp2'].forEach(i=>{const x=$(i);if(x)x.type=x.type==='password'?'text':'password'});el.textContent=$('lp').type==='password'?'👁 Password dikhayein':'🙈 Password chhupayein'}
+function showLogin(msg){let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov';o.style.cssText='background:var(--bg);z-index:20;overflow-y:auto;align-items:flex-start';document.body.appendChild(o)}
+const up=lgM==='up';
+o.innerHTML='<div class="sh" style="border-radius:22px;max-width:420px;margin:auto;padding:22px 18px"><div style="text-align:center"><img class="lg" src="logo-192.png" alt="" style="width:72px;height:72px;border-radius:18px"><h2 style="font-size:21px;margin:8px 0 2px">Aslam Tubewell App</h2><div class="mut sm" style="margin-bottom:16px">'+(up?'Naya account banayein':'Apne account mein login karein')+'</div></div>'
++(up?'<div class="f"><label>Aap ka naam</label><input id="ln" autocomplete="name" placeholder="Jaise: Ali Khan"></div>':'')
++'<div class="f"><label>Email (Gmail)</label><input id="le" type="email" autocomplete="email" inputmode="email" autocapitalize="none" placeholder="aap@gmail.com"></div>'
++'<div class="f"><label>Password</label><input id="lp" type="password" autocomplete="'+(up?'new-password':'current-password')+'" placeholder="'+(up?'Kam az kam 6 huroof':'Password')+'"></div>'
++(up?'<div class="f"><label>Password dobara likhein</label><input id="lp2" type="password" autocomplete="new-password"></div>':'')
++'<button class="mini" style="background:none;color:var(--g);padding:0 0 10px" onclick="pw(this)">👁 Password dikhayein</button><div id="lm" style="display:none"></div>'
++'<button class="p" id="lbtn" style="width:100%" onclick="doAuth('+(up?1:0)+')">'+(up?'Register karein':'Login')+'</button>'
++'<button class="s" style="width:100%;margin-top:8px" onclick="lgSw(\''+(up?'in':'up')+'\')">'+(up?'Pehle se account hai? Login':'Naya account banayein (Register)')+'</button>'
++(up?'':'<button class="mini" style="background:none;color:var(--g);margin-top:8px;width:100%" onclick="forgot()">Password bhool gaye?</button>')+'</div>';
+applyLogo();if(msg)lmsg(msg)}
+async function doAuth(reg){const e=$('le').value.trim(),p=$('lp').value;
+if(!e||!p){lmsg('Email aur password dono likhein');return}
+if(!/^\S+@\S+\.\S+$/.test(e)){lmsg('Email sahi likhein, jaise aap@gmail.com');return}
+if(reg){if(!$('ln').value.trim()){lmsg('Apna naam likhein');return}if(p.length<6){lmsg('Password kam az kam 6 huroof ka rakhein');return}if(p!==$('lp2').value){lmsg('Dono password ek jaise nahi hain');return}}
+if(!AU){lmsg('Internet nahi hai ya online service load nahi hui. Internet chala kar app dobara kholein');return}
+const b=$('lbtn');b.disabled=true;b.textContent='Intezar karein…';
+try{if(reg){const c=await AU.createUserWithEmailAndPassword(e,p);try{await c.user.updateProfile({displayName:$('ln').value.trim()})}catch(x){}try{await c.user.sendEmailVerification()}catch(x){}toast('Account ban gaya! Gmail par verification email bheji gayi')}else await AU.signInWithEmailAndPassword(e,p)}
+catch(x){const m=$('lbtn');if(m){m.disabled=false;m.textContent=reg?'Register karein':'Login'}lmsg(EM[x.code]||('Masla aaya: '+(x.code||x.message)))}}
+async function forgot(){const e=$('le').value.trim();if(!e){lmsg('Pehle upar email likhein');return}
+try{await AU.sendPasswordResetEmail(e);lmsg('Password reset ka email bhej diya gaya hai. Gmail kholein (Spam bhi dekhein)',1)}catch(x){lmsg(EM[x.code]||('Masla: '+(x.code||x.message)))}}
 async function logout(){if(!confirm('Logout karne se is phone ka data hat jayega (online save hai, dobara login par wapas aa jayega). Agar internet nahi tha to pehle Backup download kar lein. Logout karein?'))return;
 if(unsub){unsub();unsub=null}U=null;db={farmers:[],ts:0};lastP={};BIN=[];lastB={};try{localStorage.removeItem('aslam_bin');localStorage.removeItem(KEY);localStorage.removeItem('aslam_uid')}catch(e){}
 try{await AU.signOut()}catch(e){}}
@@ -259,7 +277,7 @@ function initFB(){try{firebase.initializeApp(CFG);AU=firebase.auth();FS=firebase
 AU.onAuthStateChanged(u=>{if(u){U=u;let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}
 if(last&&last!==u.uid){db={farmers:[],ts:0};lastP={};BIN=[];lastB={};try{localStorage.removeItem('aslam_bin')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
 try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
-const o=$('lg');if(o)o.remove();home();st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
+lgM='in';const o=$('lg');if(o)o.remove();home();st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
 else{U=null;if(unsub){unsub();unsub=null}home();showLogin()}})}catch(e){showLogin('Online service load nahi hui. Internet check karein.')}}
 let ST={name:'Aslam Tubewell',urdu:'اسلم ٹیوب ویل',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
 try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}RATE=ST.rate;
@@ -286,12 +304,12 @@ $('v').innerHTML=`<div class="card"><h2>📊 Report</h2><div class="grid"><div><
 function setV(){view='set';cur=null;navR();const lk=ST.cred?'Face ID chalu hai':ST.pin?'Sirf PIN chalu hai':'Band hai';
 $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>Tubewell / App ka naam</label><input id="sn" value="${esc(ST.name)}"></div><div class="f"><label>Urdu naam (tasveer ke liye)</label><input id="su" value="${esc(ST.urdu)}"></div><button class="p" style="width:100%" onclick="svP()">Save karein</button></div>
 <div class="card"><h2>💰 Rate</h2><div class="mut sm" style="margin-bottom:8px">Abhi: <span class="rate">Rs ${RATE} fi ghanta</span></div><div class="f"><label>Naya rate (Rs fi ghanta)</label><input id="sr" type="number" inputmode="numeric" value="${RATE}"></div><div class="mut sm" style="margin-bottom:10px">Naya rate sirf nayi entries par lagega. Purani entries ke paisay nahi badlenge.</div><button class="p" style="width:100%" onclick="svR()">Rate save karein</button></div>
-<div class="card"><h2>🖼 App ka Logo</h2><div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><img class="lg" src="${ST.logo||'icon-192.png'}" alt="" style="width:72px;height:72px;border-radius:18px"><div class="mut sm">Naya logo chunein, app ke andar foran badal jata hai.</div></div><input id="lgf" type="file" accept="image/*" class="hide" onchange="pickLogo(this)"><div class="row"><button class="p" onclick="$('lgf').click()">Logo chunein</button><button class="s" onclick="logoSave()">⬇ Icon save</button></div>${ST.logo?'<button class="s" style="width:100%;margin-top:8px" onclick="logoReset()">Purana logo wapas</button>':''}<div class="mut sm" style="margin-top:10px">Home screen ka icon iPhone khud badalne nahi deta. Naya icon lagane ke liye Safari mein link khol kar login karein, phir Share → Add to Home Screen.</div></div>
+<div class="card"><h2>🖼 App ka Logo</h2><div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><img class="lg" src="${ST.logo||'logo-192.png'}" alt="" style="width:72px;height:72px;border-radius:18px"><div class="mut sm">Naya logo chunein, app ke andar foran badal jata hai.</div></div><input id="lgf" type="file" accept="image/*" class="hide" onchange="pickLogo(this)"><div class="row"><button class="p" onclick="$('lgf').click()">Logo chunein</button><button class="s" onclick="logoSave()">⬇ Icon save</button></div>${ST.logo?'<button class="s" style="width:100%;margin-top:8px" onclick="logoReset()">Default logo wapas</button>':''}<div class="mut sm" style="margin-top:10px">Home screen ka icon iPhone khud badalne nahi deta. Naya icon lagane ke liye Safari mein link khol kar login karein, phir Share → Add to Home Screen.</div></div>
 <div class="card"><h2>🎨 Theme</h2>${Object.keys(TH).map(k=>`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');setV()"><span class="sw" style="background:linear-gradient(135deg,${TH[k].h1},${TH[k].h2})"><i style="background:${TH[k].g}"></i><i style="background:${TH[k].bg}"></i></span><b>${TH[k].n}</b><span>${k===th?'✓':''}</span></button>`).join('')}</div>
 <div class="card"><h2>🔒 App Lock</h2><div class="mut sm" style="margin-bottom:10px">Halat: <b>${lk}</b></div><div class="f"><label>Backup PIN (4 se 6 ank)</label><input id="npin" type="password" inputmode="numeric" maxlength="6" placeholder="Naya PIN"></div><button class="p" style="width:100%" onclick="svPin()">PIN save karein</button>
 ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()">Face ID band karein</button>':'<button class="s" style="width:100%;margin-top:8px" onclick="onBio()">Face ID chalu karein</button>'}${ST.pin&&!ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offPin()">PIN hatayein</button>':''}</div>
 <div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
-${binH()}<div class="card"><h2>☁️ Account</h2><div class="mut sm" style="margin-bottom:10px">${esc(U?U.email:'Login nahi')}</div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
+${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b>${esc((U&&U.displayName)||'')}</b><div class="mut sm">${esc(U?U.email:'Login nahi')}</div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
 <div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v10<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}ST.rate=r;saveST();toast('Rate save ho gaya');setV()}
@@ -342,11 +360,11 @@ BIN=BIN.filter(x=>x.id!==id);saveBin();save();toast('Wapas aa gaya');setV()}
 function binDel(id){const b=BIN.find(x=>x.id===id);if(!b||!confirm('Ye hamesha ke liye hat jayega, wapas nahi aayega. Pakka?'))return;binPh(b);BIN=BIN.filter(x=>x.id!==id);saveBin();setV()}
 function binClear(){if(!BIN.length||!confirm('Deleted box ki saari cheezein hamesha ke liye hat jayengi. Pakka?'))return;BIN.forEach(binPh);BIN=[];saveBin();setV()}
 function logoCut(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const n=Math.min(im.width,im.height),c=document.createElement('canvas');c.width=c.height=192;c.getContext('2d').drawImage(im,(im.width-n)/2,(im.height-n)/2,n,n,0,0,192,192);res(c.toDataURL('image/png'))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
-function applyLogo(){const u=ST.logo||'icon-192.png';document.querySelectorAll('img.lg').forEach(i=>{i.src=u});const a=$('ati'),f=$('fav');if(a)a.href=ST.logo||'icon-180.png';if(f)f.href=u}
+function applyLogo(){const u=ST.logo||'logo-192.png';document.querySelectorAll('img.lg').forEach(i=>{i.src=u});const a=$('ati'),f=$('fav');if(a)a.href=ST.logo||'logo-180.png';if(f)f.href=u}
 const profDoc=()=>FS.collection('users').doc(U.uid).collection('meta').doc('profile');
 async function pickLogo(el){const fl=el.files[0];if(!fl)return;try{ST.logo=await logoCut(fl);saveST();applyLogo();if(U&&FS)profDoc().set({logo:ST.logo,ts:Date.now()}).catch(()=>{});toast('Logo badal gaya');setV()}catch(e){alert('Tasveer nahi khuli')}el.value=''}
 function logoReset(){delete ST.logo;saveST();applyLogo();if(U&&FS)profDoc().set({logo:'',ts:Date.now()}).catch(()=>{});setV()}
-async function logoSave(){const b=await (await fetch(ST.logo||'icon-512.png')).blob(),fl=new File([b],'aslam-logo.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fl.name;a.click()}}catch(e){}}
+async function logoSave(){const b=await (await fetch(ST.logo||'logo-512.png')).blob(),fl=new File([b],'aslam-logo.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=fl.name;a.click()}}catch(e){}}
 function listenProf(){profDoc().onSnapshot(sn=>{if(!sn.exists)return;const d=sn.data();if((d.logo||'')!==(ST.logo||'')){if(d.logo)ST.logo=d.logo;else delete ST.logo;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}applyLogo();if(view==='set')setV()}})}
 async function bk(){const data=JSON.stringify(db,null,2),fn='aslam-tubewell-backup-'+today()+'.json';try{if(dl){await dl.save({filename:fn,data});return}}catch(e){if(e&&e.code==='declined')return}
 const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;a.click()}
