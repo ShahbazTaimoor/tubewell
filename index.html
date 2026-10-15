@@ -100,6 +100,28 @@ html[lang=ur] body,html[lang=ur] button,html[lang=ur] input,html[lang=ur] select
 html[lang=ur] body{font-size:17.5px}html[lang=ur] .sm,html[lang=ur] small{font-size:15px}
 html[lang=ur] h1,html[lang=ur] h2{line-height:2}
 html[lang=ur] .pill,html[lang=ur] .rate,html[lang=ur] .mini,html[lang=ur] .nb span,html[lang=ur] .chip,html[lang=ur] .toast{line-height:1.8}
+button *,a.call *,.fm *{pointer-events:none}
+button,.fm,.nb,.to,a.call{touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.fm>:first-child{flex:1;min-width:0}
+.fm::after{content:'›';font-size:24px;line-height:1;color:var(--mut);margin-inline-start:6px;flex:none}
+html[dir=rtl] .fm::after{content:'‹'}
+#lg{background:#F2F6F4;color:#1B3A30;z-index:20;overflow-y:auto;display:block}
+.lgw{max-width:460px;margin:0 auto;min-height:100%;position:relative;padding-bottom:34px}
+.hero{height:300px;background:#cfe3d4 url(login-hero.jpg) center/cover no-repeat;border-radius:0 0 50% 50%/0 0 46px 46px}.hero.s{height:190px}
+.leaf{position:absolute;right:4px;top:268px;width:76px;height:90px;transform:rotate(8deg);pointer-events:none}.hero.s+.leaf{top:158px}
+.lgb{padding:20px 26px 0;text-align:center}.lgb h1{margin:0;font-size:30px;color:#1F5F4C}.lgb p{margin:4px 0 24px;color:#2F6B58;font-size:16px}
+.lf{display:flex;align-items:center;gap:12px;background:#E8ECEA;border-radius:16px;padding:0 14px;height:54px;margin-bottom:14px}
+.lf svg{flex:none}.lf input{flex:1;min-width:0;background:transparent;border:0;outline:0;min-height:0;height:100%;padding:0;font-size:16px;color:#1B3A30}.lf input::placeholder{color:#7C8783}
+.eye{background:none;padding:0;width:36px;height:36px;display:flex;align-items:center;justify-content:center;opacity:.5}.eye.on{opacity:1}
+.fp{text-align:end;color:#1F5F4C;font-size:14px;margin:-2px 2px 16px;cursor:pointer}
+.lbtn{width:100%;height:56px;border-radius:99px;background:#1F5F4C;color:#fff;font-size:20px;font-weight:700}.lbtn:disabled{opacity:.7}
+.lgb .alt{margin-top:18px;color:#5C6862;font-size:15px}.lgb .alt b{color:#1F5F4C;text-decoration:underline;cursor:pointer}
+#lg #lm{border-radius:12px}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;object-fit:cover;color:#fff;font-weight:700;flex:none;border:2px solid var(--card);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.avw{position:relative;flex:none;cursor:pointer}.avw i{position:absolute;right:-2px;bottom:-2px;width:26px;height:26px;border-radius:50%;background:var(--g);color:var(--pt);display:flex;align-items:center;justify-content:center;font-size:13px;font-style:normal;border:2px solid var(--card)}
+.dpick{display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer}
+.chips{display:flex;gap:8px;margin-bottom:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ch{background:var(--card);border:1px solid var(--line);color:var(--ink);padding:8px 14px;font-size:13px;border-radius:99px;flex:none}.ch.on{background:var(--g);color:var(--pt);border-color:var(--g)}
 </style></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
@@ -118,7 +140,7 @@ function st(t){const s=document.getElementById('sync');if(s)s.textContent=t}
 const wnum=p=>{let n=String(p||'').replace(/\D/g,'');if(n.startsWith('00'))n=n.slice(2);else if(n.startsWith('0'))n='92'+n.slice(1);else if(n.length===10)n='92'+n;return n};
 ['gesturestart','gesturechange','gestureend'].forEach(t=>document.addEventListener(t,x=>x.preventDefault()));
 document.addEventListener('touchmove',e=>{if(e.touches.length>1||(e.scale&&e.scale!==1))e.preventDefault()},{passive:false});
-const sig=f=>JSON.stringify([f.name,f.phone,f.addr,f.entries,f.pays,f.olds]);
+const sig=f=>JSON.stringify([f.name,f.phone,f.addr,f.dp,f.entries,f.pays,f.olds]);
 function push(){if(!U||!FS)return;clearTimeout(timer);timer=setTimeout(async()=>{try{
 const col=FS.collection('users').doc(U.uid).collection('farmers'),bt=FS.batch();let n=0;
 db.farmers.forEach(f=>{const g=sig(f);if(lastP[f.id]!==g){f.ts=Date.now();bt.set(col.doc(f.id),{json:JSON.stringify(f),ts:f.ts});lastP[f.id]=g;n++}});
@@ -139,39 +161,46 @@ const mins=(s,e)=>{if(!s||!e)return 0;const a=s.split(':'),b=e.split(':');let m=
 const tot=f=>{const bill=f.entries.reduce((a,e)=>a+e.amt,0),old=(f.olds||[]).reduce((a,o)=>a+o.amt,0),paid=f.pays.reduce((a,p)=>a+p.amt,0),mn=f.entries.reduce((a,e)=>a+e.mins,0);return{bill,old,paid,mn,due:bill+old-paid}};
 const dueP=t=>`<span class="pill ${t.due>0?'r':''}">${t.due>0?'Baqaya '+rs(t.due):t.due<0?'Ziada '+rs(-t.due):'Hisab saaf'}</span>`;
 
-function listH(q){q=(q||'').trim().toLowerCase();const a=db.farmers.filter(f=>!q||(f.name+' '+f.phone+' '+f.addr).toLowerCase().includes(q));
-return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div><b>${esc(f.name)}</b><small>${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')} • ${dur(t.mn)||'0 min'}</small></div>${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kisan nahi mila.':'Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.')+'</div>'}
+let hf='all';
+function setHF(k){hf=k;home()}
+function listH(q){q=(q||'').trim().toLowerCase();const a=db.farmers.filter(f=>(!q||(f.name+' '+f.phone+' '+f.addr).toLowerCase().includes(q))&&(hf==='all'||(hf==='due'?tot(f).due>0:tot(f).due<=0)));
+return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div style="display:flex;align-items:center;gap:12px;min-width:0">${av(f,46)}<div style="min-width:0"><b>${esc(f.name)}</b><small>${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')} • ${dur(t.mn)||'0 min'}</small></div></div>${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kisan nahi mila.':'Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.')+'</div>'}
 function filt(){$('list').innerHTML=listH($('q').value)}
 function home(){cur=null;view='home';navR();
 const all=db.farmers.map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0),old=all.reduce((a,t)=>a+t.old,0);
 $('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${rs(bill)}</strong>
 <div class="grid" style="margin-top:12px;text-align:left"><div><span>Wasool hua</span><b>${rs(paid)}</b></div><div><span>Baqaya</span><b>${rs(bill+old-paid)}</b></div></div></div>
 <button class="p" style="width:100%;margin-bottom:12px" onclick="$('addBox').classList.toggle('hide')">＋ Naya Kisan</button>
-<div id="addBox" class="card hide"><h2>Naya Kisan</h2>
+<div id="addBox" class="card hide"><h2>Naya Kisan</h2><div class="dpick" onclick="$('fdp').click()"><span id="dpv" class="av" style="width:76px;height:76px;background:var(--g2);color:var(--g);font-size:28px">📷</span><span class="mut sm">Kisan ki tasveer (DP, marzi)</span></div><input id="fdp" type="file" accept="image/*" class="hide" onchange="pickDP(this,1)">
 <div class="f"><label>Kisan ka naam</label><input id="fn" placeholder="Naam"></div>
 <div class="f"><label>Number</label><input id="fp" type="tel" placeholder="03xx-xxxxxxx"></div>
 <div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div><div class="f"><label>Purana baqaya (pichle saal ka, marzi)</label><input id="fo" type="number" inputmode="numeric" placeholder="Rs"></div>
 <button class="p" style="width:100%" onclick="addF()">Save karein</button></div>
-${db.farmers.length?'<input id="q" type="search" placeholder="🔍 Kisan ka naam dhoondein" oninput="filt()" style="margin-bottom:10px">':''}<div id="list">${listH('')}</div>
+${db.farmers.length?'<input id="q" type="search" placeholder="🔍 Kisan ka naam dhoondein" oninput="filt()" style="margin-bottom:10px"><div class="chips">'+[['all','Sab'],['due','Baqaya wale'],['ok','Hisab saaf']].map(x=>'<button class="ch'+(hf===x[0]?' on':'')+'" onclick="setHF(\''+x[0]+'\')">'+x[1]+'</button>').join('')+'</div>':''}<div id="list">${listH('')}</div>
 `}
 
 function addF(){const n=$('fn').value.trim();if(!n){alert('Kisan ka naam likhein');return}
-const ov=Math.round(+($('fo').value||0));db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[],olds:ov>0?[{id:uid(),date:(new Date().getFullYear()-1)+'-12-31',amt:ov,note:''}]:[]});save();home()}
+const ov=Math.round(+($('fo').value||0));db.farmers.push({id:uid(),name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[],dp:window._dp||'',olds:ov>0?[{id:uid(),date:(new Date().getFullYear()-1)+'-12-31',amt:ov,note:''}]:[]});window._dp='';save();home()}
 
 let eid=null;
 const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const AVC=['#0E6A99','#1F8266','#9A6A0E','#7A4DBF','#B4373F','#2D7D9A'];
+function av(f,z){const st='width:'+z+'px;height:'+z+'px;font-size:'+Math.round(z*.42)+'px';if(f.dp)return'<img class="av" style="'+st+'" src="'+f.dp+'" alt="">';const n=(f.name||'?').trim();let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%6;return'<span class="av" style="'+st+';background:'+AVC[h]+'">'+esc(n.charAt(0).toUpperCase())+'</span>'}
+function dpCut(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const n=Math.min(im.width,im.height),c=document.createElement('canvas');c.width=c.height=160;c.getContext('2d').drawImage(im,(im.width-n)/2,(im.height-n)/2,n,n,0,0,160,160);res(c.toDataURL('image/jpeg',.8))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
+async function pickDP(el,nw){const fl=el.files[0];if(!fl)return;try{const d=await dpCut(fl);if(nw){window._dp=d;$('dpv').outerHTML='<img id="dpv" class="av" style="width:76px;height:76px" src="'+d+'" alt="">'}else{F().dp=d;save();open_(cur)}}catch(e){alert('Tasveer nahi khuli')}el.value=''}
+function delDP(){delete F().dp;save();open_(cur)}
 const dbx=d=>{const[y,m,dd]=d.split('-');return`<div class="db"><b>${+dd}</b><span>${MN[m-1]}</span><span>${y}</span></div>`};
 function tlH(L,f){if(!L.length)return'<div class="empty">Abhi koi entry nahi.</div>';let cm='',h='';
 L.forEach(r=>{const o=r.o,p=r.k==='p',od=r.k==='o',mk=o.date.slice(0,7);
 if(mk!==cm){cm=mk;h+=`<div class="tm"><span>${MN[+mk.slice(5)-1]} ${mk.slice(0,4)}</span></div>`}
 const d=+o.date.slice(8),mo=MN[+o.date.slice(5,7)-1];
 h+=`<div class="tl"><div class="td"><b>${d}</b><span>${mo}</span></div><div class="tx"><i class="${p?'pd':od?'od':''}"></i><u></u></div><div class="tc${p?' pc':od?' oc':''}"><div class="h2d"><b>${p?'Wasooli':od?'📜 Purana baqaya':t12(o.start)+' → '+t12(o.end)}</b><b class="${p?'pos':''}">${p?'− ':''}${rs(o.amt)}</b></div><div class="h2d sm mut"><span>${p?esc(o.how||'Cash'):od?esc(o.note||'Pichle saal ka baqaya'):dur(o.mins)+(o.note?' • '+esc(o.note):'')}</span><span class="${r.run>0?'neg':''}">Baqaya ${rs(r.run)}</span></div>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="viewPh(this)">':''}<div class="ac">${p||od?'':`<button class="s mini" onclick="open_('${f.id}','${o.id}');window.scrollTo(0,0)">✎ Edit</button>`}<button class="d mini" onclick="${p?'delP':od?'delO':'delE'}('${o.id}')">🗑 Delete</button></div></div></div>`});return h}
-function open_(id,ed){cur=id;eid=ed||null;view='home';navR();const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
+function open_(id,ed){cur=id;eid=ed||null;view='home';navR();pushS('k');const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
 const tb=t.bill+t.old,pct=tb>0?Math.min(100,Math.round(t.paid/tb*100)):0;
 const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o})),...(f.olds||[]).map(o=>({k:'o',d:o.date,s:'00',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
 let run=0;L.forEach(r=>{run+=(r.k==='p'?-1:1)*r.o.amt;r.run=run});
-$('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="home()">← Wapas</button><button class="s" onclick="editF()">✎ Kisan edit</button></div>
-<div class="card"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut" style="margin-top:8px">🏠 ${esc(f.addr||'—')}</div><div style="margin-top:8px">📞 ${esc(f.phone||'Number nahi likha')}</div>${f.phone?`<div class="row" style="margin-top:10px"><a class="call" href="tel:${f.phone.replace(/[^\d+]/g,'')}">📞 Call karein</a><a class="call wa" target="_blank" rel="noopener" href="https://wa.me/${wnum(f.phone)}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#1FAF55" d="M8.6 7.6c-.3.3-.7 1-.3 2 .6 1.5 1.900 3 3.400 3.900 1 .6 1.900.4 2.300 0l.5-.8-1.800-1-.6.6c-.8-.3-1.900-1.400-2.300-2.300l.6-.6-1-1.800z"/></svg>WhatsApp</a></div>`:''}</div>
+$('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="back_()">← Wapas</button><button class="s" onclick="editF()">✎ Kisan edit</button></div>
+<div class="card"><div style="display:flex;align-items:center;gap:14px"><div class="avw" onclick="$('edp').click()">${av(f,72)}<i>📷</i></div><input id="edp" type="file" accept="image/*" class="hide" onchange="pickDP(this)"><div style="min-width:0"><h2 style="margin:0">${esc(f.name)}</h2><div class="mut sm" style="margin-top:4px">🏠 ${esc(f.addr||'—')}</div>${f.dp?'<button class="d mini" style="margin-top:6px" onclick="delDP()">DP hatayein</button>':''}</div></div><div style="margin-top:8px">📞 ${esc(f.phone||'Number nahi likha')}</div>${f.phone?`<div class="row" style="margin-top:10px"><a class="call" href="tel:${f.phone.replace(/[^\d+]/g,'')}">📞 Call karein</a><a class="call wa" target="_blank" rel="noopener" href="https://wa.me/${wnum(f.phone)}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path fill="#1FAF55" d="M8.6 7.6c-.3.3-.7 1-.3 2 .6 1.5 1.900 3 3.400 3.900 1 .6 1.900.4 2.300 0l.5-.8-1.800-1-.6.6c-.8-.3-1.900-1.400-2.300-2.300l.6-.6-1-1.800z"/></svg>WhatsApp</a></div>`:''}</div>
 <div class="card"><h2>Is kisan ka poora hisab</h2><div class="grid">
 <div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div><div><span>Total paisay</span><b>${rs(t.bill)}</b></div>
 <div><span>Purana baqaya</span><b>${rs(t.old)}</b></div><div><span>Wasool hua</span><b class="pos">${rs(t.paid)}</b></div><div style="grid-column:span 2"><span>Baqaya (kul)</span><b style="color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div>
@@ -290,18 +319,21 @@ let lgM='in',justLogged=false;
 function showWelcome(n){const o=document.createElement('div');o.className='wl';o.innerHTML='<img class="lg" src="'+(ST.logo||'logo-192.png')+'" alt=""><h2>Khush aamdeed!</h2><div class="mut">'+esc(n||'')+'</div>';document.body.appendChild(o);setTimeout(()=>o.classList.add('out'),1100);setTimeout(()=>o.remove(),1450)}
 function lgSw(m){lgM=m;showLogin()}
 function lmsg(t,ok){const m=$('lm');if(!m)return;m.style.cssText='display:block;margin-bottom:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;background:'+(ok?'rgba(31,175,85,.15)':'var(--redbg)')+';color:'+(ok?'var(--g)':'var(--red)');m.textContent=t}
-function pw(el){['lp','lp2'].forEach(i=>{const x=$(i);if(x)x.type=x.type==='password'?'text':'password'});el.textContent=$('lp').type==='password'?'👁 Password dikhayein':'🙈 Password chhupayein'}
-function showLogin(msg){let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov';o.style.cssText='background:var(--bg);z-index:20;overflow-y:auto;align-items:flex-start';document.body.appendChild(o)}
-const up=lgM==='up';
-o.innerHTML='<div class="sh" style="border-radius:22px;max-width:420px;margin:auto;padding:22px 18px"><div style="text-align:center"><img class="lg" src="logo-192.png" alt="" style="width:72px;height:72px;border-radius:18px"><h2 style="font-size:21px;margin:8px 0 2px">Aslam Tubewell App</h2><div class="mut sm" style="margin-bottom:16px">'+(up?'Naya account banayein':'Apne account mein login karein')+'</div></div>'
-+(up?'<div class="f"><label>Aap ka naam</label><input id="ln" autocomplete="name" placeholder="Jaise: Ali Khan"></div>':'')
-+'<div class="f"><label>Email (Gmail)</label><input id="le" type="email" autocomplete="email" inputmode="email" autocapitalize="none" placeholder="aap@gmail.com"></div>'
-+'<div class="f"><label>Password</label><input id="lp" type="password" autocomplete="'+(up?'new-password':'current-password')+'" placeholder="'+(up?'Kam az kam 6 huroof':'Password')+'"></div>'
-+(up?'<div class="f"><label>Password dobara likhein</label><input id="lp2" type="password" autocomplete="new-password"></div>':'')
-+'<button class="mini" style="background:none;color:var(--g);padding:0 0 10px" onclick="pw(this)">👁 Password dikhayein</button><div id="lm" style="display:none"></div>'
-+'<button class="p" id="lbtn" style="width:100%" onclick="doAuth('+(up?1:0)+')">'+(up?'Register karein':'Login')+'</button>'
-+'<button class="s" style="width:100%;margin-top:8px" onclick="lgSw(\''+(up?'in':'up')+'\')">'+(up?'Pehle se account hai? Login':'Naya account banayein (Register)')+'</button>'
-+(up?'':'<button class="mini" style="background:none;color:var(--g);margin-top:8px;width:100%" onclick="forgot()">Password bhool gaye?</button>')+'</div>';
+function pw(el){['lp','lp2'].forEach(i=>{const x=$(i);if(x)x.type=x.type==='password'?'text':'password'});el.classList.toggle('on')}
+const SV={mail:'<svg viewBox="0 0 24 24" width="22" height="22" fill="#6B7773"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v.4l-9 5.6L3 6.4V6zm0 2.8V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.8l-9 5.6-9-5.6z"/></svg>',
+lock:'<svg viewBox="0 0 24 24" width="22" height="22" fill="#6B7773"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>',
+user:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6B7773" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+eye:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#4A5753" stroke-width="2" stroke-linecap="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+leaf:'<svg class="leaf" viewBox="0 0 120 140" aria-hidden="true"><path d="M30 10C78 20 102 62 86 108 40 98 14 56 30 10z" fill="#3F7D3A"/><path d="M86 108C62 78 46 46 30 10" stroke="#2A5A29" stroke-width="2" fill="none"/><path d="M112 92C76 86 50 106 40 136 82 141 107 122 112 92z" fill="#58994C"/></svg>'};
+function showLogin(msg){let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov';document.body.appendChild(o)}
+const up=lgM==='up',eye='<button class="eye" type="button" onclick="pw(this)" aria-label="Password">'+SV.eye+'</button>';
+const fld=(ic,id,tp,ph,ac,x)=>'<div class="lf">'+ic+'<input id="'+id+'" type="'+tp+'" placeholder="'+ph+'" autocomplete="'+ac+'"'+(tp==='email'?' inputmode="email" autocapitalize="none"':'')+'>'+(x||'')+'</div>';
+o.innerHTML='<div class="lgw"><div class="hero'+(up?' s':'')+'"></div>'+SV.leaf+'<div class="lgb"><h1>'+(up?'Naya account':'Wapas Khush aamdeed')+'</h1><p>'+(up?'Apni tafseel likh kar register karein':'Apne account mein login karein')+'</p>'
++(up?fld(SV.user,'ln','text','Aap ka naam','name'):'')+fld(SV.mail,'le','email','Email (Gmail)','email')
++fld(SV.lock,'lp','password',up?'Password (kam az kam 6 huroof)':'Password',up?'new-password':'current-password',eye)
++(up?fld(SV.lock,'lp2','password','Password dobara likhein','new-password'):'<div class="fp" onclick="forgot()">Password bhool gaye?</div>')
++'<div id="lm" style="display:none"></div><button class="lbtn" id="lbtn" onclick="doAuth('+(up?1:0)+')">'+(up?'Register karein':'Login')+'</button>'
++'<div class="alt">'+(up?'Pehle se account hai?':'Account nahi hai?')+' <b onclick="lgSw(\''+(up?'in':'up')+'\')">'+(up?'Login':'Register')+'</b></div></div></div>';
 applyLogo();if(msg)lmsg(msg)}
 async function doAuth(reg){const e=$('le').value.trim(),p=$('lp').value;
 if(!e||!p){lmsg('Email aur password dono likhein');return}
@@ -331,22 +363,26 @@ const ic=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],['cal','Rozana',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['rep','Report',ic('<path d="M5 20V11M12 20V4M19 20v-6"/>')],['set','Settings',ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>')]];
 function navR(){let n=$('nav');if(!n){n=document.createElement('nav');n.id='nav';n.className='nav';n.innerHTML='<div>'+NV.map(x=>`<button class="nb" onclick="go('${x[0]}')" aria-label="${x[1]}">${x[2]}<span>${x[1]}</span></button>`).join('')+'</div>';document.body.appendChild(n)}
 n.querySelectorAll('.nb').forEach((b,i)=>b.classList.toggle('on',NV[i][0]===view))}
-function go(k){eid=null;({home:home,cal:calV,rep:repV,set:setV})[k]();window.scrollTo(0,0)}
+function pushS(t){try{if(!(history.state&&history.state.t===t))history.pushState({t},'')}catch(e){}}
+function back_(){if(history.state&&history.state.t)history.back();else home()}
+window.addEventListener('popstate',()=>{if($('lk')||$('lg'))return;if(cur||view!=='home')home()});
+function go(k){if(k!=='home')pushS('t');eid=null;({home:home,cal:calV,rep:repV,set:setV})[k]();window.scrollTo(0,0)}
 function calV(){view='cal';cur=null;navR();const R=[];db.farmers.forEach(f=>f.entries.forEach(e=>{if(!calM||e.date.startsWith(calM))R.push({f,e})}));
 R.sort((a,b)=>(b.e.date+b.e.start).localeCompare(a.e.date+a.e.start));
 const mn=R.reduce((a,r)=>a+r.e.mins,0),am=R.reduce((a,r)=>a+r.e.amt,0),D={};R.forEach(r=>(D[r.e.date]=D[r.e.date]||[]).push(r));
 $('v').innerHTML=`<div class="card"><h2>📅 Rozana ka hisab</h2><div class="f"><label>Mahina</label><input type="month" value="${calM}" onchange="calM=this.value;calV()"></div>
 <div class="grid"><div><span>Entries</span><b>${R.length}</b></div><div><span>Total time</span><b>${dur(mn)||'0 min'}</b></div><div style="grid-column:span 2"><span>Kamai</span><b>${rs(am)}</b></div></div></div>`+
-(Object.keys(D).length?Object.keys(D).map(d=>`<div class="card"><div class="h2d"><b>${fmtD(d)}</b><span class="pill">${rs(D[d].reduce((a,r)=>a+r.e.amt,0))}</span></div>`+D[d].map(r=>`<button class="fm" style="margin:8px 0 0" onclick="open_('${r.f.id}')"><div><b>${esc(r.f.name)}</b><small>${t12(r.e.start)} → ${t12(r.e.end)} • ${dur(r.e.mins)}</small></div><b>${rs(r.e.amt)}</b></button>`).join('')+'</div>').join(''):'<div class="empty">Is mahine mein koi entry nahi.</div>')}
+(Object.keys(D).length?Object.keys(D).map(d=>`<div class="card"><div class="h2d"><b>${fmtD(d)}</b><span class="pill">${rs(D[d].reduce((a,r)=>a+r.e.amt,0))}</span></div>`+D[d].map(r=>`<button class="fm" style="margin:8px 0 0" onclick="open_('${r.f.id}')"><div style="display:flex;align-items:center;gap:10px;min-width:0">${av(r.f,38)}<div style="min-width:0"><b>${esc(r.f.name)}</b><small>${t12(r.e.start)} → ${t12(r.e.end)} • ${dur(r.e.mins)}</small></div></div><b>${rs(r.e.amt)}</b></button>`).join('')+'</div>').join(''):'<div class="empty">Is mahine mein koi entry nahi.</div>')}
 function repV(){view='rep';cur=null;navR();const A=db.farmers.map(f=>({f,t:tot(f)})),bill=A.reduce((a,x)=>a+x.t.bill,0),paid=A.reduce((a,x)=>a+x.t.paid,0),old=A.reduce((a,x)=>a+x.t.old,0),mn=A.reduce((a,x)=>a+x.t.mn,0),ne=A.reduce((a,x)=>a+x.f.entries.length,0);
 const M={};db.farmers.forEach(f=>f.entries.forEach(e=>{const k=e.date.slice(0,7);(M[k]=M[k]||{a:0,m:0}).a+=e.amt;M[k].m+=e.mins}));
 const ks=Object.keys(M).sort().slice(-6).reverse(),mx=Math.max(1,...ks.map(k=>M[k].a)),due=A.filter(x=>x.t.due>0).sort((a,b)=>b.t.due-a.t.due);
 $('v').innerHTML=`<div class="card"><h2>📊 Report</h2><div class="grid"><div><span>Total kamai</span><b>${rs(bill)}</b></div><div><span>Wasool hua</span><b class="pos">${rs(paid)}</b></div><div><span>Baqaya</span><b class="neg">${rs(bill+old-paid)}</b></div><div><span>Total time</span><b>${dur(mn)||'0 min'}</b></div><div><span>Kisan</span><b>${db.farmers.length}</b></div><div><span>Entries</span><b>${ne}</b></div><div style="grid-column:span 2"><span>Purana baqaya</span><b>${rs(old)}</b></div></div></div>
 <div class="card"><h2>Mahine ke hisab se kamai</h2>${ks.length?ks.map(k=>`<div style="margin-bottom:10px"><div class="h2d sm"><span>${MN[+k.slice(5)-1]} ${k.slice(0,4)} • ${dur(M[k].m)}</span><b>${rs(M[k].a)}</b></div><div class="bar" style="margin:5px 0 0"><i style="width:${Math.round(M[k].a/mx*100)}%"></i></div></div>`).join(''):'<div class="empty">Abhi koi data nahi.</div>'}</div>
-<div class="card"><h2>Baqaya wale kisan</h2>${due.length?due.map(x=>`<button class="fm" style="margin:0 0 8px" onclick="open_('${x.f.id}')"><b>${esc(x.f.name)}</b><span class="pill r">${rs(x.t.due)}</span></button>`).join(''):'<div class="empty">Kisi ka baqaya nahi 🎉</div>'}</div>`}
+<div class="card"><h2>Baqaya wale kisan</h2>${due.length?due.map(x=>`<button class="fm" style="margin:0 0 8px" onclick="open_('${x.f.id}')"><div style="display:flex;align-items:center;gap:10px">${av(x.f,36)}<b>${esc(x.f.name)}</b></div><span class="pill r">${rs(x.t.due)}</span></button>`).join(''):'<div class="empty">Kisi ka baqaya nahi 🎉</div>'}</div>`}
 function setV(){view='set';cur=null;navR();const lk=ST.cred?'Face ID chalu hai':ST.pin?'Sirf PIN chalu hai':'Band hai';
 $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>Tubewell / App ka naam</label><input id="sn" value="${esc(ST.name)}"></div><div class="f"><label>Urdu naam (tasveer ke liye)</label><input id="su" value="${esc(ST.urdu)}"></div><button class="p" style="width:100%" onclick="svP()">Save karein</button></div>
 <div class="card"><h2>💰 Rate</h2><div class="mut sm" style="margin-bottom:8px">Abhi: <span class="rate">Rs ${RATE} fi ghanta</span></div><div class="f"><label>Naya rate (Rs fi ghanta)</label><input id="sr" type="number" inputmode="numeric" value="${RATE}"></div><div class="mut sm" style="margin-bottom:10px">Naya rate sirf nayi entries par lagega. Purani entries ke paisay nahi badlenge.</div><button class="p" style="width:100%" onclick="svR()">Rate save karein</button></div>
+<div class="card"><h2>📤 App dost ko bhejein</h2><button class="p" style="width:100%" onclick="shareApp()">Link share karein</button></div>
 <div class="card"><h2>🌐 Zuban / Language / زبان</h2><div class="row"><button class="${(ST.lang||'ro')==='ro'?'p':'s'}" onclick="setLang('ro')">Roman Urdu</button><button class="${ST.lang==='ur'?'p':'s'}" onclick="setLang('ur')">اردو</button><button class="${ST.lang==='en'?'p':'s'}" onclick="setLang('en')">English</button></div></div>
 <div class="card"><h2>🖼 App ka Logo</h2><div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><img class="lg" src="${ST.logo||'logo-192.png'}" alt="" style="width:72px;height:72px;border-radius:18px"><div class="mut sm">Naya logo chunein, app ke andar foran badal jata hai.</div></div><input id="lgf" type="file" accept="image/*" class="hide" onchange="pickLogo(this)"><div class="row"><button class="p" onclick="$('lgf').click()">Logo chunein</button><button class="s" onclick="logoSave()">⬇ Icon save</button></div>${ST.logo?'<button class="s" style="width:100%;margin-top:8px" onclick="logoReset()">Default logo wapas</button>':''}<div class="mut sm" style="margin-top:10px">Home screen ka icon iPhone khud badalne nahi deta. Naya icon lagane ke liye Safari mein link khol kar login karein, phir Share → Add to Home Screen.</div></div>
 <div class="card"><h2>🎨 Theme</h2>${Object.keys(TH).map(k=>`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');setV()"><span class="sw" style="background:linear-gradient(135deg,${TH[k].h1},${TH[k].h2})"><i style="background:${TH[k].g}"></i><i style="background:${TH[k].bg}"></i></span><b>${TH[k].n}</b><span>${k===th?'✓':''}</span></button>`).join('')}</div>
@@ -354,7 +390,7 @@ $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>T
 ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()">Face ID band karein</button>':'<button class="s" style="width:100%;margin-top:8px" onclick="onBio()">Face ID chalu karein</button>'}${ST.pin&&!ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offPin()">PIN hatayein</button>':''}</div>
 <div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
 ${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b>${esc((U&&U.displayName)||'')}</b><div class="mut sm">${esc(U?U.email:'Login nahi')}</div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
-<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v23<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
+<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v25<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}ST.rate=r;saveST();toast('Rate save ho gaya');setV()}
 const hx=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('aslam'+t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -530,6 +566,20 @@ Pichle saal ka baqaya|پچھلے سال کا باقی|Last year's balance
 Jaise: 2025 ka baqaya|جیسے: 2025 کا باقی|e.g. 2025 balance
 Baqaya (kul)|باقی (کل)|Balance (total)
 Yeh purana baqaya Delete karein?|یہ پرانا باقی ڈیلیٹ کریں؟|Delete this previous balance?
+Wapas Khush aamdeed|واپسی پر خوش آمدید|Welcome back
+Naya account|نیا اکاؤنٹ|New account
+Apni tafseel likh kar register karein|اپنی تفصیل لکھ کر رجسٹر کریں|Fill in your details to register
+Password (kam az kam 6 huroof)|پاس ورڈ (کم از کم 6 حروف)|Password (at least 6 characters)
+Account nahi hai?|اکاؤنٹ نہیں ہے؟|Don't have an account?
+Pehle se account hai?|پہلے سے اکاؤنٹ ہے؟|Already have an account?
+Register|رجسٹر|Sign up
+Kisan ki tasveer (DP, marzi)|کسان کی تصویر (ڈی پی، مرضی)|Farmer's photo (DP, optional)
+DP hatayein|ڈی پی ہٹائیں|Remove DP
+App dost ko bhejein|ایپ دوست کو بھیجیں|Send the app to a friend
+Link share karein|لنک شیئر کریں|Share link
+Link copy ho gaya|لنک کاپی ہو گیا|Link copied
+Baqaya wale|باقی والے|With balance
+Sab|سب|All
 Hara Kheti|ہرا کھیت|Green Field
 Pani Neela|پانی نیلا|Water Blue
 Raat (Dark)|رات (ڈارک)|Night (Dark)
@@ -670,6 +720,7 @@ function relang(){const w=document.createTreeWalker(document.body,NodeFilter.SHO
 document.querySelectorAll('[placeholder]').forEach(e=>{e._po=e._po||e.getAttribute('placeholder');e.setAttribute('placeholder',trT(e._po))})}
 function applyDir(){const L=ST.lang||'ro',h=document.documentElement;h.dir=L==='ur'?'rtl':'ltr';h.lang=L==='ur'?'ur':L==='en'?'en':'ur-Latn'}
 function startLang(){applyDir();new MutationObserver(ms=>ms.forEach(m=>{m.addedNodes.forEach(trNode);if(m.type==='characterData')trNode(m.target)})).observe(document.body,{childList:true,subtree:true,characterData:true});relang()}
+function shareApp(){const u=location.origin+location.pathname;if(navigator.share)navigator.share({title:ST.name+' App',url:u}).catch(()=>{});else{try{navigator.clipboard.writeText(u)}catch(e){}toast('Link copy ho gaya')}}
 function setLang(l){ST.lang=l;saveST();applyDir();relang();setV();toast('Save ho gaya')}
 const _al=window.alert.bind(window),_cf=window.confirm.bind(window),_pr=window.prompt.bind(window);
 window.alert=m=>_al(trT(m));window.confirm=m=>_cf(trT(m));window.prompt=(m,d)=>_pr(trT(m),d);
