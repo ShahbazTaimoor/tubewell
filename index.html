@@ -122,6 +122,8 @@ html[dir=rtl] .fm::after{content:'‹'}
 .dpick{display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer}
 .chips{display:flex;gap:8px;margin-bottom:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .ch{background:var(--card);border:1px solid var(--line);color:var(--ink);padding:8px 14px;font-size:13px;border-radius:99px;flex:none}.ch.on{background:var(--g);color:var(--pt);border-color:var(--g)}
+input[type=date],input[type=time],input[type=month]{position:relative}
+input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-calendar-picker-indicator,input[type=month]::-webkit-calendar-picker-indicator{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer}
 </style></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
@@ -140,6 +142,7 @@ function st(t){const s=document.getElementById('sync');if(s)s.textContent=t}
 const wnum=p=>{let n=String(p||'').replace(/\D/g,'');if(n.startsWith('00'))n=n.slice(2);else if(n.startsWith('0'))n='92'+n.slice(1);else if(n.length===10)n='92'+n;return n};
 ['gesturestart','gesturechange','gestureend'].forEach(t=>document.addEventListener(t,x=>x.preventDefault()));
 document.addEventListener('touchmove',e=>{if(e.touches.length>1||(e.scale&&e.scale!==1))e.preventDefault()},{passive:false});
+if(/Android/i.test(navigator.userAgent))document.addEventListener('click',e=>{const t=e.target;if(t&&t.tagName==='INPUT'&&/^(date|time|month)$/.test(t.type)&&t.showPicker){try{t.showPicker()}catch(x){}}});
 const sig=f=>JSON.stringify([f.name,f.phone,f.addr,f.dp,f.entries,f.pays,f.olds]);
 function push(){if(!U||!FS)return;clearTimeout(timer);timer=setTimeout(async()=>{try{
 const col=FS.collection('users').doc(U.uid).collection('farmers'),bt=FS.batch();let n=0;
@@ -388,9 +391,9 @@ $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>T
 <div class="card"><h2>🎨 Theme</h2>${Object.keys(TH).map(k=>`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');setV()"><span class="sw" style="background:linear-gradient(135deg,${TH[k].h1},${TH[k].h2})"><i style="background:${TH[k].g}"></i><i style="background:${TH[k].bg}"></i></span><b>${TH[k].n}</b><span>${k===th?'✓':''}</span></button>`).join('')}</div>
 <div class="card"><h2>🔒 App Lock</h2><div class="mut sm" style="margin-bottom:10px">Halat: <b>${lk}</b></div><div class="f"><label>Backup PIN (4 se 6 ank)</label><input id="npin" type="password" inputmode="numeric" maxlength="6" placeholder="Naya PIN"></div><button class="p" style="width:100%" onclick="svPin()">PIN save karein</button>
 ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()">Face ID band karein</button>':'<button class="s" style="width:100%;margin-top:8px" onclick="onBio()">Face ID chalu karein</button>'}${ST.pin&&!ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offPin()">PIN hatayein</button>':''}</div>
-<div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
+<div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,.txt,application/json,text/plain" class="hide" onchange="imp(this)"><div class="row" style="margin-top:8px"><button class="s" onclick="bkCopy()">📋 Backup copy karein</button><button class="s" onclick="bkPaste()">📥 Backup paste karein</button></div><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
 ${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b>${esc((U&&U.displayName)||'')}</b><div class="mut sm">${esc(U?U.email:'Login nahi')}</div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
-<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v25<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
+<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v26<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}ST.rate=r;saveST();toast('Rate save ho gaya');setV()}
 const hx=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('aslam'+t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -415,7 +418,8 @@ async function phDel(id){try{const x=await idb();return new Promise(r=>{const t=
 function compress(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.65))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
 async function loadPh(){for(const im of document.querySelectorAll('img[data-pid]')){const id=im.dataset.pid;let d=await phGet(id);if(!d&&U&&FS){try{const sn=await FS.collection('users').doc(U.uid).collection('photos').doc(id).get();if(sn.exists){d=sn.data().d;phPut(id,d)}}catch(e){}}if(d)im.src=d}}
 function viewPh(im){if(!im.src)return;const o=document.createElement('div');o.className='ov';o.style.cssText='align-items:center;background:rgba(0,0,0,.9);z-index:35';o.onclick=()=>o.remove();o.innerHTML='<img src="'+im.src+'" style="max-width:100%;max-height:90%;border-radius:10px">';document.body.appendChild(o)}
-let BIN=[],lastB={};try{BIN=JSON.parse(localStorage.getItem('aslam_bin')||'[]')}catch(e){}
+let BIN=[],lastB={},binOpen=false;
+function binT(){binOpen=!binOpen;$('binb').classList.toggle('hide',!binOpen);$('binc').textContent=binOpen?'▴':'▾'}try{BIN=JSON.parse(localStorage.getItem('aslam_bin')||'[]')}catch(e){}
 const saveBin=()=>{try{localStorage.setItem('aslam_bin',JSON.stringify(BIN))}catch(e){}pushBin()};
 function pushBin(){if(!U||!FS)return;const col=FS.collection('users').doc(U.uid).collection('bin'),bt=FS.batch();let n=0;
 BIN.forEach(b=>{if(!lastB[b.id]){bt.set(col.doc(b.id),{json:JSON.stringify(b)});lastB[b.id]=1;n++}});
@@ -428,11 +432,11 @@ if(ch){try{localStorage.setItem('aslam_bin',JSON.stringify(BIN))}catch(e){}if(vi
 function binPh(b){const ps=b.type==='kisan'?b.data.pays:b.type==='wasooli'?[b.data]:[];ps.forEach(p=>{if(p.img){phDel(p.img);if(U&&FS)FS.collection('users').doc(U.uid).collection('photos').doc(p.img).delete().catch(()=>{})}})}
 function purgeBin(){const old=BIN.filter(b=>Date.now()-b.del>30*864e5);if(old.length){old.forEach(binPh);BIN=BIN.filter(b=>!old.includes(b));saveBin()}}
 function binH(){const it=BIN.slice().sort((a,b)=>b.del-a.del);
-return`<div class="card"><h2>🗑 Deleted Box (${it.length})</h2><div class="mut sm" style="margin-bottom:10px">Delete ki hui cheezein yahan 30 din tak rehti hain. Wapas lane par wo pehle ki tarah ho jati hain.</div>`+
+return`<div class="card"><div class="h2d" style="cursor:pointer" onclick="binT()"><h2 style="margin:0">🗑 Deleted Box (${it.length})</h2><span id="binc" class="mut" style="font-size:20px">${binOpen?'▴':'▾'}</span></div><div id="binb" class="${binOpen?'':'hide'}" style="margin-top:10px"><div class="mut sm" style="margin-bottom:10px">Delete ki hui cheezein yahan 30 din tak rehti hain. Wapas lane par wo pehle ki tarah ho jati hain.</div>`+
 (it.length?it.map(b=>{const d=b.data,left=Math.max(0,30-Math.floor((Date.now()-b.del)/864e5));
 const ti=b.type==='kisan'?'👤 Kisan':b.type==='entry'?'💧 Entry':b.type==='purana'?'📜 Purana baqaya':'💰 Wasooli';
 const inf=b.type==='kisan'?`${d.entries.length} entries • ${d.pays.length} wasooli`:b.type==='entry'?`${fmtD(d.date)} • ${t12(d.start)} → ${t12(d.end)} • ${rs(d.amt)}`:`${fmtD(d.date)} • ${rs(d.amt)}`;
-return`<div class="bi"><div class="h2d"><b>${ti}: ${esc(b.type==='kisan'?d.name:b.fname)}</b><span class="pill${left<4?' r':''}">${left} din baqi</span></div><div class="mut sm" style="margin:4px 0 8px">${inf}<br>Delete hua: ${new Date(b.del).toLocaleDateString('en-GB')}</div><div class="row"><button class="s mini" onclick="binRest('${b.id}')">↩ Wapas layein</button><button class="d mini" onclick="binDel('${b.id}')">❌ Hamesha ke liye</button></div></div>`}).join('')+'<button class="d" style="width:100%;margin-top:6px" onclick="binClear()">Poora box khali karein</button>':'<div class="empty">Deleted box khali hai.</div>')+'</div>'}
+return`<div class="bi"><div class="h2d"><b>${ti}: ${esc(b.type==='kisan'?d.name:b.fname)}</b><span class="pill${left<4?' r':''}">${left} din baqi</span></div><div class="mut sm" style="margin:4px 0 8px">${inf}<br>Delete hua: ${new Date(b.del).toLocaleDateString('en-GB')}</div><div class="row"><button class="s mini" onclick="binRest('${b.id}')">↩ Wapas layein</button><button class="d mini" onclick="binDel('${b.id}')">❌ Hamesha ke liye</button></div></div>`}).join('')+'<button class="d" style="width:100%;margin-top:6px" onclick="binClear()">Poora box khali karein</button>':'<div class="empty">Deleted box khali hai.</div>')+'</div></div>'}
 function binRest(id){const b=BIN.find(x=>x.id===id);if(!b)return;
 if(b.type==='kisan'){if(db.farmers.some(f=>f.id===b.fid)){toast('Ye kisan pehle se maujood hai')}else db.farmers.push(b.data)}
 else{const f=db.farmers.find(x=>x.id===b.fid);if(!f){alert('Pehle "'+b.fname+'" kisan ko wapas layein');return}(b.type==='entry'?f.entries:b.type==='purana'?(f.olds=f.olds||[]):f.pays).push(b.data)}
@@ -580,6 +584,14 @@ Link share karein|لنک شیئر کریں|Share link
 Link copy ho gaya|لنک کاپی ہو گیا|Link copied
 Baqaya wale|باقی والے|With balance
 Sab|سب|All
+Backup copy karein|بیک اپ کاپی کریں|Copy backup
+Backup paste karein|بیک اپ پیسٹ کریں|Paste backup
+Backup yahan paste karein|بیک اپ یہاں پیسٹ کریں|Paste the backup here
+Backup copy ho gaya|بیک اپ کاپی ہو گیا|Backup copied
+Backup download ho raha hai|بیک اپ ڈاؤن لوڈ ہو رہا ہے|Backup is downloading
+Backup nahi bana. "Backup copy karein" ka button istemal karein.|بیک اپ نہیں بنا۔ "بیک اپ کاپی کریں" کا بٹن استعمال کریں۔|Backup failed. Use the "Copy backup" button.
+Copy nahi hua|کاپی نہیں ہوا|Copy failed
+Restore karein|بحال کریں|Restore
 Hara Kheti|ہرا کھیت|Green Field
 Pani Neela|پانی نیلا|Water Blue
 Raat (Dark)|رات (ڈارک)|Night (Dark)
@@ -724,8 +736,12 @@ function shareApp(){const u=location.origin+location.pathname;if(navigator.share
 function setLang(l){ST.lang=l;saveST();applyDir();relang();setV();toast('Save ho gaya')}
 const _al=window.alert.bind(window),_cf=window.confirm.bind(window),_pr=window.prompt.bind(window);
 window.alert=m=>_al(trT(m));window.confirm=m=>_cf(trT(m));window.prompt=(m,d)=>_pr(trT(m),d);
-async function bk(){const data=JSON.stringify(db,null,2),fn='aslam-tubewell-backup-'+today()+'.json';try{if(dl){await dl.save({filename:fn,data});return}}catch(e){if(e&&e.code==='declined')return}
-const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;a.click()}
+async function bk(){const data=JSON.stringify(db,null,2),fn='aslam-backup-'+today()+'.json',fl=new File([data],fn,{type:'application/json'});
+try{if(navigator.canShare&&navigator.canShare({files:[fl]})){await navigator.share({files:[fl],title:fn});return}}catch(e){if(e&&e.name==='AbortError')return}
+try{const u=URL.createObjectURL(fl),a=document.createElement('a');a.href=u;a.download=fn;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u)},4000);toast('Backup download ho raha hai')}catch(e){alert('Backup nahi bana. "Backup copy karein" ka button istemal karein.')}}
+async function bkCopy(){const t=JSON.stringify(db);try{await navigator.clipboard.writeText(t);toast('Backup copy ho gaya')}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Backup copy ho gaya')}catch(x){alert('Copy nahi hua')}ta.remove()}}
+function bkPaste(){const o=document.createElement('div');o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};o.innerHTML='<div class="sh"><h2>Backup paste karein</h2><textarea id="bkt" rows="8" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font-size:13px" placeholder="Backup yahan paste karein"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="bkGo()">Restore karein</button><button class="s" onclick="this.closest(\'.ov\').remove()">Band karein</button></div></div>';document.body.appendChild(o)}
+function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;db=x;save();$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;db=x;save();home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 purgeBin();applySt();applyLogo();startLang();navR();lockNow();home();
 if(typeof firebase!=='undefined')initFB();else{let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}if(!last)showLogin('Pehli baar login ke liye internet chahiye.');else st('⚠️ Offline: data phone mein save hai')}
