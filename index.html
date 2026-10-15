@@ -95,6 +95,11 @@ button{transition:transform .12s ease,background .25s,color .25s,opacity .2s}but
 .chip i{flex:none;width:7px;height:7px;border-radius:50%;background:#7CF2A5;box-shadow:0 0 0 3px rgba(124,242,165,.28);animation:pulse 2s infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 6px rgba(124,242,165,0)}}
 .tx i.od{background:#E0A030}.tc.oc{background:rgba(224,160,48,.16)}
+@font-face{font-family:'JameelNoori';src:local('Jameel Noori Nastaleeq'),local('JameelNooriNastaleeq'),local('Jameel Noori Nastaleeq Kasheeda'),url('jameel.woff') format('woff');font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F,U+060C,U+061B,U+061F}
+html[lang=ur] body,html[lang=ur] button,html[lang=ur] input,html[lang=ur] select,html[lang=ur] textarea{font-family:'JameelNoori',-apple-system,'Geeza Pro',serif;line-height:2}
+html[lang=ur] body{font-size:17.5px}html[lang=ur] .sm,html[lang=ur] small{font-size:15px}
+html[lang=ur] h1,html[lang=ur] h2{line-height:2}
+html[lang=ur] .pill,html[lang=ur] .rate,html[lang=ur] .mini,html[lang=ur] .nb span,html[lang=ur] .chip,html[lang=ur] .toast{line-height:1.8}
 </style></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
@@ -349,7 +354,7 @@ $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>T
 ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()">Face ID band karein</button>':'<button class="s" style="width:100%;margin-top:8px" onclick="onBio()">Face ID chalu karein</button>'}${ST.pin&&!ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offPin()">PIN hatayein</button>':''}</div>
 <div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,application/json" class="hide" onchange="imp(this)"><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
 ${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b>${esc((U&&U.displayName)||'')}</b><div class="mut sm">${esc(U?U.email:'Login nahi')}</div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
-<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v21<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
+<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v23<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}ST.rate=r;saveST();toast('Rate save ho gaya');setV()}
 const hx=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('aslam'+t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
