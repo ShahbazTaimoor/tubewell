@@ -159,6 +159,11 @@ input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-ca
 .wv2{font-size:12px;font-weight:700;color:var(--mut);margin:10px 0 2px}.wf{padding:12px 16px 16px}
 .cr{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px}.cr .chip{margin-top:0}
 .cr .rate{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:99px;padding:5px 12px;font-size:11px;font-weight:700;line-height:1.4}
+.dfw{position:relative;width:100%}
+.dfw input[data-df]{color:transparent!important;-webkit-text-fill-color:transparent}
+.dfw input[data-df]::-webkit-datetime-edit{opacity:0}
+.dfv{position:absolute;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--ink);font:inherit;white-space:nowrap}
+.dfv.e{color:var(--mut)}
 </style></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
@@ -288,16 +293,22 @@ function svOld(id){const a=Math.round(+$('m_o').value),d=$('m_d').value;if(!(a>0
 function editP(id){const o=F().pays.find(x=>x.id===id);if(!o)return;modal(`<div class="fh" data-d="💵"><i class="ic">💰</i><div><h2>Wasooli edit karein</h2></div></div><div class="fb"><div class="row"><div class="f"><label>Rakam</label><div class="fi">${IC.coin}<input id="m_o" type="number" inputmode="numeric" value="${o.amt}"></div></div><div class="f"><label>Date</label><div class="fi">${IC.cal}<input id="m_d" type="date" value="${o.date}"></div></div></div><div class="f"><label>Tareeqa (kaise diye)</label><div class="fi">${IC.wal}<select id="m_h">${['Cash','JazzCash','Easypaisa','Bank','Aur'].map(h=>'<option value="'+h+'"'+(h===o.how?' selected':'')+'>'+h+'</option>').join('')}</select></div></div><button class="sb" onclick="svPay('${id}')">${IC.sv}<span>Tabdeeli save karein</span></button>${mcx()}</div>`,'gr')}
 function svPay(id){const a=Math.round(+$('m_o').value),d=$('m_d').value;if(!(a>0)){alert('Sahi rakam likhein');return}if(!d){alert('Sahi tareekh chunein');return}const o=F().pays.find(x=>x.id===id);if(!o)return;o.amt=a;o.date=d;o.how=$('m_h').value;$('em').remove();save();ding();open_(cur);toast('Tabdeeli save ho gayi')}
 function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
-let s='*Aslam Tubewell - Hisab*\nKisan: '+f.name+'\nTareekh: '+today()+'\n\n*Pani ki entries*\n';
-s+=E.length?E.map((e,i)=>(i+1)+') '+e.date+' | '+t12(e.start)+' → '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
+let s='*Aslam Tubewell - Hisab*\nKisan: '+f.name+'\nTareekh: '+fmtD(today())+'\n\n*Pani ki entries*\n';
+s+=E.length?E.map((e,i)=>(i+1)+') '+fmtD(e.date)+' | '+t12(e.start)+' → '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
 s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)'+(t.old?'\nPurana baqaya: '+rs(t.old):'')+'\n\n*Wasooli (jama)*\n';
-s+=P.length?P.map((p,i)=>(i+1)+') '+p.date+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
+s+=P.length?P.map((p,i)=>(i+1)+') '+fmtD(p.date)+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
 return s+'\n\nTotal jama: '+rs(t.paid)+'\n*Baqaya: '+rs(t.due)+'*'}
 function sendS(){$('sbox').innerHTML='<div class="card"><h2>Hisab ka message</h2><textarea id="stx" readonly rows="12" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit;font-size:13px"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wa()">WhatsApp</button><button class="s" onclick="sh()">Share</button><button class="s" onclick="cp()">Copy</button></div></div>';$('stx').value=trT(stmt(F()));$('sbox').scrollIntoView({behavior:'smooth'})}
 function wa(){const f=F();const n=wnum(f.phone);window.open('https://wa.me/'+n+'?text='+encodeURIComponent($('stx').value),'_blank')}
 async function sh(){try{await navigator.share({text:$('stx').value})}catch(e){}}
 function cp(){const x=$('stx');x.select();try{navigator.clipboard.writeText(x.value)}catch(e){document.execCommand('copy')}alert('Copy ho gaya')}
 const fmtD=d=>d.split('-').reverse().join('-');
+function dfix(i){if(i.dataset.df)return;i.dataset.df=1;const w=document.createElement('div');w.className='dfw';i.parentNode.insertBefore(w,i);w.appendChild(i);
+const s=document.createElement('span');s.className='dfv';s.style.insetInlineStart=getComputedStyle(i).paddingInlineStart;w.appendChild(s);
+const ph=i.type==='month'?'MM-YYYY':'DD-MM-YYYY',u=()=>{s.textContent=i.value?fmtD(i.value):ph;s.classList.toggle('e',!i.value)};
+['input','change','blur','focus'].forEach(v=>i.addEventListener(v,u));u()}
+const dscan=()=>document.querySelectorAll('input[type=date]:not([data-df]),input[type=month]:not([data-df])').forEach(dfix);
+new MutationObserver(dscan).observe(document.body,{childList:true,subtree:true});dscan();
 const rs0=n=>Math.round(n).toLocaleString('en-US')+' روپے';
 const durU=m=>{const h=Math.floor(m/60),r=m%60;return[h?(h===1?'1 گھنٹہ':h+' گھنٹے'):'',r?r+' منٹ':''].filter(Boolean).join(' ')||'0 منٹ'};
 const urT=t=>{if(!t)return'';const[h,m]=t.split(':').map(Number);const p=h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات';return (h%12||12)+':'+pad(m)+' '+p};
@@ -338,9 +349,9 @@ async function sheet(){$('sbox').innerHTML='<div class="card mut">تصویر ب�
 const cv=await mkImg(F());const b=await new Promise(r=>cv.toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
 $('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px;background:#1FAF55" onclick="shWA()">WhatsApp chat kholein</button><button class="s" style="width:100%;margin-top:8px" onclick="shImg()">Share / Save karein</button><div class="mut sm" style="margin-top:8px">Chat khulne par tasveer message box mein Paste karein (tasveer copy ho chuki hoti hai).</div></div>'}
 async function shWA(){const f=F(),b=window._b;if(!b)return;if(!f.phone){toast('Is kisan ka number nahi likha');shImg();return}
-let ok=false;try{await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);ok=true}catch(e){}
-if(!ok){await shImg();return}toast('Tasveer copy ho gayi. Chat mein Paste karein');
-const a=document.createElement('a');a.href='https://wa.me/'+wnum(f.phone);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}
+const url='https://wa.me/'+wnum(f.phone);
+try{navigator.clipboard.write([new ClipboardItem({'image/png':b})]).catch(()=>{})}catch(e){}
+location.href=url}
 async function shImg(){const fl=new File([window._b],'hisab.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(window._b);a.download=fl.name;a.click()}}catch(e){}}
 const TH={
 hara:{n:'Hara Kheti',g:'#17795E',g2:'#E3F2EC',ink:'#17302A',mut:'#657A72',line:'#DCE8E2',bg:'#F3F7F4',card:'#FFFFFF',red:'#B03A3A',redbg:'#FCE8E8',h1:'#0F5A46',h2:'#1F8266',pt:'#FFFFFF',ig:'#17795E',il:'#E3F2EC',tc:'#0F5A46',rb:'#EAF0FF',rc:'#26379A'},
@@ -493,7 +504,7 @@ return`<div class="card"><div class="h2d" style="cursor:pointer" onclick="binT()
 (it.length?it.map(b=>{const d=b.data,left=Math.max(0,30-Math.floor((Date.now()-b.del)/864e5));
 const ti=b.type==='kisan'?'👤 Kisan':b.type==='entry'?'💧 Entry':b.type==='purana'?'📜 Purana baqaya':'💰 Wasooli';
 const inf=b.type==='kisan'?`${d.entries.length} entries • ${d.pays.length} wasooli`:b.type==='entry'?`${fmtD(d.date)} • ${t12(d.start)} → ${t12(d.end)} • ${rs(d.amt)}`:`${fmtD(d.date)} • ${rs(d.amt)}`;
-return`<div class="bi"><div class="h2d"><b>${ti}: ${esc(b.type==='kisan'?d.name:b.fname)}</b><span class="pill${left<4?' r':''}">${left} din baqi</span></div><div class="mut sm" style="margin:4px 0 8px">${inf}<br>Delete hua: ${new Date(b.del).toLocaleDateString('en-GB')}</div><div class="row"><button class="s mini" onclick="binRest('${b.id}')">↩ Wapas layein</button><button class="d mini" onclick="binDel('${b.id}')">❌ Hamesha ke liye</button></div></div>`}).join('')+'<button class="d" style="width:100%;margin-top:6px" onclick="binClear()">Poora box khali karein</button>':'<div class="empty">Deleted box khali hai.</div>')+'</div></div>'}
+return`<div class="bi"><div class="h2d"><b>${ti}: ${esc(b.type==='kisan'?d.name:b.fname)}</b><span class="pill${left<4?' r':''}">${left} din baqi</span></div><div class="mut sm" style="margin:4px 0 8px">${inf}<br>Delete hua: ${(d=>pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear())(new Date(b.del))}</div><div class="row"><button class="s mini" onclick="binRest('${b.id}')">↩ Wapas layein</button><button class="d mini" onclick="binDel('${b.id}')">❌ Hamesha ke liye</button></div></div>`}).join('')+'<button class="d" style="width:100%;margin-top:6px" onclick="binClear()">Poora box khali karein</button>':'<div class="empty">Deleted box khali hai.</div>')+'</div></div>'}
 function binRest(id){const b=BIN.find(x=>x.id===id);if(!b)return;
 if(b.type==='kisan'){if(db.farmers.some(f=>f.id===b.fid)){toast('Ye kisan pehle se maujood hai')}else db.farmers.push(b.data)}
 else{const f=db.farmers.find(x=>x.id===b.fid);if(!f){alert('Pehle "'+b.fname+'" kisan ko wapas layein');return}(b.type==='entry'?f.entries:b.type==='purana'?(f.olds=f.olds||[]):f.pays).push(b.data)}
