@@ -1,21 +1,17 @@
 {
- "id": "/tubewell/",
+ "id": "./",
  "name": "Tubewell Khata",
  "short_name": "Tubewell Khata",
  "description": "Tubewell ke pani ka hisab: kisan, entries, wasooli aur baqaya.",
  "lang": "en",
  "dir": "auto",
- "start_url": "/tubewell/",
- "scope": "/tubewell/",
+ "start_url": "./",
+ "scope": "./",
  "display": "standalone",
  "orientation": "portrait",
  "background_color": "#0B3C6B",
  "theme_color": "#0B3C6B",
- "categories": [
-  "business",
-  "finance",
-  "productivity"
- ],
+ "categories": ["business", "finance", "productivity"],
  "icons": [
   {
    "src": "icon-192.png",
