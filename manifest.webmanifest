@@ -1,21 +1,39 @@
 {
- "name": "Aslam Tubewell App",
- "short_name": "Aslam Tubewell",
- "start_url": "./",
- "scope": "./",
+ "id": "/tubewell/",
+ "name": "Tubewell Khata",
+ "short_name": "Tubewell Khata",
+ "description": "Tubewell ke pani ka hisab: kisan, entries, wasooli aur baqaya.",
+ "lang": "en",
+ "dir": "auto",
+ "start_url": "/tubewell/",
+ "scope": "/tubewell/",
  "display": "standalone",
+ "orientation": "portrait",
  "background_color": "#0B3C6B",
  "theme_color": "#0B3C6B",
+ "categories": [
+  "business",
+  "finance",
+  "productivity"
+ ],
  "icons": [
   {
-   "src": "icon-192.png",
+   "src": "logo-192.png",
    "sizes": "192x192",
-   "type": "image/png"
+   "type": "image/png",
+   "purpose": "any"
   },
   {
-   "src": "icon-512.png",
+   "src": "logo-512.png",
    "sizes": "512x512",
-   "type": "image/png"
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "logo-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
   }
  ]
 }

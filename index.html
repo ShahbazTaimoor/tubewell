@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="ur-Latn"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="apple-mobile-web-app-title" content="Aslam Tubewell"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tubewell Khata"><meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" id="ati" href="logo-180.png"><link rel="icon" id="fav" href="logo-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B3C6B">
-<title>Aslam Tubewell App</title>
+<title>Tubewell Khata</title>
 <style>
 :root{--rb:#DCF8E9;--rc:#0A6B3C;--h1:#0B3C6B;--h2:#1580B8;--pt:#fff;--g:#0E6A99;--g2:#E1F1FA;--ink:#12283D;--mut:#5F7487;--line:#D9E6EF;--bg:#F2F7FB;--card:#fff;--red:#B4373F;--redbg:#FDEBEC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g:#4FB3E8;--g2:#16303F;--ink:#E4EFF7;--mut:#8FA6B8;--line:#25404F;--bg:#0E1A24;--card:#14232F;--red:#ff8a8a;--redbg:#3A2124}}
@@ -127,7 +127,7 @@ input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-ca
 </style></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
-<div class="hr"><img class="lg" src="logo-192.png" alt=""><div class="hn"><h1 id="appn">Aslam Tubewell App</h1><div class="hs">Pani ka hisab <span class="rate" id="rt">Rs 500 fi ghanta</span></div></div></div>
+<div class="hr"><img class="lg" src="logo-192.png" alt=""><div class="hn"><h1 id="appn">Tubewell Khata</h1><div class="hs">Pani ka hisab <span class="rate" id="rt">Rs 500 fi ghanta</span></div></div></div>
 <div class="chip"><i></i><span id="sync">Check ho raha hai…</span></div></header>
 <div id="v"></div>
 </div>
@@ -243,7 +243,7 @@ function delO(id){if(!confirm('Yeh purana baqaya Delete karein?\n(Deleted Box me
 function editF(){const f=F();const n=prompt('Kisan ka naam',f.name);if(n===null)return;const p=prompt('Number',f.phone);if(p===null)return;const a=prompt('Rehaish',f.addr);if(a===null)return;
 f.name=n.trim()||f.name;f.phone=p.trim();f.addr=a.trim();save();open_(cur)}
 function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
-let s='*Aslam Tubewell - Hisab*\nKisan: '+f.name+'\nTareekh: '+today()+'\n\n*Pani ki entries*\n';
+let s='*'+ST.name+' - Hisab*\nKisan: '+f.name+'\nTareekh: '+today()+'\n\n*Pani ki entries*\n';
 s+=E.length?E.map((e,i)=>(i+1)+') '+e.date+' | '+t12(e.start)+' → '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
 s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)'+(t.old?'\nPurana baqaya: '+rs(t.old):'')+'\n\n*Wasooli (jama)*\n';
 s+=P.length?P.map((p,i)=>(i+1)+') '+p.date+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
@@ -288,7 +288,7 @@ y+=Math.ceil(PH.length/3)*396-20}
 y+=40;x.fillStyle=TH[th].il;x.beginPath();x.roundRect(M,y,W-2*M,250+(t.old>0?58:0),24);x.fill();
 const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],...(t.old>0?[['پچھلا باقی',rs0(t.old)]]:[]),['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
 L.forEach((l,i)=>{const yy=y+58+i*58,last=i==L.length-1;font(last?46:36,last);x.fillStyle='#12283D';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#B4373F':TH[th].ig):'#12283D';x.textAlign='left';x.fillText(l[1],M+30,yy)});
-x.fillStyle='#5F7487';x.textAlign='center';font(26);x.fillText(ST.urdu+' ایپ',W/2,y+250+(t.old>0?58:0)+50);return c}
+x.fillStyle='#5F7487';x.textAlign='center';font(26);x.fillText(ST.urdu,W/2,y+250+(t.old>0?58:0)+50);return c}
 async function sheet(){$('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';try{await document.fonts.ready}catch(e){}
 const cv=await mkImg(F());const b=await new Promise(r=>cv.toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
 $('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px" onclick="shImg()">Share / Save karein</button><div class="mut sm" style="margin-top:8px">Share dabane par WhatsApp ya "Save Image" chun sakte hain.</div></div>'}
@@ -357,9 +357,10 @@ if(last&&last!==u.uid){db={farmers:[],ts:0};lastP={};BIN=[];lastB={};try{localSt
 try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
 lgM='in';const o=$('lg');if(o)o.remove();home();if(justLogged){justLogged=false;showWelcome(u.displayName||u.email)}st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
 else{U=null;if(unsub){unsub();unsub=null}home();showLogin()}})}catch(e){showLogin('Online service load nahi hui. Internet check karein.')}}
-let ST={name:'Aslam Tubewell',urdu:'اسلم ٹیوب ویل',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
-try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}RATE=ST.rate;
-function applySt(){const a=$('appn');if(a)a.textContent=ST.name+' App';const r=$('rt');if(r)r.textContent='Rs '+RATE+' fi ghanta';document.title=ST.name+' App'}
+let ST={name:'Tubewell Khata',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
+try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}
+if(ST.name==='Aslam Tubewell')ST.name='Tubewell Khata';if(ST.urdu==='اسلم ٹیوب ویل')ST.urdu='ٹیوب ویل کھاتہ';RATE=ST.rate;
+function applySt(){const a=$('appn');if(a)a.textContent=ST.name;const r=$('rt');if(r)r.textContent='Rs '+RATE+' fi ghanta';document.title=ST.name}
 const saveST=()=>{try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}RATE=ST.rate;applySt()};
 function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1800)}
 const ic=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -393,7 +394,7 @@ $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>T
 ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()">Face ID band karein</button>':'<button class="s" style="width:100%;margin-top:8px" onclick="onBio()">Face ID chalu karein</button>'}${ST.pin&&!ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offPin()">PIN hatayein</button>':''}</div>
 <div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,.txt,application/json,text/plain" class="hide" onchange="imp(this)"><div class="row" style="margin-top:8px"><button class="s" onclick="bkCopy()">📋 Backup copy karein</button><button class="s" onclick="bkPaste()">📥 Backup paste karein</button></div><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
 ${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b>${esc((U&&U.displayName)||'')}</b><div class="mut sm">${esc(U?U.email:'Login nahi')}</div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
-<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v26<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
+<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} • Version v27<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}ST.rate=r;saveST();toast('Rate save ho gaya');setV()}
 const hx=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('aslam'+t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -401,11 +402,11 @@ const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-')
 const unb64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
 async function svPin(){const v=$('npin').value;if(!/^\d{4,6}$/.test(v)){alert('PIN 4 se 6 ankon ka hona chahiye');return}ST.pin=await hx(v);saveST();toast('PIN save ho gaya');setV()}
 async function onBio(){if(!ST.pin){alert('Pehle backup PIN set karein');return}if(!window.PublicKeyCredential){alert('Is phone ya browser mein Face ID support nahi');return}
-try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'Aslam Tubewell'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:ST.name+' App',displayName:ST.name+' App'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
+try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'Tubewell Khata'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:ST.name,displayName:ST.name},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
 function offBio(){ST.cred='';saveST();setV()}
 function offPin(){ST.pin='';saveST();setV()}
 function lockNow(){if(!ST.cred&&!ST.pin)return;locked=true;let o=$('lk');if(!o){o=document.createElement('div');o.id='lk';o.className='ov';o.style.cssText='align-items:center;background:var(--bg);z-index:30';document.body.appendChild(o)}
-o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:44px">🔒</div><h2>'+esc(ST.name)+' App</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button><div class="mut sm" style="margin-top:6px">Agar neeche sheet aaye to "Use Passkey" dabayein</div>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
+o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:44px">🔒</div><h2>'+esc(ST.name)+'</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button><div class="mut sm" style="margin-top:6px">Agar neeche sheet aaye to "Use Passkey" dabayein</div>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
 async function tryBio(){try{await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id:unb64(ST.cred)}],userVerification:'required',timeout:60000}});unlock()}catch(e){const m=$('lkm');if(m)m.textContent='Face ID nahi hui. Dobara dabayein ya PIN likhein'}}
 async function tryPin(){const v=$('lkp').value;if(await hx(v)===ST.pin)unlock();else{$('lkm').textContent='PIN galat hai';$('lkp').value=''}}
 function unlock(){const o=$('lk');locked=false;if(o){o.classList.add('out');setTimeout(()=>o.remove(),300)}}
@@ -702,7 +703,7 @@ Sync ho raha hai…|سنک ہو رہا ہے…|Syncing…
 Offline: data phone mein save hai|آف لائن: ڈیٹا فون میں محفوظ ہے|Offline: data is saved on the phone
 Online save nahi hua (phone mein save hai)|آن لائن محفوظ نہیں ہوا (فون میں محفوظ ہے)|Not saved online (saved on the phone)
 Sync error:|سنک ایرر:|Sync error:
-Aslam Tubewell - Hisab|اسلم ٹیوب ویل - حساب|Aslam Tubewell - Account
+- Hisab|- حساب|- Account
 Tareekh:|تاریخ:|Date:
 Baqaya:|باقی رقم:|Balance:
 ghantay|گھنٹے|hours
@@ -732,7 +733,7 @@ function relang(){const w=document.createTreeWalker(document.body,NodeFilter.SHO
 document.querySelectorAll('[placeholder]').forEach(e=>{e._po=e._po||e.getAttribute('placeholder');e.setAttribute('placeholder',trT(e._po))})}
 function applyDir(){const L=ST.lang||'ro',h=document.documentElement;h.dir=L==='ur'?'rtl':'ltr';h.lang=L==='ur'?'ur':L==='en'?'en':'ur-Latn'}
 function startLang(){applyDir();new MutationObserver(ms=>ms.forEach(m=>{m.addedNodes.forEach(trNode);if(m.type==='characterData')trNode(m.target)})).observe(document.body,{childList:true,subtree:true,characterData:true});relang()}
-function shareApp(){const u=location.origin+location.pathname;if(navigator.share)navigator.share({title:ST.name+' App',url:u}).catch(()=>{});else{try{navigator.clipboard.writeText(u)}catch(e){}toast('Link copy ho gaya')}}
+function shareApp(){const u=location.origin+location.pathname;if(navigator.share)navigator.share({title:ST.name,url:u}).catch(()=>{});else{try{navigator.clipboard.writeText(u)}catch(e){}toast('Link copy ho gaya')}}
 function setLang(l){ST.lang=l;saveST();applyDir();relang();setV();toast('Save ho gaya')}
 const _al=window.alert.bind(window),_cf=window.confirm.bind(window),_pr=window.prompt.bind(window);
 window.alert=m=>_al(trT(m));window.confirm=m=>_cf(trT(m));window.prompt=(m,d)=>_pr(trT(m),d);
