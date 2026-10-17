@@ -314,8 +314,8 @@ const durU=m=>{const h=Math.floor(m/60),r=m%60;return[h?(h===1?'1 گھنٹہ':h+
 const urT=t=>{if(!t)return'';const[h,m]=t.split(':').map(Number);const p=h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات';return (h%12||12)+':'+pad(m)+' '+p};
 async function mkImg(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
 const HW={Cash:'نقد',JazzCash:'جاز کیش',Easypaisa:'ایزی پیسہ',Bank:'بینک',Aur:'دیگر'},PH=[];
-for(const p of P){if(!p.img)continue;let d=await phGet(p.img);if(!d&&U&&FS){try{const sn=await FS.collection('users').doc(U.uid).collection('photos').doc(p.img).get();if(sn.exists)d=sn.data().d}catch(e){}}
-if(d){const im=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=d});if(im)PH.push({p,im})}}
+const got=await Promise.all(P.filter(p=>p.img).map(async p=>{let d=await phGet(p.img);if(!d&&U&&FS){try{const sn=await FS.collection('users').doc(U.uid).collection('photos').doc(p.img).get();if(sn.exists)d=sn.data().d}catch(e){}}
+if(d){const im=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=d});if(im)return{p,im}}return null}));got.forEach(g=>g&&PH.push(g));
 const W=1080,M=24,RH=72,nE=Math.max(E.length,1),nP=Math.max(P.length,1);
 const H=380+70+(nE+2)*RH+40+70+(nP+2)*RH+40+270+90+(t.old>0?58:0)+(PH.length?100+Math.ceil(PH.length/3)*396:0);
 const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.direction='rtl';
@@ -345,13 +345,19 @@ y+=40;x.fillStyle=TH[th].il;x.beginPath();x.roundRect(M,y,W-2*M,250+(t.old>0?58:
 const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],...(t.old>0?[['پچھلا باقی',rs0(t.old)]]:[]),['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
 L.forEach((l,i)=>{const yy=y+58+i*58,last=i==L.length-1;font(last?46:36,last);x.fillStyle='#12283D';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#B4373F':TH[th].ig):'#12283D';x.textAlign='left';x.fillText(l[1],M+30,yy)});
 x.fillStyle='#5F7487';x.textAlign='center';font(26);x.fillText(ST.urdu+' ایپ',W/2,y+250+(t.old>0?58:0)+50);return c}
-async function sheet(){$('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';try{await document.fonts.ready}catch(e){}
-const cv=await mkImg(F());const b=await new Promise(r=>cv.toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
-$('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px;background:#1FAF55" onclick="shWA()">WhatsApp chat kholein</button><button class="s" style="width:100%;margin-top:8px" onclick="shImg()">Share / Save karein</button><div class="mut sm" style="margin-top:8px">Chat khulne par tasveer message box mein Paste karein (tasveer copy ho chuki hoti hai).</div></div>'}
-async function shWA(){const f=F(),b=window._b;if(!b)return;if(!f.phone){toast('Is kisan ka number nahi likha');shImg();return}
+function sRender(u){$('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px;background:#1FAF55" onclick="shWA()">WhatsApp par bhejein</button><div class="mut sm" style="margin-top:8px">'+(IOS?'Chat khulne par tasveer message box mein Paste karein (tasveer copy ho chuki hoti hai).':'Tasveer save ho jati hai aur us kisan ki chat khulti hai. Chat mein Gallery se tasveer bhejein.')+'</div></div>'}
+async function sheet(){const f=F();let k=null;try{k=JSON.stringify([f,th,ST.lang,ST.urdu,RATE,today()])}catch(e){}
+if(k&&window._sc&&window._sc.k===k){window._b=window._sc.b;sRender(window._sc.u);return}
+$('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';
+const cv=await mkImg(f);const b=await new Promise(r=>cv.toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
+if(window._sc)URL.revokeObjectURL(window._sc.u);window._sc={k,b,u};sRender(u)}
+const IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function shWA(){const f=F(),b=window._b;if(!b)return;if(!f.phone){toast('Is kisan ka number nahi likha');shImg();return}
 const url='https://wa.me/'+wnum(f.phone);
 try{navigator.clipboard.write([new ClipboardItem({'image/png':b})]).catch(()=>{})}catch(e){}
-location.href=url}
+if(IOS){location.href=url;return}
+try{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='hisab-'+String(f.name||'kisan').replace(/[^\w\u0600-\u06FF]+/g,'_')+'-'+today()+'.png';document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),1000)}catch(e){}
+if(!window.open(url,'_blank'))location.href=url}
 async function shImg(){const fl=new File([window._b],'hisab.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(window._b);a.download=fl.name;a.click()}}catch(e){}}
 const TH={
 hara:{n:'Hara Kheti',g:'#17795E',g2:'#E3F2EC',ink:'#17302A',mut:'#657A72',line:'#DCE8E2',bg:'#F3F7F4',card:'#FFFFFF',red:'#B03A3A',redbg:'#FCE8E8',h1:'#0F5A46',h2:'#1F8266',pt:'#FFFFFF',ig:'#17795E',il:'#E3F2EC',tc:'#0F5A46',rb:'#EAF0FF',rc:'#26379A'},
@@ -802,6 +808,8 @@ Apna pani ka bill yahan enter karein|اپنے پانی کا بل یہاں درج
 Wasooli edit karein|وصولی ایڈٹ کریں|Edit payment
 Purana baqaya edit karein|پرانا باقی ایڈٹ کریں|Edit previous balance
 WhatsApp chat kholein|واٹس ایپ چیٹ کھولیں|Open WhatsApp chat
+WhatsApp par bhejein|واٹس ایپ پر بھیجیں|Send on WhatsApp
+Tasveer save ho jati hai aur us kisan ki chat khulti hai. Chat mein Gallery se tasveer bhejein.|تصویر محفوظ ہو جاتی ہے اور اس کسان کی چیٹ کھلتی ہے۔ چیٹ میں گیلری سے تصویر بھیجیں۔|The image is saved and that farmer's chat opens. Send the image from Gallery in the chat.
 Tasveer copy ho gayi. Chat mein Paste karein|تصویر کاپی ہو گئی۔ چیٹ میں پیسٹ کریں|Image copied. Paste it in the chat
 Is kisan ka number nahi likha|اس کسان کا نمبر نہیں لکھا|This farmer has no number saved
 Chat khulne par tasveer message box mein Paste karein (tasveer copy ho chuki hoti hai).|چیٹ کھلنے پر تصویر میسج باکس میں پیسٹ کریں (تصویر کاپی ہو چکی ہوتی ہے)۔|When the chat opens, paste the image in the message box (it is already copied).
