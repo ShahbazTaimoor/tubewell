@@ -345,18 +345,22 @@ y+=40;x.fillStyle=TH[th].il;x.beginPath();x.roundRect(M,y,W-2*M,250+(t.old>0?58:
 const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],...(t.old>0?[['پچھلا باقی',rs0(t.old)]]:[]),['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
 L.forEach((l,i)=>{const yy=y+58+i*58,last=i==L.length-1;font(last?46:36,last);x.fillStyle='#12283D';x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?'#B4373F':TH[th].ig):'#12283D';x.textAlign='left';x.fillText(l[1],M+30,yy)});
 x.fillStyle='#5F7487';x.textAlign='center';font(26);x.fillText(ST.urdu+' ایپ',W/2,y+250+(t.old>0?58:0)+50);return c}
-function sRender(u){$('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px;background:#1FAF55" onclick="shWA()">WhatsApp par bhejein</button><div class="mut sm" style="margin-top:8px">'+(IOS?'Chat khulne par tasveer message box mein Paste karein (tasveer copy ho chuki hoti hai).':'Tasveer save ho jati hai aur us kisan ki chat khulti hai. Chat mein Gallery se tasveer bhejein.')+'</div></div>'}
+function sRender(u){$('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px;background:#1FAF55" onclick="shWA()">WhatsApp par bhejein</button><button class="s" style="width:100%;margin-top:8px" onclick="dlImg()">Tasveer download karein</button><div class="mut sm" style="margin-top:8px">'+(IOS?'Download ke liye share list mein "Save Image" chunein.<br>':'')+''+(IOS?'Chat khulne par tasveer message box mein Paste karein (tasveer copy ho chuki hoti hai).':'Tasveer save ho jati hai aur us kisan ki chat khulti hai. Chat mein Gallery se tasveer bhejein.')+'</div></div>'}
 async function sheet(){const f=F();let k=null;try{k=JSON.stringify([f,th,ST.lang,ST.urdu,RATE,today()])}catch(e){}
 if(k&&window._sc&&window._sc.k===k){window._b=window._sc.b;sRender(window._sc.u);return}
 $('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';
 const cv=await mkImg(f);const b=await new Promise(r=>cv.toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
 if(window._sc)URL.revokeObjectURL(window._sc.u);window._sc={k,b,u};sRender(u)}
 const IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const hName=f=>'hisab-'+String((f&&f.name)||'kisan').replace(/[^\w\u0600-\u06FF]+/g,'_')+'-'+today()+'.png';
+async function dlImg(){const b=window._b;if(!b)return;const n=hName(F()),fl=new File([b],n,{type:'image/png'});
+if(IOS&&navigator.canShare&&navigator.canShare({files:[fl]})){try{await navigator.share({files:[fl]})}catch(e){}return}
+try{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),1000);toast('Tasveer download ho gayi')}catch(e){toast('Download nahi ho saki')}}
 function shWA(){const f=F(),b=window._b;if(!b)return;if(!f.phone){toast('Is kisan ka number nahi likha');shImg();return}
 const url='https://wa.me/'+wnum(f.phone);
 try{navigator.clipboard.write([new ClipboardItem({'image/png':b})]).catch(()=>{})}catch(e){}
 if(IOS){location.href=url;return}
-try{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='hisab-'+String(f.name||'kisan').replace(/[^\w\u0600-\u06FF]+/g,'_')+'-'+today()+'.png';document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),1000)}catch(e){}
+try{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=hName(f);document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),1000)}catch(e){}
 if(!window.open(url,'_blank'))location.href=url}
 async function shImg(){const fl=new File([window._b],'hisab.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(window._b);a.download=fl.name;a.click()}}catch(e){}}
 const TH={
@@ -809,6 +813,10 @@ Wasooli edit karein|وصولی ایڈٹ کریں|Edit payment
 Purana baqaya edit karein|پرانا باقی ایڈٹ کریں|Edit previous balance
 WhatsApp chat kholein|واٹس ایپ چیٹ کھولیں|Open WhatsApp chat
 WhatsApp par bhejein|واٹس ایپ پر بھیجیں|Send on WhatsApp
+Tasveer download karein|تصویر ڈاؤن لوڈ کریں|Download image
+Tasveer download ho gayi|تصویر ڈاؤن لوڈ ہو گئی|Image downloaded
+Download nahi ho saki|ڈاؤن لوڈ نہیں ہو سکی|Could not download
+Download ke liye share list mein "Save Image" chunein.|ڈاؤن لوڈ کے لیے شیئر لسٹ میں "Save Image" چنیں۔|To download, choose "Save Image" in the share list.
 Tasveer save ho jati hai aur us kisan ki chat khulti hai. Chat mein Gallery se tasveer bhejein.|تصویر محفوظ ہو جاتی ہے اور اس کسان کی چیٹ کھلتی ہے۔ چیٹ میں گیلری سے تصویر بھیجیں۔|The image is saved and that farmer's chat opens. Send the image from Gallery in the chat.
 Tasveer copy ho gayi. Chat mein Paste karein|تصویر کاپی ہو گئی۔ چیٹ میں پیسٹ کریں|Image copied. Paste it in the chat
 Is kisan ka number nahi likha|اس کسان کا نمبر نہیں لکھا|This farmer has no number saved
