@@ -211,7 +211,7 @@ return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open
 function filt(){$('list').innerHTML=listH($('q').value)}
 function home(){cur=null;view='home';navR();
 const all=db.farmers.map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0),old=all.reduce((a,t)=>a+t.old,0);
-$('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${rs(bill)}</strong>
+$('v').innerHTML=`<div class="card big"><span>Meri Total Kamai</span><strong>${rs(bill+old)}</strong>
 <div class="grid" style="margin-top:12px;text-align:left"><div><span>Wasool hua</span><b>${rs(paid)}</b></div><div><span>Baqaya</span><b>${rs(bill+old-paid)}</b></div></div></div>
 <button class="p" style="width:100%;margin-bottom:12px" onclick="$('addBox').classList.toggle('hide')">＋ Naya Kisan</button>
 <div id="addBox" class="card hide"><h2>Naya Kisan</h2><div class="dpick" onclick="$('fdp').click()"><span id="dpv" class="av" style="width:76px;height:76px;background:var(--g2);color:var(--g);font-size:28px">📷</span><span class="mut sm">Kisan ki tasveer (DP, marzi)</span></div><input id="fdp" type="file" accept="image/*" class="hide" onchange="pickDP(this,1)">
