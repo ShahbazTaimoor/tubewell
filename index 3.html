@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="ur-Latn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-title" content="Aslam Tubewell"><meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" id="ati" href="icon-180.png"><link rel="icon" id="fav" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B3C6B">
+<title>Aslam Tubewell App</title>
+<style>
+:root{--rb:#DCF8E9;--rc:#0A6B3C;--h1:#0B3C6B;--h2:#1580B8;--pt:#fff;--g:#0E6A99;--g2:#E1F1FA;--ink:#12283D;--mut:#5F7487;--line:#D9E6EF;--bg:#F2F7FB;--card:#fff;--red:#B4373F;--redbg:#FDEBEC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g:#4FB3E8;--g2:#16303F;--ink:#E4EFF7;--mut:#8FA6B8;--line:#25404F;--bg:#0E1A24;--card:#14232F;--red:#ff8a8a;--redbg:#3A2124}}
+:root[data-theme="dark"]{--g:#4FB3E8;--g2:#16303F;--ink:#E4EFF7;--mut:#8FA6B8;--line:#25404F;--bg:#0E1A24;--card:#14232F;--red:#ff8a8a;--redbg:#3A2124}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px -apple-system,"Segoe UI",Arial,sans-serif}
+.app{max-width:640px;margin:auto;padding:0 14px 120px}
+.top{background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;padding:22px 16px;border-radius:0 0 22px 22px;margin:0 -14px 14px}
+.top h1{margin:0;font-size:23px}.top small{opacity:.85}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 14px;font-weight:700}
+.p{background:var(--g);color:var(--pt)}.s{background:var(--g2);color:var(--g)}.d{background:var(--redbg);color:var(--red)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.big{text-align:center;padding:18px}.big span{font-size:13px;color:var(--mut)}.big strong{display:block;font-size:34px;margin-top:4px;color:var(--g)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid div{background:var(--bg);border-radius:10px;padding:10px}
+.grid span{display:block;font-size:11px;color:var(--mut);margin-bottom:3px}.grid b{font-size:15px}
+.f{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}.f label{font-size:13px;font-weight:700;color:var(--mut)}
+input{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit}
+.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}
+.fm{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1px solid var(--line);padding:14px;margin-bottom:9px;border-radius:14px}
+.fm small{display:block;color:var(--mut);font-weight:400;margin-top:3px}
+.pill{font-size:12px;padding:5px 9px;border-radius:99px;background:var(--g2);color:var(--g);white-space:nowrap}.pill.r{background:var(--redbg);color:var(--red)}
+h2{font-size:17px;margin:0 0 12px}.mut{color:var(--mut)}.sm{font-size:12px}
+.prev{background:var(--g2);color:var(--g);border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;font-weight:700}
+.ent{border-top:1px solid var(--line);padding:11px 0}.ent:first-of-type{border:0}
+.ent .h{display:flex;justify-content:space-between;font-weight:700}
+.empty{text-align:center;color:var(--mut);padding:18px}
+.hide{display:none!important}
+.mini{padding:6px 10px;font-size:12px}
+input[type=date],input[type=time]{display:block;min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;text-align:left}
+.f{min-width:0}
+.bar{height:10px;background:var(--g2);border-radius:99px;overflow:hidden;margin:12px 0 6px}.bar i{display:block;height:100%;background:var(--g);border-radius:99px}
+.it{display:flex;gap:11px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line)}.it:first-of-type{border:0}
+.db{min-width:56px;text-align:center;background:var(--g2);color:var(--g);border-radius:12px;padding:7px 4px}.db b{display:block;font-size:21px;line-height:1.1}.db span{display:block;font-size:10px}
+.it.pay .db{background:#fff4d6;color:#8a6200}
+.im{flex:1;min-width:0}.im b{font-size:14px}.im small{display:block;color:var(--mut);margin-top:3px}
+.ac{display:flex;gap:6px;margin-top:8px}.ia{text-align:right;white-space:nowrap}.ia b{display:block;font-size:15px}.ia small{display:block;font-size:11px;color:var(--mut);margin-top:3px}
+.pos{color:var(--g)}.neg{color:var(--red)}
+.call{background:var(--g);color:var(--pt);text-decoration:none;font-weight:700;padding:10px 16px;border-radius:12px;white-space:nowrap}
+.top{position:relative}.th{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.2);color:#fff;padding:8px 12px;font-size:13px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:9}
+.sh{background:var(--card);color:var(--ink);width:100%;max-width:640px;border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.to{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--bg);color:var(--ink);border:2px solid transparent;margin-bottom:8px;padding:12px}.to.on{border-color:var(--g)}.to b{flex:1}
+.sw{width:58px;height:40px;border-radius:10px;position:relative;display:block;overflow:hidden}.sw i{position:absolute;bottom:6px;width:16px;height:16px;border-radius:50%}.sw i:first-child{left:8px}.sw i:last-child{left:30px}
+select{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit}
+.rate{background:var(--rb);color:var(--rc);padding:2px 9px;border-radius:8px;font-weight:800;white-space:nowrap}
+.nav{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;justify-content:center;z-index:5;pointer-events:none}
+.nav>div{pointer-events:auto;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:8px;display:flex;gap:8px;box-shadow:0 8px 26px rgba(0,0,0,.2)}
+.nb{background:var(--bg);color:var(--ink);border-radius:99px;width:52px;height:52px;padding:0;display:flex;align-items:center;justify-content:center;gap:8px}
+.nb.on{background:var(--g);color:var(--pt);width:auto;padding:0 18px}.nb svg{width:22px;height:22px}
+.h2d{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ph{display:block;width:64px;height:64px;object-fit:cover;border-radius:10px;margin-top:8px;border:1px solid var(--line);background:var(--bg)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:#222;color:#fff;padding:10px 18px;border-radius:99px;z-index:40;font-size:14px}
+.call{display:flex;align-items:center;justify-content:center;gap:8px}.wa{background:#1FAF55;color:#fff}
+html,body{touch-action:pan-x pan-y}input,select,textarea{font-size:16px}
+.tm{margin:14px 0 8px;margin-inline-start:66px}.tm span{background:var(--g2);color:var(--g);font-weight:800;font-size:12px;padding:5px 12px;border-radius:99px}
+.tl{display:flex;gap:10px;margin-bottom:10px}.td{width:44px;text-align:end}.td b{display:block;font-size:17px}.td span{font-size:11px;color:var(--mut)}
+.tx{width:12px;display:flex;flex-direction:column;align-items:center}.tx i{width:12px;height:12px;border-radius:50%;background:var(--g);margin-top:5px;flex:none}.tx i.pd{background:#1FAF55}.tx u{flex:1;width:2px;background:var(--line)}
+.tc{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 12px}.tc.pc{background:rgba(31,175,85,.14)}.tc .h2d b{font-size:13px}
+.bi{border-top:1px solid var(--line);padding:12px 0}
+html[lang=ur] body{font-family:"Geeza Pro","Noto Naskh Arabic",system-ui,sans-serif;line-height:1.7}
+html[dir=rtl] .fm,html[dir=rtl] .to{text-align:right}
+@keyframes pg{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes fout{to{opacity:0;transform:scale(1.04)}}
+@keyframes grow{from{width:0}}
+@keyframes tin{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+#v>*{animation:pg .38s cubic-bezier(.2,.8,.2,1) both}
+#v>*:nth-child(2){animation-delay:.05s}#v>*:nth-child(3){animation-delay:.1s}#v>*:nth-child(4){animation-delay:.15s}#v>*:nth-child(5){animation-delay:.2s}#v>*:nth-child(6){animation-delay:.25s}#v>*:nth-child(n+7){animation-delay:.3s}
+#sbox>*{animation:pg .35s ease both}
+.tl{animation:pg .4s ease both}.fm{animation:pg .35s ease both}
+.bar i{animation:grow .9s cubic-bezier(.2,.8,.2,1)}
+.ov{animation:fade .2s ease}.sh{animation:up .32s cubic-bezier(.2,.9,.3,1)}
+.ov.out,.wl.out{animation:fout .3s ease forwards}
+.toast{animation:tin .25s ease}
+button{transition:transform .12s ease,background .25s,color .25s,opacity .2s}button:active{transform:scale(.96)}
+.nb{width:auto;padding:0 15px;gap:0;transition:background .3s,color .3s,gap .3s,transform .15s}
+.nb span{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .35s ease,opacity .25s .05s}
+.nb.on{padding:0 15px;gap:8px}.nb.on span{max-width:90px;opacity:1}.nb.on svg{animation:pop .45s ease}.nb:active{transform:scale(.9)}
+.wl{position:fixed;inset:0;z-index:25;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;animation:fade .25s ease}
+.wl img{width:96px;height:96px;border-radius:24px;animation:pop .7s ease}.wl h2{margin:6px 0 0;animation:pg .5s .2s ease both}.wl div{animation:pg .5s .3s ease both}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.top{overflow:hidden;padding:20px 18px 22px}
+.wv{position:absolute;left:0;right:0;bottom:0;width:100%;height:48px;fill:rgba(255,255,255,.1)}
+.hr{display:flex;align-items:center;gap:13px;position:relative}.hr img{width:54px;height:54px;border-radius:15px;border:2px solid rgba(255,255,255,.9);box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.hn h1{margin:0;font-size:21px;letter-spacing:.2px}.hs{font-size:12px;opacity:.95;margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chip{position:relative;display:inline-flex;align-items:center;gap:7px;margin-top:13px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);padding:5px 12px;border-radius:99px;font-size:11px;max-width:100%}
+.chip i{flex:none;width:7px;height:7px;border-radius:50%;background:#7CF2A5;box-shadow:0 0 0 3px rgba(124,242,165,.28);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(124,242,165,0)}}
+.tx i.od{background:#E0A030}.tc.oc{background:rgba(224,160,48,.16)}
+@font-face{font-family:'JameelNoori';src:local('Jameel Noori Nastaleeq'),local('JameelNooriNastaleeq'),local('Jameel Noori Nastaleeq Kasheeda'),url('jameel.woff') format('woff');font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F,U+060C,U+061B,U+061F}
+:root{--uf:'JameelNoori','Jameel Noori Nastaleeq','Noto Nastaliq Urdu','Noto Naskh Arabic','Droid Arabic Naskh','Geeza Pro','Segoe UI',Arial,serif}
+html[lang=ur] body,html[lang=ur] button,html[lang=ur] input,html[lang=ur] select,html[lang=ur] textarea{font-family:var(--uf);line-height:2}
+html[lang=ur] body *{font-family:var(--uf)!important}
+html[lang=ur] body{font-size:17.5px}html[lang=ur] .sm,html[lang=ur] small{font-size:15px}
+html[lang=ur] h1,html[lang=ur] h2{line-height:2}
+html[lang=ur] .pill,html[lang=ur] .rate,html[lang=ur] .mini,html[lang=ur] .nb span,html[lang=ur] .chip,html[lang=ur] .toast{line-height:1.8}
+button *,a.call *,.fm *{pointer-events:none}
+button,.fm,.nb,.to,a.call{touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.fm>:first-child{flex:1;min-width:0}
+.fm::after{content:'›';font-size:24px;line-height:1;color:var(--mut);margin-inline-start:6px;flex:none}
+html[dir=rtl] .fm::after{content:'‹'}
+#lg{background:#F2F6F4;color:#1B3A30;z-index:20;overflow-y:auto;display:block}
+.lgw{max-width:460px;margin:0 auto;min-height:100%;position:relative;padding-bottom:34px}
+.hero{height:300px;background:#cfe3d4 url(login-hero.jpg) center/cover no-repeat;border-radius:0 0 50% 50%/0 0 46px 46px}.hero.s{height:190px}
+.leaf{position:absolute;right:4px;top:268px;width:76px;height:90px;transform:rotate(8deg);pointer-events:none}.hero.s+.leaf{top:158px}
+.lgb{padding:20px 26px 0;text-align:center}.lgb h1{margin:0;font-size:30px;color:#1F5F4C}.lgb p{margin:4px 0 24px;color:#2F6B58;font-size:16px}
+.lf{display:flex;align-items:center;gap:12px;background:#E8ECEA;border-radius:16px;padding:0 14px;height:54px;margin-bottom:14px}
+.lf svg{flex:none}.lf input{flex:1;min-width:0;background:transparent;border:0;outline:0;min-height:0;height:100%;padding:0;font-size:16px;color:#1B3A30}.lf input::placeholder{color:#7C8783}
+.eye{background:none;padding:0;width:36px;height:36px;display:flex;align-items:center;justify-content:center;opacity:.5}.eye.on{opacity:1}
+.fp{text-align:end;color:#1F5F4C;font-size:14px;margin:-2px 2px 16px;cursor:pointer}
+.lbtn{width:100%;height:56px;border-radius:99px;background:#1F5F4C;color:#fff;font-size:20px;font-weight:700}.lbtn:disabled{opacity:.7}
+.lgb .alt{margin-top:18px;color:#5C6862;font-size:15px}.lgb .alt b{color:#1F5F4C;text-decoration:underline;cursor:pointer}
+#lg #lm{border-radius:12px}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;object-fit:cover;color:#fff;font-weight:700;flex:none;border:2px solid var(--card);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.avw{position:relative;flex:none;cursor:pointer}.avw i{position:absolute;right:-2px;bottom:-2px;width:26px;height:26px;border-radius:50%;background:var(--g);color:var(--pt);display:flex;align-items:center;justify-content:center;font-size:13px;font-style:normal;border:2px solid var(--card)}
+.dpick{display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer}
+.chips{display:flex;gap:8px;margin-bottom:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ch{background:var(--card);border:1px solid var(--line);color:var(--ink);padding:8px 14px;font-size:13px;border-radius:99px;flex:none}.ch.on{background:var(--g);color:var(--pt);border-color:var(--g)}
+input[type=date],input[type=time],input[type=month]{position:relative}
+input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-calendar-picker-indicator,input[type=month]::-webkit-calendar-picker-indicator{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.net{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:3px 11px 3px 8px;border-radius:99px;font-size:11px;font-weight:700;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24)}
+.net i{width:9px;height:9px;border-radius:50%;background:#2EE276;box-shadow:0 0 0 3px rgba(46,226,118,.3)}.net.off i{background:#FF5252;box-shadow:0 0 0 3px rgba(255,82,82,.3)}
+.sh{max-height:92vh;overflow-y:auto}
+.fc{padding:0;overflow:hidden;border-radius:24px;--a:#1580B8;--a2:#0B3C6B}.fc.gr{--a:#2E9970;--a2:#0F5A46}.fc.gd{--a:#2A4A38;--a2:#12281E}
+.sh.fc{overflow-y:auto}
+.fh{display:flex;align-items:center;gap:12px;padding:18px 16px 28px;color:#fff;background:linear-gradient(135deg,var(--a2),var(--a));position:relative;overflow:hidden}
+.fh::after{content:attr(data-d);position:absolute;inset-inline-end:12px;top:4px;font-size:64px;opacity:.25;pointer-events:none}
+.fh .ic{flex:none;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:23px;font-style:normal}
+.fh h2{margin:0;font-size:19px;color:#fff}.fh small{display:block;opacity:.92;font-size:12px;margin-top:3px;max-width:78%}
+.fc.gd .fh h2{font-family:Georgia,"Times New Roman",serif;color:#F4E3B0}.fc.gd .fh{border-bottom:2px solid #C9A24A}
+.fb{padding:16px 14px 16px;margin-top:-14px;background:var(--card);border-radius:20px 20px 0 0;position:relative}
+.fi{position:relative}.fi svg{position:absolute;inset-inline-start:13px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--g);pointer-events:none;z-index:1}
+.fi input,.fi select{padding-inline-start:43px;border-radius:14px;min-height:48px}
+.fc .prev{border-radius:14px}
+.sb{width:100%;height:54px;border-radius:99px;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.sb svg{width:22px;height:22px}.fc.gd .sb{color:#F4E3B0;border:1px solid #C9A24A}
+.pc2{padding:16px;border-radius:22px}.ph2{display:flex;align-items:center;gap:14px}
+.cb{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:16px;font-weight:700;text-decoration:none;min-width:0}.cb b{flex:1}.cb>svg{width:18px;height:18px;flex:none}
+.cb .ci{background:rgba(255,255,255,.2)}.cb.c{background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff}
+.cb.w{background:var(--card);color:var(--ink);border:1px solid var(--line)}.cb.w .ci{background:#1FAF55;color:#fff}
+.ci{flex:none;width:36px;height:36px;border-radius:50%;background:var(--g2);color:var(--g);display:flex;align-items:center;justify-content:center;font-style:normal}.ci svg{width:19px;height:19px}
+.stg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stt{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px;min-width:0}
+.stt span{display:block;font-size:11px;color:var(--mut);margin-bottom:2px}.stt b{font-size:15px}
+.stt.gn{background:rgba(31,175,85,.12)}.stt.rd{background:var(--redbg);grid-column:span 2}.stt.rd .ci{background:rgba(180,55,63,.15);color:var(--red)}
+.wn{background:var(--card);color:var(--ink);width:calc(100% - 32px);max-width:400px;border-radius:26px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);animation:up .35s cubic-bezier(.2,.9,.3,1);--a:var(--h2);--a2:var(--h1)}
+.wh{padding:22px 18px 24px;background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;text-align:center}
+.wh i{display:block;font-size:40px;font-style:normal;animation:pop .6s ease}.wh h2{margin:6px 0 8px;color:#fff;font-size:21px}
+.wp{display:inline-block;background:rgba(255,255,255,.2);padding:3px 12px;border-radius:99px;font-size:12px;font-weight:700}
+.wlist{padding:12px 16px 4px;max-height:48vh;overflow-y:auto}
+.wr{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.5}.wr:last-child{border:0}
+.wb{flex:none;font-size:10px;font-weight:800;padding:3px 8px;border-radius:99px;margin-top:2px;background:rgba(31,175,85,.16);color:#1B8A47}.wb.fix{background:#fff4d6;color:#8a6200}
+.wv2{font-size:12px;font-weight:700;color:var(--mut);margin:10px 0 2px}.wf{padding:12px 16px 16px}
+.cr{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px}.cr .chip{margin-top:0}
+.cr .rate{background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.24);border-radius:99px;padding:5px 12px;font-size:11px;font-weight:700;line-height:1.4}
+.dfw{position:relative;width:100%;container-type:inline-size}
+.dfw input[data-df]{color:transparent!important;-webkit-text-fill-color:transparent}
+.dfw input[data-df]::-webkit-datetime-edit{opacity:0}
+.dfv{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);padding:0 8px;text-align:center;pointer-events:none;color:var(--ink);font:inherit;font-size:14px;font-size:clamp(11px,9.5cqw,15px);white-space:nowrap}.dfv.ic{padding-inline-start:38px;padding-inline-end:8px}
+.dfv.e{color:var(--mut)}
+/* ===== touch: har dabne wali cheez kam az kam 44px ===== */
+button,.ch{min-height:44px}.mini{min-width:44px}.h2d{min-height:44px;align-items:center}
+button:not(:disabled):active{filter:brightness(.94)}button:disabled{opacity:.55}
+/* ===== speed: off-screen cards are not laid out until needed ===== */
+.fm{content-visibility:auto;contain-intrinsic-size:auto 88px}
+/* ===== Royal Indigo theme (sirf tab lagti hai jab chuni jaye) ===== */
+html[data-th=indigo] .top{box-shadow:inset 0 -3px 0 var(--ac)}
+html[data-th=indigo] .big{border-top:3px solid var(--ac)}
+html[data-th=indigo] .big strong{color:#202B68}
+html[data-th=indigo] .card,html[data-th=indigo] .fm{box-shadow:0 1px 3px rgba(32,43,104,.07)}
+html[data-th=indigo] .p{background:linear-gradient(135deg,#3949AB,#2D3B96)}
+html[data-th=indigo] .nav>div{box-shadow:0 8px 26px rgba(32,43,104,.2)}
+html[data-th=indigo] .nb.on svg{color:var(--ac)}
+html[data-th=indigo] .fc{--a:#3949AB;--a2:#202B68}
+html[data-th=indigo] .fc.gr{--a:#4A5AC4;--a2:#202B68}
+html[data-th=indigo] .fc.gr .fh{border-bottom:2px solid var(--ac)}
+html[data-th=indigo] .fc.gd{--a:#202B68;--a2:#17213F}
+html[data-th=indigo] .fc.gd .fh{border-bottom-color:var(--ac)}html[data-th=indigo] .fc.gd .sb{border-color:var(--ac)}
+html[data-th=indigo] #lg{background:#F7F2E8;color:#202B40}
+html[data-th=indigo] .hero{background-color:#D8DCF2}html[data-th=indigo] .leaf{display:none}
+html[data-th=indigo] .lgb h1{color:#202B68}html[data-th=indigo] .lgb p,html[data-th=indigo] .lgb .alt{color:#718096}
+html[data-th=indigo] .lf{background:#EFE8D8}html[data-th=indigo] .lf input{color:#202B40}html[data-th=indigo] .lf input::placeholder{color:#8A8F9C}
+html[data-th=indigo] .fp,html[data-th=indigo] .lgb .alt b{color:#3949AB}
+html[data-th=indigo] .lbtn{background:linear-gradient(135deg,#3949AB,#2D3B96);box-shadow:0 6px 16px rgba(32,43,104,.25)}
+html[data-th=indigo] #splash{background:linear-gradient(160deg,#202B68,#3949AB)}
+html.authwait body{visibility:hidden}html.authwait #lg,html.authwait #splash{visibility:visible}
+html.lgshow #splash{display:none!important}#lg.ov{animation:none}
+#splash{display:none;position:fixed;inset:0;z-index:1;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:linear-gradient(160deg,#0B3C6B,#1478b0);color:#fff;font:700 20px system-ui,sans-serif}html.authwait #splash{display:flex}#splash i{width:34px;height:34px;border-radius:50%;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spn .8s linear infinite}@keyframes spn{to{transform:rotate(360deg)}}
+html,body{max-width:100%;overflow-x:hidden}
+.cb b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html[lang=ur] .cb>svg{transform:scaleX(-1)}
+@media(max-width:420px){.pc2 .row{flex-direction:column}}
+@media(max-width:340px){.nb,.nb.on{padding:0 11px}.nb.on span{max-width:64px}}
+.wxref{background:var(--g2);color:var(--g);font-size:12px;font-weight:800;padding:5px 11px;border-radius:99px;white-space:nowrap}
+.wxloc{display:inline-block;background:var(--bg);border:1px solid var(--line);color:var(--ink);font-size:13px;font-weight:700;padding:5px 12px;border-radius:99px;margin:9px 0 10px}
+.wxbad{font-size:11px;font-weight:700;color:#8A6200;background:#FFF3D6;border-radius:99px;padding:4px 9px;white-space:nowrap}
+.wxd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.wxd>div{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 4px 9px;text-align:center;min-width:0}
+.wxd>div.on{background:var(--g2);border-color:var(--g)}
+.wxd .wd{display:block;font-size:12px;font-weight:800;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wxd>div.on .wd{color:var(--g)}
+.wxd .we{font-size:25px;line-height:1.35}
+.wxd .wt{font-size:14px;font-weight:800;white-space:nowrap}
+.wxd .wt small{font-size:11px;color:var(--mut);font-weight:600}
+.rch{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:99px;background:var(--g2);color:var(--g);margin-top:4px;white-space:nowrap}
+.rch.mid{background:#FFF3D6;color:#8A6200}
+.rch.hi{background:var(--redbg);color:var(--red)}
+.wxd .wl2{display:block;min-height:19px;margin-top:4px;font-size:11px;color:var(--mut)}
+.wxal{display:flex;gap:8px;align-items:flex-start;background:var(--redbg);color:var(--red);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:13px;font-weight:700;line-height:1.5}
+@media(max-width:340px){.wxd{gap:6px}.wxd .we{font-size:21px}}
+</style><script>document.documentElement.classList.add('authwait');try{var _t=localStorage.getItem('aslam_theme');if(_t)document.documentElement.setAttribute('data-th',_t)}catch(e){}</script></head>
+<body><div class="app">
+<header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
+<div class="hr"><img class="lg" src="icon-192.png" alt=""><div class="hn"><h1 id="appn">Aslam Tubewell App</h1><div class="net" id="net"><i></i><span>Online</span></div></div></div>
+<div class="cr"><div class="chip"><i></i><span id="sync">Check ho raha hai…</span></div><span class="rate" id="rt">Rs 500 fi ghanta</span></div></header>
+<div id="splash"><img src="icon-192.png" width="92" height="92" alt="" style="border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.3)" onerror="this.replaceWith(document.createTextNode('💧'))"><i></i></div><div id="v"></div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+let RATE=500;const KEY='aslam_tubewell_v1';
+let db={farmers:[],ts:0},cur=null,dl=null,timer=null,U=null,FS=null,AU=null,lastP={},unsub=null;
+try{const r=localStorage.getItem(KEY);if(r)db=JSON.parse(r)}catch(e){}
+function st(t){const s=document.getElementById('sync');if(s)s.textContent=t}
+const wnum=p=>{let n=String(p||'').replace(/\D/g,'');if(n.startsWith('00'))n=n.slice(2);else if(n.startsWith('0'))n='92'+n.slice(1);else if(n.length===10)n='92'+n;return n};
+['gesturestart','gesturechange','gestureend'].forEach(t=>document.addEventListener(t,x=>x.preventDefault()));
+document.addEventListener('touchmove',e=>{if(e.touches.length>1||(e.scale&&e.scale!==1))e.preventDefault()},{passive:false});
+if(/Android/i.test(navigator.userAgent))document.addEventListener('click',e=>{const t=e.target;if(t&&t.tagName==='INPUT'&&/^(date|time|month)$/.test(t.type)&&t.showPicker){try{t.showPicker()}catch(x){}}});
+const sig=f=>JSON.stringify([f.name,f.phone,f.addr,f.dp,f.entries,f.pays,f.olds]);
+function push(){if(!U||!FS)return;clearTimeout(timer);timer=setTimeout(async()=>{try{
+const col=FS.collection('users').doc(U.uid).collection('farmers'),bt=FS.batch();let n=0;
+db.farmers.forEach(f=>{const g=sig(f);if(lastP[f.id]!==g){f.ts=Date.now();bt.set(col.doc(f.id),{json:JSON.stringify(f),ts:f.ts});lastP[f.id]=g;n++}});
+Object.keys(lastP).forEach(id=>{if(!db.farmers.some(f=>f.id===id)){bt.delete(col.doc(id));delete lastP[id];n++}});
+if(n){flushSave();await bt.commit()}
+st('☁️ Online save ho gaya')}catch(e){st('⚠️ Online save nahi hua (phone mein save hai)')}},500)}
+let svT=0,lsWarned=false;
+function flushSave(){if(!svT)return;clearTimeout(svT);svT=0;try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){if(!lsWarned){lsWarned=true;try{toast('⚠️ Phone ki storage bhar gayi hai. Online save chalta rahega; backup zaroor lein.')}catch(_){}}}}
+const save=()=>{db.ts=Date.now();if(!svT)svT=setTimeout(flushSave,150);push()};
+window.addEventListener('pagehide',flushSave);document.addEventListener('visibilitychange',()=>{if(document.hidden)flushSave()});
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rs=n=>'Rs '+String(Math.round(n)+0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const pad=n=>String(n).padStart(2,'0');
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const nowT=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
+const dur=m=>m<=0?'0 min':((m>=60?(Math.floor(m/60)===1?'1 ghanta':Math.floor(m/60)+' ghantay'):'')+(m>=60&&m%60?' ':'')+(m%60?m%60+' min':''));
+const t12=t=>{if(!t)return'';let[h,m]=t.split(':').map(Number);const a=h>=12?'PM':'AM';h=h%12||12;return h+':'+pad(m)+' '+a};
+const mins=(s,e)=>{if(!s||!e)return 0;const a=s.split(':'),b=e.split(':');let m=(b[0]*60+ +b[1])-(a[0]*60+ +a[1]);if(m<0)m+=1440;return m};
+const tot=f=>{const bill=f.entries.reduce((a,e)=>a+e.amt,0),old=(f.olds||[]).reduce((a,o)=>a+o.amt,0),paid=f.pays.reduce((a,p)=>a+p.amt,0),mn=f.entries.reduce((a,e)=>a+e.mins,0);return{bill,old,paid,mn,due:bill+old-paid}};
+const dueP=t=>`<span class="pill ${t.due>0?'r':''}">${t.due>0?'Baqaya '+rs(t.due):t.due<0?'Ziada '+rs(-t.due):'Hisab saaf'}</span>`;
+
+let hf='all';
+function setHF(k){hf=k;home()}
+const _cEn=new Intl.Collator('en',{sensitivity:'base',numeric:true}),_cUr=new Intl.Collator('ur',{sensitivity:'base'});
+const _isUr=n=>/[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/.test(String(n||'').trim().charAt(0));
+/* Roman/English: A se Z pehle, phir Urdu naam (ا se ے). Urdu zuban: pehle Urdu naam (ا se ے), phir A se Z. */
+function farmCmp(a,b){const ua=_isUr(a.name),ub=_isUr(b.name);if(ua!==ub)return(ua?1:-1)*((FORCE_LANG||ST.lang)==='ur'?-1:1);return(ua?_cUr:_cEn).compare(String(a.name||'').trim(),String(b.name||'').trim())}
+function listH(q){q=(q||'').trim().toLowerCase();const a=TF().filter(f=>(!q||(f.name+' '+f.phone+' '+f.addr).toLowerCase().includes(q))&&(hf==='all'||(hf==='due'?tot(f).due>0:tot(f).due<=0)));a.sort(farmCmp);
+return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div style="display:flex;align-items:center;gap:12px;min-width:0">${av(f,46)}<div style="min-width:0"><b class="nt"><span class="nt">${esc(f.name)}</span></b><small><span class="nt">${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')}</span> • ${dur(t.mn)||'0 min'}</small></div></div>${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kisan nahi mila.':'Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.')+'</div>'}
+let _ft=0;function filtD(){clearTimeout(_ft);_ft=setTimeout(filt,150)}
+function filt(){$('list').innerHTML=listH($('q').value)}
+function home(){cur=null;view='home';navR();twEnsure();
+const all=TF().map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0),old=all.reduce((a,t)=>a+t.old,0);
+$('v').innerHTML=`${twBar()}<div class="card big"><span>Meri Total Kamai</span><strong>${rs(bill+old)}</strong>
+<div class="grid" style="margin-top:12px;text-align:left"><div><span>Wasool hua</span><b>${rs(paid)}</b></div><div><span>Baqaya</span><b>${rs(bill+old-paid)}</b></div></div></div>
+<button class="p" style="width:100%;margin-bottom:12px" onclick="$('addBox').classList.toggle('hide')">＋ Naya Kisan</button>${wxCard()}
+<div id="addBox" class="card hide"><h2>Naya Kisan</h2><div class="dpick" onclick="$('fdp').click()"><span id="dpv" class="av" style="width:76px;height:76px;background:var(--g2);color:var(--g);font-size:28px">📷</span><span class="mut sm">Kisan ki tasveer (DP, marzi)</span></div><input id="fdp" type="file" accept="image/*" class="hide" onchange="pickDP(this,1)">
+<div class="f"><label>Kisan ka naam</label><input id="fn" placeholder="Naam"></div>
+<div class="f"><label>Number</label><input id="fp" type="tel" placeholder="03xx-xxxxxxx"></div>
+<div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div><div class="f"><label>Purana baqaya (pichle saal ka, marzi)</label><input id="fo" type="number" inputmode="numeric" placeholder="Rs"></div>
+<button class="p" style="width:100%" onclick="addF()">Save karein</button></div>
+${TF().length?'<input id="q" type="search" placeholder="🔍 Kisan ka naam dhoondein" oninput="filtD()" style="margin-bottom:10px"><div class="chips">'+[['all','Sab'],['due','Baqaya wale'],['ok','Hisab saaf']].map(x=>'<button class="ch'+(hf===x[0]?' on':'')+'" onclick="setHF(\''+x[0]+'\')">'+x[1]+'</button>').join('')+'</div>':''}<div id="list">${listH('')}</div>
+`;wxFetch()}
+
+function addF(){const n=$('fn').value.trim();if(!n){alert('Kisan ka naam likhein');return}
+const ov=Math.round(+($('fo').value||0));db.farmers.push({id:uid(),tw:ST.tw,name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[],dp:window._dp||'',olds:ov>0?[{id:uid(),date:(new Date().getFullYear()-1)+'-12-31',amt:ov,note:''}]:[]});window._dp='';save();home()}
+
+let eid=null;
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const AVC=['#0E6A99','#1F8266','#9A6A0E','#7A4DBF','#B4373F','#2D7D9A'];
+const DPC=new Map();
+function dpSrc(d){let u=DPC.get(d);if(u)return u;try{const i=d.indexOf(','),m=/^data:([^;,]+)/.exec(d)[1],b=atob(d.slice(i+1)),a=new Uint8Array(b.length);for(let k=0;k<b.length;k++)a[k]=b.charCodeAt(k);u=URL.createObjectURL(new Blob([a],{type:m}))}catch(e){u=d}DPC.set(d,u);return u}
+function av(f,z){const st='width:'+z+'px;height:'+z+'px;font-size:'+Math.round(z*.42)+'px';if(f.dp)return'<img class="av" loading="lazy" decoding="async" style="'+st+'" src="'+dpSrc(f.dp)+'" alt="">';const n=(f.name||'?').trim();let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%6;return'<span class="av" style="'+st+';background:'+AVC[h]+'">'+esc(n.charAt(0).toUpperCase())+'</span>'}
+function dpCut(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const n=Math.min(im.width,im.height),c=document.createElement('canvas');c.width=c.height=160;c.getContext('2d').drawImage(im,(im.width-n)/2,(im.height-n)/2,n,n,0,0,160,160);res(c.toDataURL('image/jpeg',.8))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
+async function pickDP(el,nw){const fl=el.files[0];if(!fl)return;try{const d=await dpCut(fl);if(nw){window._dp=d;$('dpv').outerHTML='<img id="dpv" class="av" style="width:76px;height:76px" src="'+d+'" alt="">'}else{F().dp=d;save();open_(cur)}}catch(e){alert('Tasveer nahi khuli')}el.value=''}
+function delDP(){delete F().dp;save();open_(cur)}
+const dbx=d=>{const[y,m,dd]=d.split('-');return`<div class="db"><b>${+dd}</b><span>${MN[m-1]}</span><span>${y}</span></div>`};
+function tlH(L,f){if(!L.length)return'<div class="empty">Abhi koi entry nahi.</div>';let cm='',h='';
+L.forEach(r=>{const o=r.o,p=r.k==='p',od=r.k==='o',mk=o.date.slice(0,7);
+if(mk!==cm){cm=mk;h+=`<div class="tm"><span>${MN[+mk.slice(5)-1]} ${mk.slice(0,4)}</span></div>`}
+const d=+o.date.slice(8),mo=MN[+o.date.slice(5,7)-1];
+h+=`<div class="tl"><div class="td"><b>${d}</b><span>${mo}</span></div><div class="tx"><i class="${p?'pd':od?'od':''}"></i><u></u></div><div class="tc${p?' pc':od?' oc':''}"><div class="h2d"><b>${p?'Wasooli':od?'📜 Purana baqaya':t12(o.start)+' → '+t12(o.end)}</b><b class="${p?'pos':''}">${p?'− ':''}${rs(o.amt)}</b></div><div class="h2d sm mut"><span>${p?esc(o.how||'Cash'):od?esc(o.note||'Pichle saal ka baqaya'):dur(o.mins)+(o.note?' • '+esc(o.note):'')}</span><span class="${r.run>0?'neg':''}">Baqaya ${rs(r.run)}</span></div>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="viewPh(this)">':''}<div class="ac"><button class="s mini" onclick="${p?`editP('${o.id}')`:od?`editO('${o.id}')`:`open_('${f.id}','${o.id}');window.scrollTo(0,0)`}">✎ Edit</button><button class="d mini" onclick="${p?'delP':od?'delO':'delE'}('${o.id}')">🗑 Delete</button></div></div></div>`});return h}
+function open_(id,ed){cur=id;eid=ed||null;view='home';navR();pushS('k');const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
+const tb=t.bill+t.old,pct=tb>0?Math.min(100,Math.round(t.paid/tb*100)):0;
+const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o})),...(f.olds||[]).map(o=>({k:'o',d:o.date,s:'00',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
+let run=0;L.forEach(r=>{run+=(r.k==='p'?-1:1)*r.o.amt;r.run=run});
+$('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="back_()">← Wapas</button><button class="s" onclick="editF()">✎ Kisan edit</button></div>
+<div class="card pc2"><div class="ph2"><div class="avw" onclick="$('edp').click()">${av(f,76)}<i>📷</i></div><input id="edp" type="file" accept="image/*" class="hide" onchange="pickDP(this)"><div style="min-width:0"><h2 class="nt" style="margin:0;font-size:20px"><span class="nt">${esc(f.name)}</span></h2><div class="mut" style="margin-top:6px">🏠 ${esc(f.addr||'—')}</div><div class="mut" style="margin-top:4px">📞 ${esc(f.phone||'Number nahi likha')}</div>${f.dp?'<button class="d mini" style="margin-top:6px" onclick="delDP()">DP hatayein</button>':''}</div></div>${f.phone?`<div class="row" style="margin-top:12px"><a class="cb c" href="tel:${f.phone.replace(/[^\d+]/g,'')}"><i class="ci">${IC.ph}</i><b>Call karein</b>${IC.ar}</a><a class="cb w" target="_blank" rel="noopener" href="https://wa.me/${wnum(f.phone)}"><i class="ci">${IC.ph}</i><b>WhatsApp</b>${IC.ar}</a></div>`:''}</div>
+<div class="card"><h2>💧 Is kisan ka poora hisab</h2><div class="stg">
+<div class="stt"><i class="ci">${IC.clk}</i><div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div></div><div class="stt gn"><i class="ci">${IC.coin}</i><div><span>Total paisay</span><b>${rs(t.bill)}</b></div></div>
+<div class="stt"><i class="ci">${IC.scr}</i><div><span>Purana baqaya</span><b>${rs(t.old)}</b></div></div><div class="stt"><i class="ci">${IC.ok}</i><div><span>Wasool hua</span><b class="pos">${rs(t.paid)}</b></div></div>
+<div class="stt rd"><i class="ci">${IC.coin}</i><div><span>Baqaya (kul)</span><b style="font-size:20px;color:${t.due>0?'var(--red)':'var(--g)'}">${rs(t.due)}</b></div></div></div>
+<div class="bar"><i style="width:${pct}%"></i></div><div class="mut sm">${pct}% wasool • ${f.entries.length} entries</div></div>
+<div class="row" style="margin-bottom:12px"><button class="p" onclick="sheet()">🖼 Hisab ki tasveer</button><button class="s" onclick="sendS()">📝 Message</button></div><div id="sbox"></div>
+<div class="card fc" id="fm"><div class="fh" data-d="🚰"><i class="ic">💧</i><div><h2>${E?'✎ Entry edit karein':'Pani ki nayi entry'}</h2><small>Apna pani ka bill yahan enter karein</small></div></div><div class="fb">
+<div class="f"><label>Date</label><div class="fi">${IC.cal}<input id="ed" type="date" value="${E?E.date:today()}"></div></div>
+<div class="row"><div class="f"><label>Pani shuru (time)</label><div class="fi">${IC.clk}<input id="es" type="time" value="${E?E.start:''}" oninput="pv()"></div><button class="s mini" onclick="$('es').value=nowT();pv()">Abhi</button></div>
+<div class="f"><label>Pani khatam (time)</label><div class="fi">${IC.clk}<input id="ee" type="time" value="${E?E.end:''}" oninput="pv()"></div><button class="s mini" onclick="$('ee').value=nowT();pv()">Abhi</button></div></div>
+<div class="f"><label>Rate</label><div><span class="rate">Rs ${RATE} fi ghanta</span></div></div><div class="prev"><span>Total time: <span id="pt">—</span></span><span id="pa">Rs 0</span></div>
+<div class="f"><label>Note (marzi)</label><div class="fi">${IC.pen}<input id="en" placeholder="Jaise: gandum ka pani" value="${esc(E?E.note:'')}"></div></div>
+<button class="sb" onclick="addE()">${IC.sv}<span>${E?'Tabdeeli save karein':'Entry save karein'}</span></button>${E?'<button class="s" style="width:100%;margin-top:8px" onclick="open_(cur)">Cancel</button>':''}</div></div>
+<div class="card fc gd"><div class="fh" data-d="📜"><i class="ic">📜</i><div><h2>Purana Baqaya</h2><small>Pichle saal ka baqaya jo is kisan se lena hai, yahan likhein. Ye kul baqaya mein jud jayega.</small></div></div><div class="fb">
+<div class="row"><div class="f"><label>Rakam</label><div class="fi">${IC.coin}<input id="orm" type="number" inputmode="numeric" placeholder="Rs"></div></div><div class="f"><label>Date</label><div class="fi">${IC.cal}<input id="od" type="date" value="${new Date().getFullYear()-1}-12-31"></div></div></div>
+<div class="f"><label>Note (marzi)</label><div class="fi">${IC.pen}<input id="on" placeholder="Jaise: 2025 ka baqaya"></div></div><button class="sb" onclick="addO()">${IC.sv}<span>Purana baqaya add karein</span></button></div></div>
+<div class="card fc gr"><div class="fh" data-d="💵"><i class="ic">💰</i><div><h2>Paisay wasool kiye</h2></div></div><div class="fb">
+<div class="row"><div class="f"><label>Rakam</label><div class="fi">${IC.coin}<input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div></div><div class="f"><label>Date</label><div class="fi">${IC.cal}<input id="pd" type="date" value="${today()}"></div></div></div>
+<div class="f"><label>Tareeqa (kaise diye)</label><div class="fi">${IC.wal}<select id="ph"><option value="Cash">Cash</option><option value="JazzCash">JazzCash</option><option value="Easypaisa">Easypaisa</option><option value="Bank">Bank</option><option value="Aur">Aur</option></select></div></div><div class="f"><label>Saboot ki tasveer (marzi)</label><div class="fi">${IC.clip}<input id="pimg" type="file" accept="image/*"></div></div><button class="sb" onclick="addP()">${IC.sv}<span>Wasooli save karein</span></button></div></div>
+<div class="card"><div class="h2d" style="margin-bottom:10px"><h2 style="margin:0">📒 Poori kitab (${L.length})</h2><button class="s mini" onclick="$('tlend').scrollIntoView({behavior:'smooth',block:'center'})">⬇ Naye tak</button></div>${tlH(L,f)}<div id="tlend"></div></div>
+<button class="d" style="width:100%" onclick="delF()">🗑 Yeh Kisan Delete karein</button>`;loadPh();if(E)pv()}
+
+function pv(){const m=mins($('es').value,$('ee').value);$('pt').textContent=m?dur(m):'—';$('pa').textContent=rs(m/60*RATE)}
+const F=()=>db.farmers.find(x=>x.id===cur);
+function addE(){const s=$('es').value,e=$('ee').value,d=$('ed').value;if(!d||!s||!e){alert('Date, shuru aur khatam time likhein');return}
+const m=mins(s,e);if(!m){alert('Shuru aur khatam time ek jaisa hai');return}
+const o={date:d,start:s,end:e,mins:m,amt:Math.round(m/60*RATE),note:$('en').value.trim()},f=F();
+const ex=eid&&f.entries.find(z=>z.id===eid);if(ex)Object.assign(ex,o);else f.entries.push({id:uid(),...o});save();ding();open_(cur)}
+let payBusy=false;
+async function addP(){if(payBusy)return;payBusy=true;try{await addP_()}finally{payBusy=false}}
+async function addP_(){const a=Math.round(+$('pm').value);if(!(a>0)){alert('Sahi rakam likhein');return}
+const o={id:uid(),date:$('pd').value||today(),amt:a,how:$('ph').value},fl=$('pimg').files[0];
+if(fl){try{const d=await compress(fl);o.img=o.id;await phPut(o.id,d);if(U&&FS)FS.collection('users').doc(U.uid).collection('photos').doc(o.id).set({d}).catch(()=>{})}catch(e){alert('Tasveer save nahi hui')}}
+F().pays.push(o);save();ding();open_(cur)}
+function delE(id){if(!confirm('Yeh entry Delete karein?\n(Deleted Box mein 30 din rahegi, wahan se wapas la sakte hain)'))return;const f=F(),e=f.entries.find(x=>x.id===id);
+if(e){BIN.unshift({id:uid(),type:'entry',fid:f.id,fname:f.name,data:e,del:Date.now()});saveBin()}f.entries=f.entries.filter(x=>x.id!==id);save();open_(cur)}
+function delP(id){if(!confirm('Yeh wasooli Delete karein?\n(Deleted Box mein 30 din rahegi, wahan se wapas la sakte hain)'))return;const f=F(),p=f.pays.find(x=>x.id===id);
+if(p){BIN.unshift({id:uid(),type:'wasooli',fid:f.id,fname:f.name,data:p,del:Date.now()});saveBin()}f.pays=f.pays.filter(x=>x.id!==id);save();open_(cur)}
+function delF(){if(!confirm('Yeh kisan aur uska saara hisab Delete ho jayega.\n(Deleted Box mein 30 din rahega, wahan se wapas la sakte hain). Pakka?'))return;const f=F();
+BIN.unshift({id:uid(),type:'kisan',fid:f.id,fname:f.name,data:f,del:Date.now()});saveBin();db.farmers=db.farmers.filter(x=>x.id!==cur);save();home()}
+function addO(){const a=Math.round(+$('orm').value);if(!(a>0)){alert('Sahi rakam likhein');return}const f=F();(f.olds=f.olds||[]).push({id:uid(),date:$('od').value||today(),amt:a,note:$('on').value.trim()});save();ding();open_(cur)}
+function delO(id){if(!confirm('Yeh purana baqaya Delete karein?\n(Deleted Box mein 30 din rahega, wahan se wapas la sakte hain)'))return;const f=F(),p=(f.olds||[]).find(x=>x.id===id);if(p){BIN.unshift({id:uid(),type:'purana',fid:f.id,fname:f.name,data:p,del:Date.now()});saveBin()}f.olds=(f.olds||[]).filter(x=>x.id!==id);save();open_(cur)}
+function modal(h,c){const o=document.createElement('div');o.className='ov';o.id='em';o.onclick=e=>{if(e.target===o)o.remove()};o.innerHTML='<div class="sh fc '+(c||'')+'" style="border-radius:24px 24px 0 0">'+h+'</div>';document.body.appendChild(o)}
+const mcx=(id,t)=>'<button class="s" style="width:100%;margin-top:8px" onclick="$(\'em\').remove()">Cancel</button>';
+function editF(){const f=F();modal(`<div class="fh" data-d="👤"><i class="ic">✎</i><div><h2>Kisan edit</h2></div></div><div class="fb"><div class="f"><label>Naam</label><div class="fi">${IC.us}<input id="m_n" value="${esc(f.name)}"></div></div><div class="f"><label>Number</label><div class="fi">${IC.ph}<input id="m_p" type="tel" value="${esc(f.phone)}"></div></div><div class="f"><label>Rehaish</label><div class="fi">${IC.pin}<input id="m_a" value="${esc(f.addr)}"></div></div><button class="sb" onclick="svKisan()">${IC.sv}<span>Tabdeeli save karein</span></button>${mcx()}</div>`)}
+function svKisan(){const n=$('m_n').value.trim();if(!n){alert('Kisan ka naam likhein');return}const f=F();f.name=n;f.phone=$('m_p').value.trim();f.addr=$('m_a').value.trim();$('em').remove();save();ding();open_(cur);toast('Tabdeeli save ho gayi')}
+function editO(id){const o=(F().olds||[]).find(x=>x.id===id);if(!o)return;modal(`<div class="fh" data-d="📜"><i class="ic">📜</i><div><h2>Purana baqaya edit karein</h2></div></div><div class="fb"><div class="row"><div class="f"><label>Rakam</label><div class="fi">${IC.coin}<input id="m_o" type="number" inputmode="numeric" value="${o.amt}"></div></div><div class="f"><label>Date</label><div class="fi">${IC.cal}<input id="m_d" type="date" value="${o.date}"></div></div></div><div class="f"><label>Note (marzi)</label><div class="fi">${IC.pen}<input id="m_t" value="${esc(o.note||'')}"></div></div><button class="sb" onclick="svOld('${id}')">${IC.sv}<span>Tabdeeli save karein</span></button>${mcx()}</div>`,'gd')}
+function svOld(id){const a=Math.round(+$('m_o').value),d=$('m_d').value;if(!(a>0)){alert('Sahi rakam likhein');return}if(!d){alert('Sahi tareekh chunein');return}const o=(F().olds||[]).find(x=>x.id===id);if(!o)return;o.amt=a;o.date=d;o.note=$('m_t').value.trim();$('em').remove();save();ding();open_(cur);toast('Tabdeeli save ho gayi')}
+function editP(id){const o=F().pays.find(x=>x.id===id);if(!o)return;modal(`<div class="fh" data-d="💵"><i class="ic">💰</i><div><h2>Wasooli edit karein</h2></div></div><div class="fb"><div class="row"><div class="f"><label>Rakam</label><div class="fi">${IC.coin}<input id="m_o" type="number" inputmode="numeric" value="${o.amt}"></div></div><div class="f"><label>Date</label><div class="fi">${IC.cal}<input id="m_d" type="date" value="${o.date}"></div></div></div><div class="f"><label>Tareeqa (kaise diye)</label><div class="fi">${IC.wal}<select id="m_h">${['Cash','JazzCash','Easypaisa','Bank','Aur'].map(h=>'<option value="'+h+'"'+(h===o.how?' selected':'')+'>'+h+'</option>').join('')}</select></div></div><button class="sb" onclick="svPay('${id}')">${IC.sv}<span>Tabdeeli save karein</span></button>${mcx()}</div>`,'gr')}
+function svPay(id){const a=Math.round(+$('m_o').value),d=$('m_d').value;if(!(a>0)){alert('Sahi rakam likhein');return}if(!d){alert('Sahi tareekh chunein');return}const o=F().pays.find(x=>x.id===id);if(!o)return;o.amt=a;o.date=d;o.how=$('m_h').value;$('em').remove();save();ding();open_(cur);toast('Tabdeeli save ho gayi')}
+function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
+let s='*Aslam Tubewell - Hisab*\nKisan: '+f.name+(ST.tws.length>1?'\nTubewell: '+twOf(f).name:'')+'\nTareekh: '+fmtD(today())+'\n\n*Pani ki entries*\n';
+s+=E.length?E.map((e,i)=>(i+1)+') '+fmtD(e.date)+' | '+t12(e.start)+' → '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
+s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)'+(t.old?'\nPurana baqaya: '+rs(t.old):'')+'\n\n*Wasooli (jama)*\n';
+s+=P.length?P.map((p,i)=>(i+1)+') '+fmtD(p.date)+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
+return s+'\n\nTotal jama: '+rs(t.paid)+'\n*Baqaya: '+rs(t.due)+'*'}
+function sendS(){$('sbox').innerHTML='<div class="card"><h2>Hisab ka message</h2><textarea id="stx" readonly rows="12" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit;font-size:13px"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wa()">WhatsApp</button><button class="s" onclick="sh()">Share</button><button class="s" onclick="cp()">Copy</button></div></div>';$('stx').value=trT(stmt(F()));$('sbox').scrollIntoView({behavior:'smooth'})}
+function wa(){const f=F();const n=wnum(f.phone);window.open('https://wa.me/'+n+'?text='+encodeURIComponent($('stx').value),'_blank')}
+async function sh(){try{await navigator.share({text:$('stx').value})}catch(e){}}
+function cp(){const x=$('stx');x.select();try{navigator.clipboard.writeText(x.value)}catch(e){document.execCommand('copy')}alert('Copy ho gaya')}
+const fmtD=d=>d.split('-').reverse().join('-');
+function dfix(i){if(i.dataset.df)return;i.dataset.df=1;const w=document.createElement('div');w.className='dfw';i.parentNode.insertBefore(w,i);w.appendChild(i);
+const s=document.createElement('span');s.className='dfv'+(w.closest('.fi')?' ic':'');w.appendChild(s);
+const ph=i.type==='month'?'MM-YYYY':'DD-MM-YYYY',u=()=>{s.textContent=i.value?fmtD(i.value):ph;s.classList.toggle('e',!i.value)};
+['input','change','blur','focus'].forEach(v=>i.addEventListener(v,u));u()}
+const dscan=()=>document.querySelectorAll('input[type=date]:not([data-df]),input[type=month]:not([data-df])').forEach(dfix);
+new MutationObserver(dscan).observe(document.body,{childList:true,subtree:true});dscan();
+const rs0=n=>Math.round(n).toLocaleString('en-US')+' روپے';
+const durU=m=>{const h=Math.floor(m/60),r=m%60;return[h?(h===1?'1 گھنٹہ':h+' گھنٹے'):'',r?r+' منٹ':''].filter(Boolean).join(' ')||'0 منٹ'};
+const urT=t=>{if(!t)return'';const[h,m]=t.split(':').map(Number);const p=h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات';return (h%12||12)+':'+pad(m)+' '+p};
+async function mkImg(f){const T_=TH[th],CI=T_.ci||'#12283D',CM=T_.cm||'#5F7487',CL=T_.cl||'#D9E6EF',CS=T_.cs||'#F2F7FB',CR=T_.cr||'#B4373F';const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
+const HW={Cash:'نقد',JazzCash:'جاز کیش',Easypaisa:'ایزی پیسہ',Bank:'بینک',Aur:'دیگر'},PH=[];
+const got=await Promise.all(P.filter(p=>p.img).map(async p=>{let d=await phGet(p.img);if(!d&&U&&FS){try{const sn=await FS.collection('users').doc(U.uid).collection('photos').doc(p.img).get();if(sn.exists)d=sn.data().d}catch(e){}}
+if(d){const im=await new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=d});if(im)return{p,im}}return null}));got.forEach(g=>g&&PH.push(g));
+const W=1080,M=24,RH=72,nE=Math.max(E.length,1),nP=Math.max(P.length,1);
+const H=380+70+(nE+2)*RH+40+70+(nP+2)*RH+40+270+90+(t.old>0?58:0)+(PH.length?100+Math.ceil(PH.length/3)*396:0);
+const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.direction='rtl';
+const FF='"Geeza Pro","Noto Naskh Arabic","Noto Nastaliq Urdu","Droid Arabic Naskh","Segoe UI",Arial,sans-serif';
+const font=(sz,b)=>{x.font=(b?'bold ':'')+sz+'px '+FF};
+x.fillStyle='#fff';x.fillRect(0,0,W,H);
+const g=x.createLinearGradient(0,0,W,0);g.addColorStop(0,TH[th].h1);g.addColorStop(1,TH[th].h2);x.fillStyle=g;x.fillRect(0,0,W,210);
+x.fillStyle='#fff';x.textAlign='center';font(64,1);x.fillText(ST.urdu,W/2,85);x.fillStyle=TH[th].rb;x.beginPath();x.roundRect(W/2-200,112,400,56,28);x.fill();x.fillStyle=TH[th].rc;font(32,1);x.fillText(RATE+' روپے فی گھنٹہ',W/2,152);if(ST.tws.length>1){x.fillStyle='#fff';font(28,1);x.fillText(twOf(f).name,W/2,198)}
+x.fillStyle=CI;x.textAlign='right';font(44,1);x.fillText('کسان: '+f.name,W-M,285);
+x.fillStyle=CM;font(32);x.fillText([f.phone&&'فون: '+f.phone,f.addr&&'رہائش: '+f.addr].filter(Boolean).join('   '),W-M,335);
+x.textAlign='left';x.fillText('تاریخ: '+fmtD(today()),M,285);
+const tbl=(y,title,cols,heads,rows,tr,empty)=>{x.textAlign='right';x.fillStyle=CI;font(40,1);x.fillText(title,W-M,y+48);y+=70;
+const row=(cells,bg,fg,b)=>{x.fillStyle=bg;x.fillRect(M,y,W-2*M,RH);x.strokeStyle=CL;x.lineWidth=2;x.strokeRect(M,y,W-2*M,RH);x.fillStyle=fg;font(b?30:28,b);x.textAlign='center';
+if(typeof cells==='string'){x.fillText(cells,W/2,y+RH/2+12)}else{let r=W-M;cols.forEach((cl,i)=>{x.fillText(cells[i]||'',r-cl/2,y+RH/2+12);r-=cl;if(i<cols.length-1){x.beginPath();x.moveTo(r,y);x.lineTo(r,y+RH);x.stroke()}})}y+=RH};
+row(heads,TH[th].ig,'#fff',1);
+if(rows.length)rows.forEach((r,i)=>row(r,i%2?CS:'#fff',CI));else row(empty,'#fff',CM);
+row(tr,TH[th].il,TH[th].ig,1);return y};
+let y=tbl(380,'پانی کا حساب',[160,150,150,100,270,202],['تاریخ','شروع','ختم','منٹ','گھنٹے','پیسے'],E.map(e=>[fmtD(e.date),urT(e.start),urT(e.end),e.mins,durU(e.mins),rs0(e.amt)]),['کل','','',t.mn,durU(t.mn),rs0(t.bill)],'ابھی کوئی اندراج نہیں');
+y=tbl(y+40,'ادائیگیاں (جمع کی گئی رقم)',[300,300,432],['تاریخ','طریقہ','رقم'],P.map(p=>[fmtD(p.date),HW[p.how]||'نقد',rs0(p.amt)]),['کل جمع','',rs0(t.paid)],'ابھی کوئی ادائیگی نہیں');
+if(PH.length){y+=40;x.textAlign='right';x.fillStyle=CI;font(40,1);x.fillText('ادائیگی کے ثبوت',W-M,y+48);y+=70;
+PH.forEach((q,i)=>{const col=i%3,gx=W-M-320-col*356,gy=y+Math.floor(i/3)*396,k=Math.max(320/q.im.width,320/q.im.height),w=q.im.width*k,h=q.im.height*k;
+x.save();x.beginPath();x.roundRect(gx,gy,320,320,20);x.clip();x.drawImage(q.im,gx+(320-w)/2,gy+(320-h)/2,w,h);x.restore();
+x.strokeStyle=CL;x.lineWidth=2;x.beginPath();x.roundRect(gx,gy,320,320,20);x.stroke();
+x.textAlign='center';x.fillStyle=CI;font(26,1);x.fillText(fmtD(q.p.date)+'  •  '+rs0(q.p.amt),gx+160,gy+358)});
+y+=Math.ceil(PH.length/3)*396-20}
+y+=40;x.fillStyle=TH[th].il;x.beginPath();x.roundRect(M,y,W-2*M,250+(t.old>0?58:0),24);x.fill();
+const L=[['کل وقت',durU(t.mn)],['کل رقم',rs0(t.bill)],...(t.old>0?[['پچھلا باقی',rs0(t.old)]]:[]),['جمع شدہ رقم',rs0(t.paid)],[t.due>=0?'باقی رقم':'زائد رقم',rs0(Math.abs(t.due))]];
+L.forEach((l,i)=>{const yy=y+58+i*58,last=i==L.length-1;font(last?46:36,last);x.fillStyle=CI;x.textAlign='right';x.fillText(l[0],W-M-30,yy);x.fillStyle=last?(t.due>0?CR:TH[th].ig):CI;x.textAlign='left';x.fillText(l[1],M+30,yy)});
+x.fillStyle=CM;x.textAlign='center';font(26);x.fillText(ST.urdu+' ایپ',W/2,y+250+(t.old>0?58:0)+50);return c}
+function sRender(u){$('sbox').innerHTML='<div class="card"><h2>Hisab ki tasveer</h2><img src="'+u+'" style="width:100%;border-radius:10px;border:1px solid var(--line)"><button class="p" style="width:100%;margin-top:10px;background:#1FAF55" onclick="shWA()">WhatsApp par bhejein</button><button class="s" style="width:100%;margin-top:8px" onclick="dlImg()">Tasveer download karein</button><div class="mut sm" style="margin-top:8px">'+(IOS?'Download ke liye share list mein "Save Image" chunein.<br>':'')+''+(IOS?'Chat khulne par tasveer message box mein Paste karein (tasveer copy ho chuki hoti hai).':'Tasveer save ho jati hai aur us kisan ki chat khulti hai. Chat mein Gallery se tasveer bhejein.')+'</div></div>'}
+async function sheet(){const f=F();let k=null;try{k=JSON.stringify([f,th,ST.lang,ST.urdu,RATE,today(),ST.tws])}catch(e){}
+if(k&&window._sc&&window._sc.k===k){window._b=window._sc.b;sRender(window._sc.u);return}
+$('sbox').innerHTML='<div class="card mut">تصویر بن رہی ہے…</div>';
+const cv=await mkImg(f);const b=await new Promise(r=>cv.toBlob(r,'image/png'));window._b=b;const u=URL.createObjectURL(b);
+if(window._sc)URL.revokeObjectURL(window._sc.u);window._sc={k,b,u};sRender(u)}
+const IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const hName=f=>'hisab-'+String((f&&f.name)||'kisan').replace(/[^\w\u0600-\u06FF]+/g,'_')+'-'+today()+'.png';
+async function dlImg(){const b=window._b;if(!b)return;const n=hName(F()),fl=new File([b],n,{type:'image/png'});
+if(IOS&&navigator.canShare&&navigator.canShare({files:[fl]})){try{await navigator.share({files:[fl]})}catch(e){}return}
+try{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),1000);toast('Tasveer download ho gayi')}catch(e){toast('Download nahi ho saki')}}
+function shWA(){const f=F(),b=window._b;if(!b)return;if(!f.phone){toast('Is kisan ka number nahi likha');shImg();return}
+const url='https://wa.me/'+wnum(f.phone);
+try{navigator.clipboard.write([new ClipboardItem({'image/png':b})]).catch(()=>{})}catch(e){}
+if(IOS){location.href=url;return}
+try{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=hName(f);document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),1000)}catch(e){}
+if(!window.open(url,'_blank'))location.href=url}
+async function shImg(){const fl=new File([window._b],'hisab.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[fl]}))await navigator.share({files:[fl]});else{const a=document.createElement('a');a.href=URL.createObjectURL(window._b);a.download=fl.name;a.click()}}catch(e){}}
+const TH={
+hara:{n:'Hara Kheti',g:'#17795E',g2:'#E3F2EC',ink:'#17302A',mut:'#657A72',line:'#DCE8E2',bg:'#F3F7F4',card:'#FFFFFF',red:'#B03A3A',redbg:'#FCE8E8',h1:'#0F5A46',h2:'#1F8266',pt:'#FFFFFF',ig:'#17795E',il:'#E3F2EC',tc:'#0F5A46',rb:'#EAF0FF',rc:'#26379A'},
+neela:{n:'Pani Neela',g:'#0E6A99',g2:'#E1F1FA',ink:'#12283D',mut:'#5F7487',line:'#D9E6EF',bg:'#F2F7FB',card:'#FFFFFF',red:'#B4373F',redbg:'#FDEBEC',h1:'#0B3C6B',h2:'#1580B8',pt:'#FFFFFF',ig:'#0E6A99',il:'#E1F1FA',tc:'#0B3C6B',rb:'#DCF8E9',rc:'#0A6B3C'},
+raat:{n:'Raat (Dark)',g:'#F2B544',g2:'#2A3338',ink:'#EDEFEA',mut:'#8E9A9E',line:'#2B353A',bg:'#12171A',card:'#1B2226',red:'#FF9A9A',redbg:'#3A2124',h1:'#1D2428',h2:'#2F3A40',pt:'#1A1304',ig:'#2A3338',il:'#F6ECD2',tc:'#12171A',rb:'#CFE3FF',rc:'#0F2E57'},
+sunehri:{n:'Sunehri Zameen',g:'#9A6A0E',g2:'#F4EBC9',ink:'#2B2A1A',mut:'#7A765F',line:'#E6DEC3',bg:'#F7F3E8',card:'#FFFDF6',red:'#A53C26',redbg:'#F9E4DD',h1:'#3B4A1F',h2:'#6B7F2E',pt:'#FFFFFF',ig:'#4F6122',il:'#F4EBC9',tc:'#3B4A1F',rb:'#E6F0FF',rc:'#1D4E89'},
+indigo:{n:'Royal Indigo',g:'#3949AB',g2:'#E9ECFA',ink:'#202B40',mut:'#718096',line:'#E5E0D6',bg:'#F7F2E8',card:'#FFFDF8',red:'#B93843',redbg:'#FCEBEC',h1:'#202B68',h2:'#3949AB',pt:'#FFFFFF',ig:'#3949AB',il:'#E9ECFA',tc:'#202B68',rb:'#E3F4EA',rc:'#25865A',ac:'#D9A441',ci:'#202B40',cm:'#718096',cl:'#E5E0D6',cs:'#F7F2E8',cr:'#B93843'}};
+let th='neela';try{th=localStorage.getItem('aslam_theme')||'neela'}catch(e){}
+function applyTh(k){if(!TH[k])k='neela';th=k;const t=TH[k],r=document.documentElement.style;['g','g2','ink','mut','line','bg','card','red','redbg','h1','h2','pt','rb','rc','ac'].forEach(v=>r.setProperty('--'+v,t[v]||t.g));document.documentElement.setAttribute('data-th',k);
+const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t.tc;try{localStorage.setItem('aslam_theme',k)}catch(e){}}
+applyTh(th);
+function thPick(){let o=$('thm');if(o){o.remove();return}o=document.createElement('div');o.id='thm';o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};
+o.innerHTML='<div class="sh"><h2>🎨 Theme chunein</h2>'+Object.keys(TH).map(k=>{const t=TH[k];return`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');thPick()"><span class="sw" style="background:linear-gradient(135deg,${t.h1},${t.h2})"><i style="background:${t.g}"></i><i style="background:${t.bg}"></i></span><b>${t.n}</b><span>${k===th?'✓':''}</span></button>`}).join('')+'<button class="s" style="width:100%;margin-top:6px" onclick="thPick()">Band karein</button></div>';document.body.appendChild(o)}
+/* ===== Mausam (Weather) — Open-Meteo API (muft, bina key, 2 ghantay cache) ===== */
+const WXE={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌦️',56:'🌦️',57:'🌦️',61:'🌦️',63:'🌧️',65:'🌧️',66:'🌧️',67:'🌧️',71:'🌨️',73:'🌨️',75:'🌨️',77:'🌨️',80:'🌦️',81:'🌧️',82:'🌧️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
+const WXD=['Itwaar','Pir','Mangal','Budh','Jumeraat','Jumma','Hafta'];
+const WXCITIES=[['Karachi',24.86,67.01],['Lahore',31.55,74.34],['Islamabad',33.68,73.05],['Rawalpindi',33.6,73.07],['Faisalabad',31.42,73.08],['Multan',30.2,71.47],['Peshawar',34.01,71.58],['Quetta',30.18,66.98],['Hyderabad',25.39,68.37],['Gujranwala',32.16,74.19],['Sialkot',32.49,74.53],['Bahawalpur',29.4,71.68],['Sargodha',32.08,72.67],['Sahiwal',30.67,73.11],['Rahim Yar Khan',28.42,70.3],['Dera Ghazi Khan',30.05,70.64],['Muzaffargarh',30.07,71.87],['Khanewal',30.3,71.93],['Vehari',30.03,72.35],['Lodhran',29.53,71.63],['Jhang',31.28,72.32],['Chiniot',31.73,72.98],['Kasur',31.12,74.45],['Okara',30.81,73.45],['Pakpattan',30.34,73.39],['Hafizabad',32.07,73.69],['Mandi Bahauddin',32.58,73.49],['Gujrat',32.57,74.08],['Jhelum',32.94,73.73],['Chakwal',32.93,72.86],['Mianwali',32.58,71.54],['Bhakkar',31.61,71.07],['Layyah',30.96,70.94],['Muzaffarabad',34.37,73.47],['Gilgit',35.92,74.31],['Skardu',35.3,75.63],['Abbottabad',34.15,73.21],['Mansehra',34.33,73.2],['Swat (Saidu Sharif)',34.77,72.35],['Bannu',32.99,70.6],['Dera Ismail Khan',31.83,70.9],['Turbat',26,63.05],['Gwadar',25.13,62.32],['Larkana',27.56,68.21],['Sukkur',27.71,68.86],['Nawabshah',26.24,68.41],['Mirpur Khas',25.53,69.01],['Thatta',24.75,67.92],['Badin',24.66,68.84],['Kot Addu',30.47,70.96],['Jampur',29.64,70.59],['Rajanpur',29.1,70.33],['Alipur',29.38,71.34],['Ahmadpur East',29.14,71.26],['Hasilpur',29.69,72.55],['Chishtian',29.8,72.86],['Bahawalnagar',29.99,73.25],['Fort Abbas',29.19,72.85],['Arifwala',30.28,73.07],['Burewala',30.17,72.68],['Kamalia',30.72,72.57],['Mian Channu',30.44,72.36],['Kabirwala',30.87,71.87],['Toba Tek Singh',30.97,72.48],['Gojra',31.15,72.68],['Jaranwala',31.33,73.42],['Khushab',32.3,72.35],['Bhalwal',32.27,72.9],['Pind Dadan Khan',32.59,73.04],['Kharian',32.82,73.86],['Gujar Khan',33.25,73.3],['Talagang',32.93,72.42],['Murree',33.91,73.39],['Attock',33.77,72.36],['Taxila',33.75,72.79],['Pattoki',31.02,73.85],['Depalpur',30.67,73.65],['Kamoke',31.97,74.22],['Wazirabad',32.44,74.12],['Daska',32.32,74.35],['Narowal',32.1,74.87],['Shakargarh',32.26,75.16],['Phalia',32.43,73.58],['Mardan',34.2,72.02],['Swabi',34.12,72.47],['Charsadda',34.15,71.74],['Nowshera',34.02,71.98],['Kohat',33.59,71.44],['Hangu',33.53,71.06],['Karak',33.12,71.09],['Lakki Marwat',32.61,70.91],['Tank',32.22,70.38],['Timergara',34.83,71.84],['Chitral',35.85,71.79],['Haripur',33.99,72.93],['Parachinar',33.9,70.1],['Sibi',29.54,67.88],['Zhob',31.34,69.45],['Loralai',30.37,68.6],['Khuzdar',27.8,66.62],['Kalat',29.03,66.59],['Mastung',29.8,66.85],['Chaman',30.92,66.45],['Pishin',30.59,66.99],['Nushki',29.55,66.02],['Panjgur',26.97,64.1],['Kharan',28.63,65.42],['Khairpur',27.53,68.76],['Dadu',26.73,67.78],['Mithi (Thar)',24.73,69.8],['Umerkot',25.36,69.74],['Sanghar',26.05,68.95],['Matiari',25.6,68.45],['Tando Allahyar',25.46,68.72],['Jacobabad',28.28,68.45],['Shikarpur',27.96,68.64],['Kashmore',28.43,69.49],['Ghotki',28.01,69.32],['Naushahro Feroze',26.84,68.12],['Kandhkot',27.59,68.69],['Mirpur (AJK)',33.15,73.75],['Kotli (AJK)',33.52,73.9],['Rawalakot',33.86,73.76],['Bhimber',32.97,74.08],['Hunza',36.32,74.64],['Chilas',35.42,74.1],['Astore',35.37,74.85]];
+let WX,wxErr=false,wxBusy=false;
+const wxLoad=()=>{if(WX!==undefined)return;try{WX=JSON.parse(localStorage.getItem('aslam_wx')||'null')}catch(e){WX=null}};
+const wxClear=()=>{WX=null;try{localStorage.removeItem('aslam_wx')}catch(e){}};
+const wxYmd=t=>{const d=new Date(t);return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)};
+const wxStale=()=>!!(WX&&WX.days&&WX.days[0]&&WX.days[0].d&&WX.days[0].d<wxYmd(Date.now()));
+function wxUI(){if(view==='home'){const e=$('wxin');if(e)e.innerHTML=ST.wx&&ST.wx.lat?wxInner():wxNoLoc()}else if(view==='set')wxSetPaint()}
+const WW2W={113:0,116:2,119:3,122:3,143:45,149:45,248:45,260:45,176:80,263:51,266:51,281:56,284:67,293:80,296:61,299:63,302:63,305:65,308:65,200:95,386:95,389:95,179:71,227:73,230:75,182:66,185:56,311:66,314:67,317:66,320:67,323:71,326:73,329:73,332:73,335:75,338:75,350:77,362:66,365:67,368:71,371:73,374:77,377:77,392:96,395:99};
+const wWMO=c=>WW2W[c]!==undefined?WW2W[c]:c<=116?(c===113?0:1):c<=260?45:c<=308?63:c<=371?73:95;
+async function wxFetch(f){const w=ST.wx;if(!w||!w.lat)return;wxLoad();
+if(!f&&WX&&!wxStale()&&Date.now()-WX.at<72e5)return;
+if(wxBusy)return;wxBusy=true;wxErr=false;let ok=false;
+try{const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+w.lat+'&longitude='+w.lon+'&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&current=temperature_2m,weather_code&timezone=auto&forecast_days=4',{cache:'no-store'});
+if(!r.ok)throw 0;const j=await r.json(),D=j&&j.daily;if(!D||!Array.isArray(D.time)||!D.time.length)throw 0;
+WX={at:Date.now(),now:j.current?{t:j.current.temperature_2m,c:j.current.weather_code|0}:null,days:D.time.map((t,i)=>({d:t,c:D.weather_code[i]|0,hi:Math.round(D.temperature_2m_max[i]),lo:Math.round(D.temperature_2m_min[i]),pp:D.precipitation_probability_max[i]==null?0:D.precipitation_probability_max[i]}))};ok=true}
+catch(e){}
+if(!ok){try{const r=await fetch('https://wttr.in/~'+w.lat+','+w.lon+'?format=j1',{cache:'no-store'});if(!r.ok)throw 0;
+const j=await r.json(),A=j.weather,C=j.current_condition&&j.current_condition[0];if(!A||!A.length||!C)throw 0;
+WX={at:Date.now(),now:{t:+C.temp_C,c:wWMO(+C.weatherCode)},days:A.slice(0,4).map(d=>({d:d.date,c:wWMO(+(d.hourly[4]||d.hourly[0]||{}).weatherCode),hi:Math.round(+d.maxtempC),lo:Math.round(+d.mintempC),pp:Math.max.apply(0,(d.hourly||[]).map(x=>+x.chanceofrain||0).concat(0))}))};ok=true}
+catch(e){}}
+if(ok){try{localStorage.setItem('aslam_wx',JSON.stringify(WX))}catch(e){}}else if(!WX)wxErr=true;
+wxBusy=false;wxUI()}
+window.addEventListener('online',()=>{if(ST.wx&&ST.wx.lat&&wxStale())wxFetch(1)});
+function wxDay(i,t){const n=Date.now();if(t===wxYmd(n))return'Aaj';if(t===wxYmd(n+864e5))return'Kal';if(t===wxYmd(n+1728e5))return'Parso';try{return WXD[new Date(t+'T12:00:00').getDay()]}catch(e){return'—'}}
+function wxNoLoc(){return'<div class="h2d"><h2 style="margin:0">🌤️ Mausam</h2></div><div class="mut sm" style="margin:8px 0 10px">Aap ke shehar ka 4 din ka mausam aur barish ki khabar dekhein.</div><button class="s" style="width:100%" onclick="wxPick()">📍 Shehar chunein</button>'}
+function wxInner(){const w=ST.wx;let badge=!navigator.onLine?'<span class="wxbad">⚠️ Offline</span>':'';
+if(WX){if(wxStale()&&!badge)badge='<span class="wxbad">Purani khabar</span>';else{const h=(Date.now()-WX.at)/36e5;if(!badge&&h>=2.05)badge='<span class="wxbad">'+(h>=24?Math.floor(h/24)+' din purana':Math.floor(h)+' ghantay purani')+'</span>'}}
+let h='<div class="h2d"><h2 style="margin:0">🌤️ Mausam</h2><span style="display:flex;gap:6px;align-items:center">'+badge+'<button class="wxref" onclick="wxFetch(1)">Abhi ↻</button></span></div>'
++'<button class="wxloc" onclick="wxPick()">📍 '+esc(w.name)+'</button>'
++(WX&&WX.now?'<div class="mut" style="margin:10px 2px 0;font-size:14px">Abhi: '+(WXE[WX.now.c]||'')+' <b>'+Math.round(WX.now.t)+'°</b></div>':'');
+if(!WX)return h+'<div class="mut sm" style="margin-top:12px">'+(wxErr?'Mausam nahi aa saka. Dobara koshish karein.':navigator.onLine?'Abhi khabar aa rahi hai…':'Internet band hai. Mausam online aane par dikhega.')+'</div>';
+const cells=WX.days.map((d,i)=>{const em=WXE[d.c]||'🌤️',chip=d.pp>=60?'<span class="rch hi">🌧️ '+d.pp+'%</span>':d.pp>=30?'<span class="rch mid">🌧️ '+d.pp+'%</span>':d.pp>=20?'<span class="rch">🌧️ '+d.pp+'%</span>':'<span class="wl2">—</span>';
+return'<div'+(i===0?' class="on"':'')+'><span class="wd">'+wxDay(i,d.d)+'</span><div class="we">'+em+'</div><div class="wt">'+d.hi+'°<small> '+d.lo+'°</small></div>'+chip+'</div>'}).join('');
+let al='';for(let i=0;i<4;i++){const d=WX.days[i];if(d&&d.pp>=60){al='<div class="wxal">⚠️ <span>'+wxDay(i,d.d)+' barish ho sakti hai ('+d.pp+'%) — kisan ko bata dein</span></div>';break}}
+return h+'<div class="wxd">'+cells+'</div>'+al+'<div class="mut sm" style="margin-top:10px">Internet par har 2 ghantay update • Offline par purani khabar</div>'}
+function wxCard(){wxLoad();return'<div class="card wxcard" id="wxcard"><div id="wxin">'+(ST.wx&&ST.wx.lat?wxInner():wxNoLoc())+'</div></div>'}
+function wxSetInner(){const w=ST.wx;return'<h2 style="margin:0 0 8px">🌤️ Mausam</h2><div class="mut sm" style="margin-bottom:10px">Halat: <b>'+(w&&w.lat?esc(w.name):'Shehar set nahi')+'</b></div><div class="row"><button class="s" onclick="wxGPS()">📡 GPS se set karein</button><button class="s" onclick="wxPick()">🏙️ Shehar chunein</button></div>'+(w&&w.lat?'<button class="d mini" style="width:100%;margin-top:8px" onclick="wxOff()">Mausam band karein</button>':'')+'<div class="mut sm" style="margin-top:8px">Mausam Home par har 2 ghantay update hota hai. Barish ka chance 60% ya zyada hone par upar khabar darati hai.</div>'}
+const wxSetCard=()=>'<div class="card" id="wxset">'+wxSetInner()+'</div>';
+function wxSetPaint(){const e=$('wxset');if(e)e.innerHTML=wxSetInner()}
+function wxOff(){ST.wx=null;saveST();wxClear();wxSetPaint();toast('Mausam band ho gaya')}
+function wxSet(n){const c=WXCITIES.find(x=>x[0]===n);if(!c)return;ST.wx={lat:c[1],lon:c[2],name:c[0]};saveST();wxClear();const o=$('wxp');if(o)o.remove();toast('Mausam: '+c[0]);wxFetch(1);wxUI()}
+function wxGPS(){if(!navigator.geolocation){alert('Is phone mein GPS support nahi hai');return}toast('Location le raha hoon…');
+navigator.geolocation.getCurrentPosition(p=>{const la=p.coords.latitude,lo=p.coords.longitude;let best=WXCITIES[0],bd=1e12;
+WXCITIES.forEach(c=>{const dd=(c[1]-la)*(c[1]-la)+(c[2]-lo)*(c[2]-lo);if(dd<bd){bd=dd;best=c}});
+ST.wx={lat:Math.round(la*100)/100,lon:Math.round(lo*100)/100,name:best[0]};saveST();wxClear();const o=$('wxp');if(o)o.remove();toast('Mausam: '+best[0]);wxFetch(1);wxUI();
+try{const ac=new AbortController();setTimeout(()=>ac.abort(),6000);
+fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+la+'&longitude='+lo+'&localityLanguage=en',{signal:ac.signal}).then(r=>r.json()).then(j=>{const nm=j&&String(j.city||j.locality||j.principalSubdivision||'').trim();if(nm&&ST.wx&&ST.wx.name===best[0]&&nm.length<40){ST.wx.name=nm;saveST();wxUI()}}).catch(()=>{})}catch(e){}},
+()=>{alert('Location nahi mil saki. GPS on karein ya shehar haath se chunein.')},{timeout:15000,maximumAge:6e5,enableHighAccuracy:false})}
+function wxPick(){let o=$('wxp');if(o){o.remove();return}o=document.createElement('div');o.className='ov';o.id='wxp';o.onclick=e=>{if(e.target===o)o.remove()};
+o.innerHTML='<div class="sh"><h2>📍 Mausam ka shehar chunein</h2><button class="p" style="width:100%;margin-bottom:10px" onclick="wxGPS()">📡 GPS se set karein</button><input id="wxq" type="search" placeholder="🔍 City dhoondein" oninput="wxFilt()" style="margin-bottom:10px"><div id="wxl" style="max-height:290px;overflow:auto"></div><button class="s" style="width:100%;margin-top:10px" onclick="wxPick()">Band karein</button></div>';document.body.appendChild(o);wxFilt()}
+function wxFilt(){const e=$('wxl');if(!e)return;const q=($('wxq').value||'').trim().toLowerCase(),a=WXCITIES.filter(c=>!q||c[0].toLowerCase().includes(q));
+e.innerHTML=a.length?a.map(c=>'<button class="fm" style="padding:11px 12px" onclick="wxSet(\''+c[0]+'\')"><b>'+esc(c[0])+'</b></button>').join(''):'<div class="empty">Koi shehar nahi mila</div>'}
+const CFG={apiKey:"AIzaSyAiHYgg613HVa-3ca2g90K-wPw3ZguOgPg",authDomain:"aslam-tubewell.firebaseapp.com",projectId:"aslam-tubewell",storageBucket:"aslam-tubewell.firebasestorage.app",messagingSenderId:"668678347271",appId:"1:668678347271:web:d876035122ce1f8d6fe8a2"};
+const EM={'auth/invalid-credential':'Email ya password galat hai','auth/wrong-password':'Email ya password galat hai','auth/user-not-found':'Ye email registered nahi. "Register" dabayein','auth/email-already-in-use':'Ye email pehle se registered hai. Login karein','auth/weak-password':'Password kam az kam 6 huroof ka rakhein','auth/invalid-email':'Email sahi likhein','auth/network-request-failed':'Internet nahi hai','auth/too-many-requests':'Bohat koshishein ho gayin, thori der baad try karein','auth/user-disabled':'Ye account band hai','auth/operation-not-allowed':'Firebase mein Email/Password chalu nahi hai'};
+function refresh(){const a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)||$('em'))return;if(cur)db.farmers.some(x=>x.id===cur)?open_(cur,eid):home();else({cal:calV,rep:repV,set:setV}[view]||home)()}
+function listen(){const col=FS.collection('users').doc(U.uid).collection('farmers');
+unsub=col.onSnapshot(sn=>{let ch=false;
+sn.docChanges().forEach(c=>{const id=c.doc.id;
+if(c.type==='removed'){if(db.farmers.some(x=>x.id===id)){db.farmers=db.farmers.filter(x=>x.id!==id);ch=true}delete lastP[id];return}
+const r=c.doc.data();let f;try{f=JSON.parse(r.json)}catch(e){return}f.ts=r.ts;
+const i=db.farmers.findIndex(x=>x.id===id);
+if(i<0){db.farmers.push(f);lastP[id]=sig(f);ch=true}
+else if((r.ts||0)>(db.farmers[i].ts||0)){db.farmers[i]=f;lastP[id]=sig(f);ch=true}
+else if(sig(db.farmers[i])===sig(f))lastP[id]=sig(f)});
+if(ch){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}refresh()}
+st('☁️ Sync chal raha hai');push()},e=>st('⚠️ Sync error: '+(e.code||'')))}
+let lgM='in',justLogged=false;
+function showWelcome(n){const o=document.createElement('div');o.className='wl';o.innerHTML='<img class="lg" src="icon-192.png" alt=""><h2>Khush aamdeed!</h2><div class="mut"><bdi>'+esc(n||'')+'</bdi></div>';document.body.appendChild(o);setTimeout(()=>o.classList.add('out'),1100);setTimeout(()=>o.remove(),1450)}
+function lgSw(m){lgM=m;showLogin()}
+function lmsg(t,ok){const m=$('lm');if(!m)return;m.style.cssText='display:block;margin-bottom:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;background:'+(ok?'rgba(31,175,85,.15)':'var(--redbg)')+';color:'+(ok?'var(--g)':'var(--red)');m.textContent=t}
+function pw(el){['lp','lp2'].forEach(i=>{const x=$(i);if(x)x.type=x.type==='password'?'text':'password'});el.classList.toggle('on')}
+const SV={mail:'<svg viewBox="0 0 24 24" width="22" height="22" fill="#6B7773"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v.4l-9 5.6L3 6.4V6zm0 2.8V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.8l-9 5.6-9-5.6z"/></svg>',
+lock:'<svg viewBox="0 0 24 24" width="22" height="22" fill="#6B7773"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>',
+user:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6B7773" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+eye:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#4A5753" stroke-width="2" stroke-linecap="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+leaf:'<svg class="leaf" viewBox="0 0 120 140" aria-hidden="true"><path d="M30 10C78 20 102 62 86 108 40 98 14 56 30 10z" fill="#3F7D3A"/><path d="M86 108C62 78 46 46 30 10" stroke="#2A5A29" stroke-width="2" fill="none"/><path d="M112 92C76 86 50 106 40 136 82 141 107 122 112 92z" fill="#58994C"/></svg>'};
+function showLogin(msg){document.documentElement.classList.add('lgshow');if(FORCE_LANG!=='en'){FORCE_LANG='en';applyDir()}let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov';document.body.appendChild(o)}
+const up=lgM==='up',eye='<button class="eye" type="button" onclick="pw(this)" aria-label="Password">'+SV.eye+'</button>';
+const fld=(ic,id,tp,ph,ac,x)=>'<div class="lf">'+ic+'<input id="'+id+'" type="'+tp+'" placeholder="'+ph+'" autocomplete="'+ac+'"'+(tp==='email'?' inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" dir="ltr"':tp==='password'?' dir="ltr"':' dir="auto"')+'>'+(x||'')+'</div>';
+o.innerHTML='<div class="lgw"><div class="hero'+(up?' s':'')+'"></div>'+SV.leaf+'<div class="lgb"><h1>'+(up?'Naya account':'Wapas Khush aamdeed')+'</h1><p>'+(up?'Apni tafseel likh kar register karein':'Apne account mein login karein')+'</p>'
++(up?fld(SV.user,'ln','text','Aap ka naam','name'):'')+fld(SV.mail,'le','email','Email (Gmail)','email')
++fld(SV.lock,'lp','password',up?'Password (kam az kam 6 huroof)':'Password',up?'new-password':'current-password',eye)
++(up?fld(SV.lock,'lp2','password','Password dobara likhein','new-password'):'<div class="fp" onclick="forgot()">Password bhool gaye?</div>')
++'<div id="lm" style="display:none"></div><button class="lbtn" id="lbtn" onclick="doAuth('+(up?1:0)+')">'+(up?'Register karein':'Login')+'</button>'
++'<div class="alt">'+(up?'Pehle se account hai?':'Account nahi hai?')+' <b onclick="lgSw(\''+(up?'in':'up')+'\')">'+(up?'Login':'Register')+'</b></div></div></div>';
+applyLogo();if(msg)lmsg(msg)}
+async function doAuth(reg){const e=$('le').value.trim(),p=$('lp').value;
+if(!e||!p){lmsg('Email aur password dono likhein');return}
+if(!/^\S+@\S+\.\S+$/.test(e)){lmsg('Email sahi likhein, jaise aap@gmail.com');return}
+if(reg){if(!$('ln').value.trim()){lmsg('Apna naam likhein');return}if(p.length<6){lmsg('Password kam az kam 6 huroof ka rakhein');return}if(p!==$('lp2').value){lmsg('Dono password ek jaise nahi hain');return}}
+if(!AU){lmsg('Internet nahi hai ya online service load nahi hui. Internet chala kar app dobara kholein');return}
+justLogged=true;const b=$('lbtn');b.disabled=true;b.textContent='Intezar karein…';
+try{if(reg){const c=await AU.createUserWithEmailAndPassword(e,p);try{await c.user.updateProfile({displayName:$('ln').value.trim()})}catch(x){}try{await c.user.sendEmailVerification()}catch(x){}toast('Account ban gaya! Gmail par verification email bheji gayi')}else await AU.signInWithEmailAndPassword(e,p)}
+catch(x){justLogged=false;const m=$('lbtn');if(m){m.disabled=false;m.textContent=reg?'Register karein':'Login'}lmsg(EM[x.code]||('Masla aaya: '+(x.code||x.message)))}}
+async function forgot(){const e=$('le').value.trim();if(!e){lmsg('Pehle upar email likhein');return}
+try{await AU.sendPasswordResetEmail(e);lmsg('Password reset ka email bhej diya gaya hai. Gmail kholein (Spam bhi dekhein)',1)}catch(x){lmsg(EM[x.code]||('Masla: '+(x.code||x.message)))}}
+let loggingOut=false;
+async function wipeLocal(full){
+clearTimeout(svT);svT=0;
+try{Object.keys(localStorage).filter(k=>k.indexOf('aslam')===0&&k!=='aslam_theme').forEach(k=>localStorage.removeItem(k))}catch(e){}
+try{indexedDB.deleteDatabase('aslam_ph')}catch(e){}
+if(full){try{if(FS){await FS.terminate();await FS.clearPersistence()}}catch(e){}
+try{if(window.caches){const k=await caches.keys();await Promise.all(k.map(x=>caches.delete(x)))}}catch(e){}}
+const lang=ST.lang;Object.keys(ST).forEach(k=>delete ST[k]);Object.assign(ST,{name:'Aslam Tubewell',urdu:'اسلم ٹیوب ویل',rate:500,cred:'',pin:''});if(lang)ST.lang=lang;twInit();
+db={farmers:[],ts:0};BIN=[];lastP={};lastB={};cur=null;eid=null;try{applySt()}catch(e){}}
+async function logout(){if(!navigator.onLine){alert(trT('Logout ke liye internet chahiye, taake is phone ka sara data aur cache saaf ho sake.'));return}
+if(!confirm(trT('Logout karne se is phone ka sara data aur cache saaf ho jayega (online save hai, dobara login par wapas aa jayega). Logout karein?')))return;
+if(FS){let ok=true;try{push();await new Promise(r=>setTimeout(r,900));ok=await Promise.race([FS.waitForPendingWrites().then(()=>true),new Promise(r=>setTimeout(()=>r(false),8000))])}catch(e){ok=false}
+if(!ok&&!confirm(trT('Kuch tabdeeliyan abhi online save nahi hui. Phir bhi logout karein? (Ye tabdeeliyan zaya ho sakti hain)')))return}
+loggingOut=true;if(unsub){unsub();unsub=null}
+try{await AU.signOut()}catch(e){}
+U=null;await wipeLocal(true);
+document.documentElement.classList.add('authwait');
+try{location.replace(location.pathname)}catch(e){location.reload()}}
+function initFB(){try{firebase.initializeApp(CFG);AU=firebase.auth();FS=firebase.firestore();FS.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+AU.onAuthStateChanged(u=>{if(u){document.documentElement.classList.remove('authwait');U=u;let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}
+if(last&&last!==u.uid){db={farmers:[],ts:0};ST.tws=null;twInit();saveST();lastP={};BIN=[];lastB={};try{localStorage.removeItem('aslam_bin')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
+lgM='in';const o=$('lg');if(o)o.remove();document.documentElement.classList.remove('lgshow');FORCE_LANG=null;applyDir();relang();home();if(justLogged){justLogged=false;showWelcome(u.displayName||u.email)}st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
+else{U=null;if(unsub){unsub();unsub=null}if(!loggingOut){try{if(localStorage.getItem('aslam_uid'))wipeLocal(false)}catch(e){}}home();if(!$('lg'))showLogin()}})}catch(e){let f=false;try{f=!!localStorage.getItem('aslam_uid')}catch(_){}if(f){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('Online service load nahi hui. Internet check karein.')}}
+let ST={name:'Aslam Tubewell',urdu:'اسلم ٹیوب ویل',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
+try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}twInit();
+function applySt(){const a=$('appn');if(a)a.textContent=ST.name+' App';const r=$('rt');if(r)r.textContent=(ST.tws.length>1?curTW().name+' • ':'')+'Rs '+RATE+' fi ghanta';document.title=ST.name+' App'}
+const saveST=()=>{RATE=curTW().rate;ST.rate=RATE;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}applySt()};
+/* ===== Tubewell switch: har kisan par tw (tubewell id) laga hota hai ===== */
+function curTW(){return ST.tws.find(t=>t.id===ST.tw)||ST.tws[0]}
+function twOf(f){return ST.tws.find(t=>t.id===(f.tw||ST.tws[0].id))||ST.tws[0]}
+function twInit(){if(!Array.isArray(ST.tws)||!ST.tws.length)ST.tws=[{id:'a',name:'Tubewell 1',rate:+ST.rate>0?+ST.rate:500}];if(!ST.tws.some(t=>t.id===ST.tw))ST.tw=ST.tws[0].id;RATE=curTW().rate;ST.rate=RATE}
+function twEnsure(){let ch=false;db.farmers.forEach(f=>{const id=f.tw||ST.tws[0].id;if(!ST.tws.some(t=>t.id===id)){ST.tws.push({id,name:'Tubewell '+(ST.tws.length+1),rate:RATE});ch=true}});if(ch)saveST()}
+const TF=()=>db.farmers.filter(f=>(f.tw||ST.tws[0].id)===ST.tw);
+function twPush(){if(U&&FS)profDoc().set({tws:JSON.stringify(ST.tws),tsT:Date.now()},{merge:true}).catch(()=>{})}
+function twBar(){if(ST.tws.length<2)return'';return'<div class="chips" style="margin-bottom:10px">'+ST.tws.map(t=>'<button class="ch'+(t.id===ST.tw?' on':'')+'" onclick="setTW(\''+t.id+'\')">'+'<span class="nt">'+esc(t.name)+'</span></button>').join('')+'</div>'}
+function setTW(id){if(!ST.tws.some(t=>t.id===id))return;ST.tw=id;saveST();cur=null;eid=null;({cal:calV,rep:repV}[view]||home)();window.scrollTo(0,0)}
+function twAdd(){if(ST.tws.length>=5){alert(trT('Zyada se zyada 5 tubewell ho sakte hain'));return}
+const n=(prompt(trT('Naye tubewell ka naam'),'Tubewell '+(ST.tws.length+1))||'').trim();if(!n)return;
+const id='t'+Date.now().toString(36);ST.tws.push({id,name:n,rate:RATE});ST.tw=id;saveST();twPush();toast('Naya tubewell ban gaya. Rate Settings mein badlein.');cur=null;eid=null;go('set')}
+function twRen(id){const t=ST.tws.find(x=>x.id===id);if(!t)return;const n=(prompt(trT('Tubewell ka naam'),t.name)||'').trim();if(!n)return;t.name=n;saveST();twPush();toast('Naam badal diya');setV()}
+function twDel(id){if(ST.tws.length<2)return;const i=ST.tws.findIndex(x=>x.id===id);if(i<0)return;const t=ST.tws[i],first=ST.tws[0].id;
+const fs=db.farmers.filter(f=>(f.tw||first)===id);
+if(!confirm('"'+t.name+'" • '+fs.length+' kisan\n'+trT('Ye tubewell aur uske sab kisan Deleted Box mein chale jayenge. 30 din tak wapas la sakte hain. Pakka?')))return;
+const now=Date.now();
+fs.forEach(f=>BIN.unshift({id:uid(),type:'kisan',fid:f.id,fname:f.name,data:Object.assign({},f,{tw:id}),del:now,twd:id}));
+BIN.unshift({id:uid(),type:'tubewell',fid:id,fname:t.name,data:{tw:Object.assign({},t),idx:i,n:fs.length},del:now});
+db.farmers=db.farmers.filter(f=>!fs.includes(f));ST.tws.splice(i,1);if(ST.tw===id)ST.tw=ST.tws[0].id;
+saveBin();save();saveST();twPush();toast('Tubewell Deleted Box mein chala gaya');setV()}
+function twCard(){return'<div class="card"><h2>🚰 Tubewell</h2>'+ST.tws.map(t=>'<div class="h2d" style="margin-bottom:8px"><span><b class="nt">'+esc(t.name)+'</b><small class="mut" style="display:block">Rs '+t.rate+' fi ghanta</small></span><span style="display:flex;gap:6px"><button class="s mini" onclick="twRen(\''+t.id+'\')">Naam badlein</button>'+(ST.tws.length>1?'<button class="d mini" onclick="twDel(\''+t.id+'\')">Delete</button>':'')+'</span></div>').join('')+'<button class="s" style="width:100%;margin-top:6px" onclick="twAdd()">＋ Tubewell add karein</button><div class="mut sm" style="margin-top:8px">Har tubewell ke kisan, entries aur rate alag rehte hain. Home par upar se tubewell badlein.</div></div>'}
+function twAll(){if(ST.tws.length<2)return'';let K=0,W=0,B=0;const rows=ST.tws.map(t=>{const a=db.farmers.filter(f=>(f.tw||ST.tws[0].id)===t.id).map(tot),k=a.reduce((m,x)=>m+x.bill+x.old,0),w=a.reduce((m,x)=>m+x.paid,0);K+=k;W+=w;B+=k-w;return'<div class="h2d sm" style="margin-bottom:8px"><span><b class="nt">'+esc(t.name)+'</b><small class="mut" style="display:block">Total kamai '+rs(k)+' • Wasool hua '+rs(w)+'</small></span><b class="neg">Baqaya '+rs(k-w)+'</b></div>'}).join('');
+return'<div class="card"><h2>Sab tubewell ka hisab</h2>'+rows+'<div class="h2d" style="border-top:1px solid var(--line);padding-top:8px"><span><b>Kul</b><small class="mut" style="display:block">Total kamai '+rs(K)+' • Wasool hua '+rs(W)+'</small></span><b class="neg">Baqaya '+rs(B)+'</b></div></div>'}
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1800)}
+const ic=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
+const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],['cal','Rozana',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['rep','Report',ic('<path d="M5 20V11M12 20V4M19 20v-6"/>')],['set','Settings',ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>')]];
+const IC={cal:ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>'),clk:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),coin:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15"/>'),pen:ic('<path d="M4 20l1-4L16 5l3 3L8 19z"/>'),wal:ic('<path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h16V9H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1"/>'),sv:ic('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>'),ph:ic('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),ar:ic('<path d="M5 12h14M13 6l6 6-6 6"/>'),us:ic('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),pin:ic('<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'),clip:ic('<path d="M20 11l-8 8a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/>'),scr:ic('<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'),ok:ic('<path d="M5 12l4 4 10-10"/>')};
+function netSet(on){const n=$('net');if(!n)return;n.classList.toggle('off',!on);n.lastElementChild.textContent=on?'Online':'Offline'}
+async function netChk(){if(!navigator.onLine){netSet(false);return}const c=new AbortController(),t=setTimeout(()=>c.abort(),5000);try{await fetch('manifest.webmanifest?_='+Date.now(),{method:'HEAD',cache:'no-store',signal:c.signal});netSet(true)}catch(e){netSet(false)}clearTimeout(t)}
+window.addEventListener('online',netChk);window.addEventListener('offline',()=>netSet(false));setInterval(netChk,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)netChk()});
+let AC=null;const acI=()=>{try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}};document.addEventListener('pointerdown',acI,{passive:true});
+function ding(){if(ST.snd===false)return;try{acI();if(!AC)return;const t=AC.currentTime;[[880,0],[1318.5,.11]].forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.22,t+d+.015);g.gain.exponentialRampToValueAtTime(.0001,t+d+.3);o.connect(g);g.connect(AC.destination);o.start(t+d);o.stop(t+d+.32)})}catch(e){}}
+function tgSnd(){ST.snd=ST.snd===false;saveST();if(ST.snd!==false)ding();setV()}
+function navR(){let n=$('nav');if(!n){n=document.createElement('nav');n.id='nav';n.className='nav';n.innerHTML='<div>'+NV.map(x=>`<button class="nb" onclick="go('${x[0]}')" aria-label="${x[1]}">${x[2]}<span>${x[1]}</span></button>`).join('')+'</div>';document.body.appendChild(n)}
+n.querySelectorAll('.nb').forEach((b,i)=>b.classList.toggle('on',NV[i][0]===view))}
+function pushS(t){try{if(!(history.state&&history.state.t===t))history.pushState({t},'')}catch(e){}}
+function back_(){if(history.state&&history.state.t)history.back();else home()}
+window.addEventListener('popstate',()=>{if($('lk')||$('lg'))return;if(cur||view!=='home')home()});
+function go(k){if(k!=='home')pushS('t');eid=null;({home:home,cal:calV,rep:repV,set:setV})[k]();window.scrollTo(0,0)}
+function calV(){view='cal';cur=null;navR();const R=[];TF().forEach(f=>f.entries.forEach(e=>{if(!calM||e.date.startsWith(calM))R.push({f,e})}));
+R.sort((a,b)=>(b.e.date+b.e.start).localeCompare(a.e.date+a.e.start));
+const mn=R.reduce((a,r)=>a+r.e.mins,0),am=R.reduce((a,r)=>a+r.e.amt,0),D={};R.forEach(r=>(D[r.e.date]=D[r.e.date]||[]).push(r));
+$('v').innerHTML=`${twBar()}<div class="card"><h2>📅 Rozana ka hisab</h2><div class="f"><label>Mahina</label><input type="month" value="${calM}" onchange="calM=this.value;calV()"></div>
+<div class="grid"><div><span>Entries</span><b>${R.length}</b></div><div><span>Total time</span><b>${dur(mn)||'0 min'}</b></div><div style="grid-column:span 2"><span>Kamai</span><b>${rs(am)}</b></div></div></div>`+
+(Object.keys(D).length?Object.keys(D).map(d=>`<div class="card"><div class="h2d"><b>${fmtD(d)}</b><span class="pill">${rs(D[d].reduce((a,r)=>a+r.e.amt,0))}</span></div>`+D[d].map(r=>`<button class="fm" style="margin:8px 0 0" onclick="open_('${r.f.id}')"><div style="display:flex;align-items:center;gap:10px;min-width:0">${av(r.f,38)}<div style="min-width:0"><b><span class="nt">${esc(r.f.name)}</span></b><small>${t12(r.e.start)} → ${t12(r.e.end)} • ${dur(r.e.mins)}</small></div></div><b>${rs(r.e.amt)}</b></button>`).join('')+'</div>').join(''):'<div class="empty">Is mahine mein koi entry nahi.</div>')}
+function repV(){view='rep';cur=null;navR();const A=TF().map(f=>({f,t:tot(f)})),bill=A.reduce((a,x)=>a+x.t.bill,0),paid=A.reduce((a,x)=>a+x.t.paid,0),old=A.reduce((a,x)=>a+x.t.old,0),mn=A.reduce((a,x)=>a+x.t.mn,0),ne=A.reduce((a,x)=>a+x.f.entries.length,0);
+const M={};TF().forEach(f=>f.entries.forEach(e=>{const k=e.date.slice(0,7);(M[k]=M[k]||{a:0,m:0}).a+=e.amt;M[k].m+=e.mins}));
+const ks=Object.keys(M).sort().slice(-6).reverse(),mx=Math.max(1,...ks.map(k=>M[k].a)),due=A.filter(x=>x.t.due>0).sort((a,b)=>b.t.due-a.t.due);
+$('v').innerHTML=`${twBar()}<div class="card"><h2>📊 Report</h2><div class="grid"><div><span>Total kamai</span><b>${rs(bill)}</b></div><div><span>Wasool hua</span><b class="pos">${rs(paid)}</b></div><div><span>Baqaya</span><b class="neg">${rs(bill+old-paid)}</b></div><div><span>Total time</span><b>${dur(mn)||'0 min'}</b></div><div><span>Kisan</span><b>${db.farmers.length}</b></div><div><span>Entries</span><b>${ne}</b></div><div style="grid-column:span 2"><span>Purana baqaya</span><b>${rs(old)}</b></div></div></div>
+<div class="card"><h2>Mahine ke hisab se kamai</h2>${ks.length?ks.map(k=>`<div style="margin-bottom:10px"><div class="h2d sm"><span>${MN[+k.slice(5)-1]} ${k.slice(0,4)} • ${dur(M[k].m)}</span><b>${rs(M[k].a)}</b></div><div class="bar" style="margin:5px 0 0"><i style="width:${Math.round(M[k].a/mx*100)}%"></i></div></div>`).join(''):'<div class="empty">Abhi koi data nahi.</div>'}</div>
+<div class="card"><h2>Baqaya wale kisan</h2>${due.length?due.map(x=>`<button class="fm" style="margin:0 0 8px" onclick="open_('${x.f.id}')"><div style="display:flex;align-items:center;gap:10px">${av(x.f,36)}<b><span class="nt">${esc(x.f.name)}</span></b></div><span class="pill r">${rs(x.t.due)}</span></button>`).join(''):'<div class="empty">Kisi ka baqaya nahi 🎉</div>'}</div>${twAll()}`}
+function setV(){view='set';cur=null;navR();const lk=ST.cred?'Face ID chalu hai':ST.pin?'Sirf PIN chalu hai':'Band hai';
+$('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>Tubewell / App ka naam</label><input id="sn" value="${esc(ST.name)}"></div><div class="f"><label>Urdu naam (tasveer ke liye)</label><input id="su" value="${esc(ST.urdu)}"></div><button class="p" style="width:100%" onclick="svP()">Save karein</button></div>
+${twCard()}<div class="card"><h2>💰 Rate${ST.tws.length>1?' • '+esc(curTW().name):''}</h2><div class="mut sm" style="margin-bottom:8px">Abhi: <span class="rate">Rs ${RATE} fi ghanta</span></div><div class="f"><label>Naya rate (Rs fi ghanta)</label><input id="sr" type="number" inputmode="numeric" value="${RATE}"></div><div class="mut sm" style="margin-bottom:10px">Naya rate sirf nayi entries par lagega. Purani entries ke paisay nahi badlenge.</div><button class="p" style="width:100%" onclick="svR()">Rate save karein</button></div>
+${wxSetCard()}<div class="card"><h2>🌐 Zuban / Language / زبان</h2><div class="row"><button class="${(ST.lang||'ro')==='ro'?'p':'s'}" onclick="setLang('ro')">Roman Urdu</button><button class="${ST.lang==='ur'?'p':'s'}" onclick="setLang('ur')">اردو</button><button class="${ST.lang==='en'?'p':'s'}" onclick="setLang('en')">English</button></div><button class="s" style="width:100%;margin-top:8px" onclick="fontDiag()">Urdu font check</button></div>
+<div class="card"><h2>🎨 Theme</h2>${Object.keys(TH).map(k=>`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');setV()"><span class="sw" style="background:linear-gradient(135deg,${TH[k].h1},${TH[k].h2})"><i style="background:${TH[k].g}"></i><i style="background:${TH[k].bg}"></i></span><b>${TH[k].n}</b><span>${k===th?'✓':''}</span></button>`).join('')}</div>
+<div class="card"><h2>🔒 App Lock</h2><div class="mut sm" style="margin-bottom:10px">Halat: <b>${lk}</b></div><div class="f"><label>Backup PIN (4 se 6 ank)</label><input id="npin" type="password" inputmode="numeric" maxlength="6" placeholder="Naya PIN"></div><button class="p" style="width:100%" onclick="svPin()">PIN save karein</button>
+${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()">Face ID band karein</button>':'<button class="s" style="width:100%;margin-top:8px" onclick="onBio()">Face ID chalu karein</button>'}${ST.pin&&!ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offPin()">PIN hatayein</button>':''}</div>
+<div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,.txt,application/json,text/plain" class="hide" onchange="imp(this)"><div class="row" style="margin-top:8px"><button class="s" onclick="bkCopy()">📋 Backup copy karein</button><button class="s" onclick="bkPaste()">📥 Backup paste karein</button></div><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
+${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b><bdi>${esc((U&&U.displayName)||'')}</bdi></b><div class="mut sm"><bdi dir="ltr">${esc(U?U.email:'Login nahi')}</bdi></div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
+<div class="card"><h2>🔔 Awaaz</h2><div class="mut sm" style="margin-bottom:8px">Entry, wasooli ya baqaya save karne par chhoti si awaaz.</div><button class="${ST.snd===false?'s':'p'}" style="width:100%" onclick="tgSnd()">${ST.snd===false?'Awaaz band hai, chalu karein':'Awaaz chalu hai, band karein'}</button></div>
+<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v${CHL[0].v}<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
+function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
+function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}curTW().rate=r;saveST();twPush();toast('Rate save ho gaya');setV()}
+const hx=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('aslam'+t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const unb64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
+async function svPin(){const v=$('npin').value;if(!/^\d{4,6}$/.test(v)){alert('PIN 4 se 6 ankon ka hona chahiye');return}ST.pin=await hx(v);saveST();toast('PIN save ho gaya');setV()}
+async function onBio(){if(!ST.pin){alert('Pehle backup PIN set karein');return}if(!window.PublicKeyCredential){alert('Is phone ya browser mein Face ID support nahi');return}
+try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'Aslam Tubewell'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:ST.name+' App',displayName:ST.name+' App'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
+function offBio(){ST.cred='';saveST();setV()}
+function offPin(){ST.pin='';saveST();setV()}
+function lockNow(){if(!ST.cred&&!ST.pin)return;locked=true;let o=$('lk');if(!o){o=document.createElement('div');o.id='lk';o.className='ov';o.style.cssText='align-items:center;background:var(--bg);z-index:30';document.body.appendChild(o)}
+o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:44px">🔒</div><h2>'+esc(ST.name)+' App</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button><div class="mut sm" style="margin-top:6px">Agar neeche sheet aaye to "Use Passkey" dabayein</div>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
+async function tryBio(){try{await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id:unb64(ST.cred)}],userVerification:'required',timeout:60000}});unlock()}catch(e){const m=$('lkm');if(m)m.textContent='Face ID nahi hui. Dobara dabayein ya PIN likhein'}}
+async function tryPin(){const v=$('lkp').value;if(await hx(v)===ST.pin)unlock();else{$('lkm').textContent='PIN galat hai';$('lkp').value=''}}
+function unlock(){const o=$('lk');locked=false;if(o){o.classList.add('out');setTimeout(()=>o.remove(),300)}}
+async function forgotPin(){if(!U||!AU){alert('Is ke liye online login chahiye');return}const p=prompt('Apne account ka password likhein (\u2066'+U.email+'\u2069)');if(!p)return;try{await AU.signInWithEmailAndPassword(U.email,p);unlock()}catch(e){$('lkm').textContent='Password galat hai'}}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)hid=Date.now();else if(!locked&&hid&&Date.now()-hid>30000)lockNow()});
+function idb(){return new Promise((r,j)=>{const q=indexedDB.open('aslam_ph',1);q.onupgradeneeded=()=>q.result.createObjectStore('p');q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)})}
+async function phPut(id,d){const x=await idb();return new Promise(r=>{const t=x.transaction('p','readwrite');t.objectStore('p').put(d,id);t.oncomplete=()=>r()})}
+async function phGet(id){try{const x=await idb();return await new Promise(r=>{const q=x.transaction('p').objectStore('p').get(id);q.onsuccess=()=>r(q.result);q.onerror=()=>r(null)})}catch(e){return null}}
+async function phDel(id){try{const x=await idb();return new Promise(r=>{const t=x.transaction('p','readwrite');t.objectStore('p').delete(id);t.oncomplete=()=>r()})}catch(e){}}
+function compress(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.65))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
+async function loadPh(){for(const im of document.querySelectorAll('img[data-pid]')){const id=im.dataset.pid;let d=await phGet(id);if(!d&&U&&FS){try{const sn=await FS.collection('users').doc(U.uid).collection('photos').doc(id).get();if(sn.exists){d=sn.data().d;phPut(id,d)}}catch(e){}}if(d)im.src=d}}
+function viewPh(im){if(!im.src)return;const o=document.createElement('div');o.className='ov';o.style.cssText='align-items:center;background:rgba(0,0,0,.9);z-index:35';o.onclick=()=>o.remove();o.innerHTML='<img src="'+im.src+'" style="max-width:100%;max-height:90%;border-radius:10px">';document.body.appendChild(o)}
+let BIN=[],lastB={},binOpen=false;
+function binT(){binOpen=!binOpen;$('binb').classList.toggle('hide',!binOpen);$('binc').textContent=binOpen?'▴':'▾'}try{BIN=JSON.parse(localStorage.getItem('aslam_bin')||'[]')}catch(e){}
+const saveBin=()=>{try{localStorage.setItem('aslam_bin',JSON.stringify(BIN))}catch(e){}pushBin()};
+function pushBin(){if(!U||!FS)return;const col=FS.collection('users').doc(U.uid).collection('bin'),bt=FS.batch();let n=0;
+BIN.forEach(b=>{if(!lastB[b.id]){bt.set(col.doc(b.id),{json:JSON.stringify(b)});lastB[b.id]=1;n++}});
+Object.keys(lastB).forEach(id=>{if(!BIN.some(b=>b.id===id)){bt.delete(col.doc(id));delete lastB[id];n++}});
+if(n)bt.commit().catch(()=>{})}
+function listenBin(){FS.collection('users').doc(U.uid).collection('bin').onSnapshot(sn=>{let ch=false;
+sn.docChanges().forEach(c=>{const id=c.doc.id;if(c.type==='removed'){if(BIN.some(b=>b.id===id)){BIN=BIN.filter(b=>b.id!==id);ch=true}delete lastB[id];return}
+if(!BIN.some(b=>b.id===id)){try{BIN.push(JSON.parse(c.doc.data().json));ch=true}catch(e){return}}lastB[id]=1});
+if(ch){try{localStorage.setItem('aslam_bin',JSON.stringify(BIN))}catch(e){}if(view==='set')setV()}})}
+function binPh(b){const ps=b.type==='kisan'?b.data.pays:b.type==='wasooli'?[b.data]:[];ps.forEach(p=>{if(p.img){phDel(p.img);if(U&&FS)FS.collection('users').doc(U.uid).collection('photos').doc(p.img).delete().catch(()=>{})}})}
+function purgeBin(){const old=BIN.filter(b=>Date.now()-b.del>30*864e5);if(old.length){old.forEach(binPh);BIN=BIN.filter(b=>!old.includes(b));saveBin()}}
+function binH(){const it=BIN.filter(b=>!b.twd||!BIN.some(x=>x.type==='tubewell'&&x.fid===b.twd)).sort((a,b)=>b.del-a.del);
+return`<div class="card"><div class="h2d" style="cursor:pointer" onclick="binT()"><h2 style="margin:0">🗑 Deleted Box (${it.length})</h2><span id="binc" class="mut" style="font-size:20px">${binOpen?'▴':'▾'}</span></div><div id="binb" class="${binOpen?'':'hide'}" style="margin-top:10px"><div class="mut sm" style="margin-bottom:10px">Delete ki hui cheezein yahan 30 din tak rehti hain. Wapas lane par wo pehle ki tarah ho jati hain.</div>`+
+(it.length?it.map(b=>{const d=b.data,left=Math.max(0,30-Math.floor((Date.now()-b.del)/864e5));
+const ti=b.type==='tubewell'?'🚰 Tubewell':b.type==='kisan'?'👤 Kisan':b.type==='entry'?'💧 Entry':b.type==='purana'?'📜 Purana baqaya':'💰 Wasooli';
+const inf=b.type==='tubewell'?`${d.n} kisan`:b.type==='kisan'?`${d.entries.length} entries • ${d.pays.length} wasooli`:b.type==='entry'?`${fmtD(d.date)} • ${t12(d.start)} → ${t12(d.end)} • ${rs(d.amt)}`:`${fmtD(d.date)} • ${rs(d.amt)}`;
+return`<div class="bi"><div class="h2d"><b>${ti}: ${esc(b.type==='kisan'?d.name:b.fname)}</b><span class="pill${left<4?' r':''}">${left} din baqi</span></div><div class="mut sm" style="margin:4px 0 8px">${inf}<br>Delete hua: ${(d=>pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear())(new Date(b.del))}</div><div class="row"><button class="s mini" onclick="binRest('${b.id}')">↩ Wapas layein</button><button class="d mini" onclick="binDel('${b.id}')">❌ Hamesha ke liye</button></div></div>`}).join('')+'<button class="d" style="width:100%;margin-top:6px" onclick="binClear()">Poora box khali karein</button>':'<div class="empty">Deleted box khali hai.</div>')+'</div></div>'}
+function binRest(id){const b=BIN.find(x=>x.id===id);if(!b)return;
+if(b.type==='tubewell'){const t=b.data.tw;if(!ST.tws.some(x=>x.id===t.id))ST.tws.splice(Math.min(Math.max(+b.data.idx||0,0),ST.tws.length),0,Object.assign({},t));
+BIN.filter(x=>x.type==='kisan'&&x.twd===t.id).forEach(x=>{if(!db.farmers.some(f=>f.id===x.fid))db.farmers.push(x.data)});
+BIN=BIN.filter(x=>x.id!==id&&x.twd!==t.id);saveST();twPush();saveBin();save();toast('Wapas aa gaya');setV();return}
+if(b.type==='kisan'){if(db.farmers.some(f=>f.id===b.fid)){toast('Ye kisan pehle se maujood hai')}else db.farmers.push(b.data)}
+else{const f=db.farmers.find(x=>x.id===b.fid);if(!f){alert('Pehle "'+b.fname+'" kisan ko wapas layein');return}(b.type==='entry'?f.entries:b.type==='purana'?(f.olds=f.olds||[]):f.pays).push(b.data)}
+BIN=BIN.filter(x=>x.id!==id);saveBin();save();toast('Wapas aa gaya');setV()}
+function binDel(id){const b=BIN.find(x=>x.id===id);if(!b||!confirm('Ye hamesha ke liye hat jayega, wapas nahi aayega. Pakka?'))return;const gs=b.type==='tubewell'?BIN.filter(x=>x.twd===b.fid):[];binPh(b);gs.forEach(binPh);BIN=BIN.filter(x=>x.id!==id&&!gs.includes(x));saveBin();setV()}
+function binClear(){if(!BIN.length||!confirm('Deleted box ki saari cheezein hamesha ke liye hat jayengi. Pakka?'))return;BIN.forEach(binPh);BIN=[];saveBin();setV()}
+
+function applyLogo(){document.querySelectorAll('img.lg').forEach(i=>{i.src='icon-192.png'});const a=$('ati'),f=$('fav');if(a)a.href='icon-180.png';if(f)f.href='icon-192.png'}
+const profDoc=()=>FS.collection('users').doc(U.uid).collection('meta').doc('profile');
+
+
+
+function listenProf(){profDoc().onSnapshot(sn=>{if(!sn.exists)return;const d=sn.data();if(d.tws){try{const n=JSON.parse(d.tws);if(Array.isArray(n)&&n.length&&JSON.stringify(n)!==JSON.stringify(ST.tws)){ST.tws=n;if(!n.some(t=>t.id===ST.tw))ST.tw=n[0].id;saveST();twEnsure();refresh()}}catch(e){}}})}
+const LX=`
+Home|ہوم|Home
+Rozana ka hisab|روزانہ کا حساب|Daily account
+Rozana|روزانہ|Daily
+Report|رپورٹ|Report
+Settings|سیٹنگز|Settings
+Pani ka hisab|پانی کا حساب|Water account
+Rate:|ریٹ:|Rate:
+Rate|ریٹ|Rate
+fi ghanta|فی گھنٹہ|per hour
+Meri Total Kamai|میری کل کمائی|My Total Earnings
+Total kamai|کل کمائی|Total earnings
+Mahine ke hisab se kamai|مہینے کے حساب سے کمائی|Earnings by month
+Kamai|کمائی|Earnings
+Mahina|مہینہ|Month
+Wasool hua|وصول ہوا|Received
+wasool|وصول|received
+Baqaya wale kisan|باقی رقم والے کسان|Farmers with balance
+Baqaya|باقی رقم|Balance
+Hisab saaf|حساب صاف|All clear
+Ziada|زائد|Extra
+Naya Kisan|نیا کسان|New Farmer
+Kisan ka naam dhoondein|کسان کا نام تلاش کریں|Search farmer name
+Kisan ka naam likhein|کسان کا نام لکھیں|Enter the farmer's name
+Kisan ka naam|کسان کا نام|Farmer's name
+Kisan edit|کسان ایڈٹ|Edit farmer
+Kisan ko wapas layein|کسان کو واپس لائیں|restore the farmer
+kisan ko wapas layein|کسان کو واپس لائیں|restore the farmer
+Yeh Kisan Delete karein|یہ کسان ڈیلیٹ کریں|Delete this farmer
+Kisan|کسان|Farmer
+Number nahi likha|نمبر نہیں لکھا|No number
+Number|نمبر|Number
+Rehaish|رہائش|Address
+Gaon / ilaqa|گاؤں / علاقہ|Village / area
+Naam|نام|Name
+Save karein|محفوظ کریں|Save
+Wapas layein|واپس لائیں|Restore
+Wapas aa gaya|واپس آ گیا|Restored
+Wapas|واپس|Back
+Call karein|کال کریں|Call
+Is kisan ka poora hisab|اس کسان کا پورا حساب|This farmer's full account
+Total time:|کل وقت:|Total time:
+Total time|کل وقت|Total time
+Total paisay:|کل پیسے:|Total amount:
+Total paisay|کل پیسے|Total amount
+Total jama:|کل جمع:|Total received:
+Hisab ki tasveer|حساب کی تصویر|Account image
+Hisab ka message|حساب کا میسج|Account message
+Message|میسج|Message
+Pani ki nayi entry|پانی کی نئی اندراج|New water entry
+Entry edit karein|اندراج ایڈٹ کریں|Edit entry
+Entry save karein|اندراج محفوظ کریں|Save entry
+Tabdeeli save karein|تبدیلی محفوظ کریں|Save changes
+Date, shuru aur khatam time likhein|تاریخ، شروع اور ختم کا وقت لکھیں|Enter date, start and end time
+Shuru aur khatam time ek jaisa hai|شروع اور ختم کا وقت ایک جیسا ہے|Start and end time are the same
+Pani shuru (time)|پانی شروع (وقت)|Water start (time)
+Pani khatam (time)|پانی ختم (وقت)|Water end (time)
+Date|تاریخ|Date
+Abhi koi data nahi.|ابھی کوئی ڈیٹا نہیں۔|No data yet.
+Abhi koi entry nahi.|ابھی کوئی اندراج نہیں۔|No entries yet.
+Abhi koi wasooli nahi|ابھی کوئی وصولی نہیں|No payments yet
+Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.|ابھی کوئی کسان نہیں۔ اوپر سے "نیا کسان" دبائیں۔|No farmers yet. Tap "New Farmer" above.
+Abhi:|ابھی:|Now:
+Abhi|ابھی|Now
+Note (marzi)|نوٹ (مرضی)|Note (optional)
+Jaise: gandum ka pani|جیسے: گندم کا پانی|e.g. wheat watering
+Jaise: Ali Khan|جیسے: علی خان|e.g. Ali Khan
+Cancel|منسوخ|Cancel
+Paisay wasool kiye|پیسے وصول کیے|Payments received
+Rakam|رقم|Amount
+Tareeqa (kaise diye)|طریقہ (کیسے دیے)|Method (how paid)
+Saboot ki tasveer (marzi)|ثبوت کی تصویر (مرضی)|Proof photo (optional)
+Wasooli save karein|وصولی محفوظ کریں|Save payment
+Wasooli (jama)|وصولی (جمع)|Payments (received)
+Wasooli|وصولی|Payment
+wasooli|وصولی|payments
+Poori kitab|پوری کتاب|Full ledger
+Naye tak|نئے تک|Jump to latest
+Cash|نقد|Cash
+Aur|دیگر|Other
+Edit|ایڈٹ|Edit
+Delete hua:|ڈیلیٹ ہوا:|Deleted:
+Delete|ڈیلیٹ|Delete
+din baqi|دن باقی|days left
+Entries|اندراجات|Entries
+entries|اندراجات|entries
+Pani ki entries|پانی کی اندراجات|Water entries
+Koi entry nahi|کوئی اندراج نہیں|No entries
+Is mahine mein koi entry nahi.|اس مہینے میں کوئی اندراج نہیں۔|No entries this month.
+Kisi ka baqaya nahi|کسی کا باقی نہیں|Nobody owes anything
+Koi kisan nahi mila.|کوئی کسان نہیں ملا۔|No farmer found.
+Share dabane par WhatsApp ya "Save Image" chun sakte hain.|شیئر دبانے پر واٹس ایپ یا "Save Image" چن سکتے ہیں۔|Tap Share to pick WhatsApp or "Save Image".
+Share / Save karein|شیئر / محفوظ کریں|Share / Save
+Share|شیئر|Share
+Copy ho gaya|کاپی ہو گیا|Copied
+Copy|کاپی|Copy
+Band karein|بند کریں|Close
+Profile|پروفائل|Profile
+Tubewell / App ka naam|ٹیوب ویل / ایپ کا نام|Tubewell / app name
+Urdu naam (tasveer ke liye)|اردو نام (تصویر کے لیے)|Urdu name (for the image)
+Naya rate (Rs fi ghanta)|نیا ریٹ (روپے فی گھنٹہ)|New rate (Rs per hour)
+Naya rate sirf nayi entries par lagega. Purani entries ke paisay nahi badlenge.|نیا ریٹ صرف نئی اندراجات پر لگے گا۔ پرانی اندراجات کے پیسے نہیں بدلیں گے۔|The new rate applies only to new entries. Old entries won't change.
+Rate save karein|ریٹ محفوظ کریں|Save rate
+Rate save ho gaya|ریٹ محفوظ ہو گیا|Rate saved
+Sahi rate likhein|درست ریٹ لکھیں|Enter a valid rate
+Sahi rakam likhein|درست رقم لکھیں|Enter a valid amount
+Theme chunein|تھیم چنیں|Choose theme
+Theme|تھیم|Theme
+Khush aamdeed!|خوش آمدید!|Welcome!
+Agar neeche sheet aaye to "Use Passkey" dabayein|اگر نیچے شیٹ آئے تو "Use Passkey" دبائیں|If a sheet appears below, tap "Use Passkey"
+Purana Baqaya|پرانا باقی|Previous Balance
+Purana baqaya (pichle saal ka, marzi)|پرانا باقی (پچھلے سال کا، مرضی)|Previous balance (last year's, optional)
+Purana baqaya add karein|پرانا باقی شامل کریں|Add previous balance
+Purana baqaya:|پرانا باقی:|Previous balance:
+Purana baqaya|پرانا باقی|Previous balance
+Pichle saal ka baqaya jo is kisan se lena hai, yahan likhein. Ye kul baqaya mein jud jayega.|پچھلے سال کا باقی جو اس کسان سے لینا ہے، یہاں لکھیں۔ یہ کل باقی میں شامل ہو جائے گا۔|Enter last year's balance owed by this farmer. It is added to the total balance.
+Pichle saal ka baqaya|پچھلے سال کا باقی|Last year's balance
+Jaise: 2025 ka baqaya|جیسے: 2025 کا باقی|e.g. 2025 balance
+Baqaya (kul)|باقی (کل)|Balance (total)
+Yeh purana baqaya Delete karein?|یہ پرانا باقی ڈیلیٹ کریں؟|Delete this previous balance?
+Wapas Khush aamdeed|واپسی پر خوش آمدید|Welcome back
+Naya account|نیا اکاؤنٹ|New account
+Apni tafseel likh kar register karein|اپنی تفصیل لکھ کر رجسٹر کریں|Fill in your details to register
+Password (kam az kam 6 huroof)|پاس ورڈ (کم از کم 6 حروف)|Password (at least 6 characters)
+Account nahi hai?|اکاؤنٹ نہیں ہے؟|Don't have an account?
+Pehle se account hai?|پہلے سے اکاؤنٹ ہے؟|Already have an account?
+Register|رجسٹر|Sign up
+Kisan ki tasveer (DP, marzi)|کسان کی تصویر (ڈی پی، مرضی)|Farmer's photo (DP, optional)
+DP hatayein|ڈی پی ہٹائیں|Remove DP
+Baqaya wale|باقی والے|With balance
+Sab|سب|All
+Backup copy karein|بیک اپ کاپی کریں|Copy backup
+Backup paste karein|بیک اپ پیسٹ کریں|Paste backup
+Backup yahan paste karein|بیک اپ یہاں پیسٹ کریں|Paste the backup here
+Backup copy ho gaya|بیک اپ کاپی ہو گیا|Backup copied
+Backup download ho raha hai|بیک اپ ڈاؤن لوڈ ہو رہا ہے|Backup is downloading
+Backup nahi bana. "Backup copy karein" ka button istemal karein.|بیک اپ نہیں بنا۔ "بیک اپ کاپی کریں" کا بٹن استعمال کریں۔|Backup failed. Use the "Copy backup" button.
+Copy nahi hua|کاپی نہیں ہوا|Copy failed
+Restore karein|بحال کریں|Restore
+Hara Kheti|ہرا کھیت|Green Field
+Pani Neela|پانی نیلا|Water Blue
+Raat (Dark)|رات (ڈارک)|Night (Dark)
+Sunehri Zameen|سنہری زمین|Golden Land
+App Lock|ایپ لاک|App Lock
+Halat:|حالت:|Status:
+Face ID chalu hai|فیس آئی ڈی چالو ہے|Face ID is on
+Sirf PIN chalu hai|صرف پن چالو ہے|Only PIN is on
+Band hai|بند ہے|Off
+Backup PIN (4 se 6 ank)|بیک اپ پن (4 سے 6 ہندسے)|Backup PIN (4-6 digits)
+Naya PIN|نیا پن|New PIN
+PIN save karein|پن محفوظ کریں|Save PIN
+PIN save ho gaya|پن محفوظ ہو گیا|PIN saved
+PIN 4 se 6 ankon ka hona chahiye|پن 4 سے 6 ہندسوں کا ہونا چاہیے|PIN must be 4-6 digits
+Pehle backup PIN set karein|پہلے بیک اپ پن سیٹ کریں|Set a backup PIN first
+Face ID band karein|فیس آئی ڈی بند کریں|Turn off Face ID
+Face ID chalu karein|فیس آئی ڈی چالو کریں|Turn on Face ID
+Face ID chalu ho gaya|فیس آئی ڈی چالو ہو گیا|Face ID turned on
+Face ID chalu nahi hui. Dobara koshish karein.|فیس آئی ڈی چالو نہیں ہوئی۔ دوبارہ کوشش کریں۔|Couldn't turn on Face ID. Try again.
+Is phone ya browser mein Face ID support nahi|اس فون یا براؤزر میں فیس آئی ڈی سپورٹ نہیں|Face ID isn't supported on this phone or browser
+PIN hatayein|پن ہٹائیں|Remove PIN
+App lock laga hua hai|ایپ لاک لگا ہوا ہے|App is locked
+Face ID se kholein|فیس آئی ڈی سے کھولیں|Unlock with Face ID
+PIN se kholein|پن سے کھولیں|Unlock with PIN
+PIN likhein|پن لکھیں|Enter PIN
+PIN bhool gaye?|پن بھول گئے؟|Forgot PIN?
+PIN galat hai|پن غلط ہے|Wrong PIN
+Face ID nahi hui. Dobara dabayein ya PIN likhein|فیس آئی ڈی نہیں ہوئی۔ دوبارہ دبائیں یا پن لکھیں|Face ID failed. Tap again or enter PIN
+Is ke liye online login chahiye|اس کے لیے آن لائن لاگ اِن چاہیے|Online login is needed for this
+Apne account ka password likhein|اپنے اکاؤنٹ کا پاس ورڈ لکھیں|Enter your account password
+Password galat hai|پاس ورڈ غلط ہے|Wrong password
+Data|ڈیٹا|Data
+Backup download|بیک اپ ڈاؤن لوڈ|Download backup
+Backup wapas|بیک اپ واپس|Restore backup
+Backup mein tasveerein shamil nahi hotin.|بیک اپ میں تصویریں شامل نہیں ہوتیں۔|Backups don't include photos.
+Maujooda data backup se badal jayega. Pakka?|موجودہ ڈیٹا بیک اپ سے بدل جائے گا۔ پکا؟|Current data will be replaced by the backup. Sure?
+Yeh sahi backup file nahi hai|یہ درست بیک اپ فائل نہیں ہے|This isn't a valid backup file
+Account|اکاؤنٹ|Account
+Logout karne se is phone ka data hat jayega (online save hai, dobara login par wapas aa jayega). Agar internet nahi tha to pehle Backup download kar lein. Logout karein?|لاگ آؤٹ کرنے سے اس فون کا ڈیٹا ہٹ جائے گا (آن لائن محفوظ ہے، دوبارہ لاگ اِن پر واپس آ جائے گا)۔ اگر انٹرنیٹ نہیں تھا تو پہلے بیک اپ ڈاؤن لوڈ کر لیں۔ لاگ آؤٹ کریں؟|Logging out removes this phone's data (it is saved online and returns when you log in again). If you had no internet, download a backup first. Log out?
+Logout|لاگ آؤٹ|Logout
+App ke baare mein|ایپ کے بارے میں|About the app
+Version|ورژن|Version
+Rate aur lock sirf is phone ke liye hain.|ریٹ اور لاک صرف اس فون کے لیے ہیں۔|Rate and lock apply to this phone only.
+Home screen ka icon iPhone khud badalne nahi deta. Naya icon lagane ke liye Safari mein link khol kar login karein, phir Share → Add to Home Screen.|ہوم اسکرین کا آئیکن آئی فون خود بدلنے نہیں دیتا۔ نیا آئیکن لگانے کے لیے سفاری میں لنک کھول کر لاگ اِن کریں، پھر Share → Add to Home Screen۔|iPhone doesn't let apps change the home screen icon. To use a new icon, open the link in Safari, log in, then Share → Add to Home Screen.
+Tasveer save nahi hui|تصویر محفوظ نہیں ہوئی|Photo wasn't saved
+Tasveer nahi khuli|تصویر نہیں کھلی|Couldn't open the photo
+Save ho gaya|محفوظ ہو گیا|Saved
+Deleted Box|ڈیلیٹڈ باکس|Deleted Box
+Delete ki hui cheezein yahan 30 din tak rehti hain. Wapas lane par wo pehle ki tarah ho jati hain.|ڈیلیٹ کی ہوئی چیزیں یہاں 30 دن تک رہتی ہیں۔ واپس لانے پر وہ پہلے کی طرح ہو جاتی ہیں۔|Deleted items stay here for 30 days. Restoring puts them back as they were.
+Deleted box khali hai.|ڈیلیٹڈ باکس خالی ہے۔|Deleted box is empty.
+Hamesha ke liye|ہمیشہ کے لیے|Delete forever
+Poora box khali karein|پورا باکس خالی کریں|Empty the whole box
+Yeh entry Delete karein?|یہ اندراج ڈیلیٹ کریں؟|Delete this entry?
+Yeh wasooli Delete karein?|یہ وصولی ڈیلیٹ کریں؟|Delete this payment?
+Yeh kisan aur uska saara hisab Delete ho jayega.|یہ کسان اور اس کا سارا حساب ڈیلیٹ ہو جائے گا۔|This farmer and all their records will be deleted.
+Deleted Box mein 30 din rahegi, wahan se wapas la sakte hain|ڈیلیٹڈ باکس میں 30 دن رہے گی، وہاں سے واپس لا سکتے ہیں|It stays in the Deleted Box for 30 days; you can restore it
+Deleted Box mein 30 din rahega, wahan se wapas la sakte hain|ڈیلیٹڈ باکس میں 30 دن رہے گا، وہاں سے واپس لا سکتے ہیں|It stays in the Deleted Box for 30 days; you can restore it
+Ye hamesha ke liye hat jayega, wapas nahi aayega. Pakka?|یہ ہمیشہ کے لیے ہٹ جائے گا، واپس نہیں آئے گا۔ پکا؟|This will be removed forever. Sure?
+Deleted box ki saari cheezein hamesha ke liye hat jayengi. Pakka?|ڈیلیٹڈ باکس کی ساری چیزیں ہمیشہ کے لیے ہٹ جائیں گی۔ پکا؟|Everything in the Deleted Box will be removed forever. Sure?
+Ye kisan pehle se maujood hai|یہ کسان پہلے سے موجود ہے|This farmer already exists
+Pakka?|پکا؟|Sure?
+Pehle|پہلے|First
+Naya account banayein (Register)|نیا اکاؤنٹ بنائیں (رجسٹر)|Create new account (Register)
+Naya account banayein|نیا اکاؤنٹ بنائیں|Create new account
+Apne account mein login karein|اپنے اکاؤنٹ میں لاگ اِن کریں|Log in to your account
+Aap ka naam|آپ کا نام|Your name
+Email (Gmail)|ای میل (جی میل)|Email (Gmail)
+Password dobara likhein|پاس ورڈ دوبارہ لکھیں|Re-enter password
+Password dikhayein|پاس ورڈ دکھائیں|Show password
+Password chhupayein|پاس ورڈ چھپائیں|Hide password
+Password bhool gaye?|پاس ورڈ بھول گئے؟|Forgot password?
+Password|پاس ورڈ|Password
+Kam az kam 6 huroof|کم از کم 6 حروف|At least 6 characters
+Register karein|رجسٹر کریں|Register
+Pehle se account hai? Login|پہلے سے اکاؤنٹ ہے؟ لاگ اِن|Already have an account? Login
+Login|لاگ اِن|Login
+Intezar karein…|انتظار کریں…|Please wait…
+Email aur password dono likhein|ای میل اور پاس ورڈ دونوں لکھیں|Enter both email and password
+Email sahi likhein, jaise aap@gmail.com|ای میل درست لکھیں، جیسے aap@gmail.com|Enter a valid email, like you@gmail.com
+Email sahi likhein|ای میل درست لکھیں|Enter a valid email
+Apna naam likhein|اپنا نام لکھیں|Enter your name
+Password kam az kam 6 huroof ka rakhein|پاس ورڈ کم از کم 6 حروف کا رکھیں|Use at least 6 characters
+Dono password ek jaise nahi hain|دونوں پاس ورڈ ایک جیسے نہیں ہیں|Passwords don't match
+Internet nahi hai ya online service load nahi hui. Internet chala kar app dobara kholein|انٹرنیٹ نہیں ہے یا آن لائن سروس لوڈ نہیں ہوئی۔ انٹرنیٹ چلا کر ایپ دوبارہ کھولیں|No internet or the online service didn't load. Turn on internet and reopen the app
+Internet nahi hai|انٹرنیٹ نہیں ہے|No internet
+Masla aaya:|مسئلہ آیا:|Problem:
+Pehle upar email likhein|پہلے اوپر ای میل لکھیں|Enter your email above first
+Password reset ka email bhej diya gaya hai. Gmail kholein (Spam bhi dekhein)|پاس ورڈ ری سیٹ کی ای میل بھیج دی گئی ہے۔ جی میل کھولیں (اسپام بھی دیکھیں)|Password reset email sent. Check Gmail (and Spam)
+Account ban gaya! Gmail par verification email bheji gayi|اکاؤنٹ بن گیا! جی میل پر تصدیقی ای میل بھیجی گئی|Account created! A verification email was sent to your Gmail
+Email ya password galat hai|ای میل یا پاس ورڈ غلط ہے|Email or password is wrong
+Ye email registered nahi. "Register" dabayein|یہ ای میل رجسٹرڈ نہیں۔ "رجسٹر" دبائیں|This email isn't registered. Tap "Register"
+Ye email pehle se registered hai. Login karein|یہ ای میل پہلے سے رجسٹرڈ ہے۔ لاگ اِن کریں|This email is already registered. Log in
+Bohat koshishein ho gayin, thori der baad try karein|بہت کوششیں ہو گئیں، تھوڑی دیر بعد کوشش کریں|Too many attempts, try again later
+Firebase mein Email/Password chalu nahi hai|فائر بیس میں ای میل/پاس ورڈ چالو نہیں ہے|Email/Password isn't enabled in Firebase
+Ye account band hai|یہ اکاؤنٹ بند ہے|This account is disabled
+Online service load nahi hui. Internet check karein.|آن لائن سروس لوڈ نہیں ہوئی۔ انٹرنیٹ چیک کریں۔|Online service didn't load. Check your internet.
+Pehli baar login ke liye internet chahiye.|پہلی بار لاگ اِن کے لیے انٹرنیٹ چاہیے۔|Internet is needed for the first login.
+Check ho raha hai…|چیک ہو رہا ہے…|Checking…
+Online save ho gaya|آن لائن محفوظ ہو گیا|Saved online
+Sync chal raha hai|سنک چل رہا ہے|Sync is running
+Sync ho raha hai…|سنک ہو رہا ہے…|Syncing…
+Offline: data phone mein save hai|آف لائن: ڈیٹا فون میں محفوظ ہے|Offline: data is saved on the phone
+Online save nahi hua (phone mein save hai)|آن لائن محفوظ نہیں ہوا (فون میں محفوظ ہے)|Not saved online (saved on the phone)
+Sync error:|سنک ایرر:|Sync error:
+Aslam Tubewell - Hisab|اسلم ٹیوب ویل - حساب|Aslam Tubewell - Account
+Tareekh:|تاریخ:|Date:
+Baqaya:|باقی رقم:|Balance:
+ghantay|گھنٹے|hours
+ghanta|گھنٹہ|hour
+min|منٹ|min
+AM|صبح|AM
+PM|شام|PM
+Jan|جنوری|Jan
+Feb|فروری|Feb
+Mar|مارچ|Mar
+Apr|اپریل|Apr
+May|مئی|May
+Jun|جون|Jun
+Jul|جولائی|Jul
+Aug|اگست|Aug
+Sep|ستمبر|Sep
+Oct|اکتوبر|Oct
+Nov|نومبر|Nov
+Dec|دسمبر|Dec
+Awaaz|آواز|Sound
+Entry, wasooli ya baqaya save karne par chhoti si awaaz.|انٹری، وصولی یا باقی محفوظ کرنے پر چھوٹی سی آواز۔|A short sound when you save an entry, payment or balance.
+Awaaz band hai, chalu karein|آواز بند ہے، چالو کریں|Sound is off, turn on
+Awaaz chalu hai, band karein|آواز چالو ہے، بند کریں|Sound is on, turn off
+Naya kya hai?|نیا کیا ہے؟|What's new?
+Theek hai, samajh gaya|ٹھیک ہے، سمجھ گیا|Okay, got it
+Online|آن لائن|Online
+Offline|آف لائن|Offline
+Apna pani ka bill yahan enter karein|اپنے پانی کا بل یہاں درج کریں|Enter your water bill here
+Wasooli edit karein|وصولی ایڈٹ کریں|Edit payment
+Purana baqaya edit karein|پرانا باقی ایڈٹ کریں|Edit previous balance
+WhatsApp chat kholein|واٹس ایپ چیٹ کھولیں|Open WhatsApp chat
+WhatsApp par bhejein|واٹس ایپ پر بھیجیں|Send on WhatsApp
+Sab tubewell ka hisab|تمام ٹیوب ویلز کا حساب|All tubewells account
+Urdu font check|اردو فونٹ چیک|Urdu font check
+Naya update mil gaya. App band karke dobara kholein.|نیا اپ ڈیٹ مل گیا۔ ایپ بند کر کے دوبارہ کھولیں۔|A new update arrived. Close the app and open it again.
+Kuch tabdeeliyan abhi online save nahi hui. Phir bhi logout karein? (Ye tabdeeliyan zaya ho sakti hain)|کچھ تبدیلیاں ابھی آن لائن محفوظ نہیں ہوئیں۔ پھر بھی لاگ آؤٹ کریں؟ (یہ تبدیلیاں ضائع ہو سکتی ہیں)|Some changes are not saved online yet. Log out anyway? (They may be lost)
+Masla aaya:|مسئلہ آیا:|Problem:
+Masla:|مسئلہ:|Problem:
+Internet check karein, phir dobara koshish karein.|انٹرنیٹ چیک کریں، پھر دوبارہ کوشش کریں۔|Check your internet, then try again.
+Logout ke liye internet chahiye, taake is phone ka sara data aur cache saaf ho sake.|لاگ آؤٹ کے لیے انٹرنیٹ چاہیے، تاکہ اس فون کا سارا ڈیٹا اور کیش صاف ہو سکے۔|Logout needs internet so all data and cache on this phone can be cleared.
+Logout karne se is phone ka sara data aur cache saaf ho jayega (online save hai, dobara login par wapas aa jayega). Logout karein?|لاگ آؤٹ کرنے سے اس فون کا سارا ڈیٹا اور کیش صاف ہو جائے گا (آن لائن محفوظ ہے، دوبارہ لاگ ان پر واپس آ جائے گا)۔ لاگ آؤٹ کریں؟|Logging out clears all data and cache on this phone (it is saved online and returns when you log in again). Log out?
+Ye tubewell aur uske sab kisan Deleted Box mein chale jayenge. 30 din tak wapas la sakte hain. Pakka?|یہ ٹیوب ویل اور اس کے سب کسان ڈیلیٹڈ باکس میں چلے جائیں گے۔ 30 دن تک واپس لا سکتے ہیں۔ پکا؟|This tubewell and all its farmers will go to the Deleted Box. You can bring them back for 30 days. Sure?
+Tubewell Deleted Box mein chala gaya|ٹیوب ویل ڈیلیٹڈ باکس میں چلا گیا|Tubewell moved to the Deleted Box
+Tubewell add karein|ٹیوب ویل شامل کریں|Add tubewell
+Naam badlein|نام بدلیں|Rename
+Naam badal diya|نام بدل دیا|Name changed
+Naya tubewell ban gaya. Rate Settings mein badlein.|نیا ٹیوب ویل بن گیا۔ ریٹ سیٹنگز میں بدلیں۔|New tubewell created. Change its rate in Settings.
+Naye tubewell ka naam|نئے ٹیوب ویل کا نام|New tubewell name
+Tubewell ka naam|ٹیوب ویل کا نام|Tubewell name
+Zyada se zyada 5 tubewell ho sakte hain|زیادہ سے زیادہ 5 ٹیوب ویل ہو سکتے ہیں|At most 5 tubewells are allowed
+Har tubewell ke kisan, entries aur rate alag rehte hain. Home par upar se tubewell badlein.|ہر ٹیوب ویل کے کسان، اندراجات اور ریٹ الگ رہتے ہیں۔ ہوم پر اوپر سے ٹیوب ویل بدلیں۔|Each tubewell keeps its own farmers, entries and rate. Switch tubewell from the top of Home.
+Tasveer download karein|تصویر ڈاؤن لوڈ کریں|Download image
+Tasveer download ho gayi|تصویر ڈاؤن لوڈ ہو گئی|Image downloaded
+Download nahi ho saki|ڈاؤن لوڈ نہیں ہو سکی|Could not download
+Download ke liye share list mein "Save Image" chunein.|ڈاؤن لوڈ کے لیے شیئر لسٹ میں "Save Image" چنیں۔|To download, choose "Save Image" in the share list.
+Tasveer save ho jati hai aur us kisan ki chat khulti hai. Chat mein Gallery se tasveer bhejein.|تصویر محفوظ ہو جاتی ہے اور اس کسان کی چیٹ کھلتی ہے۔ چیٹ میں گیلری سے تصویر بھیجیں۔|The image is saved and that farmer's chat opens. Send the image from Gallery in the chat.
+Tasveer copy ho gayi. Chat mein Paste karein|تصویر کاپی ہو گئی۔ چیٹ میں پیسٹ کریں|Image copied. Paste it in the chat
+Is kisan ka number nahi likha|اس کسان کا نمبر نہیں لکھا|This farmer has no number saved
+Chat khulne par tasveer message box mein Paste karein (tasveer copy ho chuki hoti hai).|چیٹ کھلنے پر تصویر میسج باکس میں پیسٹ کریں (تصویر کاپی ہو چکی ہوتی ہے)۔|When the chat opens, paste the image in the message box (it is already copied).
+Tabdeeli save ho gayi|تبدیلی محفوظ ہو گئی|Changes saved
+Sahi tareekh chunein|صحیح تاریخ چنیں|Pick a valid date
+Mausam|موسم|Weather
+Mausam ka shehar chunein|موسم کا شہر چنیں|Choose weather city
+Shehar chunein|شہر چنیں|Choose city
+Shehar set nahi|شہر سیٹ نہیں|No city set
+Shehar|شہر|City
+Abhi|ابھی|Now
+Aaj|آج|Today
+Kal|کل|Tomorrow
+Parso|پرسوں|Day after
+Itwaar|اتوار|Sunday
+Pir|پیر|Monday
+Mangal|منگل|Tuesday
+Budh|بدھ|Wednesday
+Jumeraat|جمعرات|Thursday
+Jumma|جمعہ|Friday
+Hafta|ہفتہ|Saturday
+barish ho sakti hai|بارش ہو سکتی ہے|rain is possible
+kisan ko bata dein|کسان کو بتا دیں|tell your farmer
+Purani khabar|پرانی خبر|Old report
+Offline|آف لائن|Offline
+ghantay purani|گھنٹے پرانی|hours old
+din purana|دن پرانا|days old
+Internet par har 2 ghantay update|انٹرنیٹ پر ہر 2 گھنٹے اپڈیٹ|Updates every 2 hours online
+Offline par purani khabar|آف لائن پر پرانی خبر|Offline shows the last report
+Abhi khabar aa rahi hai…|ابھی خبر آ رہی ہے…|Fetching the latest report…
+Internet band hai. Mausam online aane par dikhega.|انٹرنیٹ بند ہے۔ موسم آن لائن آنے پر دکھے گا۔|Internet is off. Weather will appear once you are online.
+Mausam nahi aa saka. Dobara koshish karein.|موسم نہیں آ سکا۔ دوبارہ کوشش کریں۔|Could not load weather. Please try again.
+Aap ke shehar ka 4 din ka mausam aur barish ki khabar dekhein.|اپنے شہر کے 4 دن کا موسم اور بارش کی خبر دیکھیں۔|See a 4-day forecast and rain alerts for your city.
+GPS se set karein|جی پی ایس سے سیٹ کریں|Set with GPS
+Location le raha hoon…|لوکیشن لے رہا ہوں…|Getting your location…
+Location nahi mil saki. GPS on karein ya shehar haath se chunein.|لوکیشن نہیں مل سکی۔ جی پی ایس آن کریں یا شہر ہاتھ سے چنیں۔|Could not get location. Turn GPS on or pick the city yourself.
+Is phone mein GPS support nahi hai|اس فون میں جی پی ایس سپورٹ نہیں ہے|GPS is not supported on this phone
+Mausam band karein|موسم بند کریں|Turn off weather
+Mausam band ho gaya|موسم بند ہو گیا|Weather turned off
+City dhoondein|شہر ڈھونڈیں|Search city
+Koi shehar nahi mila|کوئی شہر نہیں ملا|No city found
+Mausam Home par har 2 ghantay update hota hai. Barish ka chance 60% ya zyada hone par upar khabar darati hai.|موسم ہوم پر ہر 2 گھنٹے اپڈیٹ ہوتا ہے۔ بارش کا امکان 60% یا زیادہ ہونے پر اوپر خبر دراتی ہے۔|Weather on Home updates every 2 hours. You get an alert when rain chance is 60% or more.
+`.split('\n').filter(Boolean).map(l=>l.split('|')).sort((a,b)=>b[0].length-a[0].length);
+const LR=LX.map(x=>[new RegExp('(^|[^A-Za-z])'+x[0].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![A-Za-z])','g'),x[1],x[2]]);
+let FORCE_LANG=null;
+const TC={ur:new Map(),en:new Map()};
+function trT(s){const L=FORCE_LANG||ST.lang;if(!L||L==='ro')return s;const i=L==='ur'?1:2,M=TC[L==='ur'?'ur':'en'],k=String(s),h=M.get(k);if(h!==undefined)return h;if(!/[A-Za-z]/.test(k))return k;let o=k;LR.forEach(x=>{o=o.replace(x[0],(m,p)=>p+x[i])});if(M.size>4000)M.clear();M.set(k,o);return o}
+const TN=new WeakMap();
+function trNode(n){if(n.nodeType===3){const p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName)||(p.closest&&p.closest('.nt')))return;const v=n.nodeValue,i=TN.get(n);if(i&&v===i.t)return;const t=trT(v);TN.set(n,{o:v,t});if(t!==v)n.nodeValue=t}
+else if(n.nodeType===1){if(/^(SCRIPT|STYLE)$/.test(n.nodeName))return;if(n.hasAttribute('placeholder')){n._po=n._po||n.getAttribute('placeholder');n.setAttribute('placeholder',trT(n._po))}n.childNodes.forEach(trNode)}}
+function relang(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName)||n.parentNode.closest('.nt'))continue;const i=TN.get(n),o=i&&n.nodeValue===i.t?i.o:n.nodeValue,t=trT(o);TN.set(n,{o,t});if(n.nodeValue!==t)n.nodeValue=t}
+document.querySelectorAll('[placeholder]').forEach(e=>{e._po=e._po||e.getAttribute('placeholder');e.setAttribute('placeholder',trT(e._po))})}
+function applyDir(){const L=FORCE_LANG||ST.lang||'ro',h=document.documentElement;h.dir=L==='ur'?'rtl':'ltr';h.lang=L==='ur'?'ur':L==='en'?'en':'ur-Latn'}
+function loadUF(){if((FORCE_LANG||ST.lang)!=='ur'||window._ufT)return;window._ufT=1;const h=document.documentElement.classList,d=ok=>{h.toggle('uf-ok',!!ok);h.toggle('uf-bad',!ok)};
+try{document.fonts.load('18px JameelNoori','\u0627\u0628\u067E').then(f=>d(f&&f.length>0)).catch(()=>d(false))}catch(e){d(false)}}
+async function fontDiag(){const L=[],add=(k,v)=>L.push(k+': '+v),ua=navigator.userAgent;
+add('Browser',(ua.match(/(Chrome|CriOS|Firefox|Version)\/[\d.]+/)||['?'])[0]);add('Android',(ua.match(/Android [\d.]+/)||['-'])[0]);
+try{const r=await fetch('jameel.woff');add('Font file','HTTP '+r.status+' '+(r.headers.get('content-type')||''));if(r.ok){const b=await r.arrayBuffer(),u=new Uint8Array(b.slice(0,4)),t=String.fromCharCode.apply(null,u);add('Size',Math.round(b.byteLength/1024)+' KB');add('Format',t==='wOFF'?'WOFF (theek)':t==='wOF2'?'WOFF2':(u[0]===0&&u[1]===1&&u[2]===0&&u[3]===0)||t==='OTTO'?'TTF/OTF (woff nahi)':'pehchan nahi hui ('+t+')')}}catch(e){add('Font file','nahi khuli ('+e.message+')')}
+try{await document.fonts.load('18px JameelNoori','\u0627\u0628\u067E');add('Font browser mein load','\u0627'.length&&document.fonts.check('18px JameelNoori','\u0627\u0628\u067E')?'haan':'NAHI')}catch(e){add('Font load','fail ('+e.message+')')}
+add('Urdu mode',ST.lang==='ur'?'on':'off');alert(L.join('\n'))}
+function startLang(){applyDir();loadUF();new MutationObserver(ms=>ms.forEach(m=>{m.addedNodes.forEach(trNode);if(m.type==='characterData')trNode(m.target)})).observe(document.body,{childList:true,subtree:true,characterData:true});relang()}
+
+function setLang(l){ST.lang=l;saveST();applyDir();loadUF();relang();setV();toast('Save ho gaya')}
+const _al=window.alert.bind(window),_cf=window.confirm.bind(window),_pr=window.prompt.bind(window);
+window.alert=m=>_al(trT(m));window.confirm=m=>_cf(trT(m));window.prompt=(m,d)=>_pr(trT(m),d);
+function applyBk(x){const t=x.tws;delete x.tws;db=x;if(Array.isArray(t)&&t.length){const ok=t.filter(a=>a&&a.id&&a.name&&+a.rate>0);if(ok.length){ST.tws=ok;twInit();saveST();twPush()}}twEnsure();save()}
+async function bk(){const data=JSON.stringify(Object.assign({},db,{tws:ST.tws}),null,2),fn='aslam-backup-'+today()+'.json',fl=new File([data],fn,{type:'application/json'});
+try{if(navigator.canShare&&navigator.canShare({files:[fl]})){await navigator.share({files:[fl],title:fn});return}}catch(e){if(e&&e.name==='AbortError')return}
+try{const u=URL.createObjectURL(fl),a=document.createElement('a');a.href=u;a.download=fn;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(u)},4000);toast('Backup download ho raha hai')}catch(e){alert('Backup nahi bana. "Backup copy karein" ka button istemal karein.')}}
+async function bkCopy(){const t=JSON.stringify(Object.assign({},db,{tws:ST.tws}));try{await navigator.clipboard.writeText(t);toast('Backup copy ho gaya')}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Backup copy ho gaya')}catch(x){alert('Copy nahi hua')}ta.remove()}}
+function bkPaste(){const o=document.createElement('div');o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};o.innerHTML='<div class="sh"><h2>Backup paste karein</h2><textarea id="bkt" rows="8" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font-size:13px" placeholder="Backup yahan paste karein"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="bkGo()">Restore karein</button><button class="s" onclick="this.closest(\'.ov\').remove()">Band karein</button></div></div>';document.body.appendChild(o)}
+function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
+function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
+/* ===== Naya kya hai: nayi release par ye list upar se add karein (v number barhayein) ===== */
+const CHL=[{v:54,d:'22 Oct 2026',it:[['fix','Mausam ab zyada sahi hai: naya din shuru hote hi ya internet wapas aane par mausam khud update ho jata hai. Purani khabar par din ke asli naam (Pir, Mangal waghera) likhe aate hain taake kal ka data Aaj samajh kar dhoka na khayein.','موسم اب زیادہ صحیح ہے: نیا دن شروع ہوتے ہی یا انٹرنیٹ واپس آنے پر موسم خود اپڈیٹ ہو جاتا ہے۔ پرانی خبر پر دن کے اصل نام (پیر، منگل وغیرہ) لکھے آتے ہیں تاکہ کل کا ڈیٹا آج سمجھ کر دھوکہ نہ کھائیں۔','Weather is now more accurate: whenever a new day starts or the internet returns, the forecast refreshes itself. Old reports show real day names (Mon, Tue, etc.) so yesterday\'s data is not mistaken for today.'],['new','Mausam card par ab "Abhi" ka temperature bhi nazar aata hai, aur barish ka alert aaj ke din ke liye bhi aata hai (pehle sirf agle dino ke liye tha).','موسم کارڈ پر اب "ابھی" کا درجہ حرارت بھی نظر آتا ہے، اور بارش کا الانٹ آج کے دن کے لیے بھی آتا ہے (پہلے صرف اگلے دنوں کے لیے تھا)।','The weather card now also shows the current temperature, and the rain alert now covers today as well (previously only future days).'],['fix','GPS se location set karte waqt ab aap ke gaon/deh ki asli jagah istemal hoti hai (qareebi shehar ke marks ke bajaye), aur ilaqay ka naam bhi khud aa jata hai. Shehar ki list mein 60 se zyada naye shehar/tehsil bhi shamil hain.','جی پی ایس سے لوکیشن سیٹ کرتے وقت اب آپ کے گاؤں/دہ کی اصل جگہ استعمال ہوتی ہے (قریبی شہر کے نشانات کے بجائے)، اور علاقے کا نام بھی خود آ جاتا ہے۔ شہروں کی فہرست میں 60 سے زیادہ نئے شہر/تحصیل بھی شامل ہیں۔','When set by GPS, the app now uses your exact village/area position (not the nearest city marker) and fetches the area name automatically. 60+ new cities/tehsils were also added to the list.'],['fix','Mausam ki pehli service band ho ya limit Poori ho jaye to app khud doosri muft service (wttr.in) se khabar laati hai, taake mausam khali ya ruka hua na dikhe.','موسم کی پہلی سروس بند ہو یا حد پوری ہو جائے تو ایپ خود دوسری مفت سروس (wttr.in) سے خبر لاتی ہے، تاکہ موسم خالی یا رکا ہوا نہ دکھے۔','If the primary weather service is down or rate-limited, the app automatically fetches from another free service (wttr.in) so the weather card does not stay empty.']]},{v:53,d:'21 Oct 2026',it:[['new','Naya Mausam card: Home par 4 din ka mausam (Aaj, Kal, Parso, agla din) aur barish ki khabar. Settings > Mausam se apna shehar chunein ya GPS se set karein. Offline hone par bhi purani khabar dikhti hai.','نیا موسم کارڈ: ہوم پر 4 دن کا موسم (آج، کل، پرسوں، اگلا دن) اور بارش کی خبر۔ سیٹنگز > موسم سے اپنا شہر چنیں یا جی پی ایس سے سیٹ کریں۔ آف لائن ہونے پر بھی پرانی خبر دکھتی ہے۔','New Weather card: a 4-day forecast on Home (Today, Tomorrow, Day after, next day) with rain alerts. Pick your city in Settings > Weather or set by GPS. Offline, the last report still shows.']]},{v:52,d:'19 Oct 2026',it:[['fix','Settings se "App dost ko bhejein" aur "App ka Logo" wale hisse hata diye gaye hain. App ab hamesha apna asli logo dikhati hai.','سیٹنگز سے "ایپ دوست کو بھیجیں" اور "ایپ کا لوگو" والے حصے ہٹا دیے گئے ہیں۔ ایپ اب ہمیشہ اپنا اصل لوگو دکھاتی ہے۔','The "Send the app to a friend" and "App Logo" sections were removed from Settings. The app now always shows its own logo.']]},{v:51,d:'19 Oct 2026',it:[['new','Kisano ki list ab tarteeb se aati hai: English/Roman mein A se Z, aur Urdu zuban mein ا se ے. Naye kisan khud sahi jagah par aa jate hain.','کسانوں کی لسٹ اب ترتیب سے آتی ہے: انگلش/رومن میں A سے Z، اور اردو زبان میں ا سے ے۔ نئے کسان خود صحیح جگہ پر آ جاتے ہیں۔','The farmer list is now in alphabetical order: A to Z in English/Roman and ا to ے in Urdu. New farmers go to the right place by themselves.']]},{v:50,d:'19 Oct 2026',it:[['fix','App tez ho gayi: kisano ki list, search aur report pehle se kai guna jaldi khulti hain, aur save karte waqt app ruk-ruk kar nahi chalti.','ایپ تیز ہو گئی: کسانوں کی لسٹ، سرچ اور رپورٹ پہلے سے کئی گنا جلدی کھلتی ہیں، اور سیو کرتے وقت ایپ رک رک کر نہیں چلتی۔','The app is faster: the farmer list, search and report open much quicker, and saving no longer makes the app freeze.'],['fix','Urdu mode mein aap ka likha hua naam (jaise "Kisan Ali") ab badalta nahi, jaisa likha waisa dikhta hai. "Purana Baqaya" ka heading bhi ab Urdu font mein aata hai.','اردو موڈ میں آپ کا لکھا ہوا نام اب بدلتا نہیں، جیسا لکھا ویسا دکھتا ہے۔ "پرانا باقی" کا عنوان بھی اب اردو فونٹ میں آتا ہے۔','In Urdu mode the names you type are no longer altered. The "Previous balance" heading now uses the Urdu font too.'],['fix','Chhoti screen par buttons aur filter ab bade (44 pixel) hain, taake aasani se dab sakein. Payment ki tasveer ke saath do baar dabane par ek hi payment banti hai.','چھوٹی اسکرین پر بٹن اور فلٹر اب بڑے (44 پکسل) ہیں تاکہ آسانی سے دب سکیں۔ پیمنٹ کی تصویر کے ساتھ دو بار دبانے پر ایک ہی پیمنٹ بنتی ہے۔','Buttons and filters are now larger (44px) for easier tapping. Tapping twice on a payment with a photo now creates only one payment.']]},{v:48,d:'19 Oct 2026',it:[['new','Naya theme "Royal Indigo" (indigo + warm sand + gold). Settings mein Theme chunein se select karein. Select na karein to aap ki purani theme waisi hi rahegi.','نیا تھیم "Royal Indigo" (انڈیگو + ریت + سنہری)۔ سیٹنگز میں تھیم چنیں سے منتخب کریں۔ منتخب نہ کریں تو آپ کی پرانی تھیم ویسی ہی رہے گی۔','New "Royal Indigo" theme (indigo + warm sand + gold). Pick it from Settings > Choose theme. If you do not pick it, your current theme stays as it is.']]},{v:47,d:'18 Oct 2026',it:[['fix','Internet band ho ya dheema ho to jis phone par pehle login tha, wahan app foran apne data ke saath khulti hai; login nahi mangti.','انٹرنیٹ بند ہو یا دھیما ہو تو جس فون پر پہلے لاگ ان تھا، وہاں ایپ فوراً اپنے ڈیٹا کے ساتھ کھلتی ہے؛ لاگ ان نہیں مانگتی۔','If the internet is off or slow, a phone that was already logged in opens straight into its data and does not ask for login.'],['new','Backup mein ab tubewell ke naam aur rate bhi aate hain, aur restore par wapas ban jate hain.','بیک اپ میں اب ٹیوب ویل کے نام اور ریٹ بھی آتے ہیں، اور ریسٹور پر واپس بن جاتے ہیں۔','Backups now include tubewell names and rates and bring them back on restore.']]},{v:45,d:'18 Oct 2026',it:[['fix','App ab bohat jaldi khulti hai: dheemi internet par bhi pehle purani copy foran khulti hai aur naya version peeche se aa jata hai.','ایپ اب بہت جلدی کھلتی ہے: دھیمے انٹرنیٹ پر بھی پہلے پرانی کاپی فوراً کھلتی ہے اور نیا ورژن پیچھے سے آ جاتا ہے۔','The app now opens much faster: even on slow internet it opens instantly from the saved copy and the new version arrives in the background.']]},{v:44,d:'18 Oct 2026',it:[['new','Logout se pehle app dekhti hai ke aap ka sara data online save ho chuka hai; na hua to pehle poochti hai.','لاگ آؤٹ سے پہلے ایپ دیکھتی ہے کہ آپ کا سارا ڈیٹا آن لائن محفوظ ہو چکا ہے؛ نہ ہوا تو پہلے پوچھتی ہے۔','Before logging out, the app checks that all your data is saved online and asks you first if it is not.']]},{v:43,d:'18 Oct 2026',it:[['fix','Login/Register screen ab hamesha English aur seedhi (left-to-right) hai. Email Urdu mein bhi ulta nahi likha jata.','لاگ ان/رجسٹر اسکرین اب ہمیشہ انگلش اور سیدھی (بائیں سے دائیں) ہے۔ ای میل اردو میں بھی الٹی نہیں لکھی جاتی۔','The Login/Register screen is now always English and left-to-right. Emails are no longer scrambled in Urdu.']]},{v:42,d:'17 Oct 2026',it:[['fix','Ab login ke bina dashboard ya data nahi khulta. Har naye phone par pehle login/signup screen aati hai.','اب لاگ ان کے بغیر ڈیش بورڈ یا ڈیٹا نہیں کھلتا۔ ہر نئے فون پر پہلے لاگ ان/سائن اپ اسکرین آتی ہے۔','Dashboard and data no longer open without login. Every new phone starts at the login/signup screen.'],['fix','Logout par is phone ka sara data, tasveerein aur cache saaf ho jata hai.','لاگ آؤٹ پر اس فون کا سارا ڈیٹا، تصویریں اور کیش صاف ہو جاتا ہے۔','Logout now clears all data, photos and cache on this phone.']]},{v:41,d:'17 Oct 2026',it:[['fix','Tareekh ka text ab dabbe mein poora aur saaf dikhta hai (chhoti screen par bhi), aur nichli menu chhoti screen par poori aati hai.','تاریخ کی لکھائی اب ڈبے میں پوری اور صاف دکھتی ہے (چھوٹی اسکرین پر بھی)، اور نیچے والا مینو چھوٹی اسکرین پر پورا آتا ہے۔','The date text now shows fully and clearly inside its box (even on small screens), and the bottom menu fits small screens.']]},{v:40,d:'17 Oct 2026',it:[['fix','Android par tareekh ke aage calendar icon ab text par nahi charhta; tareekh beech mein saaf dikhti hai.','اینڈرائیڈ پر تاریخ کے آگے کیلنڈر آئیکن اب لکھائی پر نہیں چڑھتا؛ تاریخ بیچ میں صاف دکھتی ہے۔','On Android the calendar icon no longer overlaps the date; the date is shown clearly in the middle.'],['fix','Call aur WhatsApp ke button chhoti screen par theek aate hain, aur poori screen ek side par nahi khisakti.','کال اور واٹس ایپ کے بٹن چھوٹی اسکرین پر ٹھیک آتے ہیں، اور پوری اسکرین ایک طرف نہیں کھسکتی۔','Call and WhatsApp buttons fit on small screens and the whole screen no longer slides sideways.']]},{v:39,d:'17 Oct 2026',it:[['new','Tubewell ab delete ho sakta hai (Settings mein Tubewell card). Delete karne par tubewell aur uske kisan Deleted Box mein 30 din rehte hain, wahan se wapas la sakte hain.','ٹیوب ویل اب ڈیلیٹ ہو سکتا ہے (سیٹنگز میں ٹیوب ویل کارڈ)۔ ڈیلیٹ کرنے پر ٹیوب ویل اور اس کے کسان ڈیلیٹڈ باکس میں 30 دن رہتے ہیں، وہاں سے واپس لا سکتے ہیں۔','A tubewell can now be deleted (Tubewell card in Settings). It and its farmers stay in the Deleted Box for 30 days and can be restored.']]},{v:38,d:'17 Oct 2026',it:[['new','Ab do (ya zyada) tubewell alag alag rakh sakte hain. Home par upar se tubewell badlein; har tubewell ke kisan, entries, wasooli aur rate alag hain.','اب دو (یا زیادہ) ٹیوب ویل الگ الگ رکھ سکتے ہیں۔ ہوم پر اوپر سے ٹیوب ویل بدلیں؛ ہر ٹیوب ویل کے کسان، اندراجات، وصولی اور ریٹ الگ ہیں۔','You can now keep two (or more) tubewells separate. Switch tubewell at the top of Home; each has its own farmers, entries, payments and rate.'],['new','Tubewell add karne ya naam badalne ke liye Settings kholein. Report mein sab tubewell ka jama hisab bhi hai.','ٹیوب ویل شامل کرنے یا نام بدلنے کے لیے سیٹنگز کھولیں۔ رپورٹ میں تمام ٹیوب ویلز کا جمع حساب بھی ہے۔','Open Settings to add a tubewell or rename it. Report also shows the combined account of all tubewells.']]},{v:37,d:'17 Oct 2026',it:[['new','Tareekh ab har jagah 16-10-2026 (din-mahina-saal) ki tarah dikhti hai.','تاریخ اب ہر جگہ 16-10-2026 (دن-مہینہ-سال) کی طرح نظر آتی ہے۔','Dates now show as 16-10-2026 (day-month-year) everywhere.'],['new','\"WhatsApp par bhejein\" button se tasveer save hoti hai aur us kisan ki chat khulti hai.','\"واٹس ایپ پر بھیجیں\" بٹن سے تصویر محفوظ ہوتی ہے اور اس کسان کی چیٹ کھلتی ہے۔','The \"Send on WhatsApp\" button saves the image and opens that farmer\'s chat.'],['new','Hisab ki tasveer ke neeche naya \"Tasveer download karein\" button.','حساب کی تصویر کے نیچے نیا \"تصویر ڈاؤن لوڈ کریں\" بٹن۔','New \"Download image\" button below the account image.'],['new','Meri Total Kamai mein ab Purana baqaya bhi shamil hai.','میری کل کمائی میں اب پرانا باقی بھی شامل ہے۔','My Total Earnings now includes the previous balance.'],['fix','Hisab ki tasveer ab bohat jaldi banti hai.','حساب کی تصویر اب بہت جلدی بنتی ہے۔','The account image is now created much faster.']]},{v:31,d:'16 Oct 2026',it:[['new','Upar se "Pani ka hisab" likhai hata di gayi. Rate ka nishan ab "Saved online" ke saath ek hi line mein hai.','اوپر سے "پانی کا حساب" لکھائی ہٹا دی گئی۔ ریٹ کا نشان اب "Saved online" کے ساتھ ایک ہی لائن میں ہے۔','The "Water account" text at the top is removed. The Rate badge now sits on the same line as "Saved online".']]},{v:30,d:'16 Oct 2026',it:[['new','Entry, purana baqaya ya wasooli save karne par chhoti si awaaz aati hai (Settings mein band bhi kar sakte hain).','انٹری، پرانا باقی یا وصولی محفوظ کرنے پر چھوٹی سی آواز آتی ہے (سیٹنگز میں بند بھی کر سکتے ہیں)۔','A short sound plays when you save an entry, previous balance or payment (can be turned off in Settings).'],['new','Upar Rate ka nishan ab Online wale nishan jaisa saaf aur halka hai.','اوپر ریٹ کا نشان اب آن لائن والے نشان جیسا صاف اور ہلکا ہے۔','The Rate badge at the top now matches the Online badge.']]},{v:29,d:'16 Oct 2026',it:[['fix','App install ke baad pehle andar ka hissa nazar aa kar phir login aata tha. Ab seedha login page khulta hai.','ایپ انسٹال کے بعد پہلے اندر کا حصہ نظر آ کر پھر لاگ اِن آتا تھا۔ اب سیدھا لاگ اِن پیج کھلتا ہے۔','After installing, the app used to flash the inside screen before the login page. It now opens straight on login.']]},{v:28,d:'16 Oct 2026',it:[
+['new','Purana baqaya aur wasooli ab edit ho sakti hain (rakam, date, tareeqa).','پرانا باقی اور وصولی اب ایڈٹ ہو سکتی ہیں (رقم، تاریخ، طریقہ)۔','Previous balance and payments can now be edited (amount, date, method).'],
+['new','Kisan ki maloomat badalne ke liye naya edit form.','کسان کی معلومات بدلنے کے لیے نیا ایڈٹ فارم۔','New form to edit farmer details.'],
+['new','"Hisab ki tasveer" se kisan ki WhatsApp chat seedha khulti hai. Tasveer copy ho jati hai, bas chat mein Paste karein.','"حساب کی تصویر" سے کسان کی واٹس ایپ چیٹ سیدھی کھلتی ہے۔ تصویر کاپی ہو جاتی ہے، بس چیٹ میں پیسٹ کریں۔','"Account image" now opens the farmer\'s WhatsApp chat. The image is copied, just paste it in the chat.'],
+['new','App ke naam ke neeche Online (hara) / Offline (laal) ka nishan.','ایپ کے نام کے نیچے آن لائن (ہرا) / آف لائن (لال) کا نشان۔','Online (green) / Offline (red) indicator under the app name.'],
+['new','Entry, wasooli aur purana baqaya ke naye khoobsurat forms, aur kisan ka naya card.','انٹری، وصولی اور پرانا باقی کے نئے خوبصورت فارم، اور کسان کا نیا کارڈ۔','Redesigned entry, payment and previous-balance forms, plus a new farmer card.'],
+['new','App update hone par ye "Naya kya hai" window dikhai degi.','ایپ اپڈیٹ ہونے پر یہ "نیا کیا ہے" ونڈو نظر آئے گی۔','This "What\'s new" window now appears after an update.'],
+['fix','Sync ke waqt app Report ya Settings se Home par wapas chali jati thi, ab wahin rehti hai.','سنک کے وقت ایپ رپورٹ یا سیٹنگز سے ہوم پر واپس چلی جاتی تھی، اب وہیں رہتی ہے۔','Sync no longer throws you back to Home from Report or Settings.'],
+['fix','10 digit wale numbers par bhi WhatsApp sahi khulta hai.','10 ہندسوں والے نمبروں پر بھی واٹس ایپ صحیح کھلتا ہے۔','WhatsApp now opens correctly for 10-digit numbers too.'],
+['fix','Entry edit karte waqt aane wala error theek kiya.','انٹری ایڈٹ کرتے وقت آنے والا ایرر ٹھیک کیا۔','Fixed an error when editing an entry.']]}];
+function wn(){let sn=0;try{sn=+localStorage.getItem('aslam_seen_v')||0}catch(e){}if(sn>=CHL[0].v)return;
+if($('lg')||$('lk')||$('em')||$('wn')||document.querySelector('.wl')){setTimeout(wn,1500);return}
+const La=ST.lang||'ro',ix=La==='ur'?2:La==='en'?3:1,es=CHL.filter(c=>c.v>sn).slice(0,3),B={new:['NAYA','نیا','NEW'],fix:['FIX','درست','FIX']};
+const body=es.map(c=>(es.length>1?'<div class="wv2">v'+c.v+' • '+c.d+'</div>':'')+c.it.map(x=>'<div class="wr"><span class="wb '+x[0]+'">'+B[x[0]][ix-1]+'</span><span>'+esc(x[ix]||x[1])+'</span></div>').join('')).join('');
+const o=document.createElement('div');o.className='ov';o.id='wn';o.style.cssText='align-items:center;z-index:26';
+o.innerHTML='<div class="wn"><div class="wh"><i>✨</i><h2>Naya kya hai?</h2><span class="wp">v'+CHL[0].v+' • '+CHL[0].d+'</span></div><div class="wlist nt">'+body+'</div><div class="wf"><button class="sb" onclick="wnOk()">'+IC.ok+'<span>Theek hai, samajh gaya</span></button></div></div>';document.body.appendChild(o)}
+function wnOk(){try{localStorage.setItem('aslam_seen_v',String(CHL[0].v))}catch(e){}const o=$('wn');if(o){o.classList.add('out');setTimeout(()=>o.remove(),300)}}
+try{if(!localStorage.getItem('aslam_seen_v')&&!localStorage.getItem('aslam_uid'))localStorage.setItem('aslam_seen_v',String(CHL[0].v))}catch(e){}
+if(ST.logo){delete ST.logo;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}purgeBin();applySt();applyLogo();startLang();navR();lockNow();home();try{if(!localStorage.getItem('aslam_uid'))showLogin()}catch(e){}netChk();setTimeout(wn,1200);
+if(typeof firebase!=='undefined')initFB();else{let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}if(!last)showLogin('Pehli baar login ke liye internet chahiye.');else{document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}}
+const hadLogin=()=>{try{return !!localStorage.getItem('aslam_uid')}catch(e){return false}};
+if(hadLogin()&&!navigator.onLine){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}
+setTimeout(()=>{const h=document.documentElement.classList;if(h.contains('authwait')&&!$('lg')){if(hadLogin()){h.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('Internet check karein, phir dobara koshish karein.')}},2500);
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.t==='upd')toast('Naya update mil gaya. App band karke dobara kholein.')})}
+</script></body></html>
