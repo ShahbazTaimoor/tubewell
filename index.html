@@ -402,7 +402,7 @@ L.forEach(r=>{const o=r.o,p=r.k==='p',od=r.k==='o',mk=o.date.slice(0,7);
 if(mk!==cm){cm=mk;h+=`<div class="tm"><span>${MN[+mk.slice(5)-1]} ${mk.slice(0,4)}</span></div>`}
 const d=+o.date.slice(8),mo=MN[+o.date.slice(5,7)-1];
 h+=`<div class="tl"><div class="td"><b>${d}</b><span>${mo}</span></div><div class="tx"><i class="${p?'pd':od?'od':''}"></i><u></u></div><div class="tc${p?' pc':od?' oc':''}"><div class="h2d"><b>${p?'Wasooli':od?'📜 Purana baqaya':t12(o.start)+' → '+t12(o.end)}</b><b class="${p?'pos':''}">${p?'− ':''}${rs(o.amt)}</b></div><div class="h2d sm mut"><span>${p?esc(o.how||'Cash'):od?esc(o.note||'Pichle saal ka baqaya'):dur(o.mins)+(o.note?' • '+esc(o.note):'')}</span><span class="${r.run>0?'neg':''}">Baqaya ${rs(r.run)}</span></div>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="viewPh(this)">':''}<div class="ac"><button class="s mini" onclick="${p?`editP('${o.id}')`:od?`editO('${o.id}')`:`open_('${f.id}','${o.id}');window.scrollTo(0,0)`}">✎ Edit</button><button class="d mini" onclick="${p?'delP':od?'delO':'delE'}('${o.id}')">🗑 Delete</button></div></div></div>`});return h}
-function open_(id,ed){cur=id;eid=ed||null;view='home';navR();pushS('k');const f=db.farmers.find(x=>x.id===id);if(!f)return home();const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
+function open_(id,ed){const nv=cur!==id||view!=='home';cur=id;eid=ed||null;view='home';navR();pushS('k');const f=db.farmers.find(x=>x.id===id);if(!f){if(nv)try{window.scrollTo(0,0)}catch(e){}return home()}const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
 const tb=t.bill+t.old,pct=tb>0?Math.min(100,Math.round(t.paid/tb*100)):0;
 const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o})),...(f.olds||[]).map(o=>({k:'o',d:o.date,s:'00',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
 let run=0;L.forEach(r=>{run+=(r.k==='p'?-1:1)*r.o.amt;r.run=run});
@@ -429,7 +429,7 @@ ${f.fcode?fcCard(f):''}
 <div class="row"><div class="f"><label>Rakam</label><div class="fi">${IC.coin}<input id="pm" type="number" inputmode="numeric" placeholder="Rs"></div></div><div class="f"><label>Date</label><div class="fi">${IC.cal}<input id="pd" type="date" value="${today()}"></div></div></div>
 <div class="f"><label>Tareeqa (kaise diye)</label><div class="fi">${IC.wal}<select id="ph"><option value="Cash">Cash</option><option value="JazzCash">JazzCash</option><option value="Easypaisa">Easypaisa</option><option value="Bank">Bank</option><option value="Aur">Aur</option></select></div></div><div class="f"><label>Saboot ki tasveer (marzi)</label><div class="fi">${IC.clip}<input id="pimg" type="file" accept="image/*"></div></div><button class="sb" onclick="addP()">${IC.sv}<span>Wasooli save karein</span></button></div></div>
 <div class="card"><div class="h2d" style="margin-bottom:10px"><h2 style="margin:0">📒 Poori kitab (${L.length})</h2><button class="s mini" onclick="$('tlend').scrollIntoView({behavior:'smooth',block:'center'})">⬇ Naye tak</button></div>${tlH(L,f)}<div id="tlend"></div></div>
-<button class="d" style="width:100%" onclick="delF()">🗑 Yeh Kisan Delete karein</button>`;loadPh();if(E)pv()}
+<button class="d" style="width:100%" onclick="delF()">🗑 Yeh Kisan Delete karein</button>`;loadPh();if(E)pv();if(nv)try{window.scrollTo(0,0)}catch(e){}}
 
 function pv(){const m=mins($('es').value,$('ee').value);$('pt').textContent=m?dur(m):'—';$('pa').textContent=rs(m/60*RATE)}
 const F=()=>db.farmers.find(x=>x.id===cur);
@@ -833,7 +833,7 @@ const SBUR={pending:'زیر التوا',accepted:'منظور شدہ',rejected:'�
 const SBCL={pending:'sc-p',accepted:'sc-a',rejected:'sc-r',completed:'sc-c',cancelled:'sc-x'};
 function stChip(s){const L=BL();return '<span class="schip '+SBCL[s]+'">'+(L==='ur'?(SBUR[s]||s):L==='en'?(SBEN[s]||s):((SBEN[s]||s)+' · '+(SBUR[s]||s)))+'</span>'}
 let BK=[],FBK=[],TWL=null,TWD=null,TWDS=[],twBusy=false,FPOS=null,bTab='req',fTab='all',bkUnsub=null,fbkUnsub=null;
-const HG=()=>ST.role==='farmer'?fHome():home();
+const HG=()=>{const fm=ST.role==='farmer',nv=fm?view!=='fhome':(!!cur||view!=='home');if(fm)fHome();else home();if(nv)try{window.scrollTo(0,0)}catch(e){}};/*v74: khata/list navigation par top, re-render par scroll mehfooz*/
 function roleScreen(){view='role';cur=null;navR();$('v').innerHTML='<div class="nt"><div class="rolehd">'+RB('Create your account','اپنا اکاؤنٹ بنائیں')+'<span class="rq">'+BT('Choose your account type — ye ek baar chun kar hamesha ke liye save ho jayega.')+'</span></div>'
 +'<button class="rolecard" onclick="pickRole(\'owner\')"><span class="ric">🚰</span>'+RC('Tubewell Owner / Accounts','ٹیوب ویل والا کسان / حساب کتاب')+'<span class="rt3">'+BT('Tubewell register karein, booking requests qabool/reject karein, usage hours aur charges ka hisab rakhein.')+'</span></button>'
 +'<button class="rolecard alt" onclick="pickRole(\'farmer\')"><span class="ric">🌱</span>'+RC('Water-Seeking Farmer','پانی لگوانے والا کسان')+'<span class="rt3">'+BT('Qareebi tubewell dhoondein, rate aur available waqt dekhein, pani book karein.')+'</span></button>'
@@ -1710,11 +1710,11 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=73;
+const APPV=74;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
-if(ST.logo){delete ST.logo;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}purgeBin();applySt();applyLogo();startLang();navR();lockNow();HG();try{if(!localStorage.getItem('aslam_uid'))showLogin()}catch(e){}netChk();
+if(ST.logo){delete ST.logo;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}try{history.scrollRestoration='manual'}catch(e){}purgeBin();applySt();applyLogo();startLang();navR();lockNow();HG();try{if(!localStorage.getItem('aslam_uid'))showLogin()}catch(e){}netChk();
 if(typeof firebase!=='undefined')initFB();else{let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}if(!last)showLogin('Pehli baar login ke liye internet chahiye.');else{document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}}
 const hadLogin=()=>{try{return !!localStorage.getItem('aslam_uid')}catch(e){return false}};
 if(hadLogin()&&!navigator.onLine){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}
