@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="ur-Latn"><head><meta charset="utf-8">
+<html lang="ur-Latn" translate="no"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="google" content="notranslate"><!-- Chrome ka Translate popup band (v72) -->
 <meta name="apple-mobile-web-app-title" content="Tubewell Khata"><meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" id="ati" href="icon-180.png"><link rel="icon" id="fav" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B3C6B">
 <title>Tubewell Khata App</title>
@@ -124,8 +125,9 @@ button{transition:transform .12s ease,background .25s,color .25s,opacity .2s}but
 .chip i{flex:none;width:7px;height:7px;border-radius:50%;background:#7CF2A5;box-shadow:0 0 0 3px rgba(124,242,165,.28);animation:pulse 2s infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 6px rgba(124,242,165,0)}}
 .tx i.od{background:#E0A030}.tc.oc{background:rgba(224,160,48,.16)}
+@font-face{font-family:'AlviNastaleeq';src:local('Alvi Nastaleeq'),local('AlviNastaleeq'),url('alvi-nastaleeq.woff2') format('woff2');font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F,U+060C,U+061B,U+061F,U+06D4}
 @font-face{font-family:'JameelNoori';src:local('Jameel Noori Nastaleeq'),local('JameelNooriNastaleeq'),local('Jameel Noori Nastaleeq Kasheeda'),url('jameel.woff') format('woff');font-display:swap;unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F,U+060C,U+061B,U+061F}
-:root{--uf:'JameelNoori','Jameel Noori Nastaleeq','Noto Nastaliq Urdu','Noto Naskh Arabic','Droid Arabic Naskh','Geeza Pro','Segoe UI',Arial,serif}
+:root{--uf:'AlviNastaleeq','JameelNoori','Jameel Noori Nastaleeq','Noto Nastaliq Urdu','Noto Naskh Arabic','Droid Arabic Naskh','Geeza Pro','Segoe UI',Arial,serif}
 html[lang=ur] body,html[lang=ur] button,html[lang=ur] input,html[lang=ur] select,html[lang=ur] textarea{font-family:var(--uf);line-height:2}
 html[lang=ur] body *{font-family:var(--uf)!important}
 html[lang=ur] body{font-size:17.5px}html[lang=ur] .sm,html[lang=ur] small{font-size:15px}
@@ -1687,11 +1689,12 @@ function relang(){const w=document.createTreeWalker(document.body,NodeFilter.SHO
 document.querySelectorAll('[placeholder]').forEach(e=>{e._po=e._po||e.getAttribute('placeholder');e.setAttribute('placeholder',trT(e._po))})}
 function applyDir(){const L=FORCE_LANG||ST.lang||'ro',h=document.documentElement;h.dir=L==='ur'?'rtl':'ltr';h.lang=L==='ur'?'ur':L==='en'?'en':'ur-Latn'}
 function loadUF(){if((FORCE_LANG||ST.lang)!=='ur'||window._ufT)return;window._ufT=1;const h=document.documentElement.classList,d=ok=>{h.toggle('uf-ok',!!ok);h.toggle('uf-bad',!ok)};
-try{document.fonts.load('18px JameelNoori','\u0627\u0628\u067E').then(f=>d(f&&f.length>0)).catch(()=>d(false))}catch(e){d(false)}}
+try{document.fonts.load('18px AlviNastaleeq','\u0627\u0628\u067E').then(f=>d(f&&f.length>0)).catch(()=>d(false))}catch(e){d(false)}}
 async function fontDiag(){const L=[],add=(k,v)=>L.push(k+': '+v),ua=navigator.userAgent;
 add('Browser',(ua.match(/(Chrome|CriOS|Firefox|Version)\/[\d.]+/)||['?'])[0]);add('Android',(ua.match(/Android [\d.]+/)||['-'])[0]);
-try{const r=await fetch('jameel.woff');add('Font file','HTTP '+r.status+' '+(r.headers.get('content-type')||''));if(r.ok){const b=await r.arrayBuffer(),u=new Uint8Array(b.slice(0,4)),t=String.fromCharCode.apply(null,u);add('Size',Math.round(b.byteLength/1024)+' KB');add('Format',t==='wOFF'?'WOFF (theek)':t==='wOF2'?'WOFF2':(u[0]===0&&u[1]===1&&u[2]===0&&u[3]===0)||t==='OTTO'?'TTF/OTF (woff nahi)':'pehchan nahi hui ('+t+')')}}catch(e){add('Font file','nahi khuli ('+e.message+')')}
-try{await document.fonts.load('18px JameelNoori','\u0627\u0628\u067E');add('Font browser mein load','\u0627'.length&&document.fonts.check('18px JameelNoori','\u0627\u0628\u067E')?'haan':'NAHI')}catch(e){add('Font load','fail ('+e.message+')')}
+try{const r=await fetch('alvi-nastaleeq.woff2');add('Font file (Alvi)','HTTP '+r.status+' '+(r.headers.get('content-type')||''));if(r.ok){const b=await r.arrayBuffer(),u=new Uint8Array(b.slice(0,4)),t=String.fromCharCode.apply(null,u);add('Size',Math.round(b.byteLength/1024)+' KB');add('Format',t==='wOF2'?'WOFF2 (theek)':'ghalat ('+t+')')}}catch(e){add('Font file (Alvi)','nahi khuli ('+e.message+')')}
+try{const r=await fetch('jameel.woff');add('Font file (Jameel fallback)','HTTP '+r.status)}catch(e){add('Font file (Jameel fallback)','nahi khuli')}
+try{await document.fonts.load('18px AlviNastaleeq','\u0627\u0628\u067E');add('Font browser mein load','\u0627'.length&&document.fonts.check('18px AlviNastaleeq','\u0627\u0628\u067E')?'haan':'NAHI')}catch(e){add('Font load','fail ('+e.message+')')}
 add('Urdu mode',ST.lang==='ur'?'on':'off');alert(L.join('\n'))}
 function startLang(){applyDir();loadUF();new MutationObserver(ms=>ms.forEach(m=>{m.addedNodes.forEach(trNode);if(m.type==='characterData')trNode(m.target)})).observe(document.body,{childList:true,subtree:true,characterData:true});relang()}
 
@@ -1707,7 +1710,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=71;
+const APPV=73;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
