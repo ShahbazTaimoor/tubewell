@@ -220,6 +220,14 @@ html[dir=rtl] .lfield[dir=ltr]{text-align:right}
 .dpick{display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer}
 .chips{display:flex;gap:8px;margin-bottom:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .ch{background:var(--card);border:1px solid var(--line);color:var(--ink);padding:8px 14px;font-size:13px;border-radius:99px;flex:none}.ch.on{background:var(--g);color:var(--pt);border-color:var(--g)}
+/* v78: mere khatay — alag alag malikon ki list */
+.fklist{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.fkli{display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;text-align:start;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;min-height:44px;cursor:pointer}
+.fkli.on{border-color:var(--g);box-shadow:0 0 0 1.5px var(--g) inset;background:linear-gradient(0deg,rgba(14,106,153,.07),rgba(14,106,153,.07)),var(--card)}
+.fklih{display:flex;align-items:center;gap:6px;flex-wrap:wrap;width:100%}
+.fklih b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%}
+.fklih .pill{margin-inline-start:auto;flex:none}
+.fklis{font-size:11.5px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 input[type=date],input[type=time],input[type=month]{position:relative}
 input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-calendar-picker-indicator,input[type=month]::-webkit-calendar-picker-indicator{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer}
 .net{display:inline-flex;align-items:center;gap:6px;margin-top:6px;padding:3px 11px 3px 8px;border-radius:99px;font-size:11px;font-weight:700;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24)}
@@ -355,17 +363,7 @@ html[lang=ur] .cb>svg{transform:scaleX(-1)}
 .bh2 .be{font-size:17px;font-weight:800;color:var(--ink)}
 .bh2 .bu{direction:rtl;unicode-bidi:isolate;font-family:var(--uf);font-size:14.5px;color:var(--mut);line-height:1.9;font-weight:600}
 .fh .bh2{margin:0}.fh .bh2 .be{color:#fff;font-size:18px}.fh .bh2 .bu{color:rgba(255,255,255,.88)}
-.rolehd{text-align:center;margin:16px 0 14px;display:flex;flex-direction:column;gap:3px}
-.rolehd .be{font-size:22px;font-weight:800;color:var(--ink)}
-.rolehd .bu{direction:rtl;unicode-bidi:isolate;font-family:var(--uf);font-size:18px;color:var(--mut);line-height:1.9}
-.rolehd .rq{font-size:13px;color:var(--mut);margin-top:4px}
-.rolecard{display:flex;flex-direction:column;gap:3px;width:100%;text-align:center;background:linear-gradient(135deg,#0F5A46,#1F8266);color:#fff;padding:20px 16px;margin-bottom:12px;border-radius:20px;box-shadow:0 8px 22px rgba(15,90,70,.28)}
-.rolecard .ric{font-size:34px;line-height:1.25}
-.rolecard .rt1{font-size:18px;font-weight:800}
-.rolecard .rt2{direction:rtl;unicode-bidi:isolate;font-family:var(--uf);font-size:16px;opacity:.96;line-height:1.9}
-.rolecard .rt3{font-size:12.5px;opacity:.88;font-weight:400;margin-top:4px;line-height:1.5}
-.rolecard.alt{background:linear-gradient(135deg,#17795E,#2E9970);box-shadow:0 8px 22px rgba(23,121,94,.28)}
-.roleft{text-align:center;margin-top:2px;line-height:1.6}
+/* v77: role-screen CSS hata — role ab sirf login/signup par chunta hai */
 .twdir .twcode{display:flex;align-items:center;gap:8px;background:var(--g2);border-radius:14px;padding:12px;margin-top:4px;flex-wrap:wrap}
 .twdir .twcode b{font-size:22px;letter-spacing:1px;color:var(--g);flex:1;min-width:120px}
 .schip{display:inline-block;font-size:11px;font-weight:800;padding:4px 10px;border-radius:99px;white-space:nowrap}
@@ -761,7 +759,7 @@ try{indexedDB.deleteDatabase('aslam_ph')}catch(e){}
 if(full){try{if(FS){await FS.terminate();await FS.clearPersistence()}}catch(e){}
 try{if(window.caches){const k=await caches.keys();await Promise.all(k.map(x=>caches.delete(x)))}}catch(e){}}
 const lang=ST.lang;Object.keys(ST).forEach(k=>delete ST[k]);Object.assign(ST,{name:'Tubewell Khata',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''});if(lang)ST.lang=lang;twInit();
-db={farmers:[],ts:0};BIN=[];lastP={};lastB={};cur=null;eid=null;BK=[];FBK=[];TWL=null;TWD=null;TWDS=[];twBusy=false;FPOS=null;LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{applySt()}catch(e){}}
+db={farmers:[],ts:0};BIN=[];lastP={};lastB={};cur=null;eid=null;BK=[];FBK=[];TWL=null;TWD=null;TWDS=[];twBusy=false;FPOS=null;LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{localStorage.removeItem('aslam_fdmap')}catch(e){}try{localStorage.removeItem('aslam_twl')}catch(e){}FKC={};FD_OFF={};try{applySt()}catch(e){}}
 async function logout(){if(!navigator.onLine){alert(trT('Logout ke liye internet chahiye, taake is phone ka sara data aur cache saaf ho sake.'));return}
 if(!confirm(trT('Logout karne se is phone ka sara data aur cache saaf ho jayega (online save hai, dobara login par wapas aa jayega). Logout karein?')))return;
 if(FS){let ok=true;try{push();await new Promise(r=>setTimeout(r,900));ok=await Promise.race([FS.waitForPendingWrites().then(()=>true),new Promise(r=>setTimeout(()=>r(false),8000))])}catch(e){ok=false}
@@ -773,13 +771,13 @@ document.documentElement.classList.add('authwait');
 try{location.replace(location.pathname)}catch(e){location.reload()}}
 function initFB(){try{firebase.initializeApp(CFG);AU=firebase.auth();FS=firebase.firestore();FS.enablePersistence({synchronizeTabs:true}).catch(()=>{});
 AU.onAuthStateChanged(u=>{if(u){document.documentElement.classList.remove('authwait');U=u;let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}
-if(last&&last!==u.uid){db={farmers:[],ts:0};ST.tws=null;twInit();saveST();lastP={};BIN=[];lastB={};ST.role=null;ST.tcode=null;BK=[];FBK=[];TWL=null;TWD=null;TWDS=[];twBusy=false;LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{localStorage.removeItem('aslam_fdmiss')}catch(e){}try{localStorage.removeItem('aslam_role')}catch(e){}try{localStorage.removeItem('aslam_bin')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+if(last&&last!==u.uid){db={farmers:[],ts:0};ST.tws=null;twInit();saveST();lastP={};BIN=[];lastB={};ST.role=null;ST.tcode=null;BK=[];FBK=[];TWL=null;TWD=null;TWDS=[];twBusy=false;LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{localStorage.removeItem('aslam_fdmap')}catch(e){}try{localStorage.removeItem('aslam_twl')}catch(e){}FKC={};FD_OFF={};try{localStorage.removeItem('aslam_fdmiss')}catch(e){}try{localStorage.removeItem('aslam_role')}catch(e){}try{localStorage.removeItem('aslam_bin')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
 try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
 lgM='in';const o=$('lg');if(o)o.remove();document.documentElement.classList.remove('lgshow');FORCE_LANG=null;applyDir();relang();routeUser();if(justLogged){justLogged=false;showWelcome(u.displayName||u.email)}st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
 else{U=null;if(unsub){unsub();unsub=null}if(!loggingOut){try{if(localStorage.getItem('aslam_uid'))wipeLocal(false)}catch(e){}}home();if(!$('lg'))showLogin()}})}catch(e){let f=false;try{f=!!localStorage.getItem('aslam_uid')}catch(_){}if(f){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b>آن لائن سروس لوڈ نہیں ہوئی۔ انٹرنیٹ چیک کریں۔</b><br><span class="lbe2">Online service load nahi hui. Internet check karein.</span>')}}
 let ST={name:'Tubewell Khata',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
 try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}try{if(ST.name==='Aslam Tubewell'){ST.name='Tubewell Khata';ST.urdu='ٹیوب ویل کھاتہ';localStorage.setItem('aslam_st',JSON.stringify(ST))}}catch(e){}twInit();
-function applySt(){const a=$('appn');if(a)a.textContent=ST.name+' App';const r=$('rt');if(r){if(ST.role==='farmer')r.style.display='none';else{r.style.display='';r.textContent=(ST.tws.length>1?curTW().name+' • ':'')+'Rs '+RATE+' fi ghanta'}}document.title=ST.name+' App'}
+function applySt(){const a=$('appn');if(a)a.textContent=ST.name+' App';const r=$('rt');if(r){if(ST.role!=='owner')r.style.display='none';else{r.style.display='';r.textContent=(ST.tws.length>1?curTW().name+' • ':'')+'Rs '+RATE+' fi ghanta'}}document.title=ST.name+' App'}
 const saveST=()=>{RATE=curTW().rate;ST.rate=RATE;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}applySt()};
 /* ===== Tubewell switch: har kisan par tw (tubewell id) laga hota hai ===== */
 function curTW(){return ST.tws.find(t=>t.id===ST.tw)||ST.tws[0]}
@@ -821,7 +819,7 @@ if(!n){n=document.createElement('nav');n.id='nav';n.className='nav';n.innerHTML=
 const oi=[...n.querySelectorAll('.nb')].findIndex(b=>b.classList.contains('on'));
 n.firstElementChild.innerHTML=L.map(x=>`<button class="nb" onclick="go('${x[0]}')" aria-label="${x[1]}">${x[2]}<span>${x[1]}</span></button>`).join('');
 L.forEach((x,i)=>{const b=n.querySelectorAll('.nb')[i];b.classList.toggle('on',x[0]===view);if(x[0]===view&&i!==oi)b.classList.add('go')});
-n.style.display=(view==='role'||!ST.role)?'none':''}
+n.style.display=!ST.role?'none':''}
 /* v64: Android par keyboard khulne/band hone ke baad fixed bottom nav ghayab na ho — viewport restore par repaint force */
 (function(){if(!window.visualViewport)return;let vh=window.innerHeight;const nd=()=>{const n=document.getElementById('nav');if(!n||n.style.display==='none')return;n.style.transform='translateZ(0)';requestAnimationFrame(()=>requestAnimationFrame(()=>{n.style.transform=''}))};try{window.visualViewport.addEventListener('resize',()=>{const full=window.visualViewport.height>=vh-80;vh=window.visualViewport.height;if(full)nd()})}catch(e){}try{document.addEventListener('visibilitychange',()=>{if(!document.hidden)nd()})}catch(e){}})();
 function pushS(t){try{if(!(history.state&&history.state.t===t))history.pushState({t},'')}catch(e){}}
@@ -923,12 +921,7 @@ const SBCL={pending:'sc-p',accepted:'sc-a',rejected:'sc-r',completed:'sc-c',canc
 function stChip(s){const L=BL();return '<span class="schip '+SBCL[s]+'">'+(L==='ur'?(SBUR[s]||s):L==='en'?(SBEN[s]||s):((SBEN[s]||s)+' · '+(SBUR[s]||s)))+'</span>'}
 let BK=[],FBK=[],TWL=null,TWD=null,TWDS=[],twBusy=false,FPOS=null,bTab='req',fTab='all',bkUnsub=null,fbkUnsub=null;
 const HG=()=>{const fm=ST.role==='farmer',nv=fm?view!=='fhome':(!!cur||view!=='home');if(fm)fHome();else home();if(nv)try{window.scrollTo(0,0)}catch(e){}};/*v74: khata/list navigation par top, re-render par scroll mehfooz*/
-function roleScreen(){view='role';cur=null;navR();$('v').innerHTML='<div class="nt"><div class="rolehd">'+RB('Create your account','اپنا اکاؤنٹ بنائیں')+'<span class="rq">'+BT('Choose your account type — ye ek baar chun kar hamesha ke liye save ho jayega.')+'</span></div>'
-+'<button class="rolecard" onclick="pickRole(\'owner\')"><span class="ric">🚰</span>'+RC('Tubewell Owner / Accounts','ٹیوب ویل والا کسان / حساب کتاب')+'<span class="rt3">'+BT('Tubewell register karein, booking requests qabool/reject karein, usage hours aur charges ka hisab rakhein.')+'</span></button>'
-+'<button class="rolecard alt" onclick="pickRole(\'farmer\')"><span class="ric">🌱</span>'+RC('Water-Seeking Farmer','پانی لگوانے والا کسان')+'<span class="rt3">'+BT('Qareebi tubewell dhoondein, rate aur available waqt dekhein, pani book karein.')+'</span></button>'
-+'<div class="mut sm roleft">'+BT('Ghalat type chun ho to baad mein Settings mein se role badal sakte hain.')+'</div></div>'}
-function pickRole(r){try{localStorage.setItem('aslam_role',r)}catch(e){}ST.role=r;saveST();try{profDoc().set({role:r,roleAt:Date.now()},{merge:true})}catch(e){}
-if(r==='owner'){toast(BT('Owner account — khush aamdeed!'));ownerBoot()}else{toast(BT('Farmer account — khush aamdeed!'));farmerBoot()}}
+/* v77: roleScreen/pickRole hata — role ab login/signup par chuna jata hai; login ke baad routeUser seedha owner/farmer portal kholta hai */
 function ownerBoot(){home();listenBk();twMine();ensureFCodes();listenLReq();fdBackfill();fdAuto()}
 function farmerBoot(){fHome();listenFBk();listenFLk();flBoot()}
 function swRoleAsk(to){const lab=to==='owner'?BT('🚰 Tubewell Owner (Kitab wale) mode par jayein'):BT('🌱 Pani lagane wale (Farmer) mode par jayein');
@@ -941,14 +934,19 @@ try{if(fbkUnsub){fbkUnsub();fbkUnsub=null}}catch(e){}
 try{if(lrUnsub){lrUnsub();lrUnsub=null}}catch(e){}
 try{if(flUnsub){flUnsub();flUnsub=null}}catch(e){}
 try{fdUnAll()}catch(e){}
-BK=[];FBK=[];LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};lrSig='';lrT=0;bkSig='';bkT=0;FPOS=null;cur=null;eid=null;
+BK=[];FBK=[];LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;FKC={};FD_OFF={};lastFC={};lastFD={};lrSig='';lrT=0;bkSig='';bkT=0;FPOS=null;cur=null;eid=null;
 (to==='owner'?ownerBoot:farmerBoot)();
 ding();toast(BT(to==='owner'?'Owner mode chalu — khush aamdeed!':'Farmer mode chalu — khush aamdeed!'))}
-async function routeUser(){let role=null;
-try{const sn=await profDoc().get();if(sn.exists()){const d=sn.data();role=d.role||null;if(d.tcode)ST.tcode=d.tcode}}catch(e){}
-if(role!=='owner'&&role!=='farmer'){try{role=localStorage.getItem('aslam_role')}catch(e){}}
-if(role!=='owner'&&role!=='farmer'){roleScreen();st('');return}
-ST.role=role;try{localStorage.setItem('aslam_role',role)}catch(e){}saveST();(role==='owner'?ownerBoot:farmerBoot)()}
+async function routeUser(){let role=null,had=false,tcode=null,tws=false;
+try{const sn=await profDoc().get();if(sn.exists()){const d=sn.data();role=d.role||null;if(d.tcode){tcode=d.tcode;ST.tcode=d.tcode}tws=!!d.tws}}catch(e){}
+if(role==='owner'||role==='farmer')had=true;
+if(!had){try{const lr=localStorage.getItem('aslam_role');if(lr==='owner'||lr==='farmer'){role=lr;had=true}}catch(e){}}
+if(!had&&tcode){role='farmer';had=true}
+if(!had&&tws){role='owner';had=true}
+if(!had)role='owner';
+ST.role=role;try{localStorage.setItem('aslam_role',role)}catch(e){}saveST();
+if(!had){try{profDoc().set({role:role,roleAt:Date.now()},{merge:true})}catch(e){}}
+(role==='owner'?ownerBoot:farmerBoot)()}
 const NVO=NV.concat([['bkm','Bookings',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="M9 15l2 2 4-5"/>')]]);
 const NVF=[['fhome','Talaash',ic('<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>')],['fbk','Bookings',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['set','Settings',NV[3][2]]];
 function bkChip(){if(ST.role!=='owner')return'';const p=BK.filter(b=>b.status==='pending').length,a=BK.filter(b=>b.status==='accepted').length;if(!(p+a))return'';
@@ -1087,13 +1085,13 @@ function fMiniH(){if(!FBK.length)return '<div class="empty">'+BT('Abhi koi booki
 const p=FBK.filter(b=>b.status==='pending').length,a=FBK.filter(b=>b.status==='accepted').length;
 return '<div class="mut sm">'+FBK.length+BT(' bookings')+(p?' • '+p+BT(' intezar mein'):'')+(a?' • '+a+BT(' qabool shuda'):'')+'</div><button class="s" style="width:100%;margin-top:8px" onclick="go(\'fbk\')">'+BT('Sab bookings dekhein')+'</button>'}
 let TWL_AT=0;
-async function fLoad(force){if(!FS){const e=$('fres');if(e&&view==='fhome')e.innerHTML='<div class="empty">'+BT('Internet nahi hai — list online aati hai.')+'</div>';return}
+async function fLoad(force){if(!FS){if(!TWL)TWL=twlLoad();const e=$('fres');if(e&&view==='fhome')e.innerHTML=TWL?'<div class="mut sm" style="margin-bottom:6px">📴 '+BT('Internet nahi — pichli tubewell list dikha raha hoon.')+'</div>'+fListH(TWL):'<div class="empty">'+BT('Internet nahi hai — list online aati hai.')+'</div>';return}
 if(!force&&TWL&&Date.now()-TWL_AT<60000){const e0=$('fres');if(e0&&view==='fhome'&&!$('em'))e0.innerHTML=fListH(TWL);return}
 try{const q=await FS.collection('tw').orderBy('createdAt','desc').limit(100).get();
 let L=q.docs.map(d=>Object.assign({id:d.id},d.data())).filter(d=>d.active!==false);
 const sn={};L=L.filter(d=>{const k=(d.ownerUid||'')+'|'+(d.twName||'').trim().toLowerCase();if(sn[k])return false;sn[k]=1;return true});
-TWL=L;TWL_AT=Date.now();
-const e=$('fres');if(e&&view==='fhome'&&!$('em'))e.innerHTML=fListH(TWL)}catch(e){if(view==='fhome'){const el=$('fres');if(el)el.innerHTML='<div class="empty">'+BT('List nahi mil saki. Internet check karein.')+'</div>'}}}
+TWL=L;TWL_AT=Date.now();twlSave(L);
+const e=$('fres');if(e&&view==='fhome'&&!$('em'))e.innerHTML=fListH(TWL)}catch(e){if(!TWL)TWL=twlLoad();if(view==='fhome'){const el=$('fres');if(el)el.innerHTML=TWL?'<div class="mut sm" style="margin-bottom:6px">📴 '+BT('Internet nahi — pichli tubewell list dikha raha hoon.')+'</div>'+fListH(TWL):'<div class="empty">'+BT('List nahi mil saki. Internet check karein.')+'</div>'}}}
 function hav(a1,o1,a2,o2){const R=6371,r=Math.PI/180,dLa=(a2-a1)*r,dLo=(o2-o1)*r,x=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(a1*r)*Math.cos(a2*r)*Math.sin(dLo/2)*Math.sin(dLo/2);return Math.round(2*R*Math.asin(Math.sqrt(x))*10)/10}
 function fDist(t){if(!FPOS||!(t.lat>0&&t.lng>0))return null;return hav(FPOS[0],FPOS[1],t.lat,t.lng)}
 function twCardH(t){return '<div class="bi"><div class="h2d"><b>'+esc(t.twName||'Tubewell')+'</b><span class="rate">Rs '+(+t.rate||500)+'/hr</span></div>'
@@ -1149,7 +1147,7 @@ return '<div class="bi"><div class="h2d"><b>'+esc(b.twName||c.twName||b.code)+'<
 async function fbCancel(id){if(!confirm(BT('Ye booking cancel karein?')))return;
 try{await FS.collection('bk').doc(id).update({status:'cancelled',upAt:Date.now()});toast(BT('Booking cancel ho gayi'))}catch(e){alert('Masla: '+(e.code||e.message))}}
 /* ===== v63: Kisan Code Based Account Linking ===== */
-let LREQ=[],FLREQ=[],FDATA=null,FDATAF='',lrUnsub=null,flUnsub=null,lastFC={},lastFD={},lrT=0,lrSig='',fdRetry={},fdBT=0,fdHad=false,fdErr='',fdRT={},flBusy=false,flSentC='',flSentT=0,FDMAP={},FDHAD={},FDMISS={},fdUn={},fkCur=null,flLoaded=false;
+let LREQ=[],FLREQ=[],FDATA=null,FDATAF='',lrUnsub=null,flUnsub=null,lastFC={},lastFD={},lrT=0,lrSig='',fdRetry={},fdBT=0,fdHad=false,fdErr='',fdRT={},flBusy=false,flSentC='',flSentT=0,FDMAP={},FDHAD={},FDMISS={},fdUn={},fkCur=null,flLoaded=false,FKC={},FD_OFF={},fkCLd=0;
 const genFCode=()=>{const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=A[Math.floor(Math.random()*A.length)];return 'FR-'+s};
 const fdsig=f=>JSON.stringify([f.name,f.phone,f.entries,f.pays,f.olds,f.linkedUid||'']);
 const fmtDT=ts=>{const d=new Date(ts||0);return pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear()+' '+pad(d.getHours()%12||12)+':'+pad(d.getMinutes())+' '+(d.getHours()>=12?'PM':'AM')};
@@ -1214,17 +1212,22 @@ function fcShare(){const f=F();if(!f||!f.fcode)return;const t='Mera kisan code h
 const flsGet=()=>{try{const v=JSON.parse(localStorage.getItem('aslam_fls')||'null');if(Array.isArray(v))return v.filter(x=>x&&x.frId)}catch(e){}
 try{const o=JSON.parse(localStorage.getItem('aslam_fl')||'null');if(o&&o.frId)return[o]}catch(e){}return[]};
 const flsSave=L=>{try{localStorage.setItem('aslam_fls',JSON.stringify(L))}catch(e){}};
+/* v78: khata offline cache — pehli bar internet, phir hamesha phone se dikhega */
+const fkcLoad=()=>{try{const v=JSON.parse(localStorage.getItem('aslam_fdmap')||'{}');if(v&&typeof v==='object'&&!Array.isArray(v))return v}catch(e){}return{}};
+const fkcSave=()=>{try{localStorage.setItem('aslam_fdmap',JSON.stringify(FKC))}catch(e){}};
+const twlLoad=()=>{try{const v=JSON.parse(localStorage.getItem('aslam_twl')||'null');if(Array.isArray(v))return v}catch(e){}return null};
+const twlSave=L=>{try{localStorage.setItem('aslam_twl',JSON.stringify(L))}catch(e){}};
 const fdMissLoad=()=>{try{const v=JSON.parse(localStorage.getItem('aslam_fdmiss')||'{}');if(v&&typeof v==='object')Object.keys(v).forEach(k=>{FDMISS[k]=1})}catch(e){}};
 const fdMissSave=()=>{try{localStorage.setItem('aslam_fdmiss',JSON.stringify(FDMISS))}catch(e){}};
 const flGet=()=>{const L=flsGet();return L.find(x=>x.frId===fkCur)||L[0]||null};
-function flBoot(){fdMissLoad();flsGet();fdListenAll()}
+function flBoot(){FKC=fkcLoad();const _L=flsGet();_L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});if(!fkCur&&_L.length){fkCur=_L[0].frId;try{localStorage.setItem('aslam_fkc',fkCur)}catch(e){}}fdMissLoad();fdListenAll();if(fkCur&&view==='fhome'){FDATA=FDMAP[fkCur]||FDATA;FDATAF=fkCur;fkSoft()}}
 function listenFLk(){if(!U||!FS||ST.role!=='farmer')return;if(flUnsub){try{flUnsub()}catch(e){}flUnsub=null}flUnsub=FS.collection('lreq').where('uid','==',U.uid).onSnapshot(sn=>{const b4=JSON.stringify(FLREQ);
 FLREQ=sn.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>(b.ts||0)-(a.ts||0));flLoaded=true;
 if(JSON.stringify(FLREQ)!==b4){flChk();notifPaint()}},()=>{})}
 function flChk(){const acc=FLREQ.filter(r=>r.status==='accepted'&&r.frId);let L=flsGet(),ch=false;const prev=fkCur;
 acc.forEach(r=>{if(!L.some(x=>x.frId===r.frId)&&!FDMISS[r.frId]){L.push({frId:r.frId,code:r.code||'',ownerUid:r.ownerUid||''});ch=true}});
-if(flLoaded){L=L.filter(x=>{const r=FLREQ.find(y=>y.frId===x.frId||(y.code&&y.code===x.code));if(r&&r.status!=='accepted'){fdUnOne(x.frId);delete FDMAP[x.frId];if(FDATAF===x.frId){FDATA=null;FDATAF=''}ch=true;return false}return true})}
-if(ch)flsSave(L);
+if(flLoaded){L=L.filter(x=>{const r=FLREQ.find(y=>y.frId===x.frId||(y.code&&y.code===x.code));if(r&&r.status!=='accepted'){fdUnOne(x.frId);delete FDMAP[x.frId];delete FKC[x.frId];delete FD_OFF[x.frId];if(FDATAF===x.frId){FDATA=null;FDATAF=''}ch=true;return false}return true})}
+if(ch){flsSave(L);fkcSave()}
 if(fkCur&&!L.some(x=>x.frId===fkCur))fkCur=null;
 if(!fkCur&&L.length){fkCur=L[0].frId;try{localStorage.setItem('aslam_fkc',fkCur)}catch(e){}}
 if(fkCur&&fkCur!==prev){FDATA=FDMAP[fkCur]||null;FDATAF=fkCur}else if(fkCur&&FDMAP[fkCur]&&FDATAF===fkCur)FDATA=FDMAP[fkCur];
@@ -1277,21 +1280,24 @@ function notifPaint(){const b=$('nbtn'),d=$('nbdg');if(!b||!d)return;
  try{const pb=$('npbody');if(pb&&$('em')){const s=nSig();if(pb.dataset.s!==s){pb.dataset.s=s;pb.innerHTML=nBodyH()}}}catch(e){}}
 function fdUnOne(frId){if(fdUn[frId]){try{fdUn[frId]()}catch(e){}delete fdUn[frId]}}
 function fdUnAll(){Object.keys(fdUn).forEach(fdUnOne)}
-function fdListenAll(){if(!FS)return;const L=flsGet(),ids={};L.forEach(x=>{if(x.frId){ids[x.frId]=1;if(!fdUn[x.frId])fdListen({frId:x.frId,code:x.code})}});Object.keys(fdUn).forEach(id=>{if(!ids[id]){fdUnOne(id);delete FDMAP[id]}})}
-function fdGone(frId,quiet){delete FDMAP[frId];const was=!!FDHAD[frId];FDHAD[frId]=false;FDMISS[frId]=1;fdMissSave();fdUnOne(frId);
+function fdListenAll(){if(!FS)return;const L=flsGet(),ids={};L.forEach(x=>{if(x.frId){ids[x.frId]=1;if(!fdUn[x.frId])fdListen({frId:x.frId,code:x.code})}});Object.keys(fdUn).forEach(id=>{if(!ids[id]){fdUnOne(id);delete FDMAP[id];delete FKC[id];delete FD_OFF[id];fkcSave()}})}
+function fdGone(frId,quiet){delete FDMAP[frId];delete FKC[frId];delete FD_OFF[frId];fkcSave();const was=!!FDHAD[frId];FDHAD[frId]=false;FDMISS[frId]=1;fdMissSave();fdUnOne(frId);
 const L=flsGet().filter(x=>x.frId!==frId);flsSave(L);
 if(was&&!quiet){try{toast(BT('Malik ne link khatam kar diya — naya code le kar dobara request bhejein'))}catch(e){}}
 if(fkCur===frId){fkCur=L.length?L[0].frId:null;try{localStorage.setItem('aslam_fkc',fkCur||'')}catch(e){}FDATA=fkCur?(FDMAP[fkCur]||null):null;FDATAF=fkCur||''}
 flChk()}
 function fdListen(fl){const frId=(fl||{}).frId;if(!frId||!FS)return;fdUnOne(frId);delete FDMAP[frId];
-fdUn[frId]=FS.collection('fd').doc(frId).onSnapshot(sn=>{if(sn.exists){FDMAP[frId]=Object.assign({id:sn.id},sn.data());FDHAD[frId]=true;fdHad=true;fdErr='';delete FDMISS[frId];fdMissSave();
+fdUn[frId]=FS.collection('fd').doc(frId).onSnapshot(sn=>{if(sn.exists){FDMAP[frId]=Object.assign({id:sn.id},sn.data());FKC[frId]=FDMAP[frId];fkcSave();FDHAD[frId]=true;fdHad=true;fdErr='';delete FDMISS[frId];delete FD_OFF[frId];fdMissSave();
 if(!fkCur||fkCur===frId){if(!fkCur){fkCur=frId;try{localStorage.setItem('aslam_fkc',frId)}catch(e){}}FDATA=FDMAP[frId];FDATAF=frId}}
 else{fdGone(frId);return}
-fkSoft()},e=>{delete FDMAP[frId];fdErr=(e&&e.code)||'net';if(fkCur===frId)FDATA=null;fkSoft();
-if(e&&e.code==='permission-denied'){delete fdRT[frId];fdGone(frId);return}
+fkSoft()},e=>{const c=(e&&e.code)||'net';fdErr=c;
+if(c==='permission-denied'){delete fdRT[frId];fdGone(frId);return}
+if(FKC[frId]){FDMAP[frId]=FKC[frId];FD_OFF[frId]=1;if(fkCur===frId){FDATA=FDMAP[frId];FDATAF=frId}}else{delete FDMAP[frId];if(fkCur===frId)FDATA=null}
+fkSoft();
 if(fdRT[frId])clearTimeout(fdRT[frId]);fdRT[frId]=setTimeout(()=>{delete fdRT[frId];if(ST.role==='farmer'&&flsGet().some(x=>x.frId===frId))fdListen(fl)},15000)})}
 async function flSend(btn){if(flBusy)return;flBusy=true;const b=btn||$('flgo');if(b){b.disabled=true;b.style.opacity='.55'}
-const un=()=>{flBusy=false;if(b){b.disabled=false;b.style.opacity=''}};try{
+const un=()=>{flBusy=false;if(b){b.disabled=false;b.style.opacity=''}};
+Object.assign(NB,{'Mere khatay — alag alag malik':{en:'My khatas — separate owners',ur:'میرے کھاتے — الگ الگ مالک'},'Update: ':{en:'Updated: ',ur:'اپ ڈیٹ: '},'Record abhi nahi aaya':{en:'Record not received yet',ur:'ریکارڈ ابھی نہیں آیا'},'Internet band hai — aakhri save kiya hua khata dikha raha hoon. Internet aane par khud update ho jaye ga.':{en:'Internet is off — showing your last saved khata. It updates by itself when internet returns.',ur:'انٹرنیٹ بند ہے — آخری محفوظ شدہ کھاتہ دکھا رہے ہیں۔ انٹرنیٹ آنے پر خود اپ ڈیٹ ہو جائے گا۔'},'Internet nahi — pichli tubewell list dikha raha hoon.':{en:'No internet — showing the last saved tubewell list.',ur:'انٹرنیٹ نہیں — ٹیوب ویل کی پچھلی فہرست دکھا رہے ہیں۔'},'dekh rahe hain':{en:'viewing',ur:'دیکھ رہے ہیں'}});try{
 const v=(($('flc')||{}).value||'').trim().toUpperCase();
 if(!v){alert(BT('Pehle kisan code likhein'));return}
 const code=/^FR-/.test(v)?v:'FR-'+v;
@@ -1308,20 +1314,26 @@ try{await FS.collection('lreq').add(rec);flSentC=code;flSentT=Date.now();ding();
 function fkAddOpen(){const b=$('fladd');if(!b)return;b.classList.toggle('hide');if(!b.classList.contains('hide')){try{b.scrollIntoView({block:'center',behavior:'smooth'})}catch(e){}const i=$('flc');if(i)setTimeout(()=>{try{i.focus()}catch(e){}},350)}}
 function fkPick(frId){if(!flsGet().some(x=>x.frId===frId))return;fkCur=frId;try{localStorage.setItem('aslam_fkc',frId)}catch(e){}
 FDATA=FDMAP[frId]||null;FDATAF=frId;fkSoft();try{window.scrollTo(0,0)}catch(e){}}
-function fkTabsH(L,cur){if(L.length<2)return'';let h='<div class="mut sm" style="margin-bottom:6px">'+BT('Mere khatay')+' ('+L.length+')</div><div class="chips" style="margin-bottom:10px">';
-h+=L.map(x=>{const d=FDMAP[x.frId],on=x.frId===cur;return '<button class="ch'+(on?' on':'')+'" onclick="fkPick(\''+x.frId+'\')">'+(d?'':'⏳ ')+'<span class="nt">'+esc((d&&d.twName)||x.code||'Tubewell')+'</span></button>'}).join('')+'</div>';return h}
+/* v78: alag alag malikon ke khatay — rich list (naam, baqaya, update) */
+function fkTabsH(L,cur){if(L.length<2)return'';let h='<div class="mut sm" style="margin-bottom:6px">'+BT('Mere khatay \u2014 alag alag malik')+' ('+L.length+')</div><div class="fklist">';
+h+=L.map(x=>{const d=FDMAP[x.frId],on=x.frId===cur,due=d?(+d.due||0):null;
+return '<button class="fkli'+(on?' on':'')+'" onclick="fkPick(\''+x.frId+'\')"><span class="fklih"><b class="nt">'+esc((d&&d.twName)||x.code||'Tubewell')+'</b>'
++(d?(due>0?'<span class="pill r">'+BT('Baqaya ')+rs(due)+'</span>':(on?'':'<span class="pill">'+BT('Hisab saaf')+'</span>')):'<span class="pill">\u23f3</span>')
++(on?'<span class="pill">'+BT('dekh rahe hain')+'</span>':'')+'</span>'
++'<span class="fklis">'+(d?((d.name?esc(d.name)+' \u2022 ':'')+(d.upAt?BT('Update: ')+fmtDT(d.upAt):BT('Record abhi nahi aaya'))):(BT('Record abhi nahi aaya')+' \u2022 <bdi dir="ltr">'+esc(x.code||'')+'</bdi>'))+'</span></button>'}).join('');
+return h+'</div>'}
 function fkPendH(L){let h='';const used=new Set(L.map(x=>x.code));
 FLREQ.filter(r=>r.status==='pending'&&r.code&&!used.has(r.code)).forEach(r=>{h+='<div class="empty" style="padding:10px 8px">⏳ '+BT('Link request bheji gayi hai — malik ke qabool karne ka intezar karein.')+' (<bdi dir="ltr">'+esc(r.code)+'</bdi>)</div>'});
 FLREQ.filter(r=>r.status==='rejected'&&r.code&&!used.has(r.code)).slice(0,2).forEach(r=>{h+='<div class="empty" style="padding:10px 8px">'+BT('Request reject ho gayi ya malik ne khata hata diya')+' (<bdi dir="ltr">'+esc(r.code)+'</bdi>) — '+BT('nayi request bhej sakte hain')+'.</div>'});return h}
 function fkAddH(){return '<button class="s" style="width:100%;margin-top:10px" onclick="fkAddOpen()">➕ '+BT('Doosre tubewell ka khata jorein')+'</button>'
 +'<div id="fladd" class="hide" style="margin-top:10px"><div class="f"><label>'+BT('Kisan code (misal: FR-A2B4C6)')+'</label><input id="flc" placeholder="FR-XXXXXX" autocapitalize="characters" autocorrect="off" spellcheck="false" style="text-transform:uppercase" dir="ltr"></div>'
 +'<button id="flgo" class="p" style="width:100%" onclick="flSend(this)">🔗 '+BT('Link request bhejein')+'</button></div>'}
-function fKhataBox(){const L=flsGet();let h='';
+function fKhataBox(){const L=flsGet();if(!fkCLd){fkCLd=1;FKC=fkcLoad()}L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});let h='';
 if(L.length){const cur=(fkCur&&L.some(x=>x.frId===fkCur))?fkCur:L[0].frId;
 if(fkCur!==cur){fkCur=cur;try{localStorage.setItem('aslam_fkc',cur)}catch(e){}}
 const D=FDMAP[cur]||FDATA||null;
 if(D&&FDATA!==D){FDATA=D;FDATAF=cur}
-h+=fkTabsH(L,cur);
+h+=fkTabsH(L,cur);if(D&&FD_OFF[cur])h+='<div class="koldmut" style="margin:0 0 10px">📴 '+BT('Internet band hai — aakhri save kiya hua khata dikha raha hoon. Internet aane par khud update ho jaye ga.')+'</div>';
 if(D)h+=fKhataH();
 else{const c=(L.find(x=>x.frId===cur)||{}).code||'';
 h+='<div class="empty">'+BT('Aap ka khata link ho chuka hai — malik ka record abhi publish nahi hua. Malik apni app kholein rakhe: ye har 15 second mein khud check hota hai aur record khud aa jayega. 2-3 minute mein bhi na aaye to malik se kahen apni app ek bar band kar ke dobara kholein.')+'</div>'
@@ -1799,7 +1811,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=76;
+const APPV=78;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
