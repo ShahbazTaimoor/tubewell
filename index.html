@@ -999,11 +999,11 @@ try{await FS.collection('lreq').doc(id).update({status:'rejected',upAt:Date.now(
 const f=db.farmers.find(x=>x.id===r.frId);
 if(!f){alert(BT('Ye kisan record ab mojood nahi (delete ho chuka hai). Request reject kar dein.'));return}
 if(f.linkedUid&&f.linkedUid!==r.uid&&!confirm(BT('Ye kisan pehle se doosre account se linked hai. Account tabdeel karein?')))return;
-const other=db.farmers.find(x=>x.linkedUid===r.uid&&x.id!==r.frId);
-if(other){alert('"'+(other.name||'')+'" kisan pehle se isi account se linked hai. Aap ke yahan ek account sirf ek kisan record se link hota hai (doosre malikon ke accounts alag link ho sakte hain). Pehle us link khatam karein ya ye request reject karein.');return}
+const others=db.farmers.filter(x=>x.linkedUid===r.uid&&x.id!==r.frId);
+if(others.length>=5){alert('"'+(f.name||'Kisan')+'" is account se link nahi ho sakta — limit poori. Ek account par zyada se zyada 5 kisan records link ho sakte hain, aur is account par pehle se 5 linked hain. Kisi ek record ka link khatam karein (unlink) ya ye request reject karein.');return}
 if(!confirm('"'+(f.name||'Kisan')+'" (code '+r.code+') ko is account se link karein?\nAccount: '+((r.email||r.name||'')||'-')+'\nQabool karne ke baad ye account is kisan ka poora khata dekh sakega.'))return;
 f.linkedUid=r.uid;f.linkedEmail=r.email||'';f.linkedAt=Date.now();lastFC[f.id]=f.fcode;lastFD[f.id]=fdsig(f);save();fdSet(f);
-try{await FS.collection('lreq').doc(id).update({status:'accepted',upAt:Date.now()});LREQ.forEach(x=>{if(x.id!==id&&x.uid===r.uid&&x.status==='pending'){x.status='rejected';FS.collection('lreq').doc(x.id).update({status:'rejected',upAt:Date.now()}).catch(()=>{})}})}catch(e){}
+try{await FS.collection('lreq').doc(id).update({status:'accepted',upAt:Date.now()})}catch(e){}
 ding();toast(BT('Kisan link ho gaya! Ab ye account apna khata dekh sakta hai.'))}
 async function fUnlink(){const f=F();if(!f||!f.linkedUid)return;
 if(!confirm(BT('Is kisan ka account link khatam karein? Wo ab apna khata nahi dekh sakega. (Code wahi rahega — dobara link ho sakta hai)')))return;
@@ -1609,7 +1609,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=81;
+const APPV=82;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
