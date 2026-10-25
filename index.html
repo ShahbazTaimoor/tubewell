@@ -139,18 +139,72 @@ button,.fm,.nb,.to,a.call{touch-action:manipulation;-webkit-tap-highlight-color:
 .fm>:first-child{flex:1;min-width:0}
 .fm::after{content:'›';font-size:24px;line-height:1;color:var(--mut);margin-inline-start:6px;flex:none}
 html[dir=rtl] .fm::after{content:'‹'}
-#lg{background:#F2F6F4;color:#1B3A30;z-index:20;overflow-y:auto;display:block}
-.lgw{max-width:460px;margin:0 auto;min-height:100%;position:relative;padding-bottom:34px}
-.hero{height:300px;background:#cfe3d4 url(login-hero.jpg) center/cover no-repeat;border-radius:0 0 50% 50%/0 0 46px 46px}.hero.s{height:190px}
-.leaf{position:absolute;right:4px;top:268px;width:76px;height:90px;transform:rotate(8deg);pointer-events:none}.hero.s+.leaf{top:158px}
-.lgb{padding:20px 26px 0;text-align:center}.lgb h1{margin:0;font-size:30px;color:#1F5F4C}.lgb p{margin:4px 0 24px;color:#2F6B58;font-size:16px}
-.lf{display:flex;align-items:center;gap:12px;background:#E8ECEA;border-radius:16px;padding:0 14px;height:54px;margin-bottom:14px}
-.lf svg{flex:none}.lf input{flex:1;min-width:0;background:transparent;border:0;outline:0;min-height:0;height:100%;padding:0;font-size:16px;color:#1B3A30}.lf input::placeholder{color:#7C8783}
-.eye{background:none;padding:0;width:36px;height:36px;display:flex;align-items:center;justify-content:center;opacity:.5}.eye.on{opacity:1}
-.fp{text-align:end;color:#1F5F4C;font-size:14px;margin:-2px 2px 16px;cursor:pointer}
-.lbtn{width:100%;height:56px;border-radius:99px;background:#1F5F4C;color:#fff;font-size:20px;font-weight:700}.lbtn:disabled{opacity:.7}
-.lgb .alt{margin-top:18px;color:#5C6862;font-size:15px}.lgb .alt b{color:#1F5F4C;text-decoration:underline;cursor:pointer}
-#lg #lm{border-radius:12px}
+/* v75 login/signup: brief-exact tokens — neela gradient header, overlapping card, RTL-safe */
+#lg{background:#eaf3fb;color:#0f172a;z-index:20;overflow-y:auto;display:block;-webkit-overflow-scrolling:touch}
+.lgw{max-width:460px;margin:0 auto;min-height:100%;position:relative;display:flex;flex-direction:column}
+.lghd{position:relative;overflow:hidden;background:linear-gradient(135deg,#2c6f9e,#1d5f92,#164e77);border-radius:0 0 32px 32px;padding:26px 20px 50px;color:#fff;flex:none}
+.lghd .cir{position:absolute;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
+.lghd .c1{width:176px;height:176px;top:-48px;inset-inline-start:-48px;filter:blur(22px)}
+.lghd .c2{width:96px;height:96px;bottom:-14px;inset-inline-end:28px;filter:blur(10px)}
+.lghdin{position:relative;display:flex;align-items:center;gap:12px}
+.lgtile{width:56px;height:56px;flex:none;border-radius:16px;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center}
+.lgtile img{width:36px;height:36px}
+.lgnm{font-size:21px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
+.lgnm2{font-size:14px;color:rgba(255,255,255,.85);line-height:1.7}html[lang=ur] .lgnm2{font-family:var(--uf);font-size:15px;line-height:1.9}
+.lgpills{position:relative;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.lgpill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.15);border-radius:99px;padding:6px 12px;font-size:11.5px;font-weight:800;min-height:30px}
+.lgdot{position:relative;width:8px;height:8px;flex:none}
+.lgdot i{position:absolute;inset:0;border-radius:50%;background:#10b981;animation:lgn 1.4s ease-out infinite}
+.lgdot b{position:absolute;inset:0;border-radius:50%;background:#10b981}
+.lgdot.off i{display:none}.lgdot.off b{background:#94a3b8}
+@keyframes lgn{0%{transform:scale(1);opacity:.75}100%{transform:scale(2.6);opacity:0}}
+.lgmain{position:relative;z-index:2;flex:1;padding:0 16px;margin-top:-26px}
+.lgcard{background:#fff;border:1px solid #d7e8f4;border-radius:24px;padding:18px 16px 20px;box-shadow:0 10px 30px rgba(22,78,119,.1)}
+.lgtabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#eef6fc;border-radius:99px;padding:4px}
+.lgtab{min-height:44px;border:0;border-radius:99px;background:transparent;font-family:inherit;font-size:14px;font-weight:700;color:#64748b;padding:0 6px;cursor:pointer;transition:all .18s}
+.lgtab.on{background:#fff;color:#116794;font-weight:800;box-shadow:0 3px 10px rgba(22,78,119,.16)}
+#lg .be+.bu{margin-inline-start:6px}
+.lgql{font-size:13px;font-weight:700;color:#334155;margin:16px 2px 8px}
+.lgroles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lgrole{position:relative;text-align:start;border:2px solid #d7e8f4;background:#fff;border-radius:16px;padding:12px;cursor:pointer;font-family:inherit;transition:all .15s}
+.lgrole:active{transform:scale(.98)}
+.lgrole .ric{width:44px;height:44px;border-radius:12px;background:#eef6fc;color:#64748b;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.lgrole .rl{display:block;font-size:14px;font-weight:800;color:#0f172a;line-height:1.5}
+.lgrole .rh{display:block;font-size:11px;font-weight:700;color:#64748b;margin-top:2px;line-height:1.6}
+.lgrole.on{border-color:#10b981;background:#f0fdf4;box-shadow:0 4px 14px rgba(16,185,129,.2)}
+.lgrole.on .ric{background:#d1fae5;color:#059669}
+.lgrole.f.on{border-color:#116794;background:#e6f2fa;box-shadow:0 4px 14px rgba(17,103,148,.2)}
+.lgrole.f.on .ric{background:#d7e8f4;color:#116794}
+.lgchk{position:absolute;top:-8px;inset-inline-end:-8px;width:24px;height:24px;border-radius:50%;background:#10b981;color:#fff;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.lgrole.f.on .lgchk{background:#116794}
+.lgrole.on .lgchk{display:flex}
+.lgf{margin-top:14px}
+.lglb{display:block;font-size:13px;font-weight:700;color:#334155;margin:0 2px 6px;line-height:1.6}
+.lglw{position:relative}
+.lgic{position:absolute;top:50%;transform:translateY(-50%);inset-inline-start:14px;pointer-events:none;display:flex;color:#64748b}
+.lglw .lend{position:absolute;top:50%;transform:translateY(-50%);inset-inline-end:6px}
+.lfield{width:100%;height:52px;border:1.5px solid #d7e8f4;background:#eef6fc;border-radius:16px;padding:0 16px;font-family:inherit;font-size:15px;font-weight:600;color:#0f172a;outline:none;transition:border .15s,box-shadow .15s,background .15s}
+html[dir=rtl] .lfield{padding-right:46px;padding-left:16px}
+html[dir=ltr] .lfield{padding-left:46px;padding-right:16px}
+html[dir=rtl] .lfield.ps{padding-left:58px}
+html[dir=ltr] .lfield.ps{padding-right:58px}
+.lfield:focus{border-color:#116794;box-shadow:0 0 0 3px rgba(17,103,148,.25);background:#fff}
+.lfield::placeholder{color:#94a3b8;font-weight:500}
+html[dir=rtl] .lfield[dir=ltr]{text-align:right}
+.lend .eye{width:44px;height:44px;border:0;background:transparent;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#64748b;cursor:pointer;opacity:1;padding:0}
+.lend .eye.on{color:#116794;background:rgba(215,232,244,.7)}
+.lgfp{display:inline-block;margin:12px 2px 0;color:#116794;font-size:13.5px;font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px;min-height:24px}
+#lg #lm{display:none;border-radius:16px;margin-bottom:2px;padding:12px 14px;font-size:13px;font-weight:700;line-height:1.8;align-items:flex-start;gap:8px}
+.lbtn{width:100%;height:54px;border:0;border-radius:16px;background:#0e5b8a;color:#fff;font-family:inherit;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;cursor:pointer;box-shadow:0 8px 20px rgba(14,91,138,.28);transition:background .15s,transform .1s}
+.lbtn:hover{background:#0b4a72}.lbtn:active{transform:scale(.99)}
+.lbtn:disabled{opacity:.72;pointer-events:none}
+.lgspin{width:20px;height:20px;flex:none;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spn .8s linear infinite}
+.lbtn .lar{display:block}html[dir=rtl] .lbtn .lar{transform:scaleX(-1)}
+.lgtf{margin-top:14px;text-align:center;font-size:13.5px;font-weight:600;color:#64748b;line-height:2.2}
+.lgtf b{color:#116794;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-weight:800;min-height:44px;display:inline-flex;align-items:center;padding:0 4px}
+.lghint{margin-top:16px;border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:10px 14px;font-size:12px;font-weight:600;color:#78350f;line-height:2}
+.lghint b{font-weight:800}
+.lgft{flex:none;background:linear-gradient(135deg,#2c6f9e,#1d5f92,#164e77);border-radius:24px 24px 0 0;padding:14px 16px;text-align:center;font-size:11px;font-weight:700;color:rgba(255,255,255,.78);line-height:1.8;margin-top:22px}
 .av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;object-fit:cover;color:#fff;font-weight:700;flex:none;border:2px solid var(--card);box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .avw{position:relative;flex:none;cursor:pointer}.avw i{position:absolute;right:-2px;bottom:-2px;width:26px;height:26px;border-radius:50%;background:var(--g);color:var(--pt);display:flex;align-items:center;justify-content:center;font-size:13px;font-style:normal;border:2px solid var(--card)}
 .dpick{display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer}
@@ -259,12 +313,6 @@ html[data-th=indigo] .fc.gr{--a:#4A5AC4;--a2:#202B68}
 html[data-th=indigo] .fc.gr .fh{border-bottom:2px solid var(--ac)}
 html[data-th=indigo] .fc.gd{--a:#202B68;--a2:#17213F}
 html[data-th=indigo] .fc.gd .fh{border-bottom-color:var(--ac)}html[data-th=indigo] .fc.gd .sb{border-color:var(--ac)}
-html[data-th=indigo] #lg{background:#F7F2E8;color:#202B40}
-html[data-th=indigo] .hero{background-color:#D8DCF2}html[data-th=indigo] .leaf{display:none}
-html[data-th=indigo] .lgb h1{color:#202B68}html[data-th=indigo] .lgb p,html[data-th=indigo] .lgb .alt{color:#718096}
-html[data-th=indigo] .lf{background:#EFE8D8}html[data-th=indigo] .lf input{color:#202B40}html[data-th=indigo] .lf input::placeholder{color:#8A8F9C}
-html[data-th=indigo] .fp,html[data-th=indigo] .lgb .alt b{color:#3949AB}
-html[data-th=indigo] .lbtn{background:linear-gradient(135deg,#3949AB,#2D3B96);box-shadow:0 6px 16px rgba(32,43,104,.25)}
 html[data-th=indigo] #splash{background:linear-gradient(160deg,#202B68,#3949AB)}
 html.authwait body{visibility:hidden}html.authwait #lg,html.authwait #splash{visibility:visible}
 html.lgshow #splash{display:none!important}#lg.ov{animation:none}
@@ -620,7 +668,8 @@ o.innerHTML='<div class="sh"><h2>📍 Mausam ka shehar chunein</h2><button class
 function wxFilt(){const e=$('wxl');if(!e)return;const q=($('wxq').value||'').trim().toLowerCase(),a=WXCITIES.filter(c=>!q||c[0].toLowerCase().includes(q));
 e.innerHTML=a.length?a.map(c=>'<button class="fm" style="padding:11px 12px" onclick="wxSet(\''+c[0]+'\')"><b>'+esc(c[0])+'</b></button>').join(''):'<div class="empty">Koi shehar nahi mila</div>'}
 const CFG={apiKey:"AIzaSyAiHYgg613HVa-3ca2g90K-wPw3ZguOgPg",authDomain:"aslam-tubewell.firebaseapp.com",projectId:"aslam-tubewell",storageBucket:"aslam-tubewell.firebasestorage.app",messagingSenderId:"668678347271",appId:"1:668678347271:web:d876035122ce1f8d6fe8a2"};
-const EM={'auth/invalid-credential':'Email ya password galat hai','auth/wrong-password':'Email ya password galat hai','auth/user-not-found':'Ye email registered nahi. "Register" dabayein','auth/email-already-in-use':'Ye email pehle se registered hai. Login karein','auth/weak-password':'Password kam az kam 6 huroof ka rakhein','auth/invalid-email':'Email sahi likhein','auth/network-request-failed':'Internet nahi hai','auth/too-many-requests':'Bohat koshishein ho gayin, thori der baad try karein','auth/user-disabled':'Ye account band hai','auth/operation-not-allowed':'Firebase mein Email/Password chalu nahi hai'};
+const EM={'auth/invalid-credential':['Email ya password galat hai','پاس ورڈ غلط ہے'],'auth/wrong-password':['Email ya password galat hai','پاس ورڈ غلط ہے'],'auth/user-not-found':['Ye email registered nahi. Pehle "Sign Up" karein','کوئی اکاؤنٹ نہیں ملا — پہلے سائن اپ کریں'],'auth/email-already-in-use':['Ye email pehle se registered hai. Login karein','یہ جی میل پہلے سے رجسٹرڈ ہے'],'auth/weak-password':['Password kam az kam 6 huroof ka rakhein','پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے'],'auth/invalid-email':['Email sahi likhein','درست جی میل ایڈریس لکھیں'],'auth/network-request-failed':['Internet nahi hai','انٹرنیٹ نہیں چل رہا — دوبارہ کوشش کریں'],'auth/too-many-requests':['Bohat koshishein ho gayin, thori der baad try karein','کافی کوششیں ہو گئیں — تھوڑی دیر بعد دوبارہ کوشش کریں'],'auth/user-disabled':['Ye account band hai','یہ اکاؤنٹ بند کر دیا گیا ہے'],'auth/operation-not-allowed':['Firebase mein Email/Password chalu nahi hai','فائر بیس میں ای میل/پاس ورڈ کا طریقہ چالو نہیں ہے']};
+const EMB=c=>{const x=EM[c];return x?RB(x[0],x[1]):''};
 function refresh(){const a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)||$('em'))return;if(cur)db.farmers.some(x=>x.id===cur)?open_(cur,eid):HG();else({cal:calV,rep:repV,set:ST.role==='farmer'?fSetV:setV,fhome:fHome,fbk:fBk,bkm:bkmV}[view]||HG)()}
 function listen(){const col=FS.collection('users').doc(U.uid).collection('farmers');
 unsub=col.onSnapshot(sn=>{let ch=false;
@@ -634,36 +683,66 @@ else if(sig(db.farmers[i])===sig(f))lastP[id]=sig(f)});
 if(ch){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}refresh()}
 if(!sn.metadata.fromCache)ownerCleanOrphans();
 st('☁️ Sync chal raha hai');push()},e=>st('⚠️ Sync error: '+(e.code||'')))}
-let lgM='in',justLogged=false;
+let lgM='in',justLogged=false,lgR=null;
 function showWelcome(n){const o=document.createElement('div');o.className='wl';o.innerHTML='<img class="lg" src="icon-192.png" alt=""><h2>Khush aamdeed!</h2><div class="mut"><bdi>'+esc(n||'')+'</bdi></div>';document.body.appendChild(o);setTimeout(()=>o.classList.add('out'),1100);setTimeout(()=>o.remove(),1450)}
 function lgSw(m){lgM=m;showLogin()}
-function lmsg(t,ok){const m=$('lm');if(!m)return;m.style.cssText='display:block;margin-bottom:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:600;background:'+(ok?'rgba(31,175,85,.15)':'var(--redbg)')+';color:'+(ok?'var(--g)':'var(--red)');m.textContent=t}
-function pw(el){['lp','lp2'].forEach(i=>{const x=$(i);if(x)x.type=x.type==='password'?'text':'password'});el.classList.toggle('on')}
-const SV={mail:'<svg viewBox="0 0 24 24" width="22" height="22" fill="#6B7773"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v.4l-9 5.6L3 6.4V6zm0 2.8V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.8l-9 5.6-9-5.6z"/></svg>',
-lock:'<svg viewBox="0 0 24 24" width="22" height="22" fill="#6B7773"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1zm2 0h6V8a3 3 0 0 0-6 0v2z"/></svg>',
-user:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#6B7773" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
-eye:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#4A5753" stroke-width="2" stroke-linecap="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
-leaf:'<svg class="leaf" viewBox="0 0 120 140" aria-hidden="true"><path d="M30 10C78 20 102 62 86 108 40 98 14 56 30 10z" fill="#3F7D3A"/><path d="M86 108C62 78 46 46 30 10" stroke="#2A5A29" stroke-width="2" fill="none"/><path d="M112 92C76 86 50 106 40 136 82 141 107 122 112 92z" fill="#58994C"/></svg>'};
-function showLogin(msg){document.documentElement.classList.add('lgshow');if(FORCE_LANG!=='en'){FORCE_LANG='en';applyDir()}let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov';document.body.appendChild(o)}
-const up=lgM==='up',eye='<button class="eye" type="button" onclick="pw(this)" aria-label="Password">'+SV.eye+'</button>';
-const fld=(ic,id,tp,ph,ac,x)=>'<div class="lf">'+ic+'<input id="'+id+'" type="'+tp+'" placeholder="'+ph+'" autocomplete="'+ac+'"'+(tp==='email'?' inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" dir="ltr"':tp==='password'?' dir="ltr"':' dir="auto"')+'>'+(x||'')+'</div>';
-o.innerHTML='<div class="lgw"><div class="hero'+(up?' s':'')+'"></div>'+SV.leaf+'<div class="lgb"><h1>'+(up?'Naya account':'Wapas Khush aamdeed')+'</h1><p>'+(up?'Apni tafseel likh kar register karein':'Apne account mein login karein')+'</p>'
-+(up?fld(SV.user,'ln','text','Aap ka naam','name'):'')+fld(SV.mail,'le','email','Email (Gmail)','email')
-+fld(SV.lock,'lp','password',up?'Password (kam az kam 6 huroof)':'Password',up?'new-password':'current-password',eye)
-+(up?fld(SV.lock,'lp2','password','Password dobara likhein','new-password'):'<div class="fp" onclick="forgot()">Password bhool gaye?</div>')
-+'<div id="lm" style="display:none"></div><button class="lbtn" id="lbtn" onclick="doAuth('+(up?1:0)+')">'+(up?'Register karein':'Login')+'</button>'
-+'<div class="alt">'+(up?'Pehle se account hai?':'Account nahi hai?')+' <b onclick="lgSw(\''+(up?'in':'up')+'\')">'+(up?'Login':'Register')+'</b></div></div></div>';
+function lmsg(t,ok){const m=$('lm');if(!m)return;m.style.display='flex';m.style.background=ok?'#f0fdf4':'#fef2f2';m.style.border='1px solid '+(ok?'#bbf7d0':'#fecaca');m.style.color=ok?'#065f46':'#b91c1c';m.innerHTML='<span style="flex:none;line-height:1.6">'+(ok?'✅':'⚠️')+'</span><span style="min-width:0">'+t+'</span>';try{m.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}}
+function pw(el){const x=$('lp');if(!x)return;const sh=x.type==='password';x.type=sh?'text':'password';if(el){el.classList.toggle('on',sh);el.innerHTML=sh?SV.eyeoff:SV.eye}}
+const SV={mail:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3 7.5 9 5.7 9-5.7"/></svg>',
+lock:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10" rx="3"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>',
+user:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+phone:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>',
+tractor:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="16.5" r="3.6"/><circle cx="17.2" cy="18" r="2.2"/><path d="M7.5 12.9V7h4.4l1.7 3.4h3.8v6"/><path d="M11.2 16.4h3.8"/><path d="M9.7 4h3.4"/></svg>',
+farmer:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="7.5" r="3.6"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>',
+eye:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+eyeoff:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.7 5.1A9.8 9.8 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-2.2 3.2"/><path d="M6.6 6.6C3.6 8.8 2 12 2 12s3.5 7 10 7a9.9 9.9 0 0 0 5.4-1.6"/><path d="M2 2l20 20"/><path d="M14.1 14.1a3 3 0 1 1-4.2-4.2"/></svg>',
+check:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+arrow:'<svg class="lar" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>'};
+function lgRole(r){lgR=r;document.querySelectorAll('#lg .lgrole').forEach(b=>{const on=b.dataset.r===r;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false')})}
+function showLogin(msg){document.documentElement.classList.add('lgshow');let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov';document.body.appendChild(o)}
+const up=lgM==='up',UR=BL()==='ur',on=navigator.onLine,T=(en,ur)=>UR?ur:en;
+const pv={e:($('le')||{}).value||'',p:($('lp')||{}).value||''};
+const eyeBtn='<button class="eye" type="button" onclick="pw(this)" aria-label="Password">'+SV.eye+'</button>';
+const fld=(ic,id,tp,lb,ph,ac,eye)=>'<div class="lgf"><label class="lglb" for="'+id+'">'+lb+'</label><div class="lglw"><span class="lgic">'+ic+'</span><input class="lfield'+(eye?' ps':'')+'" id="'+id+'" type="'+tp+'" placeholder="'+ph+'" autocomplete="'+ac+'"'+(tp==='email'?' inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" dir="ltr"':tp==='password'?' dir="ltr"':tp==='tel'?' inputmode="tel" dir="ltr"':' dir="auto"')+'>'+(eye?'<span class="lend">'+eyeBtn+'</span>':'')+'</div></div>';
+const rcard=(r,ic,lb,hlp)=>'<button type="button" class="lgrole'+(r==='farmer'?' f':'')+(lgR===r?' on':'')+'" data-r="'+r+'" onclick="lgRole(\''+r+'\')" aria-pressed="'+(lgR===r)+'"><span class="lgchk">'+SV.check+'</span><span class="ric">'+ic+'</span><span class="rl">'+lb+'</span><span class="rh">'+hlp+'</span></button>';
+o.innerHTML='<div class="lgw"><header class="lghd"><span class="cir c1"></span><span class="cir c2"></span>'
++'<div class="lghdin"><span class="lgtile"><img class="lg" src="icon-192.png" alt=""></span><div style="min-width:0"><div class="lgnm">'+esc(ST.name)+'</div><div class="lgnm2">'+esc(ST.urdu||ST.name)+'</div></div></div>'
++'<div class="lgpills"><span class="lgpill" id="lgnp"><span class="lgdot'+(on?'':' off')+'"><i></i><b></b></span><span>'+(on?T('Online','آن لائن'):T('Offline','آف لائن'))+'</span></span>'
++'<span class="lgpill">🔒 '+T('Secure login','محفوظ لاگن')+'</span>'
++'<span class="lgpill"><bdi dir="ltr">Rs '+RATE+'</bdi>&nbsp;'+T('per hour','فی گھنٹہ')+'</span></div></header>'
++'<div class="lgmain"><div class="lgcard"><div id="lm"></div>'
++'<div class="lgtabs" role="tablist"><button type="button" class="lgtab'+(up?'':' on')+'" onclick="lgSw(\'in\')">'+RB('Login','لاگن')+'</button><button type="button" class="lgtab'+(up?' on':'')+'" onclick="lgSw(\'up\')">'+RB('Sign Up','سائن اپ')+'</button></div>'
++(up?'<div class="lgql">'+T('Aap kaun hain?','آپ کون ہیں؟')+'</div><div class="lgroles">'+rcard('owner',SV.tractor,T('Tubewell Malik','ٹیوب ویل مالک'),T('Apna khata khud rakhein','اپنا کھاتہ خود رکھیں'))+rcard('farmer',SV.farmer,T('Kisan','کسان'),T('Code se khata dekhein','کوڈ سے کھاتہ دیکھیں'))+'</div>':'')
++'<form onsubmit="event.preventDefault();doAuth('+(up?1:0)+')" novalidate>'
++(up?fld(SV.user,'ln','text',T('Poora naam','پورا نام'),T('Jaise: Muhammad Ali','مثلاً محمد علی'),'name'):'')
++fld(SV.mail,'le','email',T('Gmail address','جی میل ایڈریس'),'yourname@gmail.com','email')
++(up?fld(SV.phone,'lph','tel',T('Mobile number (ikhtiyari)','موبائل نمبر (اختیاری)'),'0300-1234567','tel'):'')
++fld(SV.lock,'lp','password',T('Password','پاس ورڈ'),'••••••',up?'new-password':'current-password',1)
++(up?'':'<span class="lgfp" onclick="forgot()">'+T('Password bhool gaye?','پاس ورڈ بھول گئے ہیں؟')+'</span>')
++'<button class="lbtn" id="lbtn" type="submit">'+(up?T('Account banayein','اکاؤنٹ بنائیں'):T('Login karein','لاگن کریں'))+SV.arrow+'</button></form>'
++'<div class="lgtf">'+(up?T('Pehle se account hai?','پہلے سے اکاؤنٹ ہے؟')+' <b onclick="lgSw(\'in\')">'+T('Login karein','لاگن کریں')+'</b>':T('Account nahi hai?','اکاؤنٹ نہیں ہے؟')+' <b onclick="lgSw(\'up\')">'+T('Sign Up karein','سائن اپ کریں')+'</b>')+'</div>'
++'<div class="lghint">🚜 '+T('Malik — Sign Up mein apna khata banayein','مالک — سائن اپ میں اپنا کھاتہ بنائیں')+'<br>🌾 '+T('Kisan — malik ka code le kar apna khata dekhein','کسان — مالک کا کوڈ لے کر اپنا کھاتہ دیکھیں')+'<br>💧 '+T('Rate','ریٹ')+': <b dir="ltr">Rs '+RATE+'</b> '+T('fi ghanta','فی گھنٹہ')+'</div>'
++'</div></div>'
++'<footer class="lgft">🔒 '+RB('Aap ka data mehfooz hai','آپ کا ڈیٹا محفوظ ہے')+' • '+esc(ST.name)+'</footer></div>';
+if(pv.e)$('le').value=pv.e;if(pv.p)$('lp').value=pv.p;
 applyLogo();if(msg)lmsg(msg)}
-async function doAuth(reg){const e=$('le').value.trim(),p=$('lp').value;
-if(!e||!p){lmsg('Email aur password dono likhein');return}
-if(!/^\S+@\S+\.\S+$/.test(e)){lmsg('Email sahi likhein, jaise aap@gmail.com');return}
-if(reg){if(!$('ln').value.trim()){lmsg('Apna naam likhein');return}if(p.length<6){lmsg('Password kam az kam 6 huroof ka rakhein');return}if(p!==$('lp2').value){lmsg('Dono password ek jaise nahi hain');return}}
-if(!AU){lmsg('Internet nahi hai ya online service load nahi hui. Internet chala kar app dobara kholein');return}
-justLogged=true;const b=$('lbtn');b.disabled=true;b.textContent='Intezar karein…';
-try{if(reg){const c=await AU.createUserWithEmailAndPassword(e,p);try{await c.user.updateProfile({displayName:$('ln').value.trim()})}catch(x){}try{await c.user.sendEmailVerification()}catch(x){}toast('Account ban gaya! Gmail par verification email bheji gayi')}else await AU.signInWithEmailAndPassword(e,p)}
-catch(x){justLogged=false;const m=$('lbtn');if(m){m.disabled=false;m.textContent=reg?'Register karein':'Login'}lmsg(EM[x.code]||('Masla aaya: '+(x.code||x.message)))}}
-async function forgot(){const e=$('le').value.trim();if(!e){lmsg('Pehle upar email likhein');return}
-try{await AU.sendPasswordResetEmail(e);lmsg('Password reset ka email bhej diya gaya hai. Gmail kholein (Spam bhi dekhein)',1)}catch(x){lmsg(EM[x.code]||('Masla: '+(x.code||x.message)))}}
+async function doAuth(reg){const le=$('le'),lp=$('lp');const e=((le&&le.value)||'').trim(),p=(lp&&lp.value)||'';
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)){lmsg(EMB('auth/invalid-email'));return}
+if(p.length<6){lmsg(EMB('auth/weak-password'));return}
+const nm=reg?((($('ln')||{}).value||'').trim()):'';
+if(reg&&!nm){lmsg(RB('Apna poora naam likhein','اپنا پورا نام لکھیں'));return}
+if(reg&&!lgR){lmsg(RB('Pehle apna kirdar chunein — Malik ya Kisan','پہلے اپنا کردار چنیں — مالک یا کسان'));return}
+if(!AU){lmsg(RB('Internet nahi hai ya online service load nahi hui. Internet chala kar app dobara kholein','انٹرنیٹ نہیں ہے یا آن لائن سروس لوڈ نہیں ہوئی۔ انٹرنیٹ چلا کر ایپ دوبارہ کھولیں'));return}
+justLogged=true;const b=$('lbtn');if(b){b.disabled=true;b.innerHTML='<span class="lgspin"></span>'+RB('Intezar karein...','انتظار کریں...')}
+try{if(reg){const ph=(($('lph')||{}).value||'').trim();
+const c=await AU.createUserWithEmailAndPassword(e,p);try{await c.user.updateProfile({displayName:nm})}catch(x){}
+try{localStorage.setItem('aslam_role',lgR)}catch(x){}
+try{profDoc().set({name:nm,email:e,phone:ph,role:lgR,roleAt:Date.now()},{merge:true})}catch(x){}
+try{await c.user.sendEmailVerification()}catch(x){}toast(RB('Account ban gaya! Gmail par verification email bhej diya gaya hai','اکاؤنٹ بن گیا! جی میل پر تصدیقی ای میل بھیج دیا گیا ہے'))}
+else await AU.signInWithEmailAndPassword(e,p)}
+catch(x){justLogged=false;const m=$('lbtn');if(m){m.disabled=false;m.innerHTML=(lgM==='up'?RB('Account banayein','اکاؤنٹ بنائیں'):RB('Login karein','لاگن کریں'))+SV.arrow}lmsg(EMB(x.code)||('Masla aaya: '+(x.code||x.message)))}}
+async function forgot(){const le=$('le');const e=((le&&le.value)||'').trim();if(!e){lmsg(RB('Pehle upar apna email likhein','پہلے اوپر اپنا جی میل لکھیں'));return}
+try{await AU.sendPasswordResetEmail(e);lmsg(RB('Password reset ka email bhej diya gaya hai. Gmail kholein (Spam bhi dekhein)','پاس ورڈ ری سیٹ کا ای میل بھیج دیا گیا ہے۔ جی میل کھولیں (اسپیم بھی دیکھیں)'),1)}catch(x){lmsg(EMB(x.code)||('Masla: '+(x.code||x.message)))}}
 let loggingOut=false;
 async function wipeLocal(full){
 clearTimeout(svT);svT=0;
@@ -721,7 +800,7 @@ function toast(m){const t=document.createElement('div');t.className='toast';t.te
 const ic=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],['cal','Rozana',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['rep','Report',ic('<path d="M5 20V11M12 20V4M19 20v-6"/>')],['set','Settings',ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>')]];
 const IC={cal:ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>'),clk:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),coin:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15"/>'),pen:ic('<path d="M4 20l1-4L16 5l3 3L8 19z"/>'),wal:ic('<path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h16V9H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1"/>'),sv:ic('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>'),ph:ic('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),ar:ic('<path d="M5 12h14M13 6l6 6-6 6"/>'),us:ic('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),pin:ic('<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'),clip:ic('<path d="M20 11l-8 8a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/>'),scr:ic('<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'),ok:ic('<path d="M5 12l4 4 10-10"/>')};
-function netSet(on){const n=$('net');if(!n)return;n.classList.toggle('off',!on);n.lastElementChild.textContent=on?'Online':'Offline'}
+function netSet(on){const n=$('net');if(n){n.classList.toggle('off',!on);n.lastElementChild.textContent=on?'Online':'Offline'}const lp=$('lgnp');if(lp){const d=lp.querySelector('.lgdot');if(d)d.classList.toggle('off',!on);const t=lp.lastElementChild;if(t)t.textContent=on?(BL()==='ur'?'آن لائن':'Online'):(BL()==='ur'?'آف لائن':'Offline')}}
 async function netChk(){if(!navigator.onLine){netSet(false);return}const c=new AbortController(),t=setTimeout(()=>c.abort(),5000);try{await fetch('manifest.webmanifest?_='+Date.now(),{method:'HEAD',cache:'no-store',signal:c.signal});netSet(true)}catch(e){netSet(false)}clearTimeout(t)}
 window.addEventListener('online',netChk);window.addEventListener('offline',()=>netSet(false));setInterval(netChk,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)netChk()});
 let AC=null;const acI=()=>{try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}};document.addEventListener('pointerdown',acI,{passive:true});
@@ -1710,7 +1789,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=74;
+const APPV=75;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
