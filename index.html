@@ -535,6 +535,8 @@ new MutationObserver(dscan).observe(document.body,{childList:true,subtree:true})
 const rs0=n=>Math.round(n).toLocaleString('en-US')+' روپے';
 const durU=m=>{const h=Math.floor(m/60),r=m%60;return[h?(h===1?'1 گھنٹہ':h+' گھنٹے'):'',r?r+' منٹ':''].filter(Boolean).join(' ')||'0 منٹ'};
 const urT=t=>{if(!t)return'';const[h,m]=t.split(':').map(Number);const p=h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات';return (h%12||12)+':'+pad(m)+' '+p};
+const fmtDTU=ts=>{const d=new Date(ts||0),h=d.getHours();return fmtDT(ts).replace(/ (AM|PM)/,' '+(h<12?'صبح':h<16?'دوپہر':h<20?'شام':'رات'))};
+const hU=m=>{m=+m||0;if(m<=0)return'0';return String(Math.round(m/60*100)/100)};
 async function mkImg(f){const T_=TH[th],CI=T_.ci||'#12283D',CM=T_.cm||'#5F7487',CL=T_.cl||'#D9E6EF',CS=T_.cs||'#F2F7FB',CR=T_.cr||'#B4373F';const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
 const HW={Cash:'نقد',JazzCash:'جاز کیش',Easypaisa:'ایزی پیسہ',Bank:'بینک',Aur:'دیگر'},PH=[];
 const got=await Promise.all(P.filter(p=>p.img).map(async p=>{let d=await phGet(p.img);if(!d&&U&&FS){try{const sn=await FS.collection('users').doc(U.uid).collection('photos').doc(p.img).get();if(sn.exists)d=sn.data().d}catch(e){}}
@@ -1320,7 +1322,7 @@ h+=L.map(x=>{const d=FDMAP[x.frId],on=x.frId===cur,due=d?(+d.due||0):null;
 return '<button class="fkli'+(on?' on':'')+'" onclick="fkPick(\''+x.frId+'\')"><span class="fklih"><b class="nt">'+esc((d&&d.twName)||x.code||'Tubewell')+'</b>'
 +(d?(due>0?'<span class="pill r">'+BT('Baqaya ')+rs(due)+'</span>':(on?'':'<span class="pill">'+BT('Hisab saaf')+'</span>')):'<span class="pill">\u23f3</span>')
 +(on?'<span class="pill">'+BT('dekh rahe hain')+'</span>':'')+'</span>'
-+'<span class="fklis">'+(d?((d.name?esc(d.name)+' \u2022 ':'')+(d.upAt?BT('Update: ')+fmtDT(d.upAt):BT('Record abhi nahi aaya'))):(BT('Record abhi nahi aaya')+' \u2022 <bdi dir="ltr">'+esc(x.code||'')+'</bdi>'))+'</span></button>'}).join('');
++'<span class="fklis">'+(d?((d.name?esc(d.name)+' \u2022 ':'')+(d.upAt?BT('Update: ')+fmtDTU(d.upAt):BT('Record abhi nahi aaya'))):(BT('Record abhi nahi aaya')+' \u2022 <bdi dir="ltr">'+esc(x.code||'')+'</bdi>'))+'</span></button>'}).join('');
 return h+'</div>'}
 function fkPendH(L){let h='';const used=new Set(L.map(x=>x.code));
 FLREQ.filter(r=>r.status==='pending'&&r.code&&!used.has(r.code)).forEach(r=>{h+='<div class="empty" style="padding:10px 8px">⏳ '+BT('Link request bheji gayi hai — malik ke qabool karne ka intezar karein.')+' (<bdi dir="ltr">'+esc(r.code)+'</bdi>)</div>'});
@@ -1354,12 +1356,12 @@ const tm=E.reduce((m,o)=>m+(+o.mins||0),0),nc=E.length,tb=t.bill+t.old,pct=tb>0?
 const dmy=d=>{const s=String(d||'');return s.length>=10?s.slice(8,10)+'-'+s.slice(5,7)+'-'+s.slice(0,4):esc(s)},DUR=()=>ST.lang==='ur'?durU(tm):dur(tm);
 let k='<div class="ksec kinfo nt"><div><i class="ki">\ud83d\udc64</i><span style="min-width:0"><span class="kl">'+BT('Kisan ka naam')+'</span><span class="kv">'+esc(FDATA.name||'\u2014')+'</span><span class="ks"><bdi dir="ltr">'+esc(FDATA.fcode||'')+'</bdi></span></span></div>'
 +'<div><i class="ki">\ud83d\udeb0</i><span style="min-width:0"><span class="kl">'+BT('Tubewell ka naam')+'</span><span class="kv">'+esc(FDATA.twName||'\u2014')+'</span><span class="ks">'+(FDATA.rate?'Rs '+(+FDATA.rate||0)+' '+BT('fi ghanta'):'&nbsp;')+'</span></span></div>'
-+'<div><i class="ki">\ud83d\udcc5</i><span style="min-width:0"><span class="kl">'+BT('Aakhri update')+'</span><span class="kv">'+(FDATA.upAt?fmtDT(FDATA.upAt):'\u2014')+'</span><span class="ks">&nbsp;</span></span></div></div>';
++'<div><i class="ki">\ud83d\udcc5</i><span style="min-width:0"><span class="kl">'+BT('Aakhri update')+'</span><span class="kv">'+(FDATA.upAt?fmtDTU(FDATA.upAt):'\u2014')+'</span><span class="ks">&nbsp;</span></span></div></div>';
 const any=E.length||P.length||t.old||t.bill;
 if(!any)k+='<div class="ksec"><div class="kempty it">'+BT('Abhi koi hisaab nahi \u2014 malik entry kare ga to yahan nazar aaye ga.')+'</div></div>';
-if(any){if(E.length){k+='<div class="ksec nt"><div class="kst">\ud83d\udca7 '+BT('Pani ka Hisab')+'</div><div class="ktww"><table class="ktw"><thead><tr><th>'+BT('Tareekh')+'</th><th>'+BT('Shuru')+'</th><th>'+BT('Khatm')+'</th><th>'+BT('Mint')+'</th><th class="kn">'+BT('Raqam')+'</th></tr></thead><tbody>';
-E.forEach(o=>{k+='<tr><td>'+dmy(o.date)+(o.note?'<span class="knt">'+esc(o.note)+'</span>':'')+'</td><td class="kwn">'+t12(o.start).replace(' ','')+'</td><td class="kwn">'+t12(o.end).replace(' ','')+'</td><td>'+(+o.mins||0)+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
-k+='</tbody><tfoot><tr><td>'+BT('Kul')+'</td><td colspan="3" style="text-align:center">'+DUR()+'</td><td class="kn">'+rs(t.bill)+'</td></tr></tfoot></table></div></div>'}
+if(any){if(E.length){k+='<div class="ksec nt"><div class="kst">\ud83d\udca7 پانی کا حساب</div><div class="ktww"><table class="ktw" dir="rtl"><thead><tr><th>تاریخ</th><th>شروع</th><th>ختم</th><th>گھنٹے</th><th class="kn">رقم</th></tr></thead><tbody>';
+E.forEach(o=>{k+='<tr><td>'+dmy(o.date)+(o.note?'<span class="knt">'+esc(o.note)+'</span>':'')+'</td><td class="kwn">'+urT(o.start)+'</td><td class="kwn">'+urT(o.end)+'</td><td>'+hU(o.mins)+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
+k+='</tbody><tfoot><tr><td>کل</td><td colspan="3" style="text-align:center">'+durU(tm)+'</td><td class="kn">'+rs(t.bill)+'</td></tr></tfoot></table></div></div>'}
 k+='<div class="ksec nt"><div class="kst">\ud83d\udcb5 '+BT('Wasoolian')+'</div>';
 if(P.length){k+='<div class="ktww"><table class="ktw"><thead><tr><th>'+BT('Tareekh')+'</th><th>'+BT('Tareeqa')+'</th><th class="kn">'+BT('Raqam')+'</th></tr></thead><tbody>';
 P.forEach(o=>{k+='<tr><td>'+dmy(o.date)+'</td><td>'+esc(o.how||'Cash')+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
@@ -1811,7 +1813,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=78;
+const APPV=79;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
