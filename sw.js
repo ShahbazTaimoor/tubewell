@@ -1,4 +1,4 @@
-const C='aslam-v80',F=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'],CDN=['www.gstatic.com','fonts.googleapis.com','fonts.gstatic.com'];
+const C='aslam-v81',F=['./','index.html','manifest.webmanifest','icon-180.png','icon-192.png','icon-512.png'],CDN=['www.gstatic.com','fonts.googleapis.com','fonts.gstatic.com'];
 /* Urdu fonts precache mein NAHI — sirf Urdu mode par demand par load hote hain; fetch handler khud runtime-cache kar leta hai (v73) */
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>Promise.all(F.map(u=>c.add(u).catch(()=>{})))));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))));self.clients.claim()});
