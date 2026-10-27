@@ -884,17 +884,20 @@ window.addEventListener('online',netChk);window.addEventListener('offline',()=>n
 let AC=null;const acI=()=>{try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}};document.addEventListener('pointerdown',acI,{passive:true});
 function ding(){if(ST.snd===false)return;try{acI();if(!AC)return;const t=AC.currentTime;[[880,0],[1318.5,.11]].forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.22,t+d+.015);g.gain.exponentialRampToValueAtTime(.0001,t+d+.3);o.connect(g);g.connect(AC.destination);o.start(t+d);o.stop(t+d+.32)})}catch(e){}}
 function tgSnd(){ST.snd=ST.snd===false;saveST();if(ST.snd!==false)ding();setV()}
-/* v83+v86: Settings nav par double-tap = mode switch (1 second ka window — dheema double-tap bhi chalta hai; pehle tap par feedback toast + vibrate) */
+/* v83+v86+v87: Settings nav par double-tap = mode switch (1 second window; pehle tap par feedback toast + vibrate). v87: same-tab tap par re-render NAHI — sirf scroll-top, aur navR buttons ka DOM dobara nahi banata (taps lost nahi hote) */
 let nbT=0,nbK='';
 function nbTap(k){const n=Date.now();
-if(k==='set'){if(nbK==='set'&&n-nbT<1000){nbT=0;nbK='';try{swRoleAsk(ST.role==='owner'?'farmer':'owner')}catch(e){}return}nbK='set';nbT=n;if(view==='set'){try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}toast(BT('⚡ Mode badalne ke liye ek aur tap karein'))}}else{nbK='';nbT=0}
+if(k==='set'){if(nbK==='set'&&n-nbT<1000){nbT=0;nbK='';try{swRoleAsk(ST.role==='owner'?'farmer':'owner')}catch(e){}return}nbK='set';nbT=n;if(view==='set'){try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}toast(BT('⚡ Mode badalne ke liye ek aur tap karein'));try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){window.scrollTo(0,0)}return}}else{nbK='';nbT=0}
+if(k==='home'?view==='home'&&!cur:(k==='fhome'?view==='fhome'&&!cur:k===view)){try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){window.scrollTo(0,0)}return}
 go(k)}
 function navR(){const L=ST.role==='farmer'?NVF:NV;let n=$('nav');
 if(!n){n=document.createElement('nav');n.id='nav';n.className='nav';n.innerHTML='<div></div>';document.body.appendChild(n)}
-const oi=[...n.querySelectorAll('.nb')].findIndex(b=>b.classList.contains('on'));
-n.firstElementChild.innerHTML=L.map(x=>`<button class="nb" onclick="nbTap('${x[0]}')" aria-label="${x[1]}">${x[2]}<span>${x[1]}</span></button>`).join('');
-L.forEach((x,i)=>{const b=n.querySelectorAll('.nb')[i];b.classList.toggle('on',x[0]===view);if(x[0]===view&&i!==oi)b.classList.add('go')});
-n.style.display=!ST.role?'none':''}
+n.style.display=!ST.role?'none':'';
+const bs=[...n.querySelectorAll('.nb')];
+if(bs.length!==L.length||bs.some((b,i)=>b.getAttribute('aria-label')!==L[i][1]))n.firstElementChild.innerHTML=L.map(x=>`<button class="nb" onclick="nbTap('${x[0]}')" aria-label="${x[1]}">${x[2]}<span>${x[1]}</span></button>`).join('');
+const NI=L.findIndex(x=>x[0]===view),oi=[...n.querySelectorAll('.nb')].findIndex(b=>b.classList.contains('on'));
+L.forEach((x,i)=>{const b=n.querySelectorAll('.nb')[i];b.classList.remove('go');b.classList.toggle('on',i===NI)});
+if(NI!==-1&&NI!==oi)n.querySelectorAll('.nb')[NI].classList.add('go')}
 /* v64: Android par keyboard khulne/band hone ke baad fixed bottom nav ghayab na ho — viewport restore par repaint force */
 (function(){if(!window.visualViewport)return;let vh=window.innerHeight;const nd=()=>{const n=document.getElementById('nav');if(!n||n.style.display==='none')return;n.style.transform='translateZ(0)';requestAnimationFrame(()=>requestAnimationFrame(()=>{n.style.transform=''}))};try{window.visualViewport.addEventListener('resize',()=>{const full=window.visualViewport.height>=vh-80;vh=window.visualViewport.height;if(full)nd()})}catch(e){}try{document.addEventListener('visibilitychange',()=>{if(!document.hidden)nd()})}catch(e){}})();
 function pushS(t){try{if(!(history.state&&history.state.t===t))history.pushState({t},'')}catch(e){}}
@@ -1684,7 +1687,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=86;
+const APPV=87;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
