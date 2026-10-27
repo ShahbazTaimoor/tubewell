@@ -258,6 +258,17 @@ input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-ca
 .stt.gn{background:linear-gradient(180deg,#E7F6EE,#D9F0E4);border-color:#BFE3CF}.stt.rs{background:linear-gradient(180deg,#FEF0F2,#FBE4E7);border-color:#F3D3D8}.stt.rs .ci{background:#F6D9DB;color:#B4373F}.stt.rd{background:linear-gradient(180deg,#FDF1F1,#FBE4E5);border-color:#F0CFD2;grid-column:span 2}.stt.rd .ci{background:rgba(180,55,63,.15);color:var(--red)}
 .ksec{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
 .kst{font-weight:800;font-size:14.5px;margin:0 0 9px}
+/* v88: JazzCash/EasyPaisa payment box (farmer khata) */
+.paysec .payr{display:flex;align-items:center;gap:10px;width:100%;margin:0 0 8px;padding:10px 12px;border-radius:13px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#F4F9FC);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 2px 5px rgba(11,60,107,.06);text-align:left;touch-action:manipulation;cursor:pointer}
+.payr .payi{flex:none;width:38px;height:38px;border-radius:11px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12.5px;letter-spacing:.4px;box-shadow:0 2px 6px rgba(0,0,0,.16)}
+.payi.pjc{background:linear-gradient(135deg,#5B21B6,#7C3AED)}
+.payi.pep{background:linear-gradient(135deg,#00776B,#12A594)}
+.payr .paytxt{min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+.payr .paytxt b{font-size:14px}
+.payr .paytxt small{color:var(--mut);direction:ltr;font-size:12.5px}
+.payr .paygo{margin-inline-start:auto;flex:none;display:flex;align-items:center;gap:4px;color:var(--g);font-weight:800;font-size:12.5px}
+.payr .paygo svg{width:15px;height:15px}
+html[data-th=raat] .paysec .payr{background:var(--card)}
 .kinfo{display:block}
 .kinfo>div{display:flex;gap:10px;align-items:flex-start;padding:8px 2px}
 .kinfo>div+div{border-top:1px solid var(--line)}
@@ -479,6 +490,7 @@ const pad=n=>String(n).padStart(2,'0');
 const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
 const nowT=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
 const dur=m=>m<=0?'0 min':((m>=60?(Math.floor(m/60)===1?'1 ghanta':Math.floor(m/60)+' ghantay'):'')+(m>=60&&m%60?' ':'')+(m%60?m%60+' min':''));
+const durE=m=>{if(m<=0)return'0 min';const h=Math.floor(m/60),r=m%60;return (h?(h===1?'1 hr':h+' hrs'):'')+(h&&r?' ':'')+(r?r+' min':'')};
 const t12=t=>{if(!t)return'';let[h,m]=t.split(':').map(Number);const a=h>=12?'PM':'AM';h=h%12||12;return h+':'+pad(m)+' '+a};
 const mins=(s,e)=>{if(!s||!e)return 0;const a=s.split(':'),b=e.split(':');let m=(b[0]*60+ +b[1])-(a[0]*60+ +a[1]);if(m<0)m+=1440;return m};
 const tot=f=>{const bill=f.entries.reduce((a,e)=>a+e.amt,0),old=(f.olds||[]).reduce((a,o)=>a+o.amt,0),paid=f.pays.reduce((a,p)=>a+p.amt,0),mn=f.entries.reduce((a,e)=>a+e.mins,0);return{bill,old,paid,mn,due:bill+old-paid}};
@@ -584,12 +596,12 @@ function editO(id){const o=(F().olds||[]).find(x=>x.id===id);if(!o)return;modal(
 function svOld(id){const a=Math.round(+$('m_o').value),d=$('m_d').value;if(!(a>0)){alert('Sahi rakam likhein');return}if(!d){alert('Sahi tareekh chunein');return}const o=(F().olds||[]).find(x=>x.id===id);if(!o)return;o.amt=a;o.date=d;o.note=$('m_t').value.trim();$('em').remove();save();ding();open_(cur);toast('Tabdeeli save ho gayi')}
 function editP(id){const o=F().pays.find(x=>x.id===id);if(!o)return;modal(`<div class="fh" data-d="💵"><i class="ic">💰</i><div><h2>Wasooli edit karein</h2></div></div><div class="fb"><div class="row"><div class="f"><label>Rakam</label><div class="fi">${IC.coin}<input id="m_o" type="number" inputmode="numeric" value="${o.amt}"></div></div><div class="f"><label>Date</label><div class="fi">${IC.cal}<input id="m_d" type="date" value="${o.date}"></div></div></div><div class="f"><label>Tareeqa (kaise diye)</label><div class="fi">${IC.wal}<select id="m_h">${['Cash','JazzCash','Easypaisa','Bank','Aur'].map(h=>'<option value="'+h+'"'+(h===o.how?' selected':'')+'>'+h+'</option>').join('')}</select></div></div><button class="sb" onclick="svPay('${id}')">${IC.sv}<span>Tabdeeli save karein</span></button>${mcx()}</div>`,'gr')}
 function svPay(id){const a=Math.round(+$('m_o').value),d=$('m_d').value;if(!(a>0)){alert('Sahi rakam likhein');return}if(!d){alert('Sahi tareekh chunein');return}const o=F().pays.find(x=>x.id===id);if(!o)return;o.amt=a;o.date=d;o.how=$('m_h').value;$('em').remove();save();ding();open_(cur);toast('Tabdeeli save ho gayi')}
-function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date));
-let s='*'+ST.name+' - Hisab*\nKisan: '+f.name+(ST.tws.length>1?'\nTubewell: '+twOf(f).name:'')+'\nTareekh: '+fmtD(today())+'\n\n*Pani ki entries*\n';
-s+=E.length?E.map((e,i)=>(i+1)+') '+fmtD(e.date)+' | '+t12(e.start)+' → '+t12(e.end)+' | '+dur(e.mins)+' | '+rs(e.amt)).join('\n'):'Koi entry nahi';
-s+='\n\nTotal time: '+(dur(t.mn)||'0 min')+'\nTotal paisay: '+rs(t.bill)+' ('+rs(RATE)+' fi ghanta)'+(t.old?'\nPurana baqaya: '+rs(t.old):'')+'\n\n*Wasooli (jama)*\n';
-s+=P.length?P.map((p,i)=>(i+1)+') '+fmtD(p.date)+' | '+rs(p.amt)).join('\n'):'Abhi koi wasooli nahi';
-return s+'\n\nTotal jama: '+rs(t.paid)+'\n*Baqaya: '+rs(t.due)+'*'}
+function stmt(f){const t=tot(f),E=[...f.entries].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)),P=[...f.pays].sort((a,b)=>a.date.localeCompare(b.date)),EN=ST.lang==='en',DM=m=>EN?durE(m):dur(m);
+let s='*'+ST.name+' - '+BT('Hisab')+'*\n'+BT('Kisan')+': '+f.name+(ST.tws.length>1?'\n'+BT('Tubewell')+': '+twOf(f).name:'')+'\n'+BT('Tareekh')+': '+fmtD(today())+'\n\n*'+BT('Pani ki entries')+'*\n';
+s+=E.length?E.map((e,i)=>(i+1)+') '+fmtD(e.date)+' | '+t12(e.start)+' → '+t12(e.end)+' | '+DM(e.mins)+' | '+rs(e.amt)).join('\n'):BT('Koi entry nahi');
+s+='\n\n'+BT('Total time')+': '+(DM(t.mn)||'0 min')+'\n'+BT('Total paisay')+': '+rs(t.bill)+' ('+rs(RATE)+' '+BT('fi ghanta')+')'+(t.old?'\n'+BT('Purana baqaya')+': '+rs(t.old):'')+'\n\n*'+BT('Wasooli (jama)')+'*\n';
+s+=P.length?P.map((p,i)=>(i+1)+') '+fmtD(p.date)+' | '+rs(p.amt)).join('\n'):BT('Abhi koi wasooli nahi');
+return s+'\n\n'+BT('Total jama')+': '+rs(t.paid)+'\n*'+BT('Baqaya')+': '+rs(t.due)+'*'}
 function sendS(){$('sbox').innerHTML='<div class="card"><h2>Hisab ka message</h2><textarea id="stx" readonly rows="12" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font:inherit;font-size:13px"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="wa()">WhatsApp</button><button class="s" onclick="sh()">Share</button><button class="s" onclick="cp()">Copy</button></div></div>';$('stx').value=trT(stmt(F()));$('sbox').scrollIntoView({behavior:'smooth'})}
 function wa(){const f=F();const n=wnum(f.phone);window.open('https://wa.me/'+n+'?text='+encodeURIComponent($('stx').value),'_blank')}
 async function sh(){try{await navigator.share({text:$('stx').value})}catch(e){}}
@@ -919,6 +931,7 @@ $('v').innerHTML=`${twBar()}<div class="card sblue band"><div class="cband cb-bl
 function setV(){view='set';cur=null;navR();const lk=ST.cred?'Face ID chalu hai':ST.pin?'Sirf PIN chalu hai':'Band hai';
 $('v').innerHTML=`<div class="card"><h2>👤 Profile</h2><div class="f"><label>Tubewell / App ka naam</label><input id="sn" value="${esc(ST.name)}"></div><div class="f"><label>Urdu naam (tasveer ke liye)</label><input id="su" value="${esc(ST.urdu)}"></div><button class="p" style="width:100%" onclick="svP()">Save karein</button></div>
 ${twCard()}<div class="card"><h2>💰 Rate${ST.tws.length>1?' • '+esc(curTW().name):''}</h2><div class="mut sm" style="margin-bottom:8px">Abhi: <span class="rate">Rs ${RATE} fi ghanta</span></div><div class="f"><label>Naya rate (Rs fi ghanta)</label><input id="sr" type="number" inputmode="numeric" value="${RATE}"></div><div class="mut sm" style="margin-bottom:10px">Naya rate sirf nayi entries par lagega. Purani entries ke paisay nahi badlenge.</div><button class="p" style="width:100%" onclick="svR()">Rate save karein</button></div>
+<div class="card"><h2>💳 JazzCash • EasyPaisa</h2><div class="mut sm" style="margin-bottom:8px">${BT('Apne wallet numbers save karein — kisan aap ko JazzCash/EasyPaisa se paisay bhej sakein ga. Ye numbers kisan ke khate mein nazar aayen ge.')}</div><div class="f"><label>${BT('JazzCash number')}</label><input id="pjc" type="tel" inputmode="tel" dir="ltr" placeholder="0300-1234567" value="${esc((ST.pay||{}).jc||'')}"></div><div class="f"><label>${BT('EasyPaisa number')}</label><input id="pep" type="tel" inputmode="tel" dir="ltr" placeholder="0345-6789012" value="${esc((ST.pay||{}).ep||'')}"></div><button class="p" style="width:100%" onclick="svPayN()">${BT('Number save karein')}</button></div>
 ${wxSetCard()}<div class="card"><h2>🌐 Zuban / Language / زبان</h2><div class="row"><button class="${(ST.lang||'ro')==='ro'?'p':'s'}" onclick="setLang('ro')">Roman Urdu</button><button class="${ST.lang==='ur'?'p':'s'}" onclick="setLang('ur')">اردو</button><button class="${ST.lang==='en'?'p':'s'}" onclick="setLang('en')">English</button></div><button class="s" style="width:100%;margin-top:8px" onclick="fontDiag()">Urdu font check</button></div>
 <div class="card"><h2>🎨 Theme</h2>${Object.keys(TH).map(k=>`<button class="to${k===th?' on':''}" onclick="applyTh('${k}');setV()"><span class="sw" style="background:linear-gradient(135deg,${TH[k].h1},${TH[k].h2})"><i style="background:${TH[k].g}"></i><i style="background:${TH[k].bg}"></i></span><b>${TH[k].n}</b><span>${k===th?'✓':''}</span></button>`).join('')}</div>
 <div class="card"><h2>🔒 App Lock</h2><div class="mut sm" style="margin-bottom:10px">Halat: <b>${lk}</b></div><div class="f"><label>Backup PIN (4 se 6 ank)</label><input id="npin" type="password" inputmode="numeric" maxlength="6" placeholder="Naya PIN"></div><button class="p" style="width:100%" onclick="svPin()">PIN save karein</button>
@@ -929,6 +942,7 @@ ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()
 <div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • Version v${APPV}<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}curTW().rate=r;saveST();twPush();toast('Rate save ho gaya');setV()}
+function svPayN(){const jc=($('pjc').value||'').replace(/[^\d+]/g,''),ep=($('pep').value||'').replace(/[^\d+]/g,'');ST.pay={jc:jc,ep:ep};saveST();try{if(U&&FS)profDoc().set({pay:{jc:jc,ep:ep},payAt:Date.now()},{merge:true}).catch(()=>{})}catch(e){}try{db.farmers.forEach(f=>{if(f.linkedUid){lastFD[f.id]='';fdSet(f)}})}catch(e){}toast(BT('Number save ho gaya — kisan ke khate mein nazar aa jayen ge'));setV()}
 const hx=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('aslam'+t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
 const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const unb64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
@@ -985,7 +999,7 @@ const profDoc=()=>FS.collection('users').doc(U.uid).collection('meta').doc('prof
 
 
 
-function listenProf(){profDoc().onSnapshot(sn=>{if(!sn.exists)return;const d=sn.data();if(d.tcode&&d.tcode!==ST.tcode){ST.tcode=d.tcode;saveST()}if(d.tws){try{const n=JSON.parse(d.tws);if(Array.isArray(n)&&n.length&&JSON.stringify(n)!==JSON.stringify(ST.tws)){ST.tws=n;if(!n.some(t=>t.id===ST.tw))ST.tw=n[0].id;saveST();twEnsure();refresh()}}catch(e){}}})}
+function listenProf(){profDoc().onSnapshot(sn=>{if(!sn.exists)return;const d=sn.data();if(d.tcode&&d.tcode!==ST.tcode){ST.tcode=d.tcode;saveST()}if(d.pay&&JSON.stringify(d.pay)!==JSON.stringify(ST.pay||{})){ST.pay={jc:(d.pay.jc||'')+'',ep:(d.pay.ep||'')+''};saveST();if(ST.role==='owner')try{db.farmers.forEach(f=>{if(f.linkedUid){lastFD[f.id]='';fdSet(f)}})}catch(e){}}if(d.tws){try{const n=JSON.parse(d.tws);if(Array.isArray(n)&&n.length&&JSON.stringify(n)!==JSON.stringify(ST.tws)){ST.tws=n;if(!n.some(t=>t.id===ST.tw))ST.tw=n[0].id;saveST();twEnsure();refresh()}}catch(e){}}})}
 /* ================= v57: Account types (Farmer / Owner) + Water Booking ================= */
 const BL=()=>FORCE_LANG||ST.lang||'ro';
 const RB=(en,ur)=>{const L=BL();return L==='ur'?'<span class="bu" dir="rtl">'+ur+'</span>':'<span class="be">'+en+'</span>'+(L==='ro'?'<span class="bu" dir="rtl">'+ur+'</span>':'')};
@@ -1000,6 +1014,8 @@ function stChip(s){const L=BL();return '<span class="schip '+SBCL[s]+'">'+(L==='
 const HG=()=>{const fm=ST.role==='farmer',nv=fm?view!=='fhome':(!!cur||view!=='home');if(fm)fHome();else home();if(nv)try{window.scrollTo(0,0)}catch(e){}};/*v74: khata/list navigation par top, re-render par scroll mehfooz*/
 /* v77: roleScreen/pickRole hata — role ab login/signup par chuna jata hai; login ke baad routeUser seedha owner/farmer portal kholta hai */
 Object.assign(NB,{'Ya neeche nav bar ke Settings par do dafa tap karein (1 second ke andar)':{en:'Or tap the Settings button in the bottom bar twice within a second.',ur:'یا نیچے والے Settings بٹن پر ایک سیکنڈ کے اندر دو دفعہ ٹیپ کریں۔'},'⚡ Mode badalne ke liye ek aur tap karein':{en:'⚡ Tap once more to switch mode.',ur:'⚡ موڈ بدلنے کے لیے ایک اور ٹیپ کریں۔'}});
+/* v88: JazzCash/EasyPaisa + summary/share language */
+Object.assign(NB,{'Malik ko paisay bhejein':{en:'Send payment to the owner',ur:'مالک کو پیسے بھیجیں'},'App kholein':{en:'Open app',ur:'ایپ کھولیں'},'Tap karein: number khud copy ho jaye ga aur wallet app khul jaye gi — wahan number paste kar ke paisay bhejein.':{en:'Tap: the number is copied and the wallet app opens — paste the number there to send the money.',ur:'ٹیپ کریں: نمبر خود کاپی ہو جائے گا اور والیٹ ایپ کھل جائے گی — وہاں نمبر پیسٹ کر کے پیسے بھیجیں۔'},'Number copy ho gaya — wallet app mein paste kar ke paisay bhejein':{en:'Number copied — paste it in the wallet app to send the money',ur:'نمبر کاپی ہو گیا — والیٹ ایپ میں پیسٹ کر کے پیسے بھیجیں'},'Apne wallet numbers save karein — kisan aap ko JazzCash/EasyPaisa se paisay bhej sakein ga. Ye numbers kisan ke khate mein nazar aayen ge.':{en:'Save your wallet numbers so farmers can pay you via JazzCash/EasyPaisa. These numbers will appear in the farmer\u2019s khata.',ur:'اپنے والیٹ نمبر محفوظ کریں تاکہ کسان جاز کیش/ایزی پیسہ سے پیسے بھیج سکیں۔ یہ نمبر کسان کے کھاتے میں نظر آئیں گے۔'},'Number save karein':{en:'Save numbers',ur:'نمبر محفوظ کریں'},'Number save ho gaya — kisan ke khate mein nazar aa jayen ge':{en:'Numbers saved — they will appear in the farmer\u2019s khata',ur:'نمبر محفوظ ہو گئے — کسان کے کھاتے میں نظر آئیں گے'},'JazzCash number':{en:'JazzCash number',ur:'جاز کیش نمبر'},'EasyPaisa number':{en:'EasyPaisa number',ur:'ایزی پیسہ نمبر'},'Ghantay':{en:'Hours',ur:'گھنٹے'},'Hisab':{en:'Account',ur:'حساب'},'Kisan':{en:'Farmer',ur:'کسان'},'Tubewell':{en:'Tubewell',ur:'ٹیوب ویل'},'Pani ki entries':{en:'Water entries',ur:'پانی کی انٹریز'},'Koi entry nahi':{en:'No entries yet',ur:'کوئی انٹری نہیں'},'Total paisay':{en:'Total amount',ur:'کل رقم'},'Wasooli (jama)':{en:'Payments (received)',ur:'وصولی (جمع)'},'Abhi koi wasooli nahi':{en:'No payments yet',ur:'ابھی کوئی وصولی نہیں'},'Total jama':{en:'Total received',ur:'کل جمع'},'Baqaya':{en:'Balance due',ur:'باقیہ'},'Purana baqaya':{en:'Old balance',ur:'پرانا باقیہ'},'fi ghanta':{en:'per hour',ur:'فی گھنٹہ'}});
 function ownerBoot(){home();ensureFCodes();listenLReq();fdBackfill();fdAuto()}
 function farmerBoot(){fHome();listenFLk();flBoot()}
 function swRoleAsk(to){const lab=to==='owner'?BT('🚰 Tubewell Owner (Kitab wale) mode par jayein'):BT('🌱 Pani lagane wale (Farmer) mode par jayein');
@@ -1036,7 +1052,7 @@ const genFCode=()=>{const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i
 const fdsig=f=>JSON.stringify([f.name,f.phone,f.entries,f.pays,f.olds,f.linkedUid||'']);
 const fmtDT=ts=>{const d=new Date(ts||0);return pad(d.getDate())+'-'+pad(d.getMonth()+1)+'-'+d.getFullYear()+' '+pad(d.getHours()%12||12)+':'+pad(d.getMinutes())+' '+(d.getHours()>=12?'PM':'AM')};
 function fdSet(f){if(!U||!FS||!f.linkedUid)return;if(!db.farmers.some(x=>x.id===f.id))return;const cl=o=>{try{return JSON.parse(JSON.stringify(o||[]))}catch(e){return[]}};
-try{const t=tot(f),tw=twOf(f);FS.collection('fd').doc(f.id).set({ownerUid:U.uid,linkedUid:f.linkedUid,fcode:f.fcode||'',frId:f.id,name:f.name||'',phone:f.phone||'',addr:f.addr||'',twName:tw.name||'',rate:tw.rate||500,bill:t.bill,old:t.old,paid:t.paid,due:t.due,entries:cl(f.entries),pays:cl(f.pays),olds:cl(f.olds),upAt:Date.now()}).then(()=>{delete fdRetry[f.id]}).catch(()=>{fdRetry[f.id]=(fdRetry[f.id]||0)+1})}catch(e){fdRetry[f.id]=(fdRetry[f.id]||0)+1}}
+try{const t=tot(f),tw=twOf(f);FS.collection('fd').doc(f.id).set({ownerUid:U.uid,linkedUid:f.linkedUid,fcode:f.fcode||'',frId:f.id,name:f.name||'',phone:f.phone||'',addr:f.addr||'',twName:tw.name||'',rate:tw.rate||500,bill:t.bill,old:t.old,paid:t.paid,due:t.due,entries:cl(f.entries),pays:cl(f.pays),olds:cl(f.olds),pay:{jc:(ST.pay||{}).jc||'',ep:(ST.pay||{}).ep||''},upAt:Date.now()}).then(()=>{delete fdRetry[f.id]}).catch(()=>{fdRetry[f.id]=(fdRetry[f.id]||0)+1})}catch(e){fdRetry[f.id]=(fdRetry[f.id]||0)+1}}
 async function fDirEnsure(f){if(!U||!FS||!f.fcode)return;for(let i=0;i<3;i++){try{const sn=await FS.collection('fcode').doc(f.fcode).get();if(sn.exists&&sn.data().ownerUid!==U.uid){f.fcode=genFCode();continue}try{FS.collection('fcode').doc(f.fcode).set({code:f.fcode,ownerUid:U.uid,frId:f.id,crAt:Date.now()},{merge:true})}catch(e){}return}catch(e){return}}}
 function ensureFCodes(){if(ST.role!=='owner')return;let ch=false;db.farmers.forEach(f=>{if(!f.fcode){f.fcode=genFCode();ch=true}});if(ch)save();if(!U||!FS)return;
 db.farmers.forEach(f=>{if(lastFC[f.id]!==f.fcode){lastFC[f.id]=f.fcode;fDirEnsure(f)}
@@ -1228,15 +1244,22 @@ function fKhataH(){const t={bill:FDATA.bill||0,old:FDATA.old||0,paid:FDATA.paid|
 const E=[...(FDATA.entries||[])].sort((a,b)=>((a.date||'')+(a.start||'')).localeCompare((b.date||'')+(b.start||'')));
 const P=[...(FDATA.pays||[])].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
 const tm=E.reduce((m,o)=>m+(+o.mins||0),0),nc=E.length,tb=t.bill+t.old,pct=tb>0?Math.min(100,Math.round(t.paid/tb*100)):0;
-const dmy=d=>{const s=String(d||'');return s.length>=10?s.slice(8,10)+'-'+s.slice(5,7)+'-'+s.slice(0,4):esc(s)},DUR=()=>ST.lang==='ur'?durU(tm):dur(tm);
+const dmy=d=>{const s=String(d||'');return s.length>=10?s.slice(8,10)+'-'+s.slice(5,7)+'-'+s.slice(0,4):esc(s)},DUR=()=>ST.lang==='ur'?durU(tm):ST.lang==='en'?durE(tm):dur(tm);
 let k='<div class="ksec kinfo nt"><div><i class="ki">\ud83d\udc64</i><span style="min-width:0"><span class="kl">'+BT('Kisan ka naam')+'</span><span class="kv">'+esc(FDATA.name||'\u2014')+'</span><span class="ks"><bdi dir="ltr">'+esc(FDATA.fcode||'')+'</bdi></span></span></div>'
 +'<div><i class="ki">\ud83d\udeb0</i><span style="min-width:0"><span class="kl">'+BT('Tubewell ka naam')+'</span><span class="kv">'+esc(FDATA.twName||'\u2014')+'</span><span class="ks">'+(FDATA.rate?'Rs '+(+FDATA.rate||0)+' '+BT('fi ghanta'):'&nbsp;')+'</span></span></div>'
 +'<div><i class="ki">\ud83d\udcc5</i><span style="min-width:0"><span class="kl">'+BT('Aakhri update')+'</span><span class="kv">'+(FDATA.upAt?fmtDTU(FDATA.upAt):'\u2014')+'</span><span class="ks">&nbsp;</span></span></div></div>';
+k+=payBoxH();
 const any=E.length||P.length||t.old||t.bill;
 if(!any)k+='<div class="ksec"><div class="kempty it">'+BT('Abhi koi hisaab nahi \u2014 malik entry kare ga to yahan nazar aaye ga.')+'</div></div>';
-if(any){if(E.length){k+='<div class="ksec nt"><div class="kst">\ud83d\udca7 پانی کا حساب</div><div class="ktww"><table class="ktw" dir="rtl"><thead><tr><th>تاریخ</th><th>شروع</th><th>ختم</th><th>گھنٹے</th><th class="kn">رقم</th></tr></thead><tbody>';
+if(any){if(E.length){const UR=ST.lang!=='en';
+k+='<div class="ksec'+(UR?' nt':'')+'"><div class="kst">\ud83d\udca7 '+(UR?'پانی کا حساب':BT('Pani ka Hisab'))+'</div><div class="ktww">';
+if(UR){k+='<table class="ktw" dir="rtl"><thead><tr><th>تاریخ</th><th>شروع</th><th>ختم</th><th>گھنٹے</th><th class="kn">رقم</th></tr></thead><tbody>';
 E.forEach(o=>{k+='<tr><td>'+dmy(o.date)+(o.note?'<span class="knt">'+esc(o.note)+'</span>':'')+'</td><td class="kwn">'+urT(o.start)+'</td><td class="kwn">'+urT(o.end)+'</td><td>'+durU(o.mins)+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
-k+='</tbody><tfoot><tr><td>کل</td><td colspan="3" style="text-align:center">'+durU(tm)+'</td><td class="kn">'+rs(t.bill)+'</td></tr></tfoot></table></div></div>'}
+k+='</tbody><tfoot><tr><td>کل</td><td colspan="3" style="text-align:center">'+durU(tm)+'</td><td class="kn">'+rs(t.bill)+'</td></tr></tfoot></table>'}
+else{k+='<table class="ktw"><thead><tr><th>'+BT('Tareekh')+'</th><th>'+BT('Shuru')+'</th><th>'+BT('Khatm')+'</th><th>'+BT('Ghantay')+'</th><th class="kn">'+BT('Raqam')+'</th></tr></thead><tbody>';
+E.forEach(o=>{k+='<tr><td>'+dmy(o.date)+(o.note?'<span class="knt nt">'+esc(o.note)+'</span>':'')+'</td><td>'+t12(o.start)+'</td><td>'+t12(o.end)+'</td><td>'+durE(o.mins)+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
+k+='</tbody><tfoot><tr><td>'+BT('Kul')+'</td><td colspan="3" style="text-align:center">'+durE(tm)+'</td><td class="kn">'+rs(t.bill)+'</td></tr></tfoot></table>'}
+k+='</div></div>'}
 k+='<div class="ksec nt"><div class="kst">\ud83d\udcb5 '+BT('Wasoolian')+'</div>';
 if(P.length){k+='<div class="ktww"><table class="ktw"><thead><tr><th>'+BT('Tareekh')+'</th><th>'+BT('Tareeqa')+'</th><th class="kn">'+BT('Raqam')+'</th></tr></thead><tbody>';
 P.forEach(o=>{k+='<tr><td>'+dmy(o.date)+'</td><td>'+esc(o.how||'Cash')+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
@@ -1257,6 +1280,20 @@ if(any){k+='<div class="kbox"><div class="kt">'+BT('Ye hisaab kaise bana?')+'</d
 +'<div class="bar"><i style="width:'+pct+'%"></i></div><div class="mut sm">'+pct+'% '+BT('wasool')+' \u2014 '+rs(t.paid)+' '+BT('diye')+' \u2022 '+rs(t.due)+' '+BT('rehte hain')+'</div></div>'}
 k+='</div>';
 return k}
+function payBoxH(){const p=(FDATA&&FDATA.pay)||{};const rows=[['jc','JazzCash',p.jc],['ep','EasyPaisa',p.ep]].filter(x=>x[2]);
+if(!rows.length)return'';
+return '<div class="ksec paysec"><div class="kst">\ud83d\udcb3 '+BT('Malik ko paisay bhejein')+'</div>'
++rows.map(x=>'<button class="payr" onclick="payOpen(\''+x[0]+'\')"><span class="payi '+(x[0]==='jc'?'pjc':'pep')+'">'+(x[0]==='jc'?'JC':'EP')+'</span><span class="paytxt"><b>'+x[1]+'</b><small><bdi dir="ltr">'+esc(x[2])+'</bdi></small></span><span class="paygo">'+BT('App kholein')+' '+IC.ar+'</span></button>').join('')
++'<div class="mut sm" style="margin-top:8px">'+BT('Tap karein: number khud copy ho jaye ga aur wallet app khul jaye gi — wahan number paste kar ke paisay bhejein.')+'</div></div>'}
+function payOpen(app){const p=(FDATA&&FDATA.pay)||{};const num=String(app==='jc'?p.jc:p.ep||'').replace(/[^\d+]/g,'');if(!num)return;
+try{navigator.clipboard&&navigator.clipboard.writeText(num).catch(()=>{})}catch(e){}
+toast(BT('Number copy ho gaya — wallet app mein paste kar ke paisay bhejein'));setTimeout(()=>payGo(app,num),250)}
+function payGo(app,num){const jc=app==='jc',scheme=jc?'jazzcash':'easypaisa',pkg=jc?'com.techcare.jazzcash':'com.easypaisa.app',ua=navigator.userAgent||'';
+try{
+if(/Android/i.test(ua))location.href='intent://pay#Intent;scheme='+scheme+';package='+pkg+';S.browser_fallback_url='+encodeURIComponent('https://play.google.com/store/apps/details?id='+pkg)+';end';
+else if(/iPhone|iPad|iPod/i.test(ua)){let went=false;const to=setTimeout(()=>{try{if(!went&&document.visibilityState!=='hidden')location.href='https://apps.apple.com/pk/search?term='+(jc?'jazzcash':'easypaisa')}catch(e){}},1600);document.addEventListener('visibilitychange',function v(){if(document.visibilityState==='hidden'){went=true;clearTimeout(to);document.removeEventListener('visibilitychange',v)}});location.href=scheme+'://'}
+else window.open('https://play.google.com/store/apps/details?id='+pkg,'_blank')
+}catch(e){}}
 function fSetV(){view='set';cur=null;navR();
 $('v').innerHTML='<div class="nt"><div class="card">'+BH('My profile','میری تفصیل')
 +'<div class="f"><label>'+BT('Aap ka naam')+'</label><input id="fpn" value="'+esc((U&&U.displayName)||ST.fname||'')+'"></div>'
@@ -1596,6 +1633,7 @@ kisan ko bata dein|کسان کو بتا دیں|tell your farmer
 Purani khabar|پرانی خبر|Old report
 Offline|آف لائن|Offline
 ghantay purani|گھنٹے پرانی|hours old
+din purana|دن پرانا|days old
 Rehte hain|باقی ہیں|Remaining
 Ye aap ne malik ko dene hain|یہ آپ نے مالک کو دینے ہیں|This is what you owe the owner
 Hisaab saaf — aap ka koi paisa baqi nahi|حساب صاف — آپ کا کوئی پیسہ باقی نہیں|All clear — you owe nothing
@@ -1687,7 +1725,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=87;
+const APPV=88;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
