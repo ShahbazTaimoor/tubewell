@@ -458,16 +458,18 @@ html[data-th=hara] #list>.fm,html[data-th=sunehri] #list>.fm,html[data-th=indigo
 :root:not([data-theme="light"]) .card.band{background:var(--card);border-color:var(--line)}
 :root:not([data-theme="light"]) .card.fc>.fb{background:var(--card)}
 :root:not([data-theme="light"]) .p{background:var(--g);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 -3px 0 rgba(0,0,0,.25) inset,0 8px 18px rgba(0,0,0,.3)}}
-/* v92: khata band (fasal archive) + search box ka rang */
+/* v92: khata band (fasal archive) | v93: search box halca neela */
 .kclose{border:2px solid var(--g);color:var(--g);font-weight:800;background:var(--card);box-shadow:0 2px 6px rgba(11,60,107,.10)}
 .kclose:active{transform:translateY(1px)}
 .arow{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 8px;min-height:44px;cursor:pointer}
 .arow2{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 8px;min-width:0}
-#q{background:linear-gradient(135deg,var(--h1),var(--h2));color:#fff;border:1px solid var(--g);font-weight:700;box-shadow:0 3px 10px rgba(11,60,107,.18)}
-#q::placeholder{color:rgba(255,255,255,.92);font-weight:600}
+#q{background:linear-gradient(180deg,#EAF5FD,#D4EAFA);color:var(--ink);border:1.5px solid #A5CFEA;font-weight:600;box-shadow:inset 0 2px 4px rgba(11,60,107,.05),0 2px 8px rgba(21,128,184,.14)}
+#q::placeholder{color:#4E7FA0;font-weight:600}
 #q::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
-html[data-th=raat] #q,html[data-th=hara] #q,html[data-th=sunehri] #q,html[data-th=indigo] #q{box-shadow:0 3px 10px rgba(0,0,0,.25)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #q{box-shadow:0 3px 10px rgba(0,0,0,.25)}}
+html[data-th=raat] #q{background:linear-gradient(180deg,#182F40,#122535);color:var(--ink);border-color:#2E5A78;box-shadow:none}
+html[data-th=raat] #q::placeholder{color:#8FA6B8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #q{background:linear-gradient(180deg,#182F40,#122535);color:var(--ink);border-color:#2E5A78;box-shadow:none}}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #q::placeholder{color:#8FA6B8}}
 </style><script>document.documentElement.classList.add('authwait');try{var _t=localStorage.getItem('aslam_theme');if(_t)document.documentElement.setAttribute('data-th',_t)}catch(e){}</script></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
@@ -1797,7 +1799,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=92;
+const APPV=93;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
