@@ -131,7 +131,7 @@ button{transition:transform .12s ease,background .25s,color .25s,opacity .2s}but
 :root{--uf:'AlviNastaleeq','JameelNoori','Jameel Noori Nastaleeq','Noto Nastaliq Urdu','Noto Naskh Arabic','Droid Arabic Naskh','Geeza Pro','Segoe UI',Arial,serif}
 html[lang=ur] body,html[lang=ur] button,html[lang=ur] input,html[lang=ur] select,html[lang=ur] textarea{font-family:var(--uf);line-height:2}
 html[lang=ur] body *{font-family:var(--uf)!important}
-html[lang=ur] body{font-size:17.5px}html[lang=ur] .sm,html[lang=ur] small{font-size:15px}
+html[lang=ur] body{font-size:15px}html[lang=ur] .sm,html[lang=ur] small{font-size:12px}
 html[lang=ur] h1,html[lang=ur] h2{line-height:2}
 html[lang=ur] .pill,html[lang=ur] .rate,html[lang=ur] .mini,html[lang=ur] .nb span,html[lang=ur] .chip,html[lang=ur] .toast{line-height:1.8}
 button *,a.call *,.fm *{pointer-events:none}
@@ -151,7 +151,7 @@ html[dir=rtl] .fm::after{content:'‹'}
 .lgtile{width:62px;height:62px;flex:none;border-radius:18px;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center}
 .lgtile img{width:40px;height:40px}
 .lgnm{font-size:22px;font-weight:900;line-height:1.3;letter-spacing:-.2px}
-.lgnm2{font-size:14px;color:rgba(255,255,255,.85);line-height:1.7}html[lang=ur] .lgnm2{font-family:var(--uf);font-size:15px;line-height:1.9}
+.lgnm2{font-size:14px;color:rgba(255,255,255,.85);line-height:1.7}html[lang=ur] .lgnm2{font-family:var(--uf);font-size:14px;line-height:1.9}
 .lgpills{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
 .lgpill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.15);border-radius:99px;padding:6px 12px;font-size:11.5px;font-weight:800;min-height:30px}
 .lgdot{position:relative;width:8px;height:8px;flex:none}
@@ -1799,7 +1799,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=93;
+const APPV=94;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
