@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ur" translate="no"><head><meta charset="utf-8">
+<html translate="no"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="google" content="notranslate"><!-- Chrome ka Translate popup band (v72) -->
 <meta name="apple-mobile-web-app-title" content="Tubewell Khata"><meta name="apple-mobile-web-app-capable" content="yes">
@@ -216,6 +216,19 @@ html[dir=rtl] .lfield[dir=ltr]{text-align:right}
 /* v90: sirf Urdu + English — login/signup muntakhib zaban ke mutabiq */
 html[lang="ur"] span.lbe2{display:none!important}
 html[lang="en"] span.lbur{display:none!important}
+/* v95: login/signup par dono zubanein HAMESHA — jo Urdu janta hai wo Urdu parhe, jo English wo English */
+html[lang="ur"] #lg span.lbe2{display:block!important}
+html[lang="en"] #lg span.lbur{display:block!important}
+html[lang="ur"] #lg span.lbe2{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;line-height:1.5;direction:ltr;text-align:right}
+html[lang="en"] #lg span.lbur{font-family:'Noto Nastaliq Urdu','Noto Naskh Arabic','Droid Arabic Naskh','Geeza Pro','Segoe UI',Arial,serif;line-height:1.9;unicode-bidi:isolate;direction:rtl;text-align:left}
+#lg .lgtab{min-height:52px;padding:5px 6px;line-height:1.45}
+#lg .lbtn{height:auto;min-height:58px;padding:9px 14px}
+#lg .lbtn .lbe2{font-size:11.5px;font-weight:600;opacity:.85}
+#lg .rh .lbur{display:block}
+#lg .rh .lbe2{display:block;font-size:10.5px;font-weight:600;opacity:.75;line-height:1.6;margin-top:1px}
+#lg .lgtf{line-height:1.75}
+#lg .lgtf b{flex-direction:column;min-height:0;padding:2px 4px;line-height:1.5}
+#lg .lgtab .lbur,#lg .lgtab .lbe2,#lg .lgtf .lbur,#lg .lgtf .lbe2,#lg .lbtn .lbur,#lg .lbtn .lbe2,#lg .lgpill .lbur,#lg .lgpill .lbe2{text-align:center!important}
 .lbt{display:flex;flex-direction:column;line-height:1.25;align-items:center}
 .lbt b{font-weight:800;font-size:16px}
 .lbt i{font-style:normal;font-weight:600;font-size:11.5px;opacity:.82;margin-top:1px}
@@ -352,8 +365,23 @@ html[data-th=indigo] .fc.gd{--a:#202B68;--a2:#17213F}
 html[data-th=indigo] .fc.gd .fh{border-bottom-color:var(--ac)}html[data-th=indigo] .fc.gd .sb{border-color:var(--ac)}
 html[data-th=indigo] #splash{background:linear-gradient(160deg,#202B68,#3949AB)}
 html.authwait body{visibility:hidden}html.authwait #lg,html.authwait #splash{visibility:visible}
-html.lgshow #splash{display:none!important}#lg.ov{animation:none}
-#splash{display:none;position:fixed;inset:0;z-index:1;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:linear-gradient(160deg,#0B3C6B,#1478b0);color:#fff;font:700 20px system-ui,sans-serif}html.authwait #splash{display:flex}#splash i{width:34px;height:34px;border-radius:50%;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spn .8s linear infinite}@keyframes spn{to{transform:rotate(360deg)}}
+#lg.ov{animation:none}
+/* v96 splash: har bar app ka naam-o-logo animation — icon pop + SIRF EK naam (zaban ke mutabiq) fade, kam az kam ~2.1s, phir naram fade */
+#splash{display:none;position:fixed;inset:0;z-index:60;flex-direction:column;align-items:center;justify-content:center;gap:13px;background:linear-gradient(160deg,#0B3C6B,#1478b0);color:#fff;font:700 20px system-ui,sans-serif;animation:spvis 9s forwards}html.authwait #splash,html.spboot #splash{display:flex}
+#splash.spout{opacity:0;transform:scale(1.06);pointer-events:none;transition:opacity .55s ease,transform .55s ease}#splash.gone{display:none!important}
+#splash img{animation:spicon .75s cubic-bezier(.2,.9,.3,1.35) both}
+#splash .spn1{font-size:27px;font-weight:900;letter-spacing:-.3px;line-height:1.35;animation:spup .6s .25s cubic-bezier(.2,.9,.3,1) both}
+#splash .spn2{font-size:19px;font-weight:700;color:rgba(255,255,255,.88);line-height:2;animation:spup .6s .42s cubic-bezier(.2,.9,.3,1) both}
+/* v96: splash par sirf EK naam — zaban ke mutabiq (dono zubanein sath sath sirf login/signup page par) */
+html:not(.spen) #splash .spn1{display:none}
+html.spen #splash .spn2{display:none}
+html:not(.spen) #splash .spn2{font-family:var(--uf);font-size:26px;font-weight:800;color:#fff}
+#splash i{width:30px;height:30px;margin-top:8px;border-radius:50%;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spn .8s linear infinite}
+@keyframes spn{to{transform:rotate(360deg)}}
+@keyframes spicon{from{opacity:0;transform:scale(.45) rotate(-10deg)}62%{opacity:1}to{opacity:1;transform:none}}
+@keyframes spup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes spvis{0%,93%{visibility:visible}100%{visibility:hidden}}
+@media(prefers-reduced-motion:reduce){#splash img,#splash .spn1,#splash .spn2{animation-duration:.01s;animation-delay:0s}}
 html,body{max-width:100%;overflow-x:hidden}
 .cb b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 html[lang=ur] .cb>svg{transform:scaleX(-1)}
@@ -458,7 +486,7 @@ html[data-th=hara] #list>.fm,html[data-th=sunehri] #list>.fm,html[data-th=indigo
 :root:not([data-theme="light"]) .card.band{background:var(--card);border-color:var(--line)}
 :root:not([data-theme="light"]) .card.fc>.fb{background:var(--card)}
 :root:not([data-theme="light"]) .p{background:var(--g);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 -3px 0 rgba(0,0,0,.25) inset,0 8px 18px rgba(0,0,0,.3)}}
-/* v92: khata band (fasal archive) | v93: search box halca neela */
+/* v92: khata band (fasal archive) | v93: search box halca neela | v95: login par dono zubanein | v96: splash/welcome par sirf ek zaban */
 .kclose{border:2px solid var(--g);color:var(--g);font-weight:800;background:var(--card);box-shadow:0 2px 6px rgba(11,60,107,.10)}
 .kclose:active{transform:translateY(1px)}
 .arow{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 8px;min-height:44px;cursor:pointer}
@@ -470,12 +498,12 @@ html[data-th=raat] #q{background:linear-gradient(180deg,#182F40,#122535);color:v
 html[data-th=raat] #q::placeholder{color:#8FA6B8}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #q{background:linear-gradient(180deg,#182F40,#122535);color:var(--ink);border-color:#2E5A78;box-shadow:none}}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #q::placeholder{color:#8FA6B8}}
-</style><script>document.documentElement.classList.add('authwait');try{var _t=localStorage.getItem('aslam_theme');if(_t)document.documentElement.setAttribute('data-th',_t)}catch(e){}</script></head>
+</style><script>document.documentElement.classList.add('authwait','spboot');try{var _t=localStorage.getItem('aslam_theme');if(_t)document.documentElement.setAttribute('data-th',_t)}catch(e){}try{var _sl=JSON.parse(localStorage.getItem('aslam_st')||'{}').lang;if(_sl==='en'){document.documentElement.classList.add('spen');document.documentElement.lang='en';document.documentElement.dir='ltr'}else{document.documentElement.lang='ur';document.documentElement.dir='rtl'}}catch(e){}</script></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
 <div class="hr"><img class="lg" src="icon-192.png" alt=""><div class="hn"><h1 id="appn" class="nt">Tubewell Khata App</h1><div class="net" id="net"><i></i><span>Online</span></div></div><button id="nbtn" class="nbtn" type="button" aria-label="Notifications" onclick="notifToggle()" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span id="nbdg" class="nbdg" style="display:none">0</span></button></div>
 <div class="cr"><div class="chip"><i></i><span id="sync">Check ho raha hai…</span></div><span class="rate" id="rt">💧 Rs 500 / hour</span></div></header>
-<div id="splash"><img src="icon-192.png" width="92" height="92" alt="" style="border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.3)" onerror="this.replaceWith(document.createTextNode('💧'))"><i></i></div><div id="v"></div>
+<div id="splash"><img src="icon-192.png" width="92" height="92" alt="" style="border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.3)" onerror="this.replaceWith(document.createTextNode('💧'))"><div class="spn1 nt" id="spn1">Tubewell Khata</div><div class="spn2 nt" id="spn2">ٹیوب ویل کھاتہ</div><i></i></div><script>try{var _st=JSON.parse(localStorage.getItem('aslam_st')||'{}');if(_st.lang==='en')document.documentElement.classList.add('spen');var _s1=document.getElementById('spn1'),_s2=document.getElementById('spn2');if(_s1&&_st.name)_s1.textContent=_st.name;if(_s2)_s2.textContent=_st.urdu||_st.name||'ٹیوب ویل کھاتہ'}catch(e){}</script><div id="v"></div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -843,7 +871,7 @@ if(ch){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}refresh()}
 if(!sn.metadata.fromCache)ownerCleanOrphans();
 st('☁️ Sync chal raha hai');push()},e=>st('⚠️ Sync error: '+(e.code||'')))}
 let lgM='in',justLogged=false,lgR=null;
-function showWelcome(n){const o=document.createElement('div');o.className='wl';o.innerHTML='<img class="lg" src="icon-192.png" alt=""><h2><span class="lbur">خوش آمدید!</span><span class="lbe2">Welcome!</span></h2><div class="mut"><bdi>'+esc(n||'')+'</bdi></div>';document.body.appendChild(o);setTimeout(()=>o.classList.add('out'),1100);setTimeout(()=>o.remove(),1450)}
+function showWelcome(n){const o=document.createElement('div');o.className='wl';o.innerHTML='<img class="lg" src="icon-192.png" alt=""><h2>'+(BL()==='ur'?'خوش آمدید!':'Welcome!')+'</h2><div class="mut"><bdi>'+esc(n||'')+'</bdi></div>';document.body.appendChild(o);setTimeout(()=>o.classList.add('out'),1100);setTimeout(()=>o.remove(),1450)}
 function lgSw(m){lgM=m;showLogin()}
 const lgBtnH=(up,sp)=>sp?'<span class="lgspin"></span><span class="lbt"><b><span class="lbur">انتظار کریں...</span><span class="lbe2">Please wait...</span></b></span>':'<span class="lbt"><b><span class="lbur">'+(up?'اکاؤنٹ بنائیں':'لاگن کریں')+'</span><span class="lbe2">'+(up?'Create account':'Log in')+'</span></b></span>'+SV.arrow;
 function lmsg(t,ok){const m=$('lm');if(!m)return;m.style.display='flex';m.style.background=ok?'#f0fdf4':'#fef2f2';m.style.border='1px solid '+(ok?'#bbf7d0':'#fecaca');m.style.color=ok?'#065f46':'#b91c1c';m.innerHTML='<span style="flex:none;line-height:1.6">'+(ok?'✅':'⚠️')+'</span><span style="min-width:0">'+t+'</span>';try{m.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}}
@@ -1799,7 +1827,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=94;
+const APPV=96;
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
@@ -1808,5 +1836,7 @@ if(typeof firebase!=='undefined')initFB();else{let last=null;try{last=localStora
 const hadLogin=()=>{try{return !!localStorage.getItem('aslam_uid')}catch(e){return false}};
 if(hadLogin()&&!navigator.onLine){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}
 setTimeout(()=>{const h=document.documentElement.classList;if(h.contains('authwait')&&!$('lg')){if(hadLogin()){h.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b><span class="lbur">انٹرنیٹ چیک کریں، پھر دوبارہ کوشش کریں۔</span><span class="lbe2">Check your internet and try again.</span></b>')}},2500);
+/* v96 splash hide: kam az kam ~2.1s + (login dikh jaye ya auth check mukammal) — phir naram fade; JS na chale to CSS spvis 9s safety */
+(function(){var sp=$('splash');if(!sp)return;var t0=Date.now(),done=false;var h=function(){if(done)return;done=true;try{document.documentElement.classList.remove('spboot')}catch(e){}sp.classList.add('spout');setTimeout(function(){if(sp)sp.classList.add('gone')},620)};var iv=setInterval(function(){var c=document.documentElement.classList;if(Date.now()-t0>=2100&&(c.contains('lgshow')||!c.contains('authwait'))){clearInterval(iv);h()}},140);setTimeout(function(){clearInterval(iv);h()},9000)})();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.t==='upd')toast('Naya update mil gaya. App band karke dobara kholein.')})}
 </script></body></html>
