@@ -69,6 +69,20 @@ html,body{touch-action:pan-x pan-y}input,select,textarea{font-size:16px}
 .tx{width:12px;display:flex;flex-direction:column;align-items:center}.tx i{width:12px;height:12px;border-radius:50%;background:var(--g);margin-top:5px;flex:none}.tx i.pd{background:#1FAF55}.tx u{flex:1;width:2px;background:var(--line)}
 .tc{flex:1;min-width:0;background:linear-gradient(180deg,#EDF6FD,#E0F0FB);border:1px solid #C9E2F5;border-radius:14px;padding:10px 12px;box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 3px 8px rgba(11,60,107,.07)}.tc.pc{background:linear-gradient(180deg,#E7F6EE,#D9F0E4);border-color:#BFE3CF}.tc .h2d b{font-size:calc(13px*var(--fs))}
 .bi{border-top:1px solid var(--line);padding:12px 0}
+/* v1.1.0: kisan link request intezar card — bhejne ke foran baad badi animated waiting card */
+.fwait{text-align:center;background:var(--card);border:1.5px dashed var(--g);border-radius:16px;padding:16px 14px 14px;margin:2px 0 12px;box-shadow:0 6px 18px rgba(11,60,107,.08)}
+.fwring{position:relative;width:72px;height:72px;margin:2px auto 10px;border-radius:50%;background:var(--g2);display:flex;align-items:center;justify-content:center}
+.fwring::after{content:'';position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--g);animation:nbr 1.6s ease-out infinite}
+.fwi{font-size:calc(32px*var(--fs));line-height:1;animation:fwob 1.5s ease-in-out infinite}
+.fwt{display:block;font-size:calc(15.5px*var(--fs));margin-bottom:5px}
+.fws{color:var(--mut);font-size:calc(12.5px*var(--fs));line-height:1.65;margin-bottom:9px}
+.fwcode{display:inline-block;background:var(--g2);color:var(--g);font-weight:800;padding:4px 14px;border-radius:99px;margin-bottom:7px}
+.fwmeta{font-size:calc(11.5px*var(--fs));color:var(--mut);margin-bottom:2px}
+.fwdots{font-size:calc(12.5px*var(--fs));color:var(--g);font-weight:700}
+.fwdots::after{content:'...';display:inline-block;animation:fdots 1.4s steps(4,end) infinite;width:1.4em;text-align:left;overflow:hidden;vertical-align:bottom}
+.fwcancel{margin-top:10px;width:100%}
+@keyframes fwob{0%,100%{transform:rotate(0)}20%{transform:rotate(-16deg)}80%{transform:rotate(16deg)}}
+@keyframes fdots{0%{width:0}50%{width:1.05em}100%{width:1.4em}}
 html[lang=ur] body{font-family:"Geeza Pro","Noto Naskh Arabic",system-ui,sans-serif;line-height:1.7}
 html[dir=rtl] .fm,html[dir=rtl] .to{text-align:right}
 @keyframes pg{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -364,6 +378,7 @@ html[data-th=indigo] .fc.gr .fh{border-bottom:2px solid var(--ac)}
 html[data-th=indigo] .fc.gd{--a:#202B68;--a2:#17213F}
 html[data-th=indigo] .fc.gd .fh{border-bottom-color:var(--ac)}html[data-th=indigo] .fc.gd .sb{border-color:var(--ac)}
 html[data-th=indigo] #splash{background:linear-gradient(160deg,#202B68,#3949AB)}
+/* v100 themes revert: v99 ke 4 naye themes hata diye (user ko pasand nahi aaye) — 5 purane themes qaim */
 html.authwait body{visibility:hidden}html.authwait #lg,html.authwait #splash{visibility:visible}
 #lg.ov{animation:none}
 /* v96 splash: har bar app ka naam-o-logo animation — icon pop + SIRF EK naam (zaban ke mutabiq) fade, kam az kam ~2.1s, phir naram fade */
@@ -1221,8 +1236,9 @@ const fdMissSave=()=>{try{localStorage.setItem('aslam_fdmiss',JSON.stringify(FDM
 const flGet=()=>{const L=flsGet();return L.find(x=>x.frId===fkCur)||L[0]||null};
 function flBoot(){FKC=fkcLoad();const _L=flsGet();_L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});if(!fkCur&&_L.length){fkCur=_L[0].frId;try{localStorage.setItem('aslam_fkc',fkCur)}catch(e){}}fdMissLoad();fdListenAll();if(fkCur&&view==='fhome'){FDATA=FDMAP[fkCur]||FDATA;FDATAF=fkCur;fkSoft()}}
 function listenFLk(){if(!U||!FS||ST.role!=='farmer')return;if(flUnsub){try{flUnsub()}catch(e){}flUnsub=null}flUnsub=FS.collection('lreq').where('uid','==',U.uid).onSnapshot(sn=>{const b4=JSON.stringify(FLREQ);
+const oldSt={};FLREQ.forEach(x=>{oldSt[x.id]=x.status});
 FLREQ=sn.docs.map(d=>Object.assign({id:d.id},d.data())).sort((a,b)=>(b.ts||0)-(a.ts||0));flLoaded=true;
-if(JSON.stringify(FLREQ)!==b4){flChk();notifPaint()}},()=>{})}
+if(JSON.stringify(FLREQ)!==b4){flChk();notifPaint();FLREQ.forEach(x=>{if(oldSt[x.id]==='pending'&&x.status==='accepted'){try{toast(BT('✅ Malik ne request qabool kar li — aap ka khata neeche khul gaya!'))}catch(e){}}})}},()=>{})}
 function flChk(){const acc=FLREQ.filter(r=>r.status==='accepted'&&r.frId);let L=flsGet(),ch=false;const prev=fkCur;
 acc.forEach(r=>{if(!L.some(x=>x.frId===r.frId)&&!FDMISS[r.frId]){L.push({frId:r.frId,code:r.code||'',ownerUid:r.ownerUid||''});ch=true}});
 if(flLoaded){L=L.filter(x=>{const r=FLREQ.find(y=>y.frId===x.frId||(y.code&&y.code===x.code));if(r&&r.status!=='accepted'){fdUnOne(x.frId);delete FDMAP[x.frId];delete FKC[x.frId];delete FD_OFF[x.frId];if(FDATAF===x.frId){FDATA=null;FDATAF=''}ch=true;return false}return true})}
@@ -1317,11 +1333,29 @@ return '<button class="fkli'+(on?' on':'')+'" onclick="fkPick(\''+x.frId+'\')"><
 +'<span class="fklis">'+(d?((d.name?esc(d.name)+' \u2022 ':'')+(d.upAt?BT('Update: ')+fmtDTU(d.upAt):BT('Record abhi nahi aaya'))):(BT('Record abhi nahi aaya')+' \u2022 <bdi dir="ltr">'+esc(x.code||'')+'</bdi>'))+'</span></button>'}).join('');
 return h+'</div>'}
 function fkPendH(L){let h='';const used=new Set(L.map(x=>x.code));
-FLREQ.filter(r=>r.status==='pending'&&r.code&&!used.has(r.code)).forEach(r=>{h+='<div class="empty" style="padding:10px 8px">⏳ '+BT('Link request bheji gayi hai — malik ke qabool karne ka intezar karein.')+' (<bdi dir="ltr">'+esc(r.code)+'</bdi>)</div>'});
+FLREQ.filter(r=>r.status==='pending'&&r.code&&!used.has(r.code)).forEach(r=>{h+=fkWaitH(r)});
 FLREQ.filter(r=>r.status==='rejected'&&r.code&&!used.has(r.code)).slice(0,2).forEach(r=>{h+='<div class="empty" style="padding:10px 8px">'+BT('Request reject ho gayi ya malik ne khata hata diya')+' (<bdi dir="ltr">'+esc(r.code)+'</bdi>) — '+BT('nayi request bhej sakte hain')+'.</div>'});return h}
 function fkAddH(){return '<button class="s" style="width:100%;margin-top:10px" onclick="fkAddOpen()">➕ '+BT('Doosre tubewell ka khata jorein')+'</button>'
 +'<div id="fladd" class="hide" style="margin-top:10px"><div class="f"><label>'+BT('Kisan code (misal: FR-A2B4C6)')+'</label><input id="flc" placeholder="FR-XXXXXX" autocapitalize="characters" autocorrect="off" spellcheck="false" style="text-transform:uppercase" dir="ltr"></div>'
 +'<button id="flgo" class="p" style="width:100%" onclick="flSend(this)">🔗 '+BT('Link request bhejein')+'</button></div>'}
+/* v1.1.0: link request intezar card — kisan code bhejne ke foran baad badi animated waiting card nazar aati hai (ghanti wala hourglass + chalti dots); malik qabool kare ga to khata khud khul jaye ga, reject ho to gair-hazir message. Wapas lene ka button bhi hai. */
+Object.assign(NB,{'Malik ki tasdeeq ka intezar…':{en:'Waiting for the owner to approve…',ur:'مالک کی تصدیق کا انتظار…'},'Aap ki request malik tak pohanch gayi hai — jaise hi wo qabool karein ge, aap ka khata khud yahan nazar aa jaye ga.':{en:'Your request has reached the owner — as soon as they approve, your khata will appear here by itself.',ur:'آپ کی درخواست مالک تک پہنچ گئی ہے — جیسے ہی وہ قبول کریں گے، آپ کا کھاتہ خود یہاں نظر آ جائے گا۔'},'Bheji gayi:':{en:'Sent:',ur:'بھیجی گئی:'},'Intezar ho raha hai':{en:'Waiting',ur:'انتظار ہو رہا ہے'},'Request wapas lein':{en:'Take request back',ur:'درخواست واپس لیں'},'Kya ye link request wapas lein? Malik is ko ab qabool nahi kar sake ga.':{en:'Take this link request back? The owner will no longer be able to approve it.',ur:'کیا یہ لنک درخواست واپس لیں؟ مالک اب اسے قبول نہیں کر سکے گا۔'},'Request wapas le li gayi':{en:'Request taken back',ur:'درخواست واپس لے لی گئی'},'Request wapas nahi le saki — internet check karein ya malik se kahen ye request reject kar dein.':{en:'Could not take the request back — check internet or ask the owner to reject it.',ur:'درخواست واپس نہیں لی جا سکی — انٹرنیٹ چیک کریں یا مالک سے کہیں یہ درخواست مسترد کر دیں۔'},'✅ Malik ne request qabool kar li — aap ka khata neeche khul gaya!':{en:'✅ The owner approved your request — your khata is open below!',ur:'✅ مالک نے درخواست قبول کر لی — آپ کا کھاتہ نیچے کھل گیا!'},'Ye request pehle hi process ho chuki hai':{en:'This request was already processed',ur:'یہ درخواست پہلے ہی پروسیس ہو چکی ہے'}});
+function fkWaitH(r){if(!r)return'';const t=r.ts||0;
+return '<div class="fwait" role="status" aria-live="polite">'
++'<div class="fwring"><span class="fwi">⏳</span></div>'
++'<b class="fwt">'+BT('Malik ki tasdeeq ka intezar…')+'</b>'
++'<div class="fws">'+BT('Aap ki request malik tak pohanch gayi hai — jaise hi wo qabool karein ge, aap ka khata khud yahan nazar aa jaye ga.')+'</div>'
++'<div class="fwcode"><bdi dir="ltr">'+esc(r.code||'')+'</bdi></div>'
++'<div class="fwmeta">'+BT('Bheji gayi:')+' '+(t?fmtDT(t):'—')+'</div>'
++'<div class="fwdots">'+BT('Intezar ho raha hai')+'</div>'
++'<button class="s fwcancel" onclick="fkWaitCancel(\''+esc(r.id||'')+'\')">'+BT('Request wapas lein')+'</button>'
++'</div>'}
+async function fkWaitCancel(id){const r=FLREQ.find(x=>x.id===id);if(!r)return;
+if(r.status!=='pending'){toast(BT('Ye request pehle hi process ho chuki hai'));return}
+if(!confirm(BT('Kya ye link request wapas lein? Malik is ko ab qabool nahi kar sake ga.')))return;
+if(!FS){alert(BT('Internet nahi hai.'));return}
+try{await FS.collection('lreq').doc(id).delete()}catch(e){try{await FS.collection('lreq').doc(id).update({status:'cancelled',upAt:Date.now()})}catch(e2){alert(BT('Request wapas nahi le saki — internet check karein ya malik se kahen ye request reject kar dein.'));return}}
+FLREQ=FLREQ.filter(x=>x.id!==id);try{fkSoft()}catch(e){}try{notifPaint()}catch(e){}toast(BT('Request wapas le li gayi'))}
 function fKhataBox(){const L=flsGet();if(!fkCLd){fkCLd=1;FKC=fkcLoad()}L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});let h='';
 if(L.length){const cur=(fkCur&&L.some(x=>x.frId===fkCur))?fkCur:L[0].frId;
 if(fkCur!==cur){fkCur=cur;try{localStorage.setItem('aslam_fkc',cur)}catch(e){}}
@@ -1335,7 +1369,7 @@ h+='<div class="empty">'+BT('Aap ka khata link ho chuka hai — malik ka record 
 +'<button class="s" style="width:100%" onclick="fdRetryNow()">'+BT('🔄 Dobara check karein')+'</button>'}
 h+=fkPendH(L);h+=fkAddH();return h}
 const p=FLREQ.filter(r=>r.status==='pending'),rj=FLREQ.filter(r=>r.status==='rejected').slice(0,2);
-if(p.length)h+='<div class="empty">'+BT('Link request bheji gayi hai — malik ke qabool karne ka intezar karein.')+' ('+esc(p[0].code)+')</div>';
+if(p.length)h+=fkWaitH(p[0]);
 rj.forEach(r=>{h+='<div class="empty">'+BT('Request reject ho gayi ya malik ne khata hata diya')+' ('+esc(r.code)+') — '+BT('nayi request bhej sakte hain')+'.</div>'});
 h+='<div class="f"><label>'+BT('Kisan code (misal: FR-A2B4C6)')+'</label><input id="flc" placeholder="FR-XXXXXX" autocapitalize="characters" autocorrect="off" spellcheck="false" style="text-transform:uppercase" dir="ltr"></div>'
 +'<button id="flgo" class="p" style="width:100%" onclick="flSend(this)">🔗 '+BT('Link request bhejein')+'</button>'
@@ -1830,8 +1864,8 @@ async function bkCopy(){const t=JSON.stringify(Object.assign({},db,{tws:ST.tws})
 function bkPaste(){const o=document.createElement('div');o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};o.innerHTML='<div class="sh"><h2>Backup paste karein</h2><textarea id="bkt" rows="8" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font-size:calc(13px*var(--fs))" placeholder="Backup yahan paste karein"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="bkGo()">Restore karein</button><button class="s" onclick="this.closest(\'.ov\').remove()">Band karein</button></div></div>';document.body.appendChild(o)}
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
-/* Version number (Settings ke "Version v__" ke liye). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV=98;
+/* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
+const APPV='1.1.0';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
