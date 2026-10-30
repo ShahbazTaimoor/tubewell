@@ -572,9 +572,10 @@ let _ft=0;function filtD(){clearTimeout(_ft);_ft=setTimeout(filt,150)}
 function filt(){$('list').innerHTML=listH($('q').value)}
 function home(){cur=null;view='home';navR();twEnsure();
 const all=TF().map(tot),bill=all.reduce((a,t)=>a+t.bill,0),paid=all.reduce((a,t)=>a+t.paid,0),old=all.reduce((a,t)=>a+t.old,0);
-const hA=!!ST.hideAmt,MK='Rs ••••';
-$('v').innerHTML=`${twBar()}<div class="card big sgold band"><div class="cband cb-gold"><span class="bi">💰</span><h2>Meri Total Kamai</h2><button class="bchip" onclick="toggAmt()" aria-label="Hide / show">${hA?'🙈':'👁️'}</button></div><div class="cbody"><strong style="margin-top:0">${hA?MK:rs(bill+old)}</strong>
-<div class="grid" style="margin-top:12px;text-align:left"><div class="tgn"><span>Wasool hua</span><b>${hA?MK:rs(paid)}</b></div><div class="trd"><span>Baqaya</span><b>${hA?MK:rs(bill+old-paid)}</b></div></div></div></div>
+/* v1.1.1: kamai card center + **** mask */
+const hA=!!ST.hideAmt,MK='Rs ****';
+$('v').innerHTML=`${twBar()}<div class="card big sgold band"><div class="cband cb-gold"><span class="bi">💰</span><h2>Meri Total Kamai</h2><button class="bchip" onclick="toggAmt()" aria-label="Hide / show">${hA?'🙈':'👁️'}</button></div><div class="cbody" style="text-align:center"><strong style="margin-top:0">${hA?MK:rs(bill+old)}</strong>
+<div class="grid" style="margin-top:12px;text-align:center"><div class="tgn"><span>Wasool hua</span><b>${hA?MK:rs(paid)}</b></div><div class="trd"><span>Baqaya</span><b>${hA?MK:rs(bill+old-paid)}</b></div></div></div></div>
 <button class="p" style="width:100%;margin-bottom:12px" onclick="$('addBox').classList.toggle('hide')">＋ Naya Kisan</button>${wxCard()}${lrChip()}
 <div id="addBox" class="card hide"><h2>Naya Kisan</h2><div class="dpick" onclick="$('fdp').click()"><span id="dpv" class="av" style="width:76px;height:76px;background:var(--g2);color:var(--g);font-size:calc(28px*var(--fs))">📷</span><span class="mut sm">Kisan ki tasveer (DP, marzi)</span></div><input id="fdp" type="file" accept="image/*" class="hide" onchange="pickDP(this,1)">
 <div class="f"><label>Kisan ka naam</label><input id="fn" placeholder="Naam"></div>
@@ -1865,7 +1866,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.1.0';
+const APPV='1.1.1';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
