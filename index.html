@@ -155,42 +155,42 @@ button,.fm,.nb,.to,a.call{touch-action:manipulation;-webkit-tap-highlight-color:
 .fm::after{content:'›';font-size:calc(24px*var(--fs));line-height:1;color:var(--mut);margin-inline-start:6px;flex:none}
 html[dir=rtl] .fm::after{content:'‹'}
 /* v75 login/signup: brief-exact tokens — neela gradient header, overlapping card, RTL-safe */
-#lg{background:#eaf3fb;color:#0f172a;z-index:20;overflow-y:auto;display:block;-webkit-overflow-scrolling:touch}
+#lg{background:#f2faf5;color:#0f172a;z-index:20;overflow-y:auto;display:block;-webkit-overflow-scrolling:touch}
 .lgw{max-width:460px;margin:0 auto;min-height:100%;position:relative;display:flex;flex-direction:column}
-.lghd{position:relative;overflow:hidden;background:linear-gradient(135deg,#2c6f9e,#1d5f92,#164e77);border-radius:0 0 32px 32px;padding:26px 20px 50px;color:#fff;flex:none}
-.lghd .cir{position:absolute;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
+.lghd{position:relative;overflow:hidden;background:linear-gradient(155deg,#e9f9f0,#d4f2e0 60%,#c8eed8);border-radius:0 0 32px 32px;padding:24px 20px 50px;color:#14532d;flex:none}
+.lghd .cir{position:absolute;border-radius:50%;background:rgba(22,163,74,.10);pointer-events:none}
 .lghd .c1{width:176px;height:176px;top:-48px;inset-inline-start:-48px;filter:blur(22px)}
 .lghd .c2{width:96px;height:96px;bottom:-14px;inset-inline-end:28px;filter:blur(10px)}
 .lghdin{position:relative;display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center}
-.lgtile{width:62px;height:62px;flex:none;border-radius:18px;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center}
+.lgtile{width:62px;height:62px;flex:none;border-radius:18px;background:#fff;border:1px solid rgba(20,83,45,.08);box-shadow:0 10px 24px rgba(20,83,45,.16);display:flex;align-items:center;justify-content:center}
 .lgtile img{width:40px;height:40px}
-.lgnm{font-size:calc(22px*var(--fs));font-weight:900;line-height:1.3;letter-spacing:-.2px}
-.lgnm2{font-size:calc(14px*var(--fs));color:rgba(255,255,255,.85);line-height:1.7}html[lang=ur] .lgnm2{font-family:var(--uf);font-size:calc(14px*var(--fs));line-height:1.9}
+.lgnm{font-size:calc(22px*var(--fs));font-weight:900;line-height:1.3;letter-spacing:-.2px;color:#14532d}
+.lgnm2{font-size:calc(14px*var(--fs));color:#3f8a5f;line-height:1.7}html[lang=ur] .lgnm2{font-family:var(--uf);font-size:calc(14px*var(--fs));line-height:1.9}
 .lgpills{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
-.lgpill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.15);border-radius:99px;padding:6px 12px;font-size:calc(11.5px*var(--fs));font-weight:800;min-height:30px}
+.lgpill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(20,83,45,.14);background:rgba(255,255,255,.75);color:#14532d;border-radius:99px;padding:6px 12px;font-size:calc(11.5px*var(--fs));font-weight:800;min-height:30px}
 .lgdot{position:relative;width:8px;height:8px;flex:none}
 .lgdot i{position:absolute;inset:0;border-radius:50%;background:#10b981;animation:lgn 1.4s ease-out infinite}
 .lgdot b{position:absolute;inset:0;border-radius:50%;background:#10b981}
 .lgdot.off i{display:none}.lgdot.off b{background:#94a3b8}
 @keyframes lgn{0%{transform:scale(1);opacity:.75}100%{transform:scale(2.6);opacity:0}}
 .lgmain{position:relative;z-index:2;flex:1;padding:0 16px;margin-top:-26px}
-.lgcard{background:#fff;border:1px solid #d7e8f4;border-radius:24px;padding:18px 16px 20px;box-shadow:0 10px 30px rgba(22,78,119,.1)}
-.lgtabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#eef6fc;border-radius:99px;padding:4px}
-.lgtab{min-height:44px;border:0;border-radius:99px;background:transparent;font-family:inherit;font-size:calc(14px*var(--fs));font-weight:700;color:#64748b;padding:0 6px;cursor:pointer;transition:all .18s}
-.lgtab.on{background:#fff;color:#116794;font-weight:800;box-shadow:0 3px 10px rgba(22,78,119,.16)}
+.lgcard{background:#fff;border:1px solid #e3ede7;border-radius:24px;padding:18px 16px 20px;box-shadow:0 10px 30px rgba(15,23,42,.08)}
+.lgtabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#e6f4eb;border-radius:99px;padding:4px}
+.lgtab{min-height:44px;border:0;border-radius:99px;background:transparent;font-family:inherit;font-size:calc(14px*var(--fs));font-weight:700;color:#7c8f84;padding:0 6px;cursor:pointer;transition:all .18s}
+.lgtab.on{background:#fff;color:#16a34a;font-weight:800;box-shadow:0 3px 10px rgba(22,163,74,.18)}
 #lg .be+.bu{margin-inline-start:6px}
 .lgql{font-size:calc(13px*var(--fs));font-weight:700;color:#334155;margin:16px 2px 8px}
 .lgroles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.lgrole{position:relative;text-align:start;border:2px solid #d7e8f4;background:#fff;border-radius:16px;padding:12px;cursor:pointer;font-family:inherit;transition:all .15s}
+.lgrole{position:relative;text-align:start;border:2px solid #e2e8f0;background:#fff;border-radius:16px;padding:12px;cursor:pointer;font-family:inherit;transition:all .15s}
 .lgrole:active{transform:scale(.98)}
-.lgrole .ric{width:44px;height:44px;border-radius:12px;background:#eef6fc;color:#64748b;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.lgrole .ric{width:44px;height:44px;border-radius:12px;background:#f1f5f9;color:#64748b;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
 .lgrole .rl{display:block;font-size:calc(14px*var(--fs));font-weight:800;color:#0f172a;line-height:1.5}
 .lgrole .rh{display:block;font-size:calc(11px*var(--fs));font-weight:700;color:#64748b;margin-top:2px;line-height:1.6}
-.lgrole.on{border-color:#10b981;background:#f0fdf4;box-shadow:0 4px 14px rgba(16,185,129,.2)}
+.lgrole.on{border-color:#16a34a;background:#f0fdf4;box-shadow:0 4px 14px rgba(22,163,74,.18)}
 .lgrole.on .ric{background:#d1fae5;color:#059669}
 .lgrole.f.on{border-color:#116794;background:#e6f2fa;box-shadow:0 4px 14px rgba(17,103,148,.2)}
 .lgrole.f.on .ric{background:#d7e8f4;color:#116794}
-.lgchk{position:absolute;top:-8px;inset-inline-end:-8px;width:24px;height:24px;border-radius:50%;background:#10b981;color:#fff;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.lgchk{position:absolute;top:-8px;inset-inline-end:-8px;width:24px;height:24px;border-radius:50%;background:#16a34a;color:#fff;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .lgrole.f.on .lgchk{background:#116794}
 .lgrole.on .lgchk{display:flex}
 .lgf{margin-top:14px}
@@ -198,28 +198,54 @@ html[dir=rtl] .fm::after{content:'‹'}
 .lglw{position:relative}
 .lgic{position:absolute;top:50%;transform:translateY(-50%);inset-inline-start:14px;pointer-events:none;display:flex;color:#64748b}
 .lglw .lend{position:absolute;top:50%;transform:translateY(-50%);inset-inline-end:6px}
-.lfield{width:100%;height:52px;border:1.5px solid #d7e8f4;background:#eef6fc;border-radius:16px;padding:0 16px;font-family:inherit;font-size:calc(15px*var(--fs));font-weight:600;color:#0f172a;outline:none;transition:border .15s,box-shadow .15s,background .15s}
+.lfield{width:100%;height:52px;border:1.5px solid #e3ede7;background:#f6f9f7;border-radius:16px;padding:0 16px;font-family:inherit;font-size:calc(15px*var(--fs));font-weight:600;color:#0f172a;outline:none;transition:border .15s,box-shadow .15s,background .15s}
 html[dir=rtl] .lfield{padding-right:46px;padding-left:16px}
 html[dir=ltr] .lfield{padding-left:46px;padding-right:16px}
 html[dir=rtl] .lfield.ps{padding-left:58px}
 html[dir=ltr] .lfield.ps{padding-right:58px}
-.lfield:focus{border-color:#116794;box-shadow:0 0 0 3px rgba(17,103,148,.25);background:#fff}
+.lfield:focus{border-color:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2);background:#fff}
 .lfield::placeholder{color:#94a3b8;font-weight:500}
 html[dir=rtl] .lfield[dir=ltr]{text-align:right}
 .lend .eye{width:44px;height:44px;border:0;background:transparent;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#64748b;cursor:pointer;opacity:1;padding:0}
-.lend .eye.on{color:#116794;background:rgba(215,232,244,.7)}
-.lgfp{display:inline-block;margin:12px 2px 0;color:#116794;font-size:calc(13.5px*var(--fs));font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px;min-height:24px}
+.lend .eye.on{color:#16a34a;background:rgba(209,240,222,.7)}
+.lgfp{display:inline-block;margin:12px 2px 0;color:#16a34a;font-size:calc(13.5px*var(--fs));font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px;min-height:24px}
 #lg #lm{display:none;border-radius:16px;margin-bottom:2px;padding:12px 14px;font-size:calc(13px*var(--fs));font-weight:700;line-height:1.8;align-items:flex-start;gap:8px}
-.lbtn{width:100%;height:54px;border:0;border-radius:16px;background:#0e5b8a;color:#fff;font-family:inherit;font-size:calc(16px*var(--fs));font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;cursor:pointer;box-shadow:0 8px 20px rgba(14,91,138,.28);transition:background .15s,transform .1s}
-.lbtn:hover{background:#0b4a72}.lbtn:active{transform:scale(.99)}
+.lbtn{width:100%;height:54px;border:0;border-radius:16px;background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;font-family:inherit;font-size:calc(16px*var(--fs));font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;cursor:pointer;box-shadow:0 8px 20px rgba(22,163,74,.35);transition:background .15s,transform .1s}
+.lbtn:hover{background:#14913f}.lbtn:active{transform:scale(.99)}
 .lbtn:disabled{opacity:.72;pointer-events:none}
 .lgspin{width:20px;height:20px;flex:none;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spn .8s linear infinite}
 .lbtn .lar{display:block}html[dir=rtl] .lbtn .lar{transform:scaleX(-1)}
 .lgtf{margin-top:14px;text-align:center;font-size:calc(13.5px*var(--fs));font-weight:600;color:#64748b;line-height:2.2}
-.lgtf b{color:#116794;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-weight:800;min-height:44px;display:inline-flex;align-items:center;padding:0 4px}
+.lgtf b{color:#16a34a;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-weight:800;min-height:44px;display:inline-flex;align-items:center;padding:0 4px}
 .lghint{margin-top:16px;border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:10px 14px;font-size:calc(12px*var(--fs));font-weight:600;color:#78350f;line-height:2}
 .lghint b{font-weight:800}
-.lgft{flex:none;background:linear-gradient(135deg,#2c6f9e,#1d5f92,#164e77);border-radius:24px 24px 0 0;padding:14px 16px;text-align:center;font-size:calc(11px*var(--fs));font-weight:700;color:rgba(255,255,255,.78);line-height:1.8;margin-top:22px}
+.lgft{flex:none;background:linear-gradient(135deg,#e9f6ef,#d9f0e3);border-radius:24px 24px 0 0;padding:14px 16px;text-align:center;font-size:calc(11px*var(--fs));font-weight:700;color:#3f7a58;line-height:1.8;margin-top:22px}
+/* v1.2.0: E design (halka sabz) login + greeting + Continue with Google + naye users ke liye role chunao */
+.lggr{margin:15px 2px 2px}
+.lggr h3{font-size:calc(19px*var(--fs));font-weight:900;color:#0f172a;letter-spacing:-.2px;line-height:1.4;margin:0}
+.lggr p{font-size:calc(12px*var(--fs));color:#64748b;margin:3px 0 0;font-weight:600;line-height:1.7}
+.lggr p .lbur,.lggr p .lbe2{display:block}
+.lggr p .lbur{font-size:calc(13.5px*var(--fs));color:#334155}
+.lgordiv{display:flex;align-items:center;gap:10px;margin:15px 0 13px;color:#94a3b8;font-size:calc(11px*var(--fs));font-weight:800;letter-spacing:.6px}
+.lgordiv i{display:block;height:1.5px;flex:1;background:#dceadf;border-radius:2px}
+.lgg{width:100%;min-height:56px;border:1.5px solid #e3e8ef;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:11px;font-family:inherit;cursor:pointer;box-shadow:0 8px 18px rgba(2,6,23,.09);padding:8px 12px;transition:transform .1s,box-shadow .15s}
+.lgg:active{transform:scale(.99)}
+.lgg:disabled{opacity:.72;pointer-events:none}
+.lgg svg{flex:none}
+.lgtxt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25;min-width:0}
+.lgtxt .lgb{font-size:calc(14.5px*var(--fs));font-weight:800;color:#0f172a}
+.lgtxt .lgu{font-size:calc(12.5px*var(--fs));color:#5b6b82}
+.lgg .lgspin{border-color:rgba(22,163,74,.25);border-top-color:#16a34a}
+#lgr{position:fixed;inset:0;z-index:60;background:rgba(15,23,42,.5);display:flex;align-items:center;justify-content:center;padding:18px;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.lgrc{width:min(420px,94vw);background:#fff;border-radius:24px;padding:20px 18px;box-shadow:0 24px 60px rgba(2,6,23,.3)}
+.lgrc h2{font-size:calc(18px*var(--fs));font-weight:900;color:#0f172a;margin:0 0 4px}
+.lgrc .lgrs{font-size:calc(12.5px*var(--fs));color:#64748b;font-weight:600;line-height:1.7;margin-bottom:14px}
+.grb{width:100%;text-align:start;border:2px solid #e2e8f0;background:#fff;border-radius:16px;padding:13px 14px;margin-bottom:10px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:12px;transition:transform .1s}
+.grb:active{transform:scale(.98)}
+.grb .gri{width:44px;height:44px;border-radius:13px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;font-size:calc(22px*var(--fs));flex:none}
+.grb.gf .gri{background:#e6f2fa}
+.grb b{display:block;font-size:calc(15px*var(--fs));font-weight:800;color:#0f172a;line-height:1.5}
+.grb small{display:block;font-size:calc(11.5px*var(--fs));color:#64748b;font-weight:600;line-height:1.6;margin-top:1px}
 /* v76 bilingual login: Urdu + English sath sath, rate hata */
 .lbe2{unicode-bidi:isolate}
 .lglb .lbe2,.lgql .lbe2{font-size:calc(11.5px*var(--fs));font-weight:600;opacity:.72}
@@ -901,7 +927,24 @@ farmer:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="curr
 eye:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
 eyeoff:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.7 5.1A9.8 9.8 0 0 1 12 5c6.5 0 10 7 10 7a17.6 17.6 0 0 1-2.2 3.2"/><path d="M6.6 6.6C3.6 8.8 2 12 2 12s3.5 7 10 7a9.9 9.9 0 0 0 5.4-1.6"/><path d="M2 2l20 20"/><path d="M14.1 14.1a3 3 0 1 1-4.2-4.2"/></svg>',
 check:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
-arrow:'<svg class="lar" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>'};
+arrow:'<svg class="lar" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>',
+google:'<svg width="21" height="21" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.7-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.7-.4-3.9z"/></svg>'};
+/* v1.2.0: Continue with Google — mobile ke saare Gmail accounts Google khud dikha deta hai (account chooser) */
+const LGGO=SV.google+'<span class="lgtxt"><span class="lgb lbe2">Continue with Google</span><span class="lgu lbur">گوگل کے ساتھ جاری رکھیں</span></span>';
+let gBusy=false;
+function gProv(){const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});return p}
+async function gAuth(){if(!AU||!navigator.onLine){lmsg('<b><span class="lbur">گوگل لاگن کے لیے انٹرنیٹ چاہیے</span><span class="lbe2">Internet is needed for Google sign-in</span></b>');return}
+if(gBusy)return;gBusy=true;justLogged=true;const b=$('lgo');if(b){b.disabled=true;b.innerHTML='<span class="lgspin"></span><span class="lgtxt"><span class="lgb lbe2">Opening Google…</span><span class="lgu lbur">گوگل کھل رہا ہے…</span></span>'}
+try{await AU.signInWithPopup(gProv())}
+catch(x){const c=(x&&x.code)||'';
+if(c==='auth/popup-blocked'||c==='auth/operation-not-supported-in-this-environment'){try{await AU.signInWithRedirect(gProv())}catch(y){gErr(y)}}
+else if(c!=='auth/popup-closed-by-user'&&c!=='auth/cancelled-popup-request')gErr(x)}
+gBusy=false;gReset()}
+function gErr(x){const c=(x&&x.code)||'';
+if(c==='auth/unauthorized-domain'){lmsg('<b><span class="lbur">گوگل لاگن کے لیے یہ سائٹ فائر بیس میں اجازت یافتہ نہیں۔ مالک Firebase Console → Authentication → Settings → Authorized domains میں shahbaztaimoor.github.io شامل کرے</span><span class="lbe2">Google sign-in is not allowed for this domain yet. Owner: add shahbaztaimoor.github.io in Firebase Console → Authentication → Settings → Authorized domains</span></b>');return}
+if(c==='auth/operation-not-allowed'){lmsg('<b><span class="lbur">گوگل لاگن فائر بیس میں چالو نہیں۔ مالک Firebase Console → Authentication → Sign-in method میں Google چالو کرے</span><span class="lbe2">Google sign-in is not enabled yet. Owner: enable Google in Firebase Console → Authentication → Sign-in method</span></b>');return}
+lmsg(EMB(c)||('<b><span class="lbur">گوگل لاگن نہیں ہو سکی: '+esc(c||'مسلہ')+'</span><span class="lbe2">Google sign-in failed: '+(esc(c)||'problem')+'</span></b>'))}
+function gReset(){const b=$('lgo');if(b){b.disabled=false;b.innerHTML=LGGO}}
 function lgRole(r){lgR=r;document.querySelectorAll('#lg .lgrole').forEach(b=>{const on=b.dataset.r===r;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false')})}
 function showLogin(msg){document.documentElement.classList.add('lgshow');let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov nt';document.body.appendChild(o)}
 const up=lgM==='up',on=navigator.onLine;
@@ -915,6 +958,7 @@ o.innerHTML='<div class="lgw"><header class="lghd"><span class="cir c1"></span><
 +'<span class="lgpill">🔒 <span class="lbur">محفوظ لاگن</span><span class="lbe2">Secure login</span></span></div></header>'
 +'<div class="lgmain"><div class="lgcard"><div id="lm"></div>'
 +'<div class="lgtabs" role="tablist"><button type="button" class="lgtab'+(up?'':' on')+'" onclick="lgSw(\'in\')"><span class="lbur">لاگن</span> <span class="lbe2">Login</span></button><button type="button" class="lgtab'+(up?' on':'')+'" onclick="lgSw(\'up\')"><span class="lbur">سائن اپ</span> <span class="lbe2">Sign Up</span></button></div>'
++'<div class="lggr"><h3><bdi>'+(up?'Naya khata banayein! ✨':'Khush Amdeed! 👋')+'</bdi></h3><p><span class="lbur">'+(up?'نیا اکاؤنٹ بنائیں — اپنا کردار چنیں':'خوش آمدید — اپنے کھاتے میں داخل ہوں')+'</span><span class="lbe2">'+(up?'Create account — pick a role':'Welcome back — log in to your khata')+'</span></p></div>'
 +(up?'<div class="lgql"><span class="lbur">آپ کون ہیں؟</span><span class="lbe2">Select your role</span></div><div class="lgroles">'+rcard('owner',SV.tractor,'ٹیوب ویل مالک','Tubewell Owner','<span class="lbur">اپنا کھاتہ خود رکھیں</span><span class="lbe2">Keep your own khata</span>')+rcard('farmer',SV.farmer,'کسان','Farmer','<span class="lbur">مالک کا کوڈ لے کر کھاتہ دیکھیں</span><span class="lbe2">See your khata with the owner code</span>')+'</div>':'')
 +'<form onsubmit="event.preventDefault();doAuth('+(up?1:0)+')" novalidate>'
 +(up?fld(SV.user,'ln','text','پورا نام','Full name','Muhammad Ali / محمد علی','name'):'')
@@ -923,6 +967,8 @@ o.innerHTML='<div class="lgw"><header class="lghd"><span class="cir c1"></span><
 +fld(SV.lock,'lp','password','پاس ورڈ','Password','••••••',up?'new-password':'current-password',1)
 +(up?'':'<span class="lgfp" onclick="forgot()"><span class="lbur">پاس ورڈ بھول گئے؟</span><span class="lbe2">Forgot password?</span></span>')
 +'<button class="lbtn" id="lbtn" type="submit">'+lgBtnH(up,0)+'</button></form>'
++'<div class="lgordiv"><i></i><span class="lbur">یا</span><span class="lbe2">ya</span><i></i></div>'
++'<button class="lgg" id="lgo" type="button" onclick="gAuth()" aria-label="Continue with Google">'+LGGO+'</button>'
 +'<div class="lgtf">'+(up?'<span class="lbur">پہلے سے اکاؤنٹ ہے؟</span><span class="lbe2">Already have an account?</span> <b onclick="lgSw(\'in\')"><span class="lbur">لاگن کریں</span><span class="lbe2">Log in</span></b>':'<span class="lbur">اکاؤنٹ نہیں ہے؟</span><span class="lbe2">No account yet?</span> <b onclick="lgSw(\'up\')"><span class="lbur">سائن اپ کریں</span><span class="lbe2">Sign Up</span></b>')+'</div>'
 +'<div class="lghint"><div class="lghi">🚜 <b><span class="lbur">مالک</span><span class="lbe2">Owner</span></b> — <span class="lbur">سائن اپ میں اپنا کھاتہ بنائیں</span><span class="lbe2">Create your khata in Sign Up</span></div><div class="lghi">🌾 <b><span class="lbur">کسان</span><span class="lbe2">Farmer</span></b> — <span class="lbur">مالک کا کوڈ لے کر اپنا کھاتہ دیکھیں</span><span class="lbe2">See your khata with the owner code</span></div></div>'
 +'</div></div>'
@@ -947,6 +993,15 @@ else await AU.signInWithEmailAndPassword(e,p)}
 catch(x){justLogged=false;const m=$('lbtn');if(m){m.disabled=false;m.innerHTML=lgBtnH(lgM==='up',0)}lmsg(EMB(x.code)||((BL()==='ur'?'مسلہ آیا: ':'Problem: ')+(x.code||x.message)))}}
 async function forgot(){const le=$('le');const e=((le&&le.value)||'').trim();if(!e){lmsg('<b><span class="lbur">پہلے اوپر اپنا جی میل لکھیں</span><span class="lbe2">Enter your email above first</span></b>');return}
 try{await AU.sendPasswordResetEmail(e);lmsg('<b><span class="lbur">پاس ورڈ ری سیٹ کا ای میل بھیج دیا گیا ہے۔ جی میل کھولیں (اسپیم بھی دیکھیں)</span><span class="lbe2">Password reset email sent — open Gmail (check Spam too)</span></b>',1)}catch(x){lmsg(EMB(x.code)||((BL()==='ur'?'مسلہ: ':'Problem: ')+(x.code||x.message)))}}
+/* v1.2.0: naye Google users ke liye kirdar chunao (Owner ya Farmer) — ek dafa, phir hamesha ke liye mehfooz */
+let gRoleRes=null;
+function gRoleAsk(){return new Promise(res=>{gRoleRes=res;const ur=BL()==='ur',o=document.createElement('div');o.id='lgr';
+o.innerHTML='<div class="lgrc"><h2>'+(ur?'آپ کون ہیں؟':'Who are you?')+'</h2><div class="lgrs">'+esc((U&&U.displayName)||'')+' — '+(ur?'اپنا کردار چنیں (بعد میں Settings سے بدل سکتے ہیں)':'apna kirdar chunein (baad mein Settings se badal sakte hain)')+'</div>'
++'<button class="grb" type="button" onclick="gRolePick(\'owner\')"><span class="gri">🚜</span><span style="min-width:0"><b>'+(ur?'ٹیوب ویل مالک':'Tubewell Owner')+'</b><small>'+(ur?'اپنا کھاتہ خود رکھیں (kitab wale)':'apna khata khud rakhein (Owner)')+'</small></span></button>'
++'<button class="grb gf" type="button" onclick="gRolePick(\'farmer\')"><span class="gri">🌾</span><span style="min-width:0"><b>'+(ur?'کسان':'Farmer')+'</b><small>'+(ur?'مالک کا کوڈ لے کر کھاتہ دیکھیں':'malik ka code le kar khata dekhein')+'</small></span></button></div>';
+document.body.appendChild(o)})}
+function gRolePick(r){const f=gRoleRes;gRoleRes=null;try{const o=$('lgr');if(o)o.remove()}catch(e){}
+if(f){try{const nm=((U&&U.displayName)||'').trim();if(nm){ST.fname=nm;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}if(U&&FS)profDoc().set({name:nm,email:(U&&U.email)||''},{merge:true})}catch(e){}f(r)}}
 let loggingOut=false;
 async function wipeLocal(full){
 clearTimeout(svT);svT=0;
@@ -966,6 +1021,7 @@ U=null;await wipeLocal(true);
 document.documentElement.classList.add('authwait');
 try{location.replace(location.pathname)}catch(e){location.reload()}}
 function initFB(){try{firebase.initializeApp(CFG);AU=firebase.auth();FS=firebase.firestore();FS.enablePersistence({synchronizeTabs:true}).catch(()=>{});
+try{AU.getRedirectResult().catch(x=>{const c=(x&&x.code)||'';if(c&&c!=='auth/no-auth-event'&&c!=='auth/popup-closed-by-user'&&c!=='auth/cancelled-popup-request'){if(!$('lg'))showLogin();gErr(x)}})}catch(e){}
 AU.onAuthStateChanged(u=>{if(u){document.documentElement.classList.remove('authwait');U=u;let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}
 if(last&&last!==u.uid){db={farmers:[],ts:0};ST.tws=null;twInit();saveST();lastP={};BIN=[];lastB={};ST.role=null;ST.tcode=null;ST.fname='';ST.fphone='';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{localStorage.removeItem('aslam_fdmap')}catch(e){}try{localStorage.removeItem('aslam_twl')}catch(e){}FKC={};FD_OFF={};try{localStorage.removeItem('aslam_fdmiss')}catch(e){}try{localStorage.removeItem('aslam_role')}catch(e){}try{localStorage.removeItem('aslam_bin')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
 try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
@@ -1146,15 +1202,15 @@ try{fdUnAll()}catch(e){}
 LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;FKC={};FD_OFF={};lastFC={};lastFD={};lrSig='';lrT=0;cur=null;eid=null;
 (to==='owner'?ownerBoot:farmerBoot)();
 ding();toast(BT(to==='owner'?'Owner mode chalu — khush aamdeed!':'Farmer mode chalu — khush aamdeed!'))}
-async function routeUser(){let role=null,had=false,tcode=null,tws=false;
-try{const sn=await profDoc().get();if(sn.exists()){const d=sn.data();role=d.role||null;if(d.tcode){tcode=d.tcode;ST.tcode=d.tcode}tws=!!d.tws}}catch(e){}
+async function routeUser(){let role=null,had=false,tcode=null,tws=false,rok=false;
+try{const sn=await profDoc().get();rok=true;if(sn.exists()){const d=sn.data();role=d.role||null;if(d.tcode){tcode=d.tcode;ST.tcode=d.tcode}tws=!!d.tws}}catch(e){}
 if(role==='owner'||role==='farmer')had=true;
 if(!had){try{const lr=localStorage.getItem('aslam_role');if(lr==='owner'||lr==='farmer'){role=lr;had=true}}catch(e){}}
 if(!had&&tcode){role='farmer';had=true}
 if(!had&&tws){role='owner';had=true}
-if(!had)role='owner';
+if(!had&&rok){role=await gRoleAsk();try{profDoc().set({role:role,roleAt:Date.now()},{merge:true})}catch(e){}}
+else if(!had)role='owner';
 ST.role=role;try{localStorage.setItem('aslam_role',role)}catch(e){}saveST();
-if(!had){try{profDoc().set({role:role,roleAt:Date.now()},{merge:true})}catch(e){}}
 (role==='owner'?ownerBoot:farmerBoot)()}
 const NVF=[['fhome','Khata',NV[0][2]],['set','Settings',NV[3][2]]];
 function lnkV(){view='lnk';cur=null;navR();
@@ -1866,7 +1922,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.1.1';
+const APPV='1.2.0';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
