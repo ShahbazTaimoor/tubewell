@@ -509,6 +509,25 @@ html[data-th=raat] #q{background:linear-gradient(180deg,#182F40,#122535);color:v
 html[data-th=raat] #q::placeholder{color:#8FA6B8}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #q{background:linear-gradient(180deg,#182F40,#122535);color:var(--ink);border-color:#2E5A78;box-shadow:none}}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #q::placeholder{color:#8FA6B8}}
+/* v1.3.4: Malik-Kisan Paighaam (chat) */
+.chatw{display:flex;flex-direction:column;height:calc(100vh - 290px);min-height:330px}
+@supports (height:100dvh){.chatw{height:calc(100dvh - 290px)}}
+.mhd{display:flex;align-items:center;gap:10px;padding:8px 2px 10px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.mbk{border:none;background:var(--g2);color:var(--g);width:36px;height:36px;border-radius:12px;font-size:calc(19px*var(--fs));line-height:1;flex:none;cursor:pointer;padding:0}
+.mbub{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding:6px 2px 10px;-webkit-overflow-scrolling:touch}
+.mday{align-self:center;background:var(--g2);color:var(--g);font-size:calc(11.5px*var(--fs));font-weight:700;padding:3px 12px;border-radius:99px;margin:6px 0}
+.mrowb{max-width:84%;padding:8px 12px 4px;border-radius:15px}
+.mrowb.me{align-self:flex-end;background:var(--h1);color:#fff;border-end-end-radius:5px}
+.mrowb.ta{align-self:flex-start;background:var(--card);border:1px solid var(--line);color:var(--ink);border-end-start-radius:5px}
+.mbub1{display:block;font-family:var(--uf);font-size:calc(15px*var(--fs));line-height:1.8;word-break:break-word;white-space:pre-wrap}
+.mtm{display:block;text-align:end;font-size:calc(10px*var(--fs));opacity:.65;margin-top:2px}
+.mrow{display:flex;gap:8px;padding:9px 0 2px;border-top:1px solid var(--line);margin-top:6px;align-items:center}
+.mrow input{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:10px 14px;font-size:calc(15px*var(--fs));font-family:inherit}
+.mrow input:focus{outline:2px solid var(--g2);border-color:var(--g)}
+.msend{flex:none;border:none;background:var(--g);color:#fff;border-radius:14px;padding:10px 16px;font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer}
+.mchips{display:flex;gap:6px;flex-wrap:wrap;padding:7px 0 0}
+.mchip{border:1px solid var(--line);background:var(--card);color:var(--g);border-radius:99px;padding:6px 12px;font-size:calc(12.5px*var(--fs));font-family:var(--uf);cursor:pointer}
+.mbdg{position:absolute;top:1px;inset-inline-end:4px;background:var(--red);color:#fff;font-style:normal;font-size:calc(10.5px*var(--fs));font-weight:800;min-width:17px;height:17px;line-height:17px;text-align:center;border-radius:99px;padding:0 4px}
 </style><script>document.documentElement.classList.add('authwait','spboot');try{var _t=localStorage.getItem('aslam_theme');if(_t)document.documentElement.setAttribute('data-th',_t)}catch(e){}try{var _sl=JSON.parse(localStorage.getItem('aslam_st')||'{}').lang;if(_sl==='en'){document.documentElement.classList.add('spen');document.documentElement.lang='en';document.documentElement.dir='ltr'}else{document.documentElement.lang='ur';document.documentElement.dir='rtl'}}catch(e){}try{var _fw=document.documentElement.clientWidth||window.innerWidth||390;_fw=Math.min(1,Math.max(.78,_fw/390));_fw=Math.round(_fw*1000)/1000;document.documentElement.style.setProperty('--fs',String(_fw))}catch(e){}</script></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
@@ -869,7 +888,7 @@ e.innerHTML=a.length?a.map(c=>'<button class="fm" style="padding:11px 12px" oncl
 const CFG={apiKey:"AIzaSyAiHYgg613HVa-3ca2g90K-wPw3ZguOgPg",authDomain:"aslam-tubewell.firebaseapp.com",projectId:"aslam-tubewell",storageBucket:"aslam-tubewell.firebasestorage.app",messagingSenderId:"668678347271",appId:"1:668678347271:web:d876035122ce1f8d6fe8a2"};
 const EM={'auth/invalid-credential':['Wrong email or password','پاس ورڈ غلط ہے'],'auth/wrong-password':['Wrong email or password','پاس ورڈ غلط ہے'],'auth/user-not-found':['No account found — please Sign Up first','کوئی اکاؤنٹ نہیں ملا — پہلے سائن اپ کریں'],'auth/email-already-in-use':['This email is already registered — please log in','یہ جی میل پہلے سے رجسٹرڈ ہے'],'auth/weak-password':['Password must be at least 6 characters','پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے'],'auth/invalid-email':['Please enter a valid email address','درست جی میل ایڈریس لکھیں'],'auth/network-request-failed':['No internet — please try again','انٹرنیٹ نہیں چل رہا — دوبارہ کوشش کریں'],'auth/too-many-requests':['Too many attempts — please try again later','کافی کوششیں ہو گئیں — تھوڑی دیر بعد دوبارہ کوشش کریں'],'auth/user-disabled':['This account has been disabled','یہ اکاؤنٹ بند کر دیا گیا ہے'],'auth/operation-not-allowed':['Email/Password sign-in is not enabled in Firebase','فائر بیس میں ای میل/پاس ورڈ کا طریقہ چالو نہیں ہے']};
 const EMB=c=>{const x=EM[c];return x?'<b>'+x[0]+'</b>':''};
-function refresh(){const a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)||$('em'))return;if(cur)db.farmers.some(x=>x.id===cur)?open_(cur,eid):HG();else({cal:calV,rep:repV,set:ST.role==='farmer'?fSetV:setV,fhome:fHome,lnk:lnkV}[view]||HG)()}
+function refresh(){const a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)||$('em'))return;if(cur)db.farmers.some(x=>x.id===cur)?open_(cur,eid):HG();else({cal:calV,rep:repV,set:ST.role==='farmer'?fSetV:setV,fhome:fHome,lnk:lnkV,msg:msgV,chat:chatRepaint}[view]||HG)()}
 function listen(){const col=FS.collection('users').doc(U.uid).collection('farmers');
 unsub=col.onSnapshot(sn=>{let ch=false;
 sn.docChanges().forEach(c=>{const id=c.doc.id;
@@ -973,7 +992,7 @@ async function logout(){if(!navigator.onLine){alert(trT('Logout ke liye internet
 if(!confirm(trT('Logout karne se is phone ka sara data aur cache saaf ho jayega (online save hai, dobara login par wapas aa jayega). Logout karein?')))return;
 if(FS){let ok=true;try{push();await new Promise(r=>setTimeout(r,900));ok=await Promise.race([FS.waitForPendingWrites().then(()=>true),new Promise(r=>setTimeout(()=>r(false),8000))])}catch(e){ok=false}
 if(!ok&&!confirm(trT('Kuch tabdeeliyan abhi online save nahi hui. Phir bhi logout karein? (Ye tabdeeliyan zaya ho sakti hain)')))return}
-loggingOut=true;if(unsub){unsub();unsub=null}if(lrUnsub){lrUnsub();lrUnsub=null}if(flUnsub){flUnsub();flUnsub=null}try{fdUnAll()}catch(e){}
+loggingOut=true;if(unsub){unsub();unsub=null}if(lrUnsub){lrUnsub();lrUnsub=null}if(flUnsub){flUnsub();flUnsub=null}try{fdUnAll()}catch(e){}try{chatUnsubAll()}catch(e){}
 try{await AU.signOut()}catch(e){}
 U=null;await wipeLocal(true);
 document.documentElement.classList.add('authwait');
@@ -981,13 +1000,15 @@ try{location.replace(location.pathname)}catch(e){location.reload()}}
 function initFB(){try{firebase.initializeApp(CFG);AU=firebase.auth();FS=firebase.firestore();FS.enablePersistence({synchronizeTabs:true}).catch(()=>{});
 try{AU.getRedirectResult().catch(x=>{const c=(x&&x.code)||'';if(c&&c!=='auth/no-auth-event'&&c!=='auth/popup-closed-by-user'&&c!=='auth/cancelled-popup-request'){if(!$('lg'))showLogin();gErr(x)}})}catch(e){}
 AU.onAuthStateChanged(u=>{if(u){document.documentElement.classList.remove('authwait');U=u;let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}
-if(last&&last!==u.uid){db={farmers:[],ts:0};ST.tws=null;twInit();saveST();lastP={};BIN=[];lastB={};ST.role=null;ST.tcode=null;ST.fname='';ST.fphone='';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{localStorage.removeItem('aslam_fdmap')}catch(e){}try{localStorage.removeItem('aslam_twl')}catch(e){}FKC={};FD_OFF={};try{localStorage.removeItem('aslam_fdmiss')}catch(e){}try{localStorage.removeItem('aslam_role')}catch(e){}try{localStorage.removeItem('aslam_bin')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
+if(last&&last!==u.uid){db={farmers:[],ts:0};ST.tws=null;twInit();saveST();lastP={};BIN=[];lastB={};ST.role=null;ST.tcode=null;ST.fname='';ST.fphone='';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{localStorage.removeItem('aslam_fdmap')}catch(e){}try{localStorage.removeItem('aslam_twl')}catch(e){}FKC={};FD_OFF={};try{localStorage.removeItem('aslam_fdmiss')}catch(e){}try{localStorage.removeItem('aslam_role')}catch(e){}try{localStorage.removeItem('aslam_bin')}catch(e){}chatUnsubAll();MSGQ=[];try{localStorage.removeItem('aslam_msgq')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
 try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
 lgM='in';const o=$('lg');if(o)o.remove();document.documentElement.classList.remove('lgshow');FORCE_LANG=null;applyDir();relang();routeUser();if(justLogged){justLogged=false;showWelcome(u.displayName||u.email)}st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
-else{U=null;if(unsub){unsub();unsub=null}if(!loggingOut){try{if(localStorage.getItem('aslam_uid'))wipeLocal(false)}catch(e){}}home();if(!$('lg'))showLogin()}})}catch(e){let f=false;try{f=!!localStorage.getItem('aslam_uid')}catch(_){}if(f){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b>Online service did not load. Check your internet.</b>')}}
+else{U=null;if(unsub){unsub();unsub=null}chatUnsubAll();if(!loggingOut){try{if(localStorage.getItem('aslam_uid'))wipeLocal(false)}catch(e){}}home();if(!$('lg'))showLogin()}})}catch(e){let f=false;try{f=!!localStorage.getItem('aslam_uid')}catch(_){}if(f){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b>Online service did not load. Check your internet.</b>')}}
 let ST={name:'Tubewell Khata',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
 try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}try{if(ST.name==='Aslam Tubewell'){ST.name='Tubewell Khata';ST.urdu='ٹیوب ویل کھاتہ';localStorage.setItem('aslam_st',JSON.stringify(ST))}}catch(e){}twInit();
 if(ST.lang!=='en'&&ST.lang!=='ur'){ST.lang='ur';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}
+/* v1.3.3: Urdu pehle — ye update lagne par ek dafa sab ke zuban Urdu hogi (purana 'en' bhi); iske baad Settings (owner aur farmer dono) ka intekhab hi chalta rahega */
+try{if(!localStorage.getItem('aslam_urdef')){localStorage.setItem('aslam_urdef','1');if(ST.lang==='en'){ST.lang='ur';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}}}catch(e){}
 function applySt(){const a=$('appn');if(a)a.textContent=ST.name+' App';const r=$('rt');if(r){if(ST.role!=='owner')r.style.display='none';else{r.style.display='';r.textContent=(ST.tws.length>1?curTW().name+' • ':'')+'💧 Rs '+RATE+' '+BT('fi ghanta')}}document.title=ST.name+' App'}
 const saveST=()=>{RATE=curTW().rate;ST.rate=RATE;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}applySt()};
 /* ===== Tubewell switch: har kisan par tw (tubewell id) laga hota hai ===== */
@@ -1017,7 +1038,7 @@ function twAll(){if(ST.tws.length<2)return'';let K=0,W=0,B=0;const rows=ST.tws.m
 return'<div class="card"><h2>'+BT('Sab tubewell ka hisab')+'</h2>'+rows+'<div class="h2d" style="border-top:1px solid var(--line);padding-top:8px"><span><b>'+BT('Kul')+'</b><small class="mut" style="display:block">'+BT('Total kamai ')+rs(K)+' • '+BT('Wasool hua ')+rs(W)+'</small></span><b class="neg">'+BT('Baqaya ')+rs(B)+'</b></div></div>'}
 function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1800)}
 const ic=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
-const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],['cal','Rozana',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['rep','Report',ic('<path d="M5 20V11M12 20V4M19 20v-6"/>')],['set','Settings',ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>')]];
+const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],['cal','Rozana',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['rep','Report',ic('<path d="M5 20V11M12 20V4M19 20v-6"/>')],['msg','Paighaam',ic('<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>')],['set','Settings',ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>')]];
 const IC={cal:ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>'),clk:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),coin:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15"/>'),pen:ic('<path d="M4 20l1-4L16 5l3 3L8 19z"/>'),wal:ic('<path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h16V9H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1"/>'),sv:ic('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>'),ph:ic('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),ar:ic('<path d="M5 12h14M13 6l6 6-6 6"/>'),us:ic('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),pin:ic('<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'),clip:ic('<path d="M20 11l-8 8a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/>'),scr:ic('<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'),ok:ic('<path d="M5 12l4 4 10-10"/>')};
 const PAYLOGO={jc:'data:image/png;base64,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',ep:'data:image/png;base64,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'};
 function hwIc(h){return h==='JazzCash'?'<img class="plc" src="'+PAYLOGO.jc+'" alt="JazzCash">':h==='Easypaisa'?'<img class="plc" src="'+PAYLOGO.ep+'" alt="EasyPaisa">':''}
@@ -1040,13 +1061,13 @@ const bs=[...n.querySelectorAll('.nb')];
 if(bs.length!==L.length||bs.some((b,i)=>b.getAttribute('aria-label')!==L[i][1]))n.firstElementChild.innerHTML=L.map(x=>`<button class="nb" onclick="nbTap('${x[0]}')" aria-label="${x[1]}">${x[2]}<span>${x[1]}</span></button>`).join('');
 const NI=L.findIndex(x=>x[0]===view),oi=[...n.querySelectorAll('.nb')].findIndex(b=>b.classList.contains('on'));
 L.forEach((x,i)=>{const b=n.querySelectorAll('.nb')[i];b.classList.remove('go');b.classList.toggle('on',i===NI)});
-if(NI!==-1&&NI!==oi)n.querySelectorAll('.nb')[NI].classList.add('go')}
+if(NI!==-1&&NI!==oi)n.querySelectorAll('.nb')[NI].classList.add('go');chatBadge()}
 /* v64: Android par keyboard khulne/band hone ke baad fixed bottom nav ghayab na ho — viewport restore par repaint force */
 (function(){if(!window.visualViewport)return;let vh=window.innerHeight;const nd=()=>{const n=document.getElementById('nav');if(!n||n.style.display==='none')return;n.style.transform='translateZ(0)';requestAnimationFrame(()=>requestAnimationFrame(()=>{n.style.transform=''}))};try{window.visualViewport.addEventListener('resize',()=>{const full=window.visualViewport.height>=vh-80;vh=window.visualViewport.height;if(full)nd()})}catch(e){}try{document.addEventListener('visibilitychange',()=>{if(!document.hidden)nd()})}catch(e){}})();
 function pushS(t){try{if(!(history.state&&history.state.t===t))history.pushState({t},'')}catch(e){}}
 function back_(){if(history.state&&history.state.t)history.back();else HG()}
 window.addEventListener('popstate',()=>{if($('lk')||$('lg'))return;if(cur||view!=='home')HG()});
-function go(k){if(k!=='home'&&k!=='fhome')pushS('t');eid=null;if(k==='home')k=ST.role==='farmer'?'fhome':'home';({home:home,fhome:fHome,lnk:lnkV,cal:calV,rep:repV,set:ST.role==='farmer'?fSetV:setV}[k]||home)();window.scrollTo(0,0)}
+function go(k){if(k!=='home'&&k!=='fhome')pushS('t');eid=null;if(k==='home')k=ST.role==='farmer'?'fhome':'home';({home:home,fhome:fHome,lnk:lnkV,cal:calV,rep:repV,msg:()=>{if(ST.role==='farmer'){chatFarmerGo();return}msgV()},set:ST.role==='farmer'?fSetV:setV}[k]||home)();window.scrollTo(0,0)}
 function calV(){view='cal';cur=null;navR();const R=[];TF().forEach(f=>f.entries.forEach(e=>{if(!calM||e.date.startsWith(calM))R.push({f,e})}));
 R.sort((a,b)=>(b.e.date+b.e.start).localeCompare(a.e.date+a.e.start));
 const mn=R.reduce((a,r)=>a+r.e.mins,0),am=R.reduce((a,r)=>a+r.e.amt,0),D={};R.forEach(r=>(D[r.e.date]=D[r.e.date]||[]).push(r));
@@ -1156,9 +1177,9 @@ ST.role=to;try{localStorage.setItem('aslam_role',to)}catch(e){}saveST();
 try{profDoc().set({role:to,roleAt:Date.now()},{merge:true})}catch(e){}
 try{if(lrUnsub){lrUnsub();lrUnsub=null}}catch(e){}
 try{if(flUnsub){flUnsub();flUnsub=null}}catch(e){}
-try{fdUnAll()}catch(e){}
+try{fdUnAll()}catch(e){}try{chatUnsubAll()}catch(e){}
 LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;FKC={};FD_OFF={};lastFC={};lastFD={};lrSig='';lrT=0;cur=null;eid=null;
-(to==='owner'?ownerBoot:farmerBoot)();
+(to==='owner'?ownerBoot:farmerBoot)();msgBoot();
 ding();toast(BT(to==='owner'?'Owner mode chalu — khush aamdeed!':'Farmer mode chalu — khush aamdeed!'))}
 async function routeUser(){let role=null,had=false,tcode=null,tws=false,rok=false;
 try{const sn=await profDoc().get();rok=true;if(sn.exists()){const d=sn.data();role=d.role||null;if(d.tcode){tcode=d.tcode;ST.tcode=d.tcode}tws=!!d.tws}}catch(e){}
@@ -1168,14 +1189,14 @@ if(!had&&tcode){role='farmer';had=true}
 if(!had&&tws){role='owner';had=true}
 if(!had)role='owner'; /* v1.3.0: popup hata — default owner, Settings se badal sakte hain */
 ST.role=role;try{localStorage.setItem('aslam_role',role)}catch(e){}saveST();
-(role==='owner'?ownerBoot:farmerBoot)()}
-const NVF=[['fhome','Khata',NV[0][2]],['set','Settings',NV[3][2]]];
+(role==='owner'?ownerBoot:farmerBoot)();msgBoot();}
+const NVF=[['fhome','Khata',NV[0][2]],['msg','Paighaam',NV[3][2]],['set','Settings',NV[4][2]]];
 function lnkV(){view='lnk';cur=null;navR();
 $('v').innerHTML='<div class="nt"><div class="card">'+BH('Farmer link requests','کسان لنک درخواستیں')+lrH()+'</div></div>'}
 function cpTxt(s){try{navigator.clipboard.writeText(s);toast(BT('Copy ho gaya'))}catch(e){toast('Copy nahi hua')}}
 /* ===== Farmer: kisan khata (booking/talaash v81 mein hata) ===== */
 function fHome(){view='fhome';cur=null;navR();
-$('v').innerHTML='<div class="nt"><div class="card slav band"><div class="cband cb-lav"><span class="bi">🌾</span>'+BH('My Farmer Khata','میرا کسان کھاتا')+'</div><div class="cbody"><div id="fkdata">'+fKhataBox()+'</div></div></div></div>'}
+$('v').innerHTML='<div class="nt"><div class="card slav band"><div class="cband cb-lav"><span class="bi">🌾</span>'+BH('My Farmer Khata','میرا کسان کھاتا')+'</div><div class="cbody"><div id="fkdata">'+fKhataBox()+'</div></div></div></div>'+'<div id="fchatwrap">'+fChatCardH()+'</div>'}
 /* ===== v63: Kisan Code Based Account Linking ===== */
 let LREQ=[],FLREQ=[],FDATA=null,FDATAF='',lrUnsub=null,flUnsub=null,lastFC={},lastFD={},lrT=0,lrSig='',fdRetry={},fdBT=0,fdHad=false,fdErr='',fdRT={},flBusy=false,flSentC='',flSentT=0,FDMAP={},FDHAD={},FDMISS={},fdUn={},fkCur=null,flLoaded=false,FKC={},FD_OFF={},fkCLd=0;
 const genFCode=()=>{const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=A[Math.floor(Math.random()*A.length)];return 'FR-'+s};
@@ -1311,7 +1332,7 @@ if(was&&!quiet){try{toast(BT('Malik ne link khatam kar diya — naya code le kar
 if(fkCur===frId){fkCur=L.length?L[0].frId:null;try{localStorage.setItem('aslam_fkc',fkCur||'')}catch(e){}FDATA=fkCur?(FDMAP[fkCur]||null):null;FDATAF=fkCur||''}
 flChk()}
 function fdListen(fl){const frId=(fl||{}).frId;if(!frId||!FS)return;fdUnOne(frId);delete FDMAP[frId];
-fdUn[frId]=FS.collection('fd').doc(frId).onSnapshot(sn=>{if(sn.exists){FDMAP[frId]=Object.assign({id:sn.id},sn.data());FKC[frId]=FDMAP[frId];fkcSave();FDHAD[frId]=true;fdHad=true;fdErr='';delete FDMISS[frId];delete FD_OFF[frId];fdMissSave();
+fdUn[frId]=FS.collection('fd').doc(frId).onSnapshot(sn=>{if(sn.exists){FDMAP[frId]=Object.assign({id:sn.id},sn.data());FKC[frId]=FDMAP[frId];fkcSave();FDHAD[frId]=true;fdHad=true;fdErr='';delete FDMISS[frId];delete FD_OFF[frId];fdMissSave();if(ST.role==='farmer')msgFarmerTry();
 if(!fkCur||fkCur===frId){if(!fkCur){fkCur=frId;try{localStorage.setItem('aslam_fkc',frId)}catch(e){}}FDATA=FDMAP[frId];FDATAF=frId}}
 else{fdGone(frId);return}
 fkSoft()},e=>{const c=(e&&e.code)||'net';fdErr=c;
@@ -1844,6 +1865,7 @@ Jama Shuda|جمع شدہ|Received
 Baqi Raqam|باقی رقم|Remaining
 Purana baqaya shamil|پرانا باقیہ شامل|incl. old balance
 wasoolian|وصولیاں|payments
+Paighaam|پیغام|Messages
 `.split('\n').filter(Boolean).map(l=>l.split('|')).sort((a,b)=>b[0].length-a[0].length);
 const LR=LX.map(x=>[new RegExp('(^|[^A-Za-z])'+x[0].replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![A-Za-z])','g'),x[1],x[2]]);
 let FORCE_LANG=null;
@@ -1878,8 +1900,102 @@ async function bkCopy(){const t=JSON.stringify(Object.assign({},db,{tws:ST.tws})
 function bkPaste(){const o=document.createElement('div');o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};o.innerHTML='<div class="sh"><h2>Backup paste karein</h2><textarea id="bkt" rows="8" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--ink);font-size:calc(13px*var(--fs))" placeholder="Backup yahan paste karein"></textarea><div class="row" style="margin-top:10px"><button class="p" onclick="bkGo()">Restore karein</button><button class="s" onclick="this.closest(\'.ov\').remove()">Band karein</button></div></div>';document.body.appendChild(o)}
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
+/* ===== v1.3.4: Malik-Kisan Paighaam (chat) — mch/{cid} + m/{mid}, offline queue ===== */
+Object.assign(NB,{'Malik ko paighaam bhejein':{en:'Message your owner',ur:'مالک کو پیغام بھیجیں'},'💬 Chat kholein — malik se seedha baat karein':{en:'💬 Open chat — talk to your owner directly',ur:'💬 چیٹ کھولیں — مالک سے سیدھی بات کریں'},'Kisi cheez par etraz ho ya baat karni ho — paighaam seedha malik ko jayega (internet zaroori).':{en:'If something looks wrong or you want to talk — your message goes straight to the owner (internet needed).',ur:'کسی بات پر اعتراض ہو یا بات کرنی ہو — پیغام سیدھا مالک کو جائے گا (انٹرنیٹ ضروری)۔'},'Kisan se seedha baat — paighaam dono ko foran nazar aata hai (internet zaroori).':{en:'Direct chat with your farmers — messages appear for both instantly (internet needed).',ur:'کسان سے سیدھی بات — پیغام دونوں کو فوراً نظر آتا ہے (انٹرنیٹ ضروری)۔'},'Naya paighaam shuru karein':{en:'Start a new message',ur:'نیا پیغام شروع کریں'},'Paighaam likhein…':{en:'Type a message…',ur:'پیغام لکھیں…'},'Bhejein':{en:'Send',ur:'بھیجیں'},'Koi paighaam nahi — baat shuru karein.':{en:'No messages yet — say salaam.',ur:'کوئی پیغام نہیں — بات شروع کریں۔'},'Paighaam ke liye internet chahiye — internet on kar ke dobara kholein.':{en:'Internet is needed for messages — turn it on and reopen.',ur:'پیغاموں کے لیے انٹرنیٹ چاہیے — آن کر کے دوبارہ کھولیں۔'},'💬 Malik ka naya paighaam':{en:'💬 New message from owner',ur:'💬 مالک کا نیا پیغام'},'💬 Kisan ka naya paighaam':{en:'💬 New message from farmer',ur:'💬 کسان کا نیا پیغام'},'Paighaam ke liye pehle apne malik se khata link karein. Upar kisan code likh kar request bhejein — link hone par yahan se malik se seedha baat ho sakegi.':{en:'Link your khata with the owner first. Send a link request with the code above — once linked you can chat with the owner here.',ur:'پیغام کے لیے پہلے اپنے مالک سے کھاتہ لنک کریں۔ اوپر کسان کوڈ لکھ کر درخواست بھیجیں — لنک ہونے پر یہاں سے مالک سے سیدھی بات ہو سکے گی۔'},'Yahan aap ke kisanon se guftagu nazar aayegi. Kisan apna kisan code aap ke sath share karein — link hone ke baad dono paighaam bhej saken ge.':{en:'Your farmer conversations will appear here. The farmer shares their code with you — once linked, you both can message each other.',ur:'یہاں آپ کے کسانوں سے گفتگو نظر آئے گی۔ کسان اپنا کوڈ آپ کے ساتھ شیئر کرے — لنک ہونے کے بعد دونوں پیغام بھیج سکیں گے۔'},'Aaj':{en:'Today',ur:'آج'},'Kal':{en:'Yesterday',ur:'کل'},'offline':{en:'offline',ur:'آف لائن'},'Malik':{en:'Owner',ur:'مالک'}});
+let CHATS={},MSGQ=[],MSGS=[],chatOpenId='',chatName='',chatFrId='',chatPeer={o:'',f:''},mUnsub=null,mmUnsub=null,mqBusy=0;
+try{const _q=JSON.parse(localStorage.getItem('aslam_msgq')||'[]');if(Array.isArray(_q))MSGQ=_q}catch(e){}
+const msgSaveQ=()=>{try{localStorage.setItem('aslam_msgq',JSON.stringify(MSGQ))}catch(e){}};
+const chatCid=(o,f)=>'o'+o+'f'+f;
+const mySide=()=>ST.role==='owner'?'o':'f';
+function chatUnsubAll(){try{if(mUnsub){mUnsub();mUnsub=null}}catch(e){}try{if(mmUnsub){mmUnsub();mmUnsub=null}}catch(e){}chatOpenId='';CHATS={};MSGS=[]}
+const chatCacheK=cid=>'aslam_chatc_'+cid;
+const chatCacheGet=cid=>{try{const v=JSON.parse(localStorage.getItem(chatCacheK(cid))||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}};
+const chatCacheSet=(cid,M)=>{try{localStorage.setItem(chatCacheK(cid),JSON.stringify(M.slice(-60)))}catch(e){}};
+const frOwnerUid=()=>{const D=FDATA||FDMAP[fkCur]||null;if(D&&D.ownerUid)return D.ownerUid;try{const x=flsGet().find(z=>z.frId===(fkCur||''));return (x&&x.ownerUid)||''}catch(e){return''}};
+function chatTotalUn(){let n=0;const f=mySide()==='o'?'uo':'uf';Object.keys(CHATS).forEach(k=>{n+=+CHATS[k][f]||0});return n}
+function chatBadge(){const b=document.querySelector('.nb[aria-label="Paighaam"]');if(!b)return;const n=chatTotalUn();let d=b.querySelector('.mbdg');
+if(n>0){if(!d){d=document.createElement('i');d.className='mbdg';b.appendChild(d)}d.textContent=n>9?'9+':''+n}else if(d)d.remove()}
+function msgMetaUI(){chatBadge();if(view==='msg'&&!chatOpenId)msgV();else if(view==='fhome')fChatPaint()}
+function chatDay(ts){const d=wxYmd(ts),n=Date.now();if(d===wxYmd(n))return BT('Aaj');if(d===wxYmd(n-864e5))return BT('Kal');return fmtD(d)}
+const chatT=ts=>{const d=new Date(ts||0);return pad(d.getHours()%12||12)+':'+pad(d.getMinutes())+' '+(d.getHours()>=12?'PM':'AM')};
+function msgFarmerTry(){if(ST.role!=='farmer'||!U||!FS||mUnsub)return;const ou=frOwnerUid();if(!ou)return;const cid=chatCid(ou,U.uid);
+try{mUnsub=FS.collection('mch').doc(cid).onSnapshot(sn=>{const d=sn.exists?Object.assign({id:cid},sn.data()):null;const old=CHATS[cid]||{};CHATS={};if(d)CHATS[cid]=d;
+if(d&&(+d.uf||0)>(+old.uf||0)&&chatOpenId!==cid){ding();try{toast(BT('💬 Malik ka naya paighaam'))}catch(e){}}
+msgMetaUI();if(MSGQ.length)flushMsgQ()},()=>{})}catch(e){}}
+function msgListenOwner(){if(ST.role!=='owner'||!U||!FS||mUnsub)return;
+try{mUnsub=FS.collection('mch').where('o','==',U.uid).onSnapshot(sn=>{let inc=false;
+sn.docChanges().forEach(c=>{const id=c.doc.id;if(c.type==='removed'){delete CHATS[id];return}
+const d=Object.assign({id:id},c.doc.data()),old=CHATS[id]||{};CHATS[id]=d;
+if((+d.uo||0)>(+old.uo||0)&&chatOpenId!==id)inc=true});
+if(inc){ding();try{toast(BT('💬 Kisan ka naya paighaam'))}catch(e){}}
+msgMetaUI();if(MSGQ.length)flushMsgQ()},()=>{})}catch(e){}}
+function msgBoot(){if(!U||!FS)return;if(ST.role==='owner')msgListenOwner();else msgFarmerTry()}
+function msgV(){view='msg';cur=null;chatOpenId='';navR();if(mmUnsub){try{mmUnsub();mmUnsub=null}catch(e){}}
+if(ST.role==='farmer'){const ou=frOwnerUid();
+if(!ou){$('v').innerHTML='<div class="nt"><div class="card">'+BH('Paighaam','پیغام')+'<div class="empty">'+BT('Paighaam ke liye pehle apne malik se khata link karein. Upar kisan code likh kar request bhejein — link hone par yahan se malik se seedha baat ho sakegi.')+'</div></div></div>';return}
+chatV(chatCid(ou,U.uid),'');return}
+let h='<div class="nt"><div class="card">'+BH('Paighaam','پیغام')+'<div class="mut sm" style="margin:0 0 10px">'+BT('Kisan se seedha baat — paighaam dono ko foran nazar aata hai (internet zaroori).')+'</div>';
+const fs=db.farmers.filter(f=>f.linkedUid).sort((a,b)=>{const ca=CHATS[chatCid(U.uid,a.linkedUid)]||{},cb=CHATS[chatCid(U.uid,b.linkedUid)]||{};return (cb.la||0)-(ca.la||0)||farmCmp(a,b)});
+if(!fs.length){$('v').innerHTML=h+'<div class="empty">'+BT('Yahan aap ke kisanon se guftagu nazar aayegi. Kisan apna kisan code aap ke sath share karein — link hone ke baad dono paighaam bhej saken ge.')+'</div></div></div>';return}
+h+=fs.map(f=>{const cid=chatCid(U.uid,f.linkedUid),m=CHATS[cid]||{},un=+m.uo||0;
+return '<button class="fm" onclick="chatV(\''+cid+'\',\''+f.id+'\')"><div style="display:flex;align-items:center;gap:10px;min-width:0">'+av(f,40)+'<div style="min-width:0;flex:1;text-align:start"><b><span class="nt">'+esc(f.name||'Kisan')+'</span></b><small style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(m.lt?esc(m.lt):BT('Naya paighaam shuru karein'))+'</small></div>'+(un?'<span class="pill r">'+un+'</span>':'')+'</div></button>'}).join('');
+$('v').innerHTML=h+'</div></div>'}
+function chatFarmerGo(){const ou=frOwnerUid();if(ou)chatV(chatCid(ou,U.uid),'');else msgV()}
+function chatRepaint(){if(chatOpenId&&view==='chat')chatPaintMsgs();else HG()}
+function msgBack(){if(mmUnsub){try{mmUnsub();mmUnsub=null}catch(e){}}chatOpenId='';MSGS=[];if(ST.role==='farmer')HG();else msgV()}
+function chatV(cid,frId){if(ST.role==='owner'){const f=db.farmers.find(x=>x.id===frId);if(!f||!f.linkedUid){HG();return}cid=chatCid(U.uid,f.linkedUid);chatName=f.name||'Kisan';chatPeer={o:U.uid,f:f.linkedUid}}
+else{const ou=frOwnerUid();if(!ou){HG();return}cid=chatCid(ou,U.uid);chatName=(FDATA&&FDATA.oname)||ST.name||BT('Malik');chatPeer={o:ou,f:U.uid}}
+chatFrId=frId||'';view='chat';chatOpenId=cid;navR();MSGS=chatCacheGet(cid);
+const sub=ST.role==='owner'?BT('Kisan'):BT('Malik');
+$('v').innerHTML='<div class="nt chatw"><div class="mhd"><button class="mbk" onclick="msgBack()" aria-label="Back">'+(document.documentElement.dir==='rtl'?'→':'←')+'</button><div style="min-width:0;flex:1"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(chatName)+'</b><small class="mut">'+sub+(navigator.onLine?'':' • '+BT('offline'))+'</small></div></div>'
++'<div class="mbub" id="mbub"></div>'
++(ST.role==='farmer'?'<div class="mchips">'+[['💧 Paani nahi aa raha','💧 پانی نہیں آ رہا'],['⚡ Bijli ka masla hai','⚡ بجلی کا مسئلہ ہے'],['🧾 Bill ghalat hai','🧾 بل غلط ہے'],['💬 Baat karni hai','💬 بات کرنی ہے']].map(c=>'<button class="mchip" onclick="chatChip(this)" data-t="'+esc(c[0])+'">'+(BL()==='ur'?'<bdi>'+c[1]+'</bdi>':c[0])+'</button>').join('')+'</div>':'')
++'<div class="mrow"><input id="mvin" dir="auto" maxlength="500" placeholder="'+BT('Paighaam likhein…')+'" autocomplete="off"><button class="msend" onclick="chatSend()" aria-label="Send">'+BT('Bhejein')+'</button></div></div>';
+chatPaintMsgs();chatMarkRead();chatListenMsgs(cid);
+try{setTimeout(()=>{const e=$('mvin');if(e&&window.matchMedia&&!window.matchMedia('(pointer:coarse)').matches)e.focus()},120)}catch(e){}}
+function chatChip(b){const e=$('mvin');if(e){e.value=b.getAttribute('data-t')||'';try{e.focus()}catch(_){}}}
+function chatListenMsgs(cid){if(mmUnsub){try{mmUnsub();mmUnsub=null}catch(e){}}if(!FS)return;
+try{mmUnsub=FS.collection('mch').doc(cid).collection('m').orderBy('at').limit(200).onSnapshot(sn=>{let chg=false;
+sn.docChanges().forEach(c=>{if(c.type==='removed'){MSGS=MSGS.filter(m=>m.id!==c.doc.id);chg=true;return}
+const d=Object.assign({id:c.doc.id},c.doc.data());if(!d.t)return;const i=MSGS.findIndex(m=>m.id===d.id);
+if(i<0)MSGS.push(d);else MSGS[i]=d;chg=true});
+if(chg){MSGS=MSGS.filter(m=>m&&m.t);chatCacheSet(cid,MSGS);chatPaintMsgs();chatMarkRead()}},()=>{const w=$('mbub');if(w&&!MSGS.length)w.innerHTML='<div class="empty">'+BT('Paighaam ke liye internet chahiye — internet on kar ke dobara kholein.')+'</div>'})}catch(e){}}
+function chatPaintMsgs(){const w=$('mbub');if(!w)return;const my=mySide();
+MSGS.sort((a,b)=>(a.at||0)-(b.at||0));
+let h='',ld='';
+MSGS.forEach(m=>{const d=wxYmd(m.at||0);if(d!==ld){ld=d;h+='<div class="mday">'+chatDay(m.at||0)+'</div>'}
+h+='<div class="mrowb '+(m.s===my?'me':'ta')+'"><span class="mbub1">'+esc(m.t)+'</span><small class="mtm">'+(m.pend?'⏳ ':'')+chatT(m.at)+'</small></div>'});
+if(!MSGS.length)h='<div class="empty" style="margin:auto">'+BT('Koi paighaam nahi — baat shuru karein.')+'</div>';
+w.innerHTML=h;try{w.scrollTop=w.scrollHeight}catch(e){}}
+function chatSend(){const e=$('mvin');if(!e)return;const t=(e.value||'').replace(/\s+/g,' ').trim().slice(0,500);if(!t||!chatOpenId)return;e.value='';
+const cid=chatOpenId,mid='m'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),at=Date.now(),my=mySide();
+MSGS.push({id:mid,s:my,t:t,at:at,pend:1});chatCacheSet(cid,MSGS);chatPaintMsgs();
+const on=ST.role==='owner'?(ST.fname||ST.name||'Malik'):((FDATA&&FDATA.oname)||'');
+const fn=ST.role==='owner'?chatName:(ST.fname||(U&&U.displayName)||'Kisan');
+MSGQ.push({t:'msg',cid:cid,mid:mid,d:{s:my,t:t,at:at},meta:{o:chatPeer.o,f:chatPeer.f,on:on,fn:fn,lt:t.slice(0,60),la:at,inc:my==='o'?'uf':'uo',upAt:at}});
+msgSaveQ();flushMsgQ();
+const c=CHATS[cid];if(c){c.lt=t.slice(0,60);c.la=at}}
+function flushMsgQ(){if(!U||!FS||!navigator.onLine||!MSGQ.length||mqBusy)return;mqBusy=1;
+(async()=>{try{while(MSGQ.length){const q=MSGQ[0];
+if(q.t==='read'){await FS.collection('mch').doc(q.cid).set(q.side==='o'?{uo:0}:{uf:0},{merge:true})}
+else{const meta={o:q.meta.o,f:q.meta.f,on:q.meta.on,fn:q.meta.fn,lt:q.meta.lt,la:q.meta.la,upAt:q.meta.upAt};
+try{meta[q.meta.inc]=firebase.firestore.FieldValue.increment(1)}catch(e){meta[q.meta.inc]=1}
+await FS.collection('mch').doc(q.cid).collection('m').doc(q.mid).set(q.d);
+await FS.collection('mch').doc(q.cid).set(meta,{merge:true})}
+MSGQ.shift();msgSaveQ()}}catch(e){}finally{mqBusy=0}})()}
+function chatMarkRead(){const cid=chatOpenId;if(!cid||view!=='chat')return;const m=CHATS[cid],my=mySide(),fld=my==='o'?'uo':'uf';
+if(m&&+m[fld]>0){CHATS[cid][fld]=0;chatBadge();
+if(navigator.onLine){try{FS.collection('mch').doc(cid).set(fld==='o'?{uo:0}:{uf:0},{merge:true}).catch(()=>{})}catch(e){}}
+else{MSGQ.push({t:'read',cid:cid,side:my});msgSaveQ()}}}
+function fChatUn(){const ou=frOwnerUid();if(!ou||!U)return 0;const m=CHATS[chatCid(ou,U.uid)];return m?(+m.uf||0):0}
+function fChatCardH(){if(ST.role!=='farmer')return'';const ou=frOwnerUid();if(!ou)return'';const un=fChatUn();
+return '<div class="card sblue band"><div class="cband cb-blue"><span class="bi">💬</span>'+BH('Malik ko paighaam bhejein','مالک کو پیغام بھیجیں')+(un?'<span class="pill r">'+un+'</span>':'')+'</div><div class="cbody"><button class="p" style="width:100%" onclick="go(\'msg\')">'+BT('💬 Chat kholein — malik se seedha baat karein')+'</button><div class="mut sm" style="margin-top:8px">'+BT('Kisi cheez par etraz ho ya baat karni ho — paighaam seedha malik ko jayega (internet zaroori).')+'</div></div></div>'}
+function fChatPaint(){const w=$('fchatwrap');if(w)w.innerHTML=fChatCardH()}
+window.addEventListener('online',()=>setTimeout(flushMsgQ,700));
+setInterval(()=>{if(MSGQ.length&&navigator.onLine)flushMsgQ()},30000);
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.id==='mvin'){e.preventDefault();chatSend()}});
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.2';
+const APPV='1.3.4';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
