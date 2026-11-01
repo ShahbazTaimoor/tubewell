@@ -157,8 +157,9 @@ html[dir=rtl] .fm::after{content:'‹'}
 /* v75 login/signup: brief-exact tokens — neela gradient header, overlapping card, RTL-safe */
 #lg{background:#f2faf5;color:#0f172a;z-index:20;overflow-y:auto;display:block;-webkit-overflow-scrolling:touch;direction:ltr}
 /* v1.3.0: login English-only — hamesha LTR; RTL app mode mein bhi English layout theek */
-html[dir=rtl] #lg .lfield{padding-left:46px;padding-right:16px}
-html[dir=rtl] #lg .lfield.ps{padding-left:16px;padding-right:58px}
+/* v1.3.1: #lg fields ki padding hamesha LTR jaisi — Urdu app mode mein password ke dots lock icon par na charhen */
+#lg .lfield{padding-left:46px;padding-right:16px}
+#lg .lfield.ps{padding-left:46px;padding-right:58px}
 html[dir=rtl] #lg .lbtn .lar{transform:none}
 .lgw{max-width:460px;margin:0 auto;min-height:100%;position:relative;display:flex;flex-direction:column}
 .lghd{position:relative;overflow:hidden;background:linear-gradient(155deg,#e9f9f0,#d4f2e0 60%,#c8eed8);border-radius:0 0 32px 32px;padding:24px 20px 50px;color:#14532d;flex:none}
@@ -169,13 +170,7 @@ html[dir=rtl] #lg .lbtn .lar{transform:none}
 .lgtile{width:62px;height:62px;flex:none;border-radius:18px;background:#fff;border:1px solid rgba(20,83,45,.08);box-shadow:0 10px 24px rgba(20,83,45,.16);display:flex;align-items:center;justify-content:center}
 .lgtile img{width:40px;height:40px}
 .lgnm{font-size:calc(22px*var(--fs));font-weight:900;line-height:1.3;letter-spacing:-.2px;color:#14532d}
-.lgpills{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
-.lgpill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(20,83,45,.14);background:rgba(255,255,255,.75);color:#14532d;border-radius:99px;padding:6px 12px;font-size:calc(11.5px*var(--fs));font-weight:800;min-height:30px}
-.lgdot{position:relative;width:8px;height:8px;flex:none}
-.lgdot i{position:absolute;inset:0;border-radius:50%;background:#10b981;animation:lgn 1.4s ease-out infinite}
-.lgdot b{position:absolute;inset:0;border-radius:50%;background:#10b981}
-.lgdot.off i{display:none}.lgdot.off b{background:#94a3b8}
-@keyframes lgn{0%{transform:scale(1);opacity:.75}100%{transform:scale(2.6);opacity:0}}
+/* v1.3.1: Online/Secure pills hata — header sirf icon + naam (full professional minimal) */
 .lgmain{position:relative;z-index:2;flex:1;padding:0 16px;margin-top:-26px}
 .lgcard{background:#fff;border:1px solid #e3ede7;border-radius:24px;padding:18px 16px 20px;box-shadow:0 10px 30px rgba(15,23,42,.08)}
 .lgtabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:#e6f4eb;border-radius:99px;padding:4px}
@@ -184,7 +179,7 @@ html[dir=rtl] #lg .lbtn .lar{transform:none}
 #lg .be+.bu{margin-inline-start:6px}
 .lgql{font-size:calc(13px*var(--fs));font-weight:700;color:#334155;margin:16px 2px 8px}
 .lgroles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.lgrole{position:relative;text-align:start;border:2px solid #e2e8f0;background:#fff;border-radius:16px;padding:12px;cursor:pointer;font-family:inherit;transition:all .15s}
+.lgrole{position:relative;text-align:start;border:2px solid #e2e8f0;background:#fff;border-radius:16px;padding:12px;cursor:pointer;font-family:inherit;transition:all .15s;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;height:100%}
 .lgrole:active{transform:scale(.98)}
 .lgrole .ric{width:44px;height:44px;border-radius:12px;background:#f1f5f9;color:#64748b;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
 .lgrole .rl{display:block;font-size:calc(14px*var(--fs));font-weight:800;color:#0f172a;line-height:1.5}
@@ -235,11 +230,15 @@ html[lang=ur] #lg button,html[lang=ur] #lg input,html[lang=ur] #lg select,html[l
 html[lang=ur] #lg span.lbur{font-family:var(--uf);line-height:1.9}
 /* v95: role cards par Urdu+English dono HAMESHA — category ka naam do zubanon mein */
 .lbe2{unicode-bidi:isolate}
-.lgrole .rl .lbe2{display:block;font-size:calc(10.5px*var(--fs));font-weight:600;opacity:.75;margin-top:1px;line-height:1.6}
+/* v1.3.2: English label pehle (primary) — Urdu neeche (secondary) */
+.lgrole .rl .lbe2{display:block;line-height:1.45}
 html[lang="ur"] #lg span.lbe2{display:block!important}
 html[lang="en"] #lg span.lbur{display:block!important}
 html[lang="ur"] #lg span.lbe2{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;line-height:1.5;direction:ltr;text-align:right}
 html[lang="en"] #lg span.lbur{font-family:'Noto Nastaliq Urdu','Noto Naskh Arabic','Droid Arabic Naskh','Geeza Pro','Segoe UI',Arial,serif;line-height:1.9;unicode-bidi:isolate;direction:rtl;text-align:left}
+/* v1.3.1: role cards — Urdu/English/help teeno lines baayein align (zigzag khatam, dono cards ka content upar se barabar) */
+#lg .lgrole .rl .lbur{display:block;text-align:left;font-size:calc(12px*var(--fs));font-weight:700;color:#334155;margin-top:3px}
+#lg .lgrole .rl .lbe2{display:block;text-align:left}
 #lg .lgtab{min-height:52px;padding:5px 6px;line-height:1.45}
 #lg .lbtn{height:auto;min-height:58px;padding:9px 14px}
 #lg .lgtf{line-height:1.75}
@@ -922,11 +921,10 @@ const up=lgM==='up',on=navigator.onLine;
 const pv={e:($('le')||{}).value||'',p:($('lp')||{}).value||''};
 const eyeBtn='<button class="eye" type="button" onclick="pw(this)" aria-label="Password">'+SV.eye+'</button>';
 const fld=(ic,id,tp,lb,ph,ac,eye)=>'<div class="lgf"><label class="lglb" for="'+id+'">'+lb+'</label><div class="lglw"><span class="lgic">'+ic+'</span><input class="lfield'+(eye?' ps':'')+'" id="'+id+'" type="'+tp+'" placeholder="'+ph+'" autocomplete="'+ac+'"'+(tp==='email'?' inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" dir="ltr"':tp==='password'?' dir="ltr"':tp==='tel'?' inputmode="tel" dir="ltr"':' dir="auto"')+'>'+(eye?'<span class="lend">'+eyeBtn+'</span>':'')+'</div></div>';
-const rcard=(r,ic,lb,sub,hlp)=>'<button type="button" class="lgrole'+(r==='farmer'?' f':'')+(lgR===r?' on':'')+'" data-r="'+r+'" onclick="lgRole(\''+r+'\')" aria-pressed="'+(lgR===r)+'"><span class="lgchk">'+SV.check+'</span><span class="ric">'+ic+'</span><span class="rl"><span class="lbur">'+lb+'</span><span class="lbe2">'+sub+'</span></span><span class="rh">'+hlp+'</span></button>';
+const rcard=(r,ic,lb,sub,hlp)=>'<button type="button" class="lgrole'+(r==='farmer'?' f':'')+(lgR===r?' on':'')+'" data-r="'+r+'" onclick="lgRole(\''+r+'\')" aria-pressed="'+(lgR===r)+'"><span class="lgchk">'+SV.check+'</span><span class="ric">'+ic+'</span><span class="rl"><span class="lbe2">'+sub+'</span><span class="lbur">'+lb+'</span></span><span class="rh">'+hlp+'</span></button>';
 o.innerHTML='<div class="lgw"><header class="lghd"><span class="cir c1"></span><span class="cir c2"></span>'
 +'<div class="lghdin"><span class="lgtile"><img class="lg" src="icon-192.png" alt=""></span><div style="min-width:0"><div class="lgnm">'+esc(ST.name)+'</div></div></div>'
-+'<div class="lgpills"><span class="lgpill" id="lgnp"><span class="lgdot'+(on?'':' off')+'"><i></i><b></b></span><span>'+(on?'Online':'Offline')+'</span></span>'
-+'<span class="lgpill">🔒 Secure login</span></div></header>'
++'</header>'
 +'<div class="lgmain"><div class="lgcard"><div id="lm"></div>'
 +'<div class="lgtabs" role="tablist"><button type="button" class="lgtab'+(up?'':' on')+'" onclick="lgSw(\'in\')">Login</button><button type="button" class="lgtab'+(up?' on':'')+'" onclick="lgSw(\'up\')">Sign Up</button></div>'
 +(up?'<div class="lgql">Select your role</div><div class="lgroles">'+rcard('owner',SV.tractor,'ٹیوب ویل کا مالک','Tubewell Owner','Keep your own khata')+rcard('farmer',SV.farmer,'پانی لگوانے والا','Farmer','See your khata with the owner code')+'</div>':'')
@@ -1881,7 +1879,7 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.0';
+const APPV='1.3.2';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
