@@ -155,7 +155,11 @@ button,.fm,.nb,.to,a.call{touch-action:manipulation;-webkit-tap-highlight-color:
 .fm::after{content:'›';font-size:calc(24px*var(--fs));line-height:1;color:var(--mut);margin-inline-start:6px;flex:none}
 html[dir=rtl] .fm::after{content:'‹'}
 /* v75 login/signup: brief-exact tokens — neela gradient header, overlapping card, RTL-safe */
-#lg{background:#f2faf5;color:#0f172a;z-index:20;overflow-y:auto;display:block;-webkit-overflow-scrolling:touch}
+#lg{background:#f2faf5;color:#0f172a;z-index:20;overflow-y:auto;display:block;-webkit-overflow-scrolling:touch;direction:ltr}
+/* v1.3.0: login English-only — hamesha LTR; RTL app mode mein bhi English layout theek */
+html[dir=rtl] #lg .lfield{padding-left:46px;padding-right:16px}
+html[dir=rtl] #lg .lfield.ps{padding-left:16px;padding-right:58px}
+html[dir=rtl] #lg .lbtn .lar{transform:none}
 .lgw{max-width:460px;margin:0 auto;min-height:100%;position:relative;display:flex;flex-direction:column}
 .lghd{position:relative;overflow:hidden;background:linear-gradient(155deg,#e9f9f0,#d4f2e0 60%,#c8eed8);border-radius:0 0 32px 32px;padding:24px 20px 50px;color:#14532d;flex:none}
 .lghd .cir{position:absolute;border-radius:50%;background:rgba(22,163,74,.10);pointer-events:none}
@@ -165,7 +169,6 @@ html[dir=rtl] .fm::after{content:'‹'}
 .lgtile{width:62px;height:62px;flex:none;border-radius:18px;background:#fff;border:1px solid rgba(20,83,45,.08);box-shadow:0 10px 24px rgba(20,83,45,.16);display:flex;align-items:center;justify-content:center}
 .lgtile img{width:40px;height:40px}
 .lgnm{font-size:calc(22px*var(--fs));font-weight:900;line-height:1.3;letter-spacing:-.2px;color:#14532d}
-.lgnm2{font-size:calc(14px*var(--fs));color:#3f8a5f;line-height:1.7}html[lang=ur] .lgnm2{font-family:var(--uf);font-size:calc(14px*var(--fs));line-height:1.9}
 .lgpills{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
 .lgpill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(20,83,45,.14);background:rgba(255,255,255,.75);color:#14532d;border-radius:99px;padding:6px 12px;font-size:calc(11.5px*var(--fs));font-weight:800;min-height:30px}
 .lgdot{position:relative;width:8px;height:8px;flex:none}
@@ -205,7 +208,7 @@ html[dir=rtl] .lfield.ps{padding-left:58px}
 html[dir=ltr] .lfield.ps{padding-right:58px}
 .lfield:focus{border-color:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2);background:#fff}
 .lfield::placeholder{color:#94a3b8;font-weight:500}
-html[dir=rtl] .lfield[dir=ltr]{text-align:right}
+html[dir=rtl] #lg .lfield[dir=ltr]{text-align:left}
 .lend .eye{width:44px;height:44px;border:0;background:transparent;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#64748b;cursor:pointer;opacity:1;padding:0}
 .lend .eye.on{color:#16a34a;background:rgba(209,240,222,.7)}
 .lgfp{display:inline-block;margin:12px 2px 0;color:#16a34a;font-size:calc(13.5px*var(--fs));font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px;min-height:24px}
@@ -217,61 +220,29 @@ html[dir=rtl] .lfield[dir=ltr]{text-align:right}
 .lbtn .lar{display:block}html[dir=rtl] .lbtn .lar{transform:scaleX(-1)}
 .lgtf{margin-top:14px;text-align:center;font-size:calc(13.5px*var(--fs));font-weight:600;color:#64748b;line-height:2.2}
 .lgtf b{color:#16a34a;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-weight:800;min-height:44px;display:inline-flex;align-items:center;padding:0 4px}
-.lghint{margin-top:16px;border:1px solid #fde68a;background:#fffbeb;border-radius:16px;padding:10px 14px;font-size:calc(12px*var(--fs));font-weight:600;color:#78350f;line-height:2}
-.lghint b{font-weight:800}
-.lgft{flex:none;background:linear-gradient(135deg,#e9f6ef,#d9f0e3);border-radius:24px 24px 0 0;padding:14px 16px;text-align:center;font-size:calc(11px*var(--fs));font-weight:700;color:#3f7a58;line-height:1.8;margin-top:22px}
-/* v1.2.0: E design (halka sabz) login + greeting + Continue with Google + naye users ke liye role chunao */
-.lggr{margin:15px 2px 2px}
-.lggr h3{font-size:calc(19px*var(--fs));font-weight:900;color:#0f172a;letter-spacing:-.2px;line-height:1.4;margin:0}
-.lggr p{font-size:calc(12px*var(--fs));color:#64748b;margin:3px 0 0;font-weight:600;line-height:1.7}
-.lggr p .lbur,.lggr p .lbe2{display:block}
-.lggr p .lbur{font-size:calc(13.5px*var(--fs));color:#334155}
+/* v1.3.0: login English-only — greeting/hint/footer/role-popup CSS hata; role cards bilingual rahe */
 .lgordiv{display:flex;align-items:center;gap:10px;margin:15px 0 13px;color:#94a3b8;font-size:calc(11px*var(--fs));font-weight:800;letter-spacing:.6px}
 .lgordiv i{display:block;height:1.5px;flex:1;background:#dceadf;border-radius:2px}
 .lgg{width:100%;min-height:56px;border:1.5px solid #e3e8ef;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:11px;font-family:inherit;cursor:pointer;box-shadow:0 8px 18px rgba(2,6,23,.09);padding:8px 12px;transition:transform .1s,box-shadow .15s}
 .lgg:active{transform:scale(.99)}
 .lgg:disabled{opacity:.72;pointer-events:none}
 .lgg svg{flex:none}
-.lgtxt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.25;min-width:0}
-.lgtxt .lgb{font-size:calc(14.5px*var(--fs));font-weight:800;color:#0f172a}
-.lgtxt .lgu{font-size:calc(12.5px*var(--fs));color:#5b6b82}
 .lgg .lgspin{border-color:rgba(22,163,74,.25);border-top-color:#16a34a}
-#lgr{position:fixed;inset:0;z-index:60;background:rgba(15,23,42,.5);display:flex;align-items:center;justify-content:center;padding:18px;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
-.lgrc{width:min(420px,94vw);background:#fff;border-radius:24px;padding:20px 18px;box-shadow:0 24px 60px rgba(2,6,23,.3)}
-.lgrc h2{font-size:calc(18px*var(--fs));font-weight:900;color:#0f172a;margin:0 0 4px}
-.lgrc .lgrs{font-size:calc(12.5px*var(--fs));color:#64748b;font-weight:600;line-height:1.7;margin-bottom:14px}
-.grb{width:100%;text-align:start;border:2px solid #e2e8f0;background:#fff;border-radius:16px;padding:13px 14px;margin-bottom:10px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:12px;transition:transform .1s}
-.grb:active{transform:scale(.98)}
-.grb .gri{width:44px;height:44px;border-radius:13px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;font-size:calc(22px*var(--fs));flex:none}
-.grb.gf .gri{background:#e6f2fa}
-.grb b{display:block;font-size:calc(15px*var(--fs));font-weight:800;color:#0f172a;line-height:1.5}
-.grb small{display:block;font-size:calc(11.5px*var(--fs));color:#64748b;font-weight:600;line-height:1.6;margin-top:1px}
-/* v76 bilingual login: Urdu + English sath sath, rate hata */
+.lgg .lgb{font-size:calc(14.5px*var(--fs));font-weight:800;color:#0f172a}
+/* v1.3.0: English-only login font — Urdu mode mein bhi login Latin system-ui par; rcard ki Urdu lines Alvi par */
+html[lang=ur] #lg{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;line-height:1.5}
+html[lang=ur] #lg button,html[lang=ur] #lg input,html[lang=ur] #lg select,html[lang=ur] #lg textarea{font-family:inherit;line-height:1.5}
+html[lang=ur] #lg span.lbur{font-family:var(--uf);line-height:1.9}
+/* v95: role cards par Urdu+English dono HAMESHA — category ka naam do zubanon mein */
 .lbe2{unicode-bidi:isolate}
-.lglb .lbe2,.lgql .lbe2{font-size:calc(11.5px*var(--fs));font-weight:600;opacity:.72}
-.lgtab .lbe2,.lgpill .lbe2,.lgfp .lbe2{opacity:.78}
 .lgrole .rl .lbe2{display:block;font-size:calc(10.5px*var(--fs));font-weight:600;opacity:.75;margin-top:1px;line-height:1.6}
-.lghi+.lghi{margin-top:7px}
-.lghi .lbe2{display:block;font-size:calc(11px*var(--fs));font-weight:500;opacity:.75;line-height:1.7;margin-top:1px}
-/* v90: sirf Urdu + English — login/signup muntakhib zaban ke mutabiq */
-html[lang="ur"] span.lbe2{display:none!important}
-html[lang="en"] span.lbur{display:none!important}
-/* v95: login/signup par dono zubanein HAMESHA — jo Urdu janta hai wo Urdu parhe, jo English wo English */
 html[lang="ur"] #lg span.lbe2{display:block!important}
 html[lang="en"] #lg span.lbur{display:block!important}
 html[lang="ur"] #lg span.lbe2{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;line-height:1.5;direction:ltr;text-align:right}
 html[lang="en"] #lg span.lbur{font-family:'Noto Nastaliq Urdu','Noto Naskh Arabic','Droid Arabic Naskh','Geeza Pro','Segoe UI',Arial,serif;line-height:1.9;unicode-bidi:isolate;direction:rtl;text-align:left}
 #lg .lgtab{min-height:52px;padding:5px 6px;line-height:1.45}
 #lg .lbtn{height:auto;min-height:58px;padding:9px 14px}
-#lg .lbtn .lbe2{font-size:calc(11.5px*var(--fs));font-weight:600;opacity:.85}
-#lg .rh .lbur{display:block}
-#lg .rh .lbe2{display:block;font-size:calc(10.5px*var(--fs));font-weight:600;opacity:.75;line-height:1.6;margin-top:1px}
 #lg .lgtf{line-height:1.75}
-#lg .lgtf b{flex-direction:column;min-height:0;padding:2px 4px;line-height:1.5}
-#lg .lgtab .lbur,#lg .lgtab .lbe2,#lg .lgtf .lbur,#lg .lgtf .lbe2,#lg .lbtn .lbur,#lg .lbtn .lbe2,#lg .lgpill .lbur,#lg .lgpill .lbe2{text-align:center!important}
-.lbt{display:flex;flex-direction:column;line-height:1.25;align-items:center}
-.lbt b{font-weight:800;font-size:calc(16px*var(--fs))}
-.lbt i{font-style:normal;font-weight:600;font-size:calc(11.5px*var(--fs));opacity:.82;margin-top:1px}
 .av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;object-fit:cover;color:#fff;font-weight:700;flex:none;border:2px solid var(--card);box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .avw{position:relative;flex:none;cursor:pointer}.avw i{position:absolute;right:-2px;bottom:-2px;width:26px;height:26px;border-radius:50%;background:var(--g);color:var(--pt);display:flex;align-items:center;justify-content:center;font-size:calc(13px*var(--fs));font-style:normal;border:2px solid var(--card)}
 .dpick{display:flex;align-items:center;gap:12px;margin-bottom:12px;cursor:pointer}
@@ -898,7 +869,7 @@ function wxFilt(){const e=$('wxl');if(!e)return;const q=($('wxq').value||'').tri
 e.innerHTML=a.length?a.map(c=>'<button class="fm" style="padding:11px 12px" onclick="wxSet(\''+c[0]+'\')"><b>'+esc(c[0])+'</b></button>').join(''):'<div class="empty">Koi shehar nahi mila</div>'}
 const CFG={apiKey:"AIzaSyAiHYgg613HVa-3ca2g90K-wPw3ZguOgPg",authDomain:"aslam-tubewell.firebaseapp.com",projectId:"aslam-tubewell",storageBucket:"aslam-tubewell.firebasestorage.app",messagingSenderId:"668678347271",appId:"1:668678347271:web:d876035122ce1f8d6fe8a2"};
 const EM={'auth/invalid-credential':['Wrong email or password','پاس ورڈ غلط ہے'],'auth/wrong-password':['Wrong email or password','پاس ورڈ غلط ہے'],'auth/user-not-found':['No account found — please Sign Up first','کوئی اکاؤنٹ نہیں ملا — پہلے سائن اپ کریں'],'auth/email-already-in-use':['This email is already registered — please log in','یہ جی میل پہلے سے رجسٹرڈ ہے'],'auth/weak-password':['Password must be at least 6 characters','پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے'],'auth/invalid-email':['Please enter a valid email address','درست جی میل ایڈریس لکھیں'],'auth/network-request-failed':['No internet — please try again','انٹرنیٹ نہیں چل رہا — دوبارہ کوشش کریں'],'auth/too-many-requests':['Too many attempts — please try again later','کافی کوششیں ہو گئیں — تھوڑی دیر بعد دوبارہ کوشش کریں'],'auth/user-disabled':['This account has been disabled','یہ اکاؤنٹ بند کر دیا گیا ہے'],'auth/operation-not-allowed':['Email/Password sign-in is not enabled in Firebase','فائر بیس میں ای میل/پاس ورڈ کا طریقہ چالو نہیں ہے']};
-const EMB=c=>{const x=EM[c];return x?'<b><span class="lbur">'+x[1]+'</span><span class="lbe2">'+x[0]+'</span></b>':''};
+const EMB=c=>{const x=EM[c];return x?'<b>'+x[0]+'</b>':''};
 function refresh(){const a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)||$('em'))return;if(cur)db.farmers.some(x=>x.id===cur)?open_(cur,eid):HG();else({cal:calV,rep:repV,set:ST.role==='farmer'?fSetV:setV,fhome:fHome,lnk:lnkV}[view]||HG)()}
 function listen(){const col=FS.collection('users').doc(U.uid).collection('farmers');
 unsub=col.onSnapshot(sn=>{let ch=false;
@@ -913,9 +884,9 @@ if(ch){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}refresh()}
 if(!sn.metadata.fromCache)ownerCleanOrphans();
 st('☁️ Sync chal raha hai');push()},e=>st('⚠️ Sync error: '+(e.code||'')))}
 let lgM='in',justLogged=false,lgR=null;
-function showWelcome(n){const o=document.createElement('div');o.className='wl';o.innerHTML='<img class="lg" src="icon-192.png" alt=""><h2>'+(BL()==='ur'?'خوش آمدید!':'Welcome!')+'</h2><div class="mut"><bdi>'+esc(n||'')+'</bdi></div>';document.body.appendChild(o);setTimeout(()=>o.classList.add('out'),1100);setTimeout(()=>o.remove(),1450)}
+function showWelcome(n){const o=document.createElement('div');o.className='wl';o.innerHTML='<img class="lg" src="icon-192.png" alt=""><h2>Welcome!</h2><div class="mut"><bdi>'+esc(n||'')+'</bdi></div>';document.body.appendChild(o);setTimeout(()=>o.classList.add('out'),1100);setTimeout(()=>o.remove(),1450)}
 function lgSw(m){lgM=m;showLogin()}
-const lgBtnH=(up,sp)=>sp?'<span class="lgspin"></span><span class="lbt"><b><span class="lbur">انتظار کریں...</span><span class="lbe2">Please wait...</span></b></span>':'<span class="lbt"><b><span class="lbur">'+(up?'اکاؤنٹ بنائیں':'لاگن کریں')+'</span><span class="lbe2">'+(up?'Create account':'Log in')+'</span></b></span>'+SV.arrow;
+const lgBtnH=(up,sp)=>sp?'<span class="lgspin"></span>Please wait...':(up?'Create account':'Log in')+SV.arrow;
 function lmsg(t,ok){const m=$('lm');if(!m)return;m.style.display='flex';m.style.background=ok?'#f0fdf4':'#fef2f2';m.style.border='1px solid '+(ok?'#bbf7d0':'#fecaca');m.style.color=ok?'#065f46':'#b91c1c';m.innerHTML='<span style="flex:none;line-height:1.6">'+(ok?'✅':'⚠️')+'</span><span style="min-width:0">'+t+'</span>';try{m.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}}
 function pw(el){const x=$('lp');if(!x)return;const sh=x.type==='password';x.type=sh?'text':'password';if(el){el.classList.toggle('on',sh);el.innerHTML=sh?SV.eyeoff:SV.eye}}
 const SV={mail:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3 7.5 9 5.7 9-5.7"/></svg>',
@@ -929,59 +900,56 @@ eyeoff:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="curr
 check:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
 arrow:'<svg class="lar" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>',
 google:'<svg width="21" height="21" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.7-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.7-.4-3.9z"/></svg>'};
-/* v1.2.0: Continue with Google — mobile ke saare Gmail accounts Google khud dikha deta hai (account chooser) */
-const LGGO=SV.google+'<span class="lgtxt"><span class="lgb lbe2">Continue with Google</span><span class="lgu lbur">گوگل کے ساتھ جاری رکھیں</span></span>';
+/* v1.2.0: Continue with Google — mobile ke saare Gmail accounts Google khud dikha deta hai (account chooser); v1.3.0: login page English-only, role cards bilingual */
+const LGGO=SV.google+'<b class="lgb">Continue with Google</b>';
 let gBusy=false;
 function gProv(){const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});return p}
-async function gAuth(){if(!AU||!navigator.onLine){lmsg('<b><span class="lbur">گوگل لاگن کے لیے انٹرنیٹ چاہیے</span><span class="lbe2">Internet is needed for Google sign-in</span></b>');return}
-if(gBusy)return;gBusy=true;justLogged=true;const b=$('lgo');if(b){b.disabled=true;b.innerHTML='<span class="lgspin"></span><span class="lgtxt"><span class="lgb lbe2">Opening Google…</span><span class="lgu lbur">گوگل کھل رہا ہے…</span></span>'}
+async function gAuth(){if(!AU||!navigator.onLine){lmsg('<b>Internet is needed for Google sign-in</b>');return}
+if(gBusy)return;gBusy=true;justLogged=true;const b=$('lgo');if(b){b.disabled=true;b.innerHTML='<span class="lgspin"></span><b class="lgb">Opening Google…</b>'}
 try{await AU.signInWithPopup(gProv())}
 catch(x){const c=(x&&x.code)||'';
 if(c==='auth/popup-blocked'||c==='auth/operation-not-supported-in-this-environment'){try{await AU.signInWithRedirect(gProv())}catch(y){gErr(y)}}
 else if(c!=='auth/popup-closed-by-user'&&c!=='auth/cancelled-popup-request')gErr(x)}
 gBusy=false;gReset()}
 function gErr(x){const c=(x&&x.code)||'';
-if(c==='auth/unauthorized-domain'){lmsg('<b><span class="lbur">گوگل لاگن کے لیے یہ سائٹ فائر بیس میں اجازت یافتہ نہیں۔ مالک Firebase Console → Authentication → Settings → Authorized domains میں shahbaztaimoor.github.io شامل کرے</span><span class="lbe2">Google sign-in is not allowed for this domain yet. Owner: add shahbaztaimoor.github.io in Firebase Console → Authentication → Settings → Authorized domains</span></b>');return}
-if(c==='auth/operation-not-allowed'){lmsg('<b><span class="lbur">گوگل لاگن فائر بیس میں چالو نہیں۔ مالک Firebase Console → Authentication → Sign-in method میں Google چالو کرے</span><span class="lbe2">Google sign-in is not enabled yet. Owner: enable Google in Firebase Console → Authentication → Sign-in method</span></b>');return}
-lmsg(EMB(c)||('<b><span class="lbur">گوگل لاگن نہیں ہو سکی: '+esc(c||'مسلہ')+'</span><span class="lbe2">Google sign-in failed: '+(esc(c)||'problem')+'</span></b>'))}
+if(c==='auth/unauthorized-domain'){lmsg('<b>Google sign-in is not allowed for this domain yet. Owner: add shahbaztaimoor.github.io in Firebase Console → Authentication → Settings → Authorized domains</b>');return}
+if(c==='auth/operation-not-allowed'){lmsg('<b>Google sign-in is not enabled yet. Owner: enable Google in Firebase Console → Authentication → Sign-in method</b>');return}
+lmsg(EMB(c)||('<b>Google sign-in failed: '+esc(c||'problem')+'</b>'))}
 function gReset(){const b=$('lgo');if(b){b.disabled=false;b.innerHTML=LGGO}}
 function lgRole(r){lgR=r;document.querySelectorAll('#lg .lgrole').forEach(b=>{const on=b.dataset.r===r;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false')})}
 function showLogin(msg){document.documentElement.classList.add('lgshow');let o=$('lg');if(!o){o=document.createElement('div');o.id='lg';o.className='ov nt';document.body.appendChild(o)}
 const up=lgM==='up',on=navigator.onLine;
 const pv={e:($('le')||{}).value||'',p:($('lp')||{}).value||''};
 const eyeBtn='<button class="eye" type="button" onclick="pw(this)" aria-label="Password">'+SV.eye+'</button>';
-const fld=(ic,id,tp,lb,sub,ph,ac,eye)=>'<div class="lgf"><label class="lglb" for="'+id+'"><span class="lbur">'+lb+'</span> <span class="lbe2">'+sub+'</span></label><div class="lglw"><span class="lgic">'+ic+'</span><input class="lfield'+(eye?' ps':'')+'" id="'+id+'" type="'+tp+'" placeholder="'+ph+'" autocomplete="'+ac+'"'+(tp==='email'?' inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" dir="ltr"':tp==='password'?' dir="ltr"':tp==='tel'?' inputmode="tel" dir="ltr"':' dir="auto"')+'>'+(eye?'<span class="lend">'+eyeBtn+'</span>':'')+'</div></div>';
+const fld=(ic,id,tp,lb,ph,ac,eye)=>'<div class="lgf"><label class="lglb" for="'+id+'">'+lb+'</label><div class="lglw"><span class="lgic">'+ic+'</span><input class="lfield'+(eye?' ps':'')+'" id="'+id+'" type="'+tp+'" placeholder="'+ph+'" autocomplete="'+ac+'"'+(tp==='email'?' inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" dir="ltr"':tp==='password'?' dir="ltr"':tp==='tel'?' inputmode="tel" dir="ltr"':' dir="auto"')+'>'+(eye?'<span class="lend">'+eyeBtn+'</span>':'')+'</div></div>';
 const rcard=(r,ic,lb,sub,hlp)=>'<button type="button" class="lgrole'+(r==='farmer'?' f':'')+(lgR===r?' on':'')+'" data-r="'+r+'" onclick="lgRole(\''+r+'\')" aria-pressed="'+(lgR===r)+'"><span class="lgchk">'+SV.check+'</span><span class="ric">'+ic+'</span><span class="rl"><span class="lbur">'+lb+'</span><span class="lbe2">'+sub+'</span></span><span class="rh">'+hlp+'</span></button>';
 o.innerHTML='<div class="lgw"><header class="lghd"><span class="cir c1"></span><span class="cir c2"></span>'
-+'<div class="lghdin"><span class="lgtile"><img class="lg" src="icon-192.png" alt=""></span><div style="min-width:0"><div class="lgnm">'+esc(ST.name)+'</div><div class="lgnm2">'+esc(ST.urdu||ST.name)+'</div></div></div>'
-+'<div class="lgpills"><span class="lgpill" id="lgnp"><span class="lgdot'+(on?'':' off')+'"><i></i><b></b></span><span>'+(on?'<span class="lbur">آن لائن</span><span class="lbe2">Online</span>':'<span class="lbur">آف لائن</span><span class="lbe2">Offline</span>')+'</span></span>'
-+'<span class="lgpill">🔒 <span class="lbur">محفوظ لاگن</span><span class="lbe2">Secure login</span></span></div></header>'
++'<div class="lghdin"><span class="lgtile"><img class="lg" src="icon-192.png" alt=""></span><div style="min-width:0"><div class="lgnm">'+esc(ST.name)+'</div></div></div>'
++'<div class="lgpills"><span class="lgpill" id="lgnp"><span class="lgdot'+(on?'':' off')+'"><i></i><b></b></span><span>'+(on?'Online':'Offline')+'</span></span>'
++'<span class="lgpill">🔒 Secure login</span></div></header>'
 +'<div class="lgmain"><div class="lgcard"><div id="lm"></div>'
-+'<div class="lgtabs" role="tablist"><button type="button" class="lgtab'+(up?'':' on')+'" onclick="lgSw(\'in\')"><span class="lbur">لاگن</span> <span class="lbe2">Login</span></button><button type="button" class="lgtab'+(up?' on':'')+'" onclick="lgSw(\'up\')"><span class="lbur">سائن اپ</span> <span class="lbe2">Sign Up</span></button></div>'
-+'<div class="lggr"><h3><bdi>'+(up?'Naya khata banayein! ✨':'Khush Amdeed! 👋')+'</bdi></h3><p><span class="lbur">'+(up?'نیا اکاؤنٹ بنائیں — اپنا کردار چنیں':'خوش آمدید — اپنے کھاتے میں داخل ہوں')+'</span><span class="lbe2">'+(up?'Create account — pick a role':'Welcome back — log in to your khata')+'</span></p></div>'
-+(up?'<div class="lgql"><span class="lbur">آپ کون ہیں؟</span><span class="lbe2">Select your role</span></div><div class="lgroles">'+rcard('owner',SV.tractor,'ٹیوب ویل مالک','Tubewell Owner','<span class="lbur">اپنا کھاتہ خود رکھیں</span><span class="lbe2">Keep your own khata</span>')+rcard('farmer',SV.farmer,'کسان','Farmer','<span class="lbur">مالک کا کوڈ لے کر کھاتہ دیکھیں</span><span class="lbe2">See your khata with the owner code</span>')+'</div>':'')
++'<div class="lgtabs" role="tablist"><button type="button" class="lgtab'+(up?'':' on')+'" onclick="lgSw(\'in\')">Login</button><button type="button" class="lgtab'+(up?' on':'')+'" onclick="lgSw(\'up\')">Sign Up</button></div>'
++(up?'<div class="lgql">Select your role</div><div class="lgroles">'+rcard('owner',SV.tractor,'ٹیوب ویل کا مالک','Tubewell Owner','Keep your own khata')+rcard('farmer',SV.farmer,'پانی لگوانے والا','Farmer','See your khata with the owner code')+'</div>':'')
 +'<form onsubmit="event.preventDefault();doAuth('+(up?1:0)+')" novalidate>'
-+(up?fld(SV.user,'ln','text','پورا نام','Full name','Muhammad Ali / محمد علی','name'):'')
-+fld(SV.mail,'le','email','جی میل ایڈریس','Email address','yourname@gmail.com','email')
-+(up?fld(SV.phone,'lph','tel','موبائل نمبر (اختیاری)','Mobile number (optional)','0300-1234567','tel'):'')
-+fld(SV.lock,'lp','password','پاس ورڈ','Password','••••••',up?'new-password':'current-password',1)
-+(up?'':'<span class="lgfp" onclick="forgot()"><span class="lbur">پاس ورڈ بھول گئے؟</span><span class="lbe2">Forgot password?</span></span>')
++(up?fld(SV.user,'ln','text','Full name','Muhammad Ali','name'):'')
++fld(SV.mail,'le','email','Email address','yourname@gmail.com','email')
++(up?fld(SV.phone,'lph','tel','Mobile number (optional)','0300-1234567','tel'):'')
++fld(SV.lock,'lp','password','Password','••••••',up?'new-password':'current-password',1)
++(up?'':'<span class="lgfp" onclick="forgot()">Forgot password?</span>')
 +'<button class="lbtn" id="lbtn" type="submit">'+lgBtnH(up,0)+'</button></form>'
-+'<div class="lgordiv"><i></i><span class="lbur">یا</span><span class="lbe2">ya</span><i></i></div>'
++'<div class="lgordiv"><i></i><span>OR</span><i></i></div>'
 +'<button class="lgg" id="lgo" type="button" onclick="gAuth()" aria-label="Continue with Google">'+LGGO+'</button>'
-+'<div class="lgtf">'+(up?'<span class="lbur">پہلے سے اکاؤنٹ ہے؟</span><span class="lbe2">Already have an account?</span> <b onclick="lgSw(\'in\')"><span class="lbur">لاگن کریں</span><span class="lbe2">Log in</span></b>':'<span class="lbur">اکاؤنٹ نہیں ہے؟</span><span class="lbe2">No account yet?</span> <b onclick="lgSw(\'up\')"><span class="lbur">سائن اپ کریں</span><span class="lbe2">Sign Up</span></b>')+'</div>'
-+'<div class="lghint"><div class="lghi">🚜 <b><span class="lbur">مالک</span><span class="lbe2">Owner</span></b> — <span class="lbur">سائن اپ میں اپنا کھاتہ بنائیں</span><span class="lbe2">Create your khata in Sign Up</span></div><div class="lghi">🌾 <b><span class="lbur">کسان</span><span class="lbe2">Farmer</span></b> — <span class="lbur">مالک کا کوڈ لے کر اپنا کھاتہ دیکھیں</span><span class="lbe2">See your khata with the owner code</span></div></div>'
-+'</div></div>'
-+'<footer class="lgft">🔒 <span class="lbur">آپ کا ڈیٹا محفوظ ہے</span><span class="lbe2">Your data is safe</span> • '+esc(ST.name)+'</footer></div>';
++'<div class="lgtf">'+(up?'Already have an account? <b onclick="lgSw(\'in\')">Log in</b>':'No account yet? <b onclick="lgSw(\'up\')">Sign Up</b>')+'</div>'
++'</div></div></div>';
 if(pv.e)$('le').value=pv.e;if(pv.p)$('lp').value=pv.p;
 applyLogo();if(msg)lmsg(msg)}
 async function doAuth(reg){const le=$('le'),lp=$('lp');const e=((le&&le.value)||'').trim(),p=(lp&&lp.value)||'';
 if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)){lmsg(EMB('auth/invalid-email'));return}
 if(p.length<6){lmsg(EMB('auth/weak-password'));return}
 const nm=reg?((($('ln')||{}).value||'').trim()):'';
-if(reg&&!nm){lmsg('<b><span class="lbur">اپنا پورا نام لکھیں</span><span class="lbe2">Please enter your full name</span></b>');return}
-if(reg&&!lgR){lmsg('<b><span class="lbur">پہلے اپنا کردار چنیں — مالک یا کسان</span><span class="lbe2">Please pick a role — Owner or Farmer</span></b>');return}
-if(!AU){lmsg('<b><span class="lbur">انٹرنیٹ نہیں ہے یا آن لائن سروس لوڈ نہیں ہوئی۔ انٹرنیٹ چلا کر ایپ دوبارہ کھولیں</span><span class="lbe2">No internet or the online service did not load. Turn internet on and reopen the app</span></b>');return}
+if(reg&&!nm){lmsg('<b>Please enter your full name</b>');return}
+if(reg&&!lgR){lmsg('<b>Please pick a role — Owner or Farmer</b>');return}
+if(!AU){lmsg('<b>No internet or the online service did not load. Turn internet on and reopen the app</b>');return}
 justLogged=true;const b=$('lbtn');if(b){b.disabled=true;b.innerHTML=lgBtnH(lgM==='up',1)}
 try{if(reg){const ph=(($('lph')||{}).value||'').trim();
 const c=await AU.createUserWithEmailAndPassword(e,p);try{await c.user.updateProfile({displayName:nm})}catch(x){}
@@ -990,18 +958,10 @@ try{ST.fname=nm;if(ph)ST.fphone=ph;localStorage.setItem('aslam_st',JSON.stringif
 try{profDoc().set({name:nm,email:e,phone:ph,role:lgR,roleAt:Date.now()},{merge:true})}catch(x){}
 try{await c.user.sendEmailVerification()}catch(x){}toast(RB('Account ban gaya! Gmail par verification email bhej diya gaya hai','اکاؤنٹ بن گیا! جی میل پر تصدیقی ای میل بھیج دیا گیا ہے'))}
 else await AU.signInWithEmailAndPassword(e,p)}
-catch(x){justLogged=false;const m=$('lbtn');if(m){m.disabled=false;m.innerHTML=lgBtnH(lgM==='up',0)}lmsg(EMB(x.code)||((BL()==='ur'?'مسلہ آیا: ':'Problem: ')+(x.code||x.message)))}}
-async function forgot(){const le=$('le');const e=((le&&le.value)||'').trim();if(!e){lmsg('<b><span class="lbur">پہلے اوپر اپنا جی میل لکھیں</span><span class="lbe2">Enter your email above first</span></b>');return}
-try{await AU.sendPasswordResetEmail(e);lmsg('<b><span class="lbur">پاس ورڈ ری سیٹ کا ای میل بھیج دیا گیا ہے۔ جی میل کھولیں (اسپیم بھی دیکھیں)</span><span class="lbe2">Password reset email sent — open Gmail (check Spam too)</span></b>',1)}catch(x){lmsg(EMB(x.code)||((BL()==='ur'?'مسلہ: ':'Problem: ')+(x.code||x.message)))}}
-/* v1.2.0: naye Google users ke liye kirdar chunao (Owner ya Farmer) — ek dafa, phir hamesha ke liye mehfooz */
-let gRoleRes=null;
-function gRoleAsk(){return new Promise(res=>{gRoleRes=res;const ur=BL()==='ur',o=document.createElement('div');o.id='lgr';
-o.innerHTML='<div class="lgrc"><h2>'+(ur?'آپ کون ہیں؟':'Who are you?')+'</h2><div class="lgrs">'+esc((U&&U.displayName)||'')+' — '+(ur?'اپنا کردار چنیں (بعد میں Settings سے بدل سکتے ہیں)':'apna kirdar chunein (baad mein Settings se badal sakte hain)')+'</div>'
-+'<button class="grb" type="button" onclick="gRolePick(\'owner\')"><span class="gri">🚜</span><span style="min-width:0"><b>'+(ur?'ٹیوب ویل مالک':'Tubewell Owner')+'</b><small>'+(ur?'اپنا کھاتہ خود رکھیں (kitab wale)':'apna khata khud rakhein (Owner)')+'</small></span></button>'
-+'<button class="grb gf" type="button" onclick="gRolePick(\'farmer\')"><span class="gri">🌾</span><span style="min-width:0"><b>'+(ur?'کسان':'Farmer')+'</b><small>'+(ur?'مالک کا کوڈ لے کر کھاتہ دیکھیں':'malik ka code le kar khata dekhein')+'</small></span></button></div>';
-document.body.appendChild(o)})}
-function gRolePick(r){const f=gRoleRes;gRoleRes=null;try{const o=$('lgr');if(o)o.remove()}catch(e){}
-if(f){try{const nm=((U&&U.displayName)||'').trim();if(nm){ST.fname=nm;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}if(U&&FS)profDoc().set({name:nm,email:(U&&U.email)||''},{merge:true})}catch(e){}f(r)}}
+catch(x){justLogged=false;const m=$('lbtn');if(m){m.disabled=false;m.innerHTML=lgBtnH(lgM==='up',0)}lmsg(EMB(x.code)||('Problem: '+(x.code||x.message)))}}
+async function forgot(){const le=$('le');const e=((le&&le.value)||'').trim();if(!e){lmsg('<b>Enter your email above first</b>');return}
+try{await AU.sendPasswordResetEmail(e);lmsg('<b>Password reset email sent — open Gmail (check Spam too)</b>',1)}catch(x){lmsg(EMB(x.code)||('Problem: '+(x.code||x.message)))}}
+/* v1.3.0: role popup (gRoleAsk) hata — naya user seedha Owner mode mein aata hai, Settings se role badal sakta hai */
 let loggingOut=false;
 async function wipeLocal(full){
 clearTimeout(svT);svT=0;
@@ -1026,7 +986,7 @@ AU.onAuthStateChanged(u=>{if(u){document.documentElement.classList.remove('authw
 if(last&&last!==u.uid){db={farmers:[],ts:0};ST.tws=null;twInit();saveST();lastP={};BIN=[];lastB={};ST.role=null;ST.tcode=null;ST.fname='';ST.fphone='';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{localStorage.removeItem('aslam_fdmap')}catch(e){}try{localStorage.removeItem('aslam_twl')}catch(e){}FKC={};FD_OFF={};try{localStorage.removeItem('aslam_fdmiss')}catch(e){}try{localStorage.removeItem('aslam_role')}catch(e){}try{localStorage.removeItem('aslam_bin')}catch(e){}try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}
 try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
 lgM='in';const o=$('lg');if(o)o.remove();document.documentElement.classList.remove('lgshow');FORCE_LANG=null;applyDir();relang();routeUser();if(justLogged){justLogged=false;showWelcome(u.displayName||u.email)}st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf()}
-else{U=null;if(unsub){unsub();unsub=null}if(!loggingOut){try{if(localStorage.getItem('aslam_uid'))wipeLocal(false)}catch(e){}}home();if(!$('lg'))showLogin()}})}catch(e){let f=false;try{f=!!localStorage.getItem('aslam_uid')}catch(_){}if(f){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b><span class="lbur">آن لائن سروس لوڈ نہیں ہوئی۔ انٹرنیٹ چیک کریں۔</span><span class="lbe2">Online service did not load. Check your internet.</span></b>')}}
+else{U=null;if(unsub){unsub();unsub=null}if(!loggingOut){try{if(localStorage.getItem('aslam_uid'))wipeLocal(false)}catch(e){}}home();if(!$('lg'))showLogin()}})}catch(e){let f=false;try{f=!!localStorage.getItem('aslam_uid')}catch(_){}if(f){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b>Online service did not load. Check your internet.</b>')}}
 let ST={name:'Tubewell Khata',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
 try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}try{if(ST.name==='Aslam Tubewell'){ST.name='Tubewell Khata';ST.urdu='ٹیوب ویل کھاتہ';localStorage.setItem('aslam_st',JSON.stringify(ST))}}catch(e){}twInit();
 if(ST.lang!=='en'&&ST.lang!=='ur'){ST.lang='ur';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}
@@ -1063,7 +1023,7 @@ const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6
 const IC={cal:ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>'),clk:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),coin:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15"/>'),pen:ic('<path d="M4 20l1-4L16 5l3 3L8 19z"/>'),wal:ic('<path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h16V9H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1"/>'),sv:ic('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>'),ph:ic('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),ar:ic('<path d="M5 12h14M13 6l6 6-6 6"/>'),us:ic('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),pin:ic('<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'),clip:ic('<path d="M20 11l-8 8a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/>'),scr:ic('<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'),ok:ic('<path d="M5 12l4 4 10-10"/>')};
 const PAYLOGO={jc:'data:image/png;base64,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',ep:'data:image/png;base64,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'};
 function hwIc(h){return h==='JazzCash'?'<img class="plc" src="'+PAYLOGO.jc+'" alt="JazzCash">':h==='Easypaisa'?'<img class="plc" src="'+PAYLOGO.ep+'" alt="EasyPaisa">':''}
-function netSet(on){const n=$('net');if(n){n.classList.toggle('off',!on);n.lastElementChild.textContent=on?'Online':'Offline'}const lp=$('lgnp');if(lp){const d=lp.querySelector('.lgdot');if(d)d.classList.toggle('off',!on);const t=lp.lastElementChild;if(t)t.innerHTML=on?'<span class="lbur">آن لائن</span><span class="lbe2">Online</span>':'<span class="lbur">آف لائن</span><span class="lbe2">Offline</span>'}}
+function netSet(on){const n=$('net');if(n){n.classList.toggle('off',!on);n.lastElementChild.textContent=on?'Online':'Offline'}const lp=$('lgnp');if(lp){const d=lp.querySelector('.lgdot');if(d)d.classList.toggle('off',!on);const t=lp.lastElementChild;if(t)t.innerHTML=on?'Online':'Offline'}}
 async function netChk(){if(!navigator.onLine){netSet(false);return}const c=new AbortController(),t=setTimeout(()=>c.abort(),5000);try{await fetch('manifest.webmanifest?_='+Date.now(),{method:'HEAD',cache:'no-store',signal:c.signal});netSet(true)}catch(e){netSet(false)}clearTimeout(t)}
 window.addEventListener('online',netChk);window.addEventListener('offline',()=>netSet(false));setInterval(netChk,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)netChk()});
 let AC=null;const acI=()=>{try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}};document.addEventListener('pointerdown',acI,{passive:true});
@@ -1208,8 +1168,7 @@ if(role==='owner'||role==='farmer')had=true;
 if(!had){try{const lr=localStorage.getItem('aslam_role');if(lr==='owner'||lr==='farmer'){role=lr;had=true}}catch(e){}}
 if(!had&&tcode){role='farmer';had=true}
 if(!had&&tws){role='owner';had=true}
-if(!had&&rok){role=await gRoleAsk();try{profDoc().set({role:role,roleAt:Date.now()},{merge:true})}catch(e){}}
-else if(!had)role='owner';
+if(!had)role='owner'; /* v1.3.0: popup hata — default owner, Settings se badal sakte hain */
 ST.role=role;try{localStorage.setItem('aslam_role',role)}catch(e){}saveST();
 (role==='owner'?ownerBoot:farmerBoot)()}
 const NVF=[['fhome','Khata',NV[0][2]],['set','Settings',NV[3][2]]];
@@ -1922,15 +1881,15 @@ function bkPaste(){const o=document.createElement('div');o.className='ov';o.oncl
 function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);$('bkt').closest('.ov').remove();home()}catch(e){alert('Yeh sahi backup file nahi hai')}}
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.2.0';
+const APPV='1.3.0';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
 if(ST.logo){delete ST.logo;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}try{history.scrollRestoration='manual'}catch(e){}purgeBin();applySt();applyLogo();startLang();navR();lockNow();HG();try{if(!localStorage.getItem('aslam_uid'))showLogin()}catch(e){}netChk();
-if(typeof firebase!=='undefined')initFB();else{let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}if(!last)showLogin('<b><span class="lbur">پہلی بار لاگ اِن کے لیے انٹرنیٹ چاہیے۔</span><span class="lbe2">Internet is needed for the first login.</span></b>');else{document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}}
+if(typeof firebase!=='undefined')initFB();else{let last=null;try{last=localStorage.getItem('aslam_uid')}catch(e){}if(!last)showLogin('<b>Internet is needed for the first login.</b>');else{document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}}
 const hadLogin=()=>{try{return !!localStorage.getItem('aslam_uid')}catch(e){return false}};
 if(hadLogin()&&!navigator.onLine){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}
-setTimeout(()=>{const h=document.documentElement.classList;if(h.contains('authwait')&&!$('lg')){if(hadLogin()){h.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b><span class="lbur">انٹرنیٹ چیک کریں، پھر دوبارہ کوشش کریں۔</span><span class="lbe2">Check your internet and try again.</span></b>')}},2500);
+setTimeout(()=>{const h=document.documentElement.classList;if(h.contains('authwait')&&!$('lg')){if(hadLogin()){h.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b>Check your internet and try again.</b>')}},2500);
 /* v96 splash hide: kam az kam ~2.1s + (login dikh jaye ya auth check mukammal) — phir naram fade; JS na chale to CSS spvis 9s safety */
 (function(){var sp=$('splash');if(!sp)return;var t0=Date.now(),done=false;var h=function(){if(done)return;done=true;try{document.documentElement.classList.remove('spboot')}catch(e){}sp.classList.add('spout');setTimeout(function(){if(sp)sp.classList.add('gone')},620)};var iv=setInterval(function(){var c=document.documentElement.classList;if(Date.now()-t0>=2100&&(c.contains('lgshow')||!c.contains('authwait'))){clearInterval(iv);h()}},140);setTimeout(function(){clearInterval(iv);h()},9000)})();
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.t==='upd')toast('Naya update mil gaya. App band karke dobara kholein.')})}
