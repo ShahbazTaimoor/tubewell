@@ -1346,7 +1346,7 @@ if(was&&!quiet){try{toast(BT('Malik ne link khatam kar diya — naya code le kar
 if(fkCur===frId){fkCur=L.length?L[0].frId:null;try{localStorage.setItem('aslam_fkc',fkCur||'')}catch(e){}FDATA=fkCur?(FDMAP[fkCur]||null):null;FDATAF=fkCur||''}
 flChk()}
 function fdListen(fl){const frId=(fl||{}).frId;if(!frId||!FS)return;fdUnOne(frId);delete FDMAP[frId];
-fdUn[frId]=FS.collection('fd').doc(frId).onSnapshot(sn=>{if(sn.exists){FDMAP[frId]=Object.assign({id:sn.id},sn.data());FKC[frId]=FDMAP[frId];fkcSave();FDHAD[frId]=true;fdHad=true;fdErr='';delete FDMISS[frId];delete FD_OFF[frId];fdMissSave();if(ST.role==='farmer')msgFarmerTry();
+fdUn[frId]=FS.collection('fd').doc(frId).onSnapshot(sn=>{if(sn.exists){FDMAP[frId]=Object.assign({id:sn.id},sn.data());FKC[frId]=FDMAP[frId];fkcSave();FDHAD[frId]=true;fdHad=true;fdErr='';delete FDMISS[frId];delete FD_OFF[frId];fdMissSave();if(ST.role==='farmer')msgFarmerTry();else if(ST.role==='owner')ownMiniSync();
 if(!fkCur||fkCur===frId){if(!fkCur){fkCur=frId;try{localStorage.setItem('aslam_fkc',frId)}catch(e){}}FDATA=FDMAP[frId];FDATAF=frId}}
 else{fdGone(frId);return}
 fkSoft()},e=>{const c=(e&&e.code)||'net';fdErr=c;
@@ -1916,33 +1916,46 @@ function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farme
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* ===== v1.3.4: Malik-Kisan Paighaam (chat) — mch/{cid} + m/{mid}, offline queue ===== */
 Object.assign(NB,{'Malik ko paighaam bhejein':{en:'Message your owner',ur:'مالک کو پیغام بھیجیں'},'💬 Chat kholein — malik se seedha baat karein':{en:'💬 Open chat — talk to your owner directly',ur:'💬 چیٹ کھولیں — مالک سے سیدھی بات کریں'},'Kisi cheez par etraz ho ya baat karni ho — paighaam seedha malik ko jayega (internet zaroori).':{en:'If something looks wrong or you want to talk — your message goes straight to the owner (internet needed).',ur:'کسی بات پر اعتراض ہو یا بات کرنی ہو — پیغام سیدھا مالک کو جائے گا (انٹرنیٹ ضروری)۔'},'Kisan se seedha baat — paighaam dono ko foran nazar aata hai (internet zaroori).':{en:'Direct chat with your farmers — messages appear for both instantly (internet needed).',ur:'کسان سے سیدھی بات — پیغام دونوں کو فوراً نظر آتا ہے (انٹرنیٹ ضروری)۔'},'Naya paighaam shuru karein':{en:'Start a new message',ur:'نیا پیغام شروع کریں'},'Paighaam likhein…':{en:'Type a message…',ur:'پیغام لکھیں…'},'Bhejein':{en:'Send',ur:'بھیجیں'},'Koi paighaam nahi — baat shuru karein.':{en:'No messages yet — say salaam.',ur:'کوئی پیغام نہیں — بات شروع کریں۔'},'Paighaam ke liye internet chahiye — internet on kar ke dobara kholein.':{en:'Internet is needed for messages — turn it on and reopen.',ur:'پیغاموں کے لیے انٹرنیٹ چاہیے — آن کر کے دوبارہ کھولیں۔'},'💬 Malik ka naya paighaam':{en:'💬 New message from owner',ur:'💬 مالک کا نیا پیغام'},'💬 Kisan ka naya paighaam':{en:'💬 New message from farmer',ur:'💬 کسان کا نیا پیغام'},'Paighaam ke liye pehle apne malik se khata link karein. Upar kisan code likh kar request bhejein — link hone par yahan se malik se seedha baat ho sakegi.':{en:'Link your khata with the owner first. Send a link request with the code above — once linked you can chat with the owner here.',ur:'پیغام کے لیے پہلے اپنے مالک سے کھاتہ لنک کریں۔ اوپر کسان کوڈ لکھ کر درخواست بھیجیں — لنک ہونے پر یہاں سے مالک سے سیدھی بات ہو سکے گی۔'},'Yahan aap ke kisanon se guftagu nazar aayegi. Kisan apna kisan code aap ke sath share karein — link hone ke baad dono paighaam bhej saken ge.':{en:'Your farmer conversations will appear here. The farmer shares their code with you — once linked, you both can message each other.',ur:'یہاں آپ کے کسانوں سے گفتگو نظر آئے گی۔ کسان اپنا کوڈ آپ کے ساتھ شیئر کرے — لنک ہونے کے بعد دونوں پیغام بھیج سکیں گے۔'},'Aaj':{en:'Today',ur:'آج'},'Kal':{en:'Yesterday',ur:'کل'},'offline':{en:'offline',ur:'آف لائن'},'Malik':{en:'Owner',ur:'مالک'}});
-let CHATS={},MSGQ=[],MSGS=[],chatOpenId='',chatName='',chatFrId='',chatPeer={o:'',f:''},mUnsub=null,mmUnsub=null,mqBusy=0,recMR=null,recStream=null,recChunks=[],recT0=0,recTimer=null,recSend=0,recMime='',curAU=null;
+let CHATS={},MSGQ=[],MSGS=[],chatOpenId='',chatName='',chatFrId='',chatPeer={o:'',f:''},mUnsub=null,mmUnsub=null,mqBusy=0,recMR=null,recStream=null,recChunks=[],recT0=0,recTimer=null,recSend=0,recMime='',curAU=null,LUN={},LSEEN={},LRD={},METAOK=0,MSUBS={};
 try{const _q=JSON.parse(localStorage.getItem('aslam_msgq')||'[]');if(Array.isArray(_q))MSGQ=_q}catch(e){}
 const msgSaveQ=()=>{try{localStorage.setItem('aslam_msgq',JSON.stringify(MSGQ))}catch(e){}};
+/* v1.3.6: badges rules-proof — local unread (LUN) + per-thread mini listeners; voice/mic robustness */
+try{const _lu=JSON.parse(localStorage.getItem('aslam_lun')||'{}');if(_lu&&typeof _lu==='object')LUN=_lu}catch(e){}
+try{const _ls=JSON.parse(localStorage.getItem('aslam_lseen')||'{}');if(_ls&&typeof _ls==='object')LSEEN=_ls}catch(e){}
+try{const _lr=JSON.parse(localStorage.getItem('aslam_lrd')||'{}');if(_lr&&typeof _lr==='object')LRD=_lr}catch(e){}
+const lunSave=()=>{try{localStorage.setItem('aslam_lun',JSON.stringify(LUN))}catch(e){}try{localStorage.setItem('aslam_lseen',JSON.stringify(LSEEN))}catch(e){}try{localStorage.setItem('aslam_lrd',JSON.stringify(LRD))}catch(e){}};
+const lunTotal=()=>{let n=0;Object.keys(LUN).forEach(k=>{n+=+LUN[k]||0});return n};
+const micHad=()=>{try{return localStorage.getItem('aslam_micok')==='1'}catch(e){return false}};
+function miniSub(cid){if(!cid||MSUBS[cid]||!FS||!U)return;try{MSUBS[cid]=FS.collection('mch').doc(cid).collection('m').orderBy('at','desc').limit(1).onSnapshot(sn=>{sn.docChanges().forEach(c=>{if(c.type==='removed')return;const d=c.doc.data()||{},at=+d.at||0,my=mySide();if(!at||d.s===my)return;const base=Math.max(LSEEN[cid]||0,LRD[cid]||0);if(at<=base)return;LSEEN[cid]=at;if(chatOpenId!==cid){if(!METAOK){LUN[cid]=(LUN[cid]||0)+1}ding();try{toast(BT(my==='f'?'💬 Malik ka naya paighaam':'💬 Kisan ka naya paighaam'))}catch(e){}}lunSave();chatBadge();if(view==='msg'&&!chatOpenId)msgV();else if(view==='fhome')fChatPaint();if(MSGQ.length)flushMsgQ()})},()=>{try{if(MSUBS[cid]){MSUBS[cid]();delete MSUBS[cid]}}catch(e){}setTimeout(()=>{try{if(chatOpenId!==cid&&U&&FS)miniSub(cid)}catch(e){}},12000)})}catch(e){}}
+function miniHalt(){Object.keys(MSUBS).forEach(k=>{try{MSUBS[k]()}catch(e){}delete MSUBS[k]})}
+function ownMiniSync(){if(ST.role!=='owner'||!U||!FS)return;try{db.farmers.filter(f=>f.linkedUid).forEach(f=>miniSub(chatCid(U.uid,f.linkedUid)))}catch(e){}}
+function badgeN(){return METAOK?chatTotalUn():lunTotal()}
 const chatCid=(o,f)=>'o'+o+'f'+f;
 const mySide=()=>ST.role==='owner'?'o':'f';
-function chatUnsubAll(){try{voiceHalt()}catch(e){}try{if(mUnsub){mUnsub();mUnsub=null}}catch(e){}try{if(mmUnsub){mmUnsub();mmUnsub=null}}catch(e){}chatOpenId='';CHATS={};MSGS=[]}
+function chatUnsubAll(){try{voiceHalt()}catch(e){}try{if(mUnsub){mUnsub();mUnsub=null}}catch(e){}try{if(mmUnsub){mmUnsub();mmUnsub=null}}catch(e){}try{miniHalt()}catch(e){}METAOK=0;chatOpenId='';CHATS={};MSGS=[]}
 const chatCacheK=cid=>'aslam_chatc_'+cid;
 const chatCacheGet=cid=>{try{const v=JSON.parse(localStorage.getItem(chatCacheK(cid))||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}};
-const chatCacheSet=(cid,M)=>{try{localStorage.setItem(chatCacheK(cid),JSON.stringify(M.slice(-60).map(m=>m&&m.ty==='v'?Object.assign({},m,{au:''}):m)))}catch(e){}};
+const chatCacheSet=(cid,M)=>{const L=M.slice(-60);try{localStorage.setItem(chatCacheK(cid),JSON.stringify(L))}catch(e){try{localStorage.setItem(chatCacheK(cid),JSON.stringify(L.map(m=>m&&m.ty==='v'?Object.assign({},m,{au:''}):m)))}catch(e2){}}};
 const frOwnerUid=()=>{const D=FDATA||FDMAP[fkCur]||null;if(D&&D.ownerUid)return D.ownerUid;try{const x=flsGet().find(z=>z.frId===(fkCur||''));return (x&&x.ownerUid)||''}catch(e){return''}};
 function chatTotalUn(){let n=0;const f=mySide()==='o'?'uo':'uf';Object.keys(CHATS).forEach(k=>{n+=+CHATS[k][f]||0});return n}
-function chatBadge(){const b=document.querySelector('.nb[data-v="msg"]')||document.querySelector('.nb[aria-label="Paighaam"]');if(!b)return;const n=chatTotalUn();let d=b.querySelector('.mbdg');
+function chatBadge(){const b=document.querySelector('.nb[data-v="msg"]')||document.querySelector('.nb[aria-label="Paighaam"]');if(!b)return;const n=badgeN();let d=b.querySelector('.mbdg');
 if(n>0){if(!d){d=document.createElement('i');d.className='mbdg';b.appendChild(d)}d.textContent=n>9?'9+':''+n}else if(d)d.remove()}
 function msgMetaUI(){chatBadge();if(view==='msg'&&!chatOpenId)msgV();else if(view==='fhome')fChatPaint()}
 function chatDay(ts){const d=wxYmd(ts),n=Date.now();if(d===wxYmd(n))return BT('Aaj');if(d===wxYmd(n-864e5))return BT('Kal');return fmtD(d)}
 const chatT=ts=>{const d=new Date(ts||0);return pad(d.getHours()%12||12)+':'+pad(d.getMinutes())+' '+(d.getHours()>=12?'PM':'AM')};
 function msgFarmerTry(){if(ST.role!=='farmer'||!U||!FS||mUnsub)return;const ou=frOwnerUid();if(!ou)return;const cid=chatCid(ou,U.uid);
-try{mUnsub=FS.collection('mch').doc(cid).onSnapshot(sn=>{const d=sn.exists?Object.assign({id:cid},sn.data()):null;const old=CHATS[cid]||{};CHATS={};if(d)CHATS[cid]=d;
+METAOK=1;miniSub(cid);try{mUnsub=FS.collection('mch').doc(cid).onSnapshot(sn=>{const d=sn.exists?Object.assign({id:cid},sn.data()):null;const old=CHATS[cid]||{};CHATS={};if(d)CHATS[cid]=d;
 if(d&&(+d.uf||0)>(+old.uf||0)&&chatOpenId!==cid){ding();try{toast(BT('💬 Malik ka naya paighaam'))}catch(e){}}
-msgMetaUI();if(MSGQ.length)flushMsgQ()},()=>{})}catch(e){}}
+msgMetaUI();if(MSGQ.length)flushMsgQ()},()=>{try{METAOK=0;if(mUnsub){mUnsub();mUnsub=null}}catch(e){}setTimeout(()=>{try{if(U&&ST.role==='farmer'&&!mUnsub)msgFarmerTry()}catch(e){}},15000)})}catch(e){}}
+
 function msgListenOwner(){if(ST.role!=='owner'||!U||!FS||mUnsub)return;
-try{mUnsub=FS.collection('mch').where('o','==',U.uid).onSnapshot(sn=>{let inc=false;
+METAOK=1;ownMiniSync();try{mUnsub=FS.collection('mch').where('o','==',U.uid).onSnapshot(sn=>{let inc=false;
 sn.docChanges().forEach(c=>{const id=c.doc.id;if(c.type==='removed'){delete CHATS[id];return}
 const d=Object.assign({id:id},c.doc.data()),old=CHATS[id]||{};CHATS[id]=d;
 if((+d.uo||0)>(+old.uo||0)&&chatOpenId!==id)inc=true});
 if(inc){ding();try{toast(BT('💬 Kisan ka naya paighaam'))}catch(e){}}
-msgMetaUI();if(MSGQ.length)flushMsgQ()},()=>{})}catch(e){}}
+msgMetaUI();if(MSGQ.length)flushMsgQ()},()=>{try{METAOK=0;if(mUnsub){mUnsub();mUnsub=null}}catch(e){}setTimeout(()=>{try{if(U&&ST.role==='owner'&&!mUnsub)msgListenOwner()}catch(e){}},15000)})}catch(e){}}
+
 function msgBoot(){if(!U||!FS)return;if(ST.role==='owner')msgListenOwner();else msgFarmerTry()}
 function msgV(){view='msg';cur=null;chatOpenId='';navR();if(mmUnsub){try{mmUnsub();mmUnsub=null}catch(e){}}
 if(ST.role==='farmer'){const ou=frOwnerUid();
@@ -1951,7 +1964,7 @@ chatV(chatCid(ou,U.uid),'');return}
 let h='<div class="nt"><div class="card">'+BH('Paighaam','پیغام')+'<div class="mut sm" style="margin:0 0 10px">'+BT('Kisan se seedha baat — paighaam dono ko foran nazar aata hai (internet zaroori).')+'</div>';
 const fs=db.farmers.filter(f=>f.linkedUid).sort((a,b)=>{const ca=CHATS[chatCid(U.uid,a.linkedUid)]||{},cb=CHATS[chatCid(U.uid,b.linkedUid)]||{};return (cb.la||0)-(ca.la||0)||farmCmp(a,b)});
 if(!fs.length){$('v').innerHTML=h+'<div class="empty">'+BT('Yahan aap ke kisanon se guftagu nazar aayegi. Kisan apna kisan code aap ke sath share karein — link hone ke baad dono paighaam bhej saken ge.')+'</div></div></div>';return}
-h+=fs.map(f=>{const cid=chatCid(U.uid,f.linkedUid),m=CHATS[cid]||{},un=+m.uo||0;
+h+=fs.map(f=>{const cid=chatCid(U.uid,f.linkedUid),m=CHATS[cid]||{},un=METAOK?(+m.uo||0):(+LUN[cid]||0);
 return '<button class="fm" onclick="chatV(\''+cid+'\',\''+f.id+'\')"><div style="display:flex;align-items:center;gap:10px;min-width:0">'+av(f,40)+'<div style="min-width:0;flex:1;text-align:start"><b><span class="nt">'+esc(f.name||'Kisan')+'</span></b><small style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+(m.lt?(m.lt==='🎤 Voice'?BT('🎤 Voice'):esc(m.lt)):BT('Naya paighaam shuru karein'))+'</small></div>'+(un?'<span class="pill r">'+un+'</span>':'')+'</div></button>'}).join('');
 $('v').innerHTML=h+'</div></div>'}
 function chatFarmerGo(){const ou=frOwnerUid();if(ou)chatV(chatCid(ou,U.uid),'');else msgV()}
@@ -1974,7 +1987,7 @@ try{mmUnsub=FS.collection('mch').doc(cid).collection('m').orderBy('at').limit(20
 sn.docChanges().forEach(c=>{if(c.type==='removed'){MSGS=MSGS.filter(m=>m.id!==c.doc.id);chg=true;return}
 const d=Object.assign({id:c.doc.id},c.doc.data());if(!d.t&&d.ty!=='v')return;const i=MSGS.findIndex(m=>m.id===d.id);
 if(i<0)MSGS.push(d);else MSGS[i]=d;chg=true});
-if(chg){MSGS=MSGS.filter(m=>m&&m.t);chatCacheSet(cid,MSGS);chatPaintMsgs();chatMarkRead()}},()=>{const w=$('mbub');if(w&&!MSGS.length)w.innerHTML='<div class="empty">'+BT('Paighaam ke liye internet chahiye — internet on kar ke dobara kholein.')+'</div>'})}catch(e){}}
+if(chg){MSGS=MSGS.filter(m=>m&&(m.t||m.ty==='v'));chatCacheSet(cid,MSGS);chatPaintMsgs();chatMarkRead()}},()=>{const w=$('mbub');if(w&&!MSGS.length)w.innerHTML='<div class="empty">'+BT('Paighaam ke liye internet chahiye — internet on kar ke dobara kholein.')+'</div>';try{if(mmUnsub){mmUnsub();mmUnsub=null}}catch(e){}setTimeout(()=>{try{if(chatOpenId===cid&&!mmUnsub)chatListenMsgs(cid)}catch(e){}},10000)})}catch(e){}}
 function chatPaintMsgs(){const w=$('mbub');if(!w)return;const my=mySide();
 MSGS.sort((a,b)=>(a.at||0)-(b.at||0));
 let h='',ld='';
@@ -1988,22 +2001,25 @@ const cid=chatOpenId,mid='m'+Date.now().toString(36)+Math.random().toString(36).
 MSGS.push({id:mid,s:my,t:t,at:at,pend:1});chatCacheSet(cid,MSGS);chatPaintMsgs();
 const on=ST.role==='owner'?(ST.fname||ST.name||'Malik'):((FDATA&&FDATA.oname)||'');
 const fn=ST.role==='owner'?chatName:(ST.fname||(U&&U.displayName)||'Kisan');
-MSGQ.push({t:'msg',cid:cid,mid:mid,d:{s:my,t:t,at:at},meta:{o:chatPeer.o,f:chatPeer.f,on:on,fn:fn,lt:t.slice(0,60),la:at,inc:my==='o'?'uf':'uo',upAt:at}});
+MSGQ.push({t:'msg',cid:cid,mid:mid,d:{s:my,t:t,at:at,o:chatPeer.o,f:chatPeer.f},meta:{o:chatPeer.o,f:chatPeer.f,on:on,fn:fn,lt:t.slice(0,60),la:at,inc:my==='o'?'uf':'uo',upAt:at}});
 msgSaveQ();flushMsgQ();
 const c=CHATS[cid];if(c){c.lt=t.slice(0,60);c.la=at}}
 function flushMsgQ(){if(!U||!FS||!navigator.onLine||!MSGQ.length||mqBusy)return;mqBusy=1;
 (async()=>{try{while(MSGQ.length){const q=MSGQ[0];
 if(q.t==='read'){await FS.collection('mch').doc(q.cid).set(q.side==='o'?{uo:0}:{uf:0},{merge:true})}
 else{const meta={o:q.meta.o,f:q.meta.f,on:q.meta.on,fn:q.meta.fn,lt:q.meta.lt,la:q.meta.la,upAt:q.meta.upAt};
-try{meta[q.meta.inc]=firebase.firestore.FieldValue.increment(1)}catch(e){meta[q.meta.inc]=1}
+if(!q.ms){try{meta[q.meta.inc]=firebase.firestore.FieldValue.increment(1)}catch(e){meta[q.meta.inc]=1}}
 await FS.collection('mch').doc(q.cid).collection('m').doc(q.mid).set(q.d);
-await FS.collection('mch').doc(q.cid).set(meta,{merge:true})}
+await FS.collection('mch').doc(q.cid).set(meta,{merge:true});q.ms=1;msgSaveQ()}
 MSGQ.shift();msgSaveQ()}}catch(e){}finally{mqBusy=0}})()}
 function chatMarkRead(){const cid=chatOpenId;if(!cid||view!=='chat')return;const m=CHATS[cid],my=mySide(),fld=my==='o'?'uo':'uf';
 if(m&&+m[fld]>0){CHATS[cid][fld]=0;chatBadge();
 if(navigator.onLine){try{FS.collection('mch').doc(cid).set(fld==='o'?{uo:0}:{uf:0},{merge:true}).catch(()=>{})}catch(e){}}
-else{MSGQ.push({t:'read',cid:cid,side:my});msgSaveQ()}}}
-function fChatUn(){const ou=frOwnerUid();if(!ou||!U)return 0;const m=CHATS[chatCid(ou,U.uid)];return m?(+m.uf||0):0}
+else{MSGQ.push({t:'read',cid:cid,side:my});msgSaveQ()}}
+try{if(LUN[cid]){LUN[cid]=0;lunSave();chatBadge()}}catch(e){}
+try{LRD[cid]=Date.now();lunSave()}catch(e){}}
+
+function fChatUn(){const ou=frOwnerUid();if(!ou||!U)return 0;if(!METAOK)return +LUN[chatCid(ou,U.uid)]||0;const m=CHATS[chatCid(ou,U.uid)];return m?(+m.uf||0):0}
 function fChatCardH(){if(ST.role!=='farmer')return'';const ou=frOwnerUid();if(!ou)return'';const un=fChatUn();
 return '<div class="card sblue band"><div class="cband cb-blue"><span class="bi">💬</span>'+BH('Malik ko paighaam bhejein','مالک کو پیغام بھیجیں')+(un?'<span class="pill r">'+un+'</span>':'')+'</div><div class="cbody"><button class="p" style="width:100%" onclick="go(\'msg\')">'+BT('💬 Chat kholein — malik se seedha baat karein')+'</button><div class="mut sm" style="margin-top:8px">'+BT('Kisi cheez par etraz ho ya baat karni ho — paighaam seedha malik ko jayega (internet zaroori).')+'</div></div></div>'}
 function fChatPaint(){const w=$('fchatwrap');if(w)w.innerHTML=fChatCardH()}
@@ -2012,6 +2028,7 @@ setInterval(()=>{if(MSGQ.length&&navigator.onLine)flushMsgQ()},30000);
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.id==='mvin'){e.preventDefault();chatSend()}});
 /* v1.3.5: voice message — mic record (MediaRecorder), max 60s, base64 Firestore doc mein, offline queue, tap-to-play */
 Object.assign(NB,{'🎤 Voice':{en:'🎤 Voice message',ur:'🎤 آوازی پیغام'},'Voice paighaam':{en:'Voice message',ur:'آوازی پیغام'},'Recording…':{en:'Recording…',ur:'ریکارڈنگ…'},'Voice sunne ke liye tap karein':{en:'Tap to play voice',ur:'سننے کے لیے دبائیں'},'Rad karein':{en:'Cancel',ur:'منسوخ کریں'},'Mic ki ijazat nahi mili — phone ki settings se mic on karein':{en:'Microphone permission denied — allow mic in phone settings',ur:'مائیک کی اجازت نہیں ملی — فون کی سیٹنگز سے مائیک آن کریں'},'Is phone par voice recording nahi hoti':{en:'Voice recording is not supported on this phone',ur:'اس فون پر آواز ریکارڈ نہیں ہو سکتی'},'Voice 60 second tak hi ho sakti hai':{en:'Voice message can be up to 60 seconds',ur:'آوازی پیغام زیادہ سے زیادہ 60 سیکنڈ کا ہو سکتا ہے'},'Yeh voice is phone par nahi chal sakti':{en:'This voice message cannot play on this phone',ur:'یہ آوازی پیغام اس فون پر نہیں چل سکتا'},'Voice sunne ke liye internet chahiye':{en:'Internet is needed to play voice',ur:'آواز سننے کے لیے انٹرنیٹ چاہیے'}});
+Object.assign(NB,{'Mic ki ijazat pehle mil chuki thi — dobara nahi mil rahi, phone ki settings se is browser ko mic Allow karein':{en:'Mic was allowed before — if it asks again, allow the microphone for this browser in phone settings',ur:'مائیک کی اجازت پہلے مل چکی تھی — دوبارہ نہیں مل رہی، فون کی سیٹنگز سے اس براؤزر کو مائیک Allow کریں'},'Yeh voice abhi load nahi hui — thori dair baad try karein':{en:'This voice has not loaded yet — try again in a moment',ur:'یہ آوازی ابھی لوڈ نہیں ہوئی — تھوڑی دیر بعد دوبارہ کوشش کریں'}});
 const MIC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/></svg>';
 const fmtDur=s=>{s=Math.max(0,Math.round(s||0));return Math.floor(s/60)+':'+pad(s%60)};
 const voiceMime=()=>{if(!window.MediaRecorder)return'';const L=['audio/mp4;codecs=mp4a.40.2','audio/mp4','audio/aac','audio/webm;codecs=opus','audio/webm'];for(let i=0;i<L.length;i++){try{if(MediaRecorder.isTypeSupported(L[i]))return L[i]}catch(e){}}return''};
@@ -2019,19 +2036,27 @@ function recUI(on){const a=$('mrow'),b=$('mrec');if(a)a.style.display=on?'none':
 function voiceHalt(){try{if(recMR&&recMR.state==='recording'){recSend=0;recMR.stop()}}catch(e){}recMR=null;try{if(recTimer){clearInterval(recTimer)}}catch(e){}recTimer=null;try{if(recStream){recStream.getTracks().forEach(t=>t.stop())}}catch(e){}recStream=null;recChunks=[];recSend=0;try{recUI(0)}catch(e){}try{if(curAU){curAU.pause();curAU=null}}catch(e){}}
 function voiceTick(){const s=Math.floor((Date.now()-recT0)/1000),e=$('mrt');if(e)e.textContent=fmtDur(s);if(s>=60){try{toast(BT('Voice 60 second tak hi ho sakti hai'))}catch(_){}voiceStop()}}
 function voiceStart(){if(!chatOpenId)return;if(!navigator.mediaDevices||!window.MediaRecorder){toast(BT('Is phone par voice recording nahi hoti'));return}if(recMR&&recMR.state==='recording')return;
-navigator.mediaDevices.getUserMedia({audio:true}).then(st=>{if(!chatOpenId){try{st.getTracks().forEach(t=>t.stop())}catch(e){}return}
-recStream=st;recSend=0;recChunks=[];recMime=voiceMime();
-try{recMR=recMime?new MediaRecorder(st,{mimeType:recMime,audioBitsPerSecond:24000}):new MediaRecorder(st)}catch(e){try{recMR=new MediaRecorder(st);recMime=''}catch(e2){toast(BT('Is phone par voice recording nahi hoti'));try{st.getTracks().forEach(t=>t.stop())}catch(_){}recMR=null;recStream=null;return}}
+const arm=st=>{if(!chatOpenId){try{st.getTracks().forEach(t=>t.stop())}catch(e){}return}
+recSend=0;recChunks=[];recMime=voiceMime();
+try{recMR=recMime?new MediaRecorder(st,{mimeType:recMime,audioBitsPerSecond:24000}):new MediaRecorder(st)}catch(e){try{recMR=new MediaRecorder(st);recMime=''}catch(e2){toast(BT('Is phone par voice recording nahi hoti'));try{st.getTracks().forEach(t=>t.stop())}catch(_){}recMR=null;if(recStream===st)recStream=null;return}}
 recMR.ondataavailable=ev=>{if(ev.data&&ev.data.size)recChunks.push(ev.data)};
-recMR.onstop=voiceDone;recT0=Date.now();
-try{recMR.start()}catch(e){toast(BT('Is phone par voice recording nahi hoti'));try{st.getTracks().forEach(t=>t.stop())}catch(_){}recMR=null;recStream=null;return}
-recUI(1);recTimer=setInterval(voiceTick,500)}).catch(()=>toast(BT('Mic ki ijazat nahi mili — phone ki settings se mic on karein')))}
+recMR.onstop=voiceDone;
+recMR.onerror=()=>{try{if(recMR&&recMR.state==='recording'){recSend=0;recMR.stop()}}catch(e){}};
+recT0=Date.now();
+try{recMR.start()}catch(e){try{if(recStream){recStream.getTracks().forEach(t=>t.stop())}}catch(_){}recStream=null;recMR=null;if(!voiceStart._fb){voiceStart._fb=1;setTimeout(()=>{try{voiceStart()}catch(_){}},60);return}voiceStart._fb=0;toast(BT('Is phone par voice recording nahi hoti'));return}
+voiceStart._fb=0;recUI(1);recTimer=setInterval(voiceTick,500)};
+if(recStream&&recStream.getTracks().length&&recStream.getTracks().every(t=>t.readyState==='live')){arm(recStream);return}
+if(recStream){try{recStream.getTracks().forEach(t=>t.stop())}catch(e){}recStream=null}
+navigator.mediaDevices.getUserMedia({audio:true}).then(st=>{try{localStorage.setItem('aslam_micok','1')}catch(e){}
+if(!chatOpenId){try{st.getTracks().forEach(t=>t.stop())}catch(e){}return}
+recStream=st;arm(st)}).catch(()=>toast(BT(micHad()?'Mic ki ijazat pehle mil chuki thi — dobara nahi mil rahi, phone ki settings se is browser ko mic Allow karein':'Mic ki ijazat nahi mili — phone ki settings se mic on karein')))}
 function voiceStop(){if(!recMR||recMR.state!=='recording'){try{recUI(0)}catch(e){}return}recSend=1;try{recMR.stop()}catch(e){voiceDone()}}
 function voiceCancel(){recSend=0;if(recMR&&recMR.state==='recording'){try{recMR.stop()}catch(e){}}else{try{voiceHalt()}catch(e){}}}
 function voiceDone(){try{if(recTimer){clearInterval(recTimer)}}catch(e){}recTimer=null;try{recUI(0)}catch(e){}
 const chunks=recChunks,mime=(recMR&&recMR.mimeType)||recMime||'',send=recSend,dur=Math.min(60,Math.max(1,Math.round((Date.now()-recT0)/1000)));
-recMR=null;recChunks=[];recMime='';recSend=0;const st=recStream;recStream=null;try{if(st)st.getTracks().forEach(t=>t.stop())}catch(e){}
+recMR=null;recChunks=[];recMime='';recSend=0;const st=recStream;recStream=null;try{if(st){if(chatOpenId)recStream=st;else st.getTracks().forEach(t=>t.stop())}}catch(e){recStream=null}
 if(!send||!chunks.length)return;try{voiceSend(new Blob(chunks,{type:mime||'audio/webm'}),dur,mime)}catch(e){}}
+
 function voiceSend(blob,dur,mime){if(!chatOpenId||!blob||!blob.size)return;
 if(blob.size>700*1024){toast(BT('Voice 60 second tak hi ho sakti hai'));return}
 const cid=chatOpenId,mid='m'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),at=Date.now(),my=mySide();
@@ -2039,22 +2064,31 @@ const fin=du=>{const au=(String(du||'').split(',')[1]||'').trim();if(!au)return;
 MSGS.push({id:mid,s:my,ty:'v',au:au,am:mime||'audio/webm',ad:dur,at:at,pend:1});chatCacheSet(cid,MSGS);chatPaintMsgs();
 const on=ST.role==='owner'?(ST.fname||ST.name||'Malik'):((FDATA&&FDATA.oname)||'');
 const fn=ST.role==='owner'?chatName:(ST.fname||(U&&U.displayName)||'Kisan');
-MSGQ.push({t:'msg',cid:cid,mid:mid,d:{s:my,ty:'v',au:au,am:(mime||'audio/webm'),ad:dur,at:at},meta:{o:chatPeer.o,f:chatPeer.f,on:on,fn:fn,lt:'🎤 Voice',la:at,inc:my==='o'?'uf':'uo',upAt:at}});
+MSGQ.push({t:'msg',cid:cid,mid:mid,d:{s:my,ty:'v',au:au,am:(mime||'audio/webm'),ad:dur,at:at,o:chatPeer.o,f:chatPeer.f},meta:{o:chatPeer.o,f:chatPeer.f,on:on,fn:fn,lt:'🎤 Voice',la:at,inc:my==='o'?'uf':'uo',upAt:at}});
 msgSaveQ();flushMsgQ();
 const c=CHATS[cid];if(c){c.lt='🎤 Voice';c.la=at}};
 try{const r=new FileReader();r.onload=()=>fin(r.result);r.onerror=()=>toast(BT('Is phone par voice recording nahi hoti'));r.readAsDataURL(blob)}catch(e){toast(BT('Is phone par voice recording nahi hoti'))}}
-function voiceTap(mid,btn){const m=MSGS.find(x=>x.id===mid);if(!m||m.ty!=='v')return;
+function voiceTap(mid,btn){const m=MSGS.find(x=>x.id===mid)||(chatOpenId?(chatCacheGet(chatOpenId)||[]).find(x=>x.id===mid):null);if(!m||m.ty!=='v')return;
 try{if(curAU){curAU.pause();curAU=null}}catch(e){}
-const play=(au,am)=>{let a=null;try{a=new Audio('data:'+String(am||m.am||'audio/webm').split(';')[0]+';base64,'+au)}catch(e){toast(BT('Yeh voice is phone par nahi chal sakti'));return}
+const play=(au,am)=>{if(!au){try{if(btn)btn.textContent='▶'}catch(e){}return}
+let a=null,u='';const ty=String(am||m.am||'audio/webm').split(';')[0]||'audio/webm';
+try{const bin=atob(au),bb=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bb[i]=bin.charCodeAt(i);u=URL.createObjectURL(new Blob([bb],{type:ty}));a=new Audio(u)}catch(e){}
+if(!a){try{a=new Audio('data:'+ty+';base64,'+au)}catch(e2){}}
+if(!a){toast(BT('Yeh voice is phone par nahi chal sakti'));return}
 curAU=a;try{if(btn)btn.textContent='⏸'}catch(e){}
-a.onended=()=>{try{if(btn)btn.textContent='▶'}catch(e){}try{if(curAU===a)curAU=null}catch(e){}};
-a.onerror=()=>{try{if(btn)btn.textContent='▶'}catch(e){}try{if(curAU===a)curAU=null}catch(e){}toast(BT('Yeh voice is phone par nahi chal sakti'))};
+const end=()=>{try{if(btn)btn.textContent='▶'}catch(e){}try{if(curAU===a)curAU=null}catch(e){}try{if(u)URL.revokeObjectURL(u)}catch(e){}};
+a.onended=end;
+a.onerror=()=>{end();toast(BT('Yeh voice is phone par nahi chal sakti'))};
 a.play().catch(()=>{try{if(btn)btn.textContent='▶'}catch(e){}})};
 if(m.au)play(m.au,m.am);
 else{if(!FS||!navigator.onLine){toast(BT('Voice sunne ke liye internet chahiye'));return}
-try{if(btn)btn.textContent='…';FS.collection('mch').doc(chatOpenId).collection('m').doc(mid).get().then(s=>{const x=s.data();if(x&&x.au){m.au=x.au;m.am=x.am;play(x.au,x.am)}else{try{if(btn)btn.textContent='▶'}catch(e){}}}).catch(()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT('Voice sunne ke liye internet chahiye'))})}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
+try{if(btn)btn.textContent='…';const gv=so=>FS.collection('mch').doc(chatOpenId).collection('m').doc(mid).get(so);
+const got=s=>{const x=s&&s.data();if(x&&x.au){m.au=x.au;m.am=x.am;if(x.ad)m.ad=x.ad;play(x.au,x.am)}else{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT('Yeh voice abhi load nahi hui — thori dair baad try karein'))}};
+const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.onLine?'Yeh voice abhi load nahi hui — thori dair baad try karein':'Voice sunne ke liye internet chahiye'))};
+gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
+
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.5';
+const APPV='1.3.6';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
