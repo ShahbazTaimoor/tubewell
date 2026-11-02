@@ -528,6 +528,14 @@ html[data-th=raat] #q::placeholder{color:#8FA6B8}
 .mchips{display:flex;gap:6px;flex-wrap:wrap;padding:7px 0 0}
 .mchip{border:1px solid var(--line);background:var(--card);color:var(--g);border-radius:99px;padding:6px 12px;font-size:calc(12.5px*var(--fs));font-family:var(--uf);cursor:pointer}
 .mbdg{position:absolute;top:1px;inset-inline-end:4px;background:var(--red);color:#fff;font-style:normal;font-size:calc(10.5px*var(--fs));font-weight:800;min-width:17px;height:17px;line-height:17px;text-align:center;border-radius:99px;padding:0 4px}
+/* v1.3.8: chat icon (band/list/fkli rows) + us ka apna unread badge */
+.cbtn{position:relative;flex:none;width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.28);touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer;transition:transform .15s ease}
+.cbtn:active{transform:scale(.88)}
+.cbtn svg{width:19px;height:19px;pointer-events:none}
+.cband .cbtn{margin-inline-start:auto;z-index:1}
+.fm .cbtn,.fklih .cbtn{pointer-events:auto;background:var(--g2);border:1px solid var(--line);color:var(--g)}
+.fklih .cbtn{margin-inline-start:auto}
+.cbtn .mbdg{top:-5px;inset-inline-end:-5px;box-shadow:0 1px 4px rgba(0,0,0,.28);z-index:2}
 /* v1.3.5: voice message */
 .mmic{flex:none;border:1px solid var(--line);background:var(--card);color:var(--g);width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
 .mmic:active{background:var(--g2)}
@@ -596,7 +604,7 @@ const _isUr=n=>/[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/.test(Str
 function farmCmp(a,b){const ua=_isUr(a.name),ub=_isUr(b.name);if(ua!==ub)return(ua?1:-1)*((FORCE_LANG||ST.lang)==='ur'?-1:1);return(ua?_cUr:_cEn).compare(String(a.name||'').trim(),String(b.name||'').trim())}
 function toggAmt(){ST.hideAmt=!ST.hideAmt;saveST();home()}
 function listH(q){q=(q||'').trim().toLowerCase();const a=TF().filter(f=>(!q||(f.name+' '+f.phone+' '+f.addr).toLowerCase().includes(q))&&(hf==='all'||(hf==='due'?tot(f).due>0:tot(f).due<=0)));a.sort(farmCmp);
-return a.length?a.map(f=>{const t=tot(f);return`<button class="fm" onclick="open_('${f.id}')"><div style="display:flex;align-items:center;gap:12px;min-width:0">${av(f,46)}<div style="min-width:0"><b class="nt"><span class="nt">${esc(f.name)}</span></b><small><span class="nt">${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')}</span> • ${dur(t.mn)||'0 min'}</small></div></div>${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kisan nahi mila.':'Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.')+'</div>'}
+return a.length?a.map(f=>{const t=tot(f),c=(U&&f.linkedUid)?chatCid(U.uid,f.linkedUid):'',un=c?unFor(c):0;return`<button class="fm" onclick="open_('${f.id}')"><div style="display:flex;align-items:center;gap:12px;min-width:0">${av(f,46)}<div style="min-width:0"><b class="nt"><span class="nt">${esc(f.name)}</span></b><small><span class="nt">${esc([f.phone,f.addr].filter(Boolean).join(' • ')||'—')}</span> • ${dur(t.mn)||'0 min'}</small></div></div>${c?`<span class="cbtn" role="button" aria-label="${BT('Paighaam')}" data-cid="${c}" onclick="event.stopPropagation();chatV('${c}','${f.id}')">${IMSG}${un?'<i class="mbdg">'+(un>9?'9+':un)+'</i>':''}</span>`:''}${dueP(t)}</button>`}).join(''):'<div class="empty">'+(db.farmers.length?'Koi kisan nahi mila.':'Abhi koi kisan nahi. Upar se "Naya Kisan" dabayein.')+'</div>'}
 let _ft=0;function filtD(){clearTimeout(_ft);_ft=setTimeout(filt,150)}
 function filt(){$('list').innerHTML=listH($('q').value)}
 function home(){cur=null;view='home';navR();twEnsure();
@@ -612,7 +620,7 @@ $('v').innerHTML=`${twBar()}<div class="card big sgold band"><div class="cband c
 <div class="f"><label>Rehaish</label><input id="fa" placeholder="Gaon / ilaqa"></div><div class="f"><label>Purana baqaya (marzi)</label><input id="fo" type="number" inputmode="numeric" placeholder="Rs"></div>
 <button class="p" style="width:100%" onclick="addF()">Save karein</button></div>
 ${TF().length?'<input id="q" type="search" placeholder="🔍 Kisan ka naam dhoondein" oninput="filtD()" style="margin-bottom:10px"><div class="chips">'+[['all','Sab'],['due','Baqaya wale'],['ok','Hisab saaf']].map(x=>'<button class="ch'+(hf===x[0]?' on':'')+'" onclick="setHF(\''+x[0]+'\')">'+BT(x[1])+'</button>').join('')+'</div>':''}<div id="list">${listH('')}</div>
-`;wxFetch()}
+`;wxFetch();chatBadge()}
 
 function addF(){const n=$('fn').value.trim();if(!n){alert('Kisan ka naam likhein');return}
 const ov=Math.round(+($('fo').value||0));const nf={id:uid(),tw:ST.tw,name:n,phone:$('fp').value.trim(),addr:$('fa').value.trim(),entries:[],pays:[],dp:window._dp||'',olds:ov>0?[{id:uid(),date:today(),amt:ov,note:''}]:[]};nf.fcode=genFCode();db.farmers.push(nf);window._dp='';ensureFCodes();save();home()}
@@ -632,12 +640,12 @@ L.forEach(r=>{const o=r.o,p=r.k==='p',od=r.k==='o',mk=o.date.slice(0,7);
 if(mk!==cm){cm=mk;h+=`<div class="tm"><span>${MN[+mk.slice(5)-1]} ${mk.slice(0,4)}</span></div>`}
 const d=+o.date.slice(8),mo=MN[+o.date.slice(5,7)-1];
 h+=`<div class="tl"><div class="td"><b>${d}</b><span>${mo}</span></div><div class="tx"><i class="${p?'pd':od?'od':''}"></i><u></u></div><div class="tc${p?' pc':od?' oc':''}"><div class="h2d"><b>${p?BT('Wasooli'):od?'📜 '+BT('Purana baqaya'):t12(o.start)+' → '+t12(o.end)}</b><b class="${p?'pos':''}">${p?'− ':''}${rs(o.amt)}</b></div><div class="h2d sm mut"><span>${p?hwIc(o.how)+esc(o.how||'Cash'):od?(o.note&&o.note!=='Pichle saal ka baqaya'?esc(o.note):BT('Purana baqaya')):dur(o.mins)+(o.note?' • '+esc(o.note):'')}</span><span class="${r.run>0?'neg':''}">${BT('Baqaya ')}${rs(r.run)}</span></div>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="viewPh(this)">':''}<div class="ac"><button class="s mini" onclick="${p?`editP('${o.id}')`:od?`editO('${o.id}')`:`open_('${f.id}','${o.id}');window.scrollTo(0,0)`}">✎ Edit</button><button class="d mini" onclick="${p?'delP':od?'delO':'delE'}('${o.id}')">🗑 Delete</button></div></div></div>`});return h}
-function open_(id,ed){const nv=cur!==id||view!=='home';cur=id;eid=ed||null;view='home';navR();pushS('k');const f=db.farmers.find(x=>x.id===id);if(!f){if(nv)try{window.scrollTo(0,0)}catch(e){}return home()}const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null;
+function open_(id,ed){const nv=cur!==id||view!=='home';cur=id;eid=ed||null;view='home';navR();pushS('k');const f=db.farmers.find(x=>x.id===id);if(!f){if(nv)try{window.scrollTo(0,0)}catch(e){}return home()}const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null,oc=(U&&f.linkedUid)?chatCid(U.uid,f.linkedUid):'',ou=oc?unFor(oc):0;
 const tb=t.bill+t.old,pct=tb>0?Math.min(100,Math.round(t.paid/tb*100)):0;
 const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o})),...(f.olds||[]).map(o=>({k:'o',d:o.date,s:'00',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
 let run=0;L.forEach(r=>{run+=(r.k==='p'?-1:1)*r.o.amt;r.run=run});
 $('v').innerHTML=`<div class="row" style="margin-bottom:12px"><button class="s" onclick="back_()">← Wapas</button><button class="s" onclick="editF()">✎ Kisan edit</button></div>
-<div class="card pc2 slav band"><input id="edp" type="file" accept="image/*" class="hide" onchange="pickDP(this)"><div class="cband cb-lav"><span class="avb avw" onclick="$('edp').click()">${av(f,36)}<i>📷</i></span><div style="min-width:0;position:relative;z-index:1"><h2 class="nt" style="margin:0;font-size:calc(19px*var(--fs));color:#fff"><span class="nt">${esc(f.name)}</span></h2><span class="bsub">🏠 ${esc(f.addr||'—')}${f.phone?' • 📞 '+esc(f.phone):''}</span></div></div><div class="cbody">${f.dp?'<button class="d mini" style="margin:0 0 8px" onclick="delDP()">DP hatayein</button>':''}${f.phone?`<div class="row" style="margin:0"><a class="cb c" href="tel:${f.phone.replace(/[^\d+]/g,'')}"><i class="ci">${IC.ph}</i><b>Call karein</b>${IC.ar}</a><a class="cb w" target="_blank" rel="noopener" href="https://wa.me/${wnum(f.phone)}"><i class="ci">${IC.ph}</i><b>WhatsApp</b>${IC.ar}</a></div>`:''}</div></div>
+<div class="card pc2 slav band"><input id="edp" type="file" accept="image/*" class="hide" onchange="pickDP(this)"><div class="cband cb-lav"><span class="avb avw" onclick="$('edp').click()">${av(f,36)}<i>📷</i></span><div style="min-width:0;position:relative;z-index:1"><h2 class="nt" style="margin:0;font-size:calc(19px*var(--fs));color:#fff"><span class="nt">${esc(f.name)}</span></h2><span class="bsub">🏠 ${esc(f.addr||'—')}${f.phone?' • 📞 '+esc(f.phone):''}</span></div>${oc?`<span class="cbtn" id="ochatb" role="button" aria-label="${BT('Paighaam')}" data-cid="${oc}" onclick="event.stopPropagation();chatV('${oc}','${f.id}')">${IMSG}${ou?'<i class="mbdg">'+(ou>9?'9+':ou)+'</i>':''}</span>`:''}</div><div class="cbody">${f.dp?'<button class="d mini" style="margin:0 0 8px" onclick="delDP()">DP hatayein</button>':''}${f.phone?`<div class="row" style="margin:0"><a class="cb c" href="tel:${f.phone.replace(/[^\d+]/g,'')}"><i class="ci">${IC.ph}</i><b>Call karein</b>${IC.ar}</a><a class="cb w" target="_blank" rel="noopener" href="https://wa.me/${wnum(f.phone)}"><i class="ci">${IC.ph}</i><b>WhatsApp</b>${IC.ar}</a></div>`:''}</div></div>
 ${f.fcode?fcCard(f):''}
 <div class="card sblue band"><div class="cband cb-blue"><span class="bi">💧</span><h2>Is kisan ka poora hisab</h2></div><div class="cbody"><div class="stg">
 <div class="stt"><i class="ci">${IC.clk}</i><div><span>Total time</span><b>${dur(t.mn)||'0 min'}</b></div></div><div class="stt gn"><i class="ci">${IC.coin}</i><div><span>Total paisay</span><b>${rs(t.bill)}</b></div></div>
@@ -661,7 +669,7 @@ ${f.fcode?fcCard(f):''}
 <div class="f"><label>Tareeqa (kaise diye)</label><div class="fi">${IC.wal}<select id="ph"><option value="Cash">Cash</option><option value="JazzCash">JazzCash</option><option value="Easypaisa">Easypaisa</option><option value="Bank">Bank</option><option value="Aur">Aur</option></select></div></div><div class="f"><label>Saboot ki tasveer (marzi)</label><div class="fi">${IC.clip}<input id="pimg" type="file" accept="image/*"></div></div><button class="sb" onclick="addP()">${IC.sv}<span>Wasooli save karein</span></button></div></div>
 <div class="card"><div class="h2d" style="margin-bottom:10px"><h2 style="margin:0">📒 Poori kitab (${L.length})</h2><button class="s mini" onclick="$('tlend').scrollIntoView({behavior:'smooth',block:'center'})">⬇ Naye tak</button></div>${tlH(L,f)}<div id="tlend"></div></div>
 ${archCardH(f)}
-<button class="d" style="width:100%" onclick="delF()">🗑 Yeh Kisan Delete karein</button>`;loadPh();if(E)pv();if(nv)try{window.scrollTo(0,0)}catch(e){}}
+<button class="d" style="width:100%" onclick="delF()">🗑 Yeh Kisan Delete karein</button>`;loadPh();if(E)pv();if(nv)try{window.scrollTo(0,0)}catch(e){}chatBadge()}
 
 /* ===== v92: Fasal khatam — khata band karke naya shuru (archive mehfooz) ===== */
 const archLabel=a=>a&&a.label?a.label:(a&&a.from&&a.to&&a.from!==a.to?fmtD(a.from)+' — '+fmtD(a.to):fmtD((a&&a.on)||today()));
@@ -1052,7 +1060,9 @@ function twAll(){if(ST.tws.length<2)return'';let K=0,W=0,B=0;const rows=ST.tws.m
 return'<div class="card"><h2>'+BT('Sab tubewell ka hisab')+'</h2>'+rows+'<div class="h2d" style="border-top:1px solid var(--line);padding-top:8px"><span><b>'+BT('Kul')+'</b><small class="mut" style="display:block">'+BT('Total kamai ')+rs(K)+' • '+BT('Wasool hua ')+rs(W)+'</small></span><b class="neg">'+BT('Baqaya ')+rs(B)+'</b></div></div>'}
 function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1800)}
 const ic=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
-const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],['cal','Rozana',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['rep','Report',ic('<path d="M5 20V11M12 20V4M19 20v-6"/>')],['msg','Paighaam',ic('<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>')],['set','Settings',ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>')]];
+const IMSG=ic('<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>');
+/* v1.3.8: nav se 'Paighaam' tab hata — chat ka rasta har khata ke header icon se hai */
+const NV=[['home','Home',ic('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>')],['cal','Rozana',ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>')],['rep','Report',ic('<path d="M5 20V11M12 20V4M19 20v-6"/>')],['set','Settings',ic('<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>')]];
 const IC={cal:ic('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>'),clk:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),coin:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3H15"/>'),pen:ic('<path d="M4 20l1-4L16 5l3 3L8 19z"/>'),wal:ic('<path d="M3 7a2 2 0 0 1 2-2h13v4"/><path d="M3 7v11a2 2 0 0 0 2 2h16V9H5a2 2 0 0 1-2-2z"/><circle cx="16.5" cy="14.5" r="1"/>'),sv:ic('<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h7V3M8 21v-6h8v6"/>'),ph:ic('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),ar:ic('<path d="M5 12h14M13 6l6 6-6 6"/>'),us:ic('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),pin:ic('<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'),clip:ic('<path d="M20 11l-8 8a5 5 0 0 1-7-7l8-8a3.5 3.5 0 0 1 5 5l-8 8a2 2 0 0 1-3-3l7-7"/>'),scr:ic('<path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7"/>'),ok:ic('<path d="M5 12l4 4 10-10"/>')};
 const PAYLOGO={jc:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAB4FBMVEX///////7///3///v+///9///+//79//39//v8///7///5///8//v5//v//v///v7//v3+/v/+/v7+/v3//vz+/vz//f7+/f7+/fz//P3+/Pz9/v79/vz9/f39/P79/Pz8/v/7/vz8/f35/f3+/vv9/vv9/Pr9/fn+/fX7/fv7/Pr7/fj6/fL++/z8+/v6+/v9+vv6+vv8+Pv7+ff5+Nr48+X17Oz14+Pw3Nv38Lz36qv0337x0qb21GD01WDz1V310Dv9zg7zyjH5yhX8zQn8yAf/xwn+xwn+xwb8xwb7xhP9xgn+xgj/xgf9xgf/xgb/xgT+xgX8xgXywWf5wxD/xQn+wgr5wwr/xQj+xQj9wwj/xQf9xQf9wwf/xQX9xQX/xAT9xAL+wgT8wgD6wwP2wgL8wQD3wALpuLrnrrHuq1bil53qkkDjgGrca13naBfeWUjbQDXbMTHvJivvJSrtJirwJCvuJCvuJCjrJirrJCjmJiTbKC7yIynvIynvIyfuIyzuIynuIyjuIyftIyvtIyntIyfsIyrsIyjqIyjyISnwISfvIirvICruIivuIinuIifuISjtIirtIifsICfoISXbICTuHCXoGiDhGh7ZGyDrFiLlFhvfFhvjEx3jDxhxdCkDAAAIGUlEQVR42u2Y+1Nh/x/Hj+3QnrSUTSopIlZUii2X+XTR2k1yySBl09q229i0uij0UeS4lGjVJkX7r36ONrvlsl982pnvZ6bn+IE55v04r/f7/boCwJOe9KQnPem/LwyhuQlX7GF9PZlKJhLIFDKJQKZWBiAyGayGwo9wODKV3tXD62L3dnWxWRxUJevj2jvQdC6LSch/RGjh9faQAACNfAfBGjavm1QBgIAWiAVcAE2pA+69IAgA+Pa2zLcBoXAFkVA4gEV+tfeQ8GXtP4WFFUsXx4bFAhBdy2psqLqF4Ci0Xh6IhgZX12z2vYskoos9u21tdRAEqH3tNEYttbHE/e+kQEML45ZP02NDIjKWg/9hBIbTD0KDVtteOpW6DHkcGQUS16n0nm11oAbikxrJUGmAZ4x2YHhJb5bJLJ/GhkU1bFaGgOK1QcK1jZvrxLbjJAJ7PRkF/dvbjq+p1IZ1EHjR11xb4h41ccC/lsZNswaFfH5hTMKtZeFQjd3AwNrezbnHGT0Lu13BcDgOw3A4HDs5293e/vZ9wzoAdZNLWx9FZIFDS+Nqs3rGrHlrXh4RYXv4dHDVfnPk9Ed83mgs5vXCMPKBfYFg0O/1+Tzbp2n7CranxC0iMhHAO7VJqVRqNHr9woSYg+WvpRNH4bC3iPy7B4mrFbCldMBCFqA2GeTLEuGXlBMOu46KrO+Dtw/2v1uB8gFqhKBVzY59Th+4gn5XLH9tGI6EToNbl+mNtYE2VImA9p+AjFTqyfnR9WQA9gei+YAzVzzoPL+xWwexJe5QHgCReRYhOKKHBSwIhD2O5IaVD9T0tdEqBmgMs2PryZ3jeD4g4t9P2waxLf10dkdNxYDJ9/OyCff5YSRn9f1gBD6+sGKh/k4SpZZCrhig1Kg/jn5OOv05l8cd3z2+WAX62wnlBLuCAKXSMLp+Hcg5hPjB/sUK0NdVXqwuDFAbZDr3KfwQcHRwZQX66W3/HqBWKo0Lb9YvPaf+06wDeGOnzps1qK+FRP33AERGyzud++g4uP8TEHFe2/m9L8tOZ0UAevncm/XrSCh7k4Je2JlcAfmYxwKYLNo3n5PBwIEvewKbKVtNfyvusQDmKZle5z53n9wtH4qEL4S4LhrwWADE3T6MridcgbsjCB+lbI08HPiIAKUZcQVHFhD/O70K8vDNjwp4o3MHA9kjON4YBFvR5McEmBBfi0fvDnknZaN0Y8BH3SKlVmdPeO4MOEhZob6K6tLfADKnnAU40qtQzx8AXDvutmj/agVof2zARwSwlQ0VF0KQ8tiAuV+A3ZM9IYD/kxZkAI1/0AJvsOItquqkgcNFAYld769DZlYGeN5RXQSgmrCfZwFbSKToqRCQsWCykCePI57s+xmsrZUCWjtqCwJMJiQWHWRro51LG4WEqSBSACgGgztieZv3/mojktKSjvhdtDv8igQ7ciUAHJPBlRYA6DWII186Ig/CNYguH1DHaRTpNJN5AKP57YQ7cfAr4Vza6ruBCkx4znkmWco3wDifKe4c/tD9lAn0QOUDGHSB1JB/RWfeIyX2tSuaTfoerzOT9KvLP2MmVrIsywfItUhddOaK/qoegzuVlC2EJkCsU5vzAVNa5IidIe+98tR1aef3lZczMTQmViC1yA3qnFSmNs4i+TLselCcfr0tHZnllI543gvByLJcY8x5/fkPGQOSzpwG4cSZXC2n+EU1vKIJRj69007l+tgHo2VUl4zmdDjB6FEgU76zSw7Ur0CR9JP8g16vyQFoDOYJ+7doLPCwwQnEj88vVsFSGpC6Omoni1otHltQGMwzxvsmmJQqVeaKJrcCuQ3avje2c9tC8YnkThq1/jcA2qsmJoYr0SkUJn1ujFOqtLddZqBACw5HXLdNILG3o7njN4eN7+JQaaKRTzOqGb05DzD/HvHhImME2Hn4dyrTxmK76PTizsuuBwVDuulpucVsvL//U2qj0Tw5Y1l3x10w0nIUAISi8c3jTCMOQsXqVDKrHhJIpItaxRxyf9T3XUCuMUzJ9YvDtu+b0ZgzHioAODyGYzubt6OEDnzR4CORLltkivwUYNDLFdOLQ9z+tTS8dXxadNoCbzl2iw5D8DTkbs7rFJr8+DBpMcwujYlfsIho6961w30CFyPsbCauVuoLA+oAyfKEbH5eoVKbjCZEyJtPTaqmxqdMKtnC4rAAxWV19GGFX9LfNiNxOBKJ+X6MWWDY5wsFg16fL7J5dmNfwfKKuAAkXlzQyVWzMwrFeyMihWJmfm7WMqfXLi2PiLlAAw4E63oAttWevvRsH4Rd4cDt8oji8VjYs7N5nrodqRUL3SymWLq49FEmm9Rqp9Qa9dycUTGhmJpbmB4RvwY4jB//6u6HBqz2m1Ri1xMM3g0F436n03GeSm8gd4je21wM0ETHvpaM6JYXF5YMetPbSY1GY1lanpYOibgQi/WqKhtoe9EAf8W2cXVznQhtbd2NNW+yY822lqJjzWoSFwtyBZKhEekY4gvT07ox6bBE9BrCdnQ3MWh3AaCeQqL0tgLogRXr3WD26mLP/mVtdRANQHwencQqOphFZWalJBCo5goEIpFYLBIJuM8BACQ2oHKDGL4l0xKA/Aej5RYeHvjf3TKK2NDFpoJoNAiAEI3NaCe9RFYnFBiON/eyScCPagKidvNaSh+Os1gMBgsRh8Nsxj0rNuCrBqEaWma8j4jew2CVMd7HYFqJBHJrK4FAJj6rqioGQGMIpI7WVhLpJZFMItAqqe2e9KQnPelJ/y/6B6skdCe1vg48AAAAAElFTkSuQmCC',ep:'data:image/png;base64,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'};
 function hwIc(h){return h==='JazzCash'?'<img class="plc" src="'+PAYLOGO.jc+'" alt="JazzCash">':h==='Easypaisa'?'<img class="plc" src="'+PAYLOGO.ep+'" alt="EasyPaisa">':''}
@@ -1204,13 +1214,13 @@ if(!had&&tws){role='owner';had=true}
 if(!had)role='owner'; /* v1.3.0: popup hata — default owner, Settings se badal sakte hain */
 ST.role=role;try{localStorage.setItem('aslam_role',role)}catch(e){}saveST();
 (role==='owner'?ownerBoot:farmerBoot)();msgBoot();}
-const NVF=[['fhome','Khata',NV[0][2]],['msg','Paighaam',NV[3][2]],['set','Settings',NV[4][2]]];
+const NVF=[['fhome','Khata',NV[0][2]],['set','Settings',NV[3][2]]];
 function lnkV(){view='lnk';cur=null;navR();
 $('v').innerHTML='<div class="nt"><div class="card">'+BH('Farmer link requests','کسان لنک درخواستیں')+lrH()+'</div></div>'}
 function cpTxt(s){try{navigator.clipboard.writeText(s);toast(BT('Copy ho gaya'))}catch(e){toast('Copy nahi hua')}}
 /* ===== Farmer: kisan khata (booking/talaash v81 mein hata) ===== */
 function fHome(){view='fhome';cur=null;navR();
-$('v').innerHTML='<div class="nt"><div class="card slav band"><div class="cband cb-lav"><span class="bi">🌾</span>'+BH('My Farmer Khata','میرا کسان کھاتا')+'</div><div class="cbody"><div id="fkdata">'+fKhataBox()+'</div></div></div></div>'+'<div id="fchatwrap">'+fChatCardH()+'</div>'}
+$('v').innerHTML='<div class="nt"><div class="card slav band"><div class="cband cb-lav"><span class="bi">🌾</span>'+BH('My Farmer Khata','میرا کسان کھاتا')+'<span class="cbtn" id="fchatb" role="button" aria-label="'+BT('Paighaam')+'" onclick="chatFarmerGo()" style="display:none">'+IMSG+'</span></div><div class="cbody"><div id="fkdata">'+fKhataBox()+'</div></div></div></div>';chatBadge()}
 /* ===== v63: Kisan Code Based Account Linking ===== */
 let LREQ=[],FLREQ=[],FDATA=null,FDATAF='',lrUnsub=null,flUnsub=null,lastFC={},lastFD={},lrT=0,lrSig='',fdRetry={},fdBT=0,fdHad=false,fdErr='',fdRT={},flBusy=false,flSentC='',flSentT=0,FDMAP={},FDHAD={},FDMISS={},fdUn={},fkCur=null,flLoaded=false,FKC={},FD_OFF={},fkCLd=0;
 const genFCode=()=>{const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=A[Math.floor(Math.random()*A.length)];return 'FR-'+s};
@@ -1296,7 +1306,7 @@ if(fkCur&&!L.some(x=>x.frId===fkCur))fkCur=null;
 if(!fkCur&&L.length){fkCur=L[0].frId;try{localStorage.setItem('aslam_fkc',fkCur)}catch(e){}}
 if(fkCur&&fkCur!==prev){FDATA=FDMAP[fkCur]||null;FDATAF=fkCur}else if(fkCur&&FDMAP[fkCur]&&FDATAF===fkCur)FDATA=FDMAP[fkCur];
 fdListenAll();fkSoft()}
-function fkSoft(){if(view!=='fhome')return;const m=$('fkdata');if(m&&!$('em'))m.innerHTML=fKhataBox();else if(!m)fHome()}
+function fkSoft(){if(view!=='fhome')return;const m=$('fkdata');if(m&&!$('em')){m.innerHTML=fKhataBox();chatBadge()}else if(!m)fHome()}
 /* ===== v69: Notification bell (header) ===== */
 let nPrev={};
 const nSeen=()=>{try{return +localStorage.getItem('aslam_nseen')||0}catch(e){return 0}};
@@ -1375,10 +1385,10 @@ function fkPick(frId){if(!flsGet().some(x=>x.frId===frId))return;fkCur=frId;try{
 FDATA=FDMAP[frId]||null;FDATAF=frId;fkSoft();try{window.scrollTo(0,0)}catch(e){}}
 /* v78: alag alag malikon ke khatay — rich list (naam, baqaya, update) */
 function fkTabsH(L,cur){if(L.length<2)return'';let h='<div class="mut sm" style="margin-bottom:6px">'+BT('Mere khatay \u2014 alag alag malik')+' ('+L.length+')</div><div class="fklist">';
-h+=L.map(x=>{const d=FDMAP[x.frId],on=x.frId===cur,due=d?(+d.due||0):null;
+h+=L.map(x=>{const d=FDMAP[x.frId],on=x.frId===cur,due=d?(+d.due||0):null,cc=(x.ownerUid&&U)?chatCid(x.ownerUid,U.uid):'',uu=cc?unFor(cc):0;
 return '<button class="fkli'+(on?' on':'')+'" onclick="fkPick(\''+x.frId+'\')"><span class="fklih"><b class="nt">'+esc((d&&d.twName)||x.code||'Tubewell')+'</b>'
 +(d?(due>0?'<span class="pill r">'+BT('Baqaya ')+rs(due)+'</span>':(on?'':'<span class="pill">'+BT('Hisab saaf')+'</span>')):'<span class="pill">\u23f3</span>')
-+(on?'<span class="pill">'+BT('dekh rahe hain')+'</span>':'')+'</span>'
++(on?'<span class="pill">'+BT('dekh rahe hain')+'</span>':'')+(cc?'<span class="cbtn" role="button" aria-label="'+BT('Paighaam')+'" data-cid="'+cc+'" onclick="event.stopPropagation();chatV(\''+cc+'\',\''+x.frId+'\')">'+IMSG+(uu?'<i class="mbdg">'+(uu>9?'9+':uu)+'</i>':'')+'</span>':'')+'</span>'
 +'<span class="fklis">'+(d?((d.name?esc(d.name)+' \u2022 ':'')+(d.upAt?BT('Update: ')+fmtDTU(d.upAt):BT('Record abhi nahi aaya'))):(BT('Record abhi nahi aaya')+' \u2022 <bdi dir="ltr">'+esc(x.code||'')+'</bdi>'))+'</span></button>'}).join('');
 return h+'</div>'}
 function fkPendH(L){let h='';const used=new Set(L.map(x=>x.code));
@@ -1916,9 +1926,12 @@ function bkGo(){try{const x=JSON.parse($('bkt').value);if(!Array.isArray(x.farme
 function imp(el){const fl=el.files[0];if(!fl)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!Array.isArray(x.farmers))throw 0;if(!confirm('Maujooda data backup se badal jayega. Pakka?'))return;applyBk(x);home()}catch(e){alert('Yeh sahi backup file nahi hai')}el.value=''};r.readAsText(fl)}
 /* ===== v1.3.4: Malik-Kisan Paighaam (chat) — mch/{cid} + m/{mid}, offline queue ===== */
 Object.assign(NB,{'Malik ko paighaam bhejein':{en:'Message your owner',ur:'مالک کو پیغام بھیجیں'},'💬 Chat kholein — malik se seedha baat karein':{en:'💬 Open chat — talk to your owner directly',ur:'💬 چیٹ کھولیں — مالک سے سیدھی بات کریں'},'Kisi cheez par etraz ho ya baat karni ho — paighaam seedha malik ko jayega (internet zaroori).':{en:'If something looks wrong or you want to talk — your message goes straight to the owner (internet needed).',ur:'کسی بات پر اعتراض ہو یا بات کرنی ہو — پیغام سیدھا مالک کو جائے گا (انٹرنیٹ ضروری)۔'},'Kisan se seedha baat — paighaam dono ko foran nazar aata hai (internet zaroori).':{en:'Direct chat with your farmers — messages appear for both instantly (internet needed).',ur:'کسان سے سیدھی بات — پیغام دونوں کو فوراً نظر آتا ہے (انٹرنیٹ ضروری)۔'},'Naya paighaam shuru karein':{en:'Start a new message',ur:'نیا پیغام شروع کریں'},'Paighaam likhein…':{en:'Type a message…',ur:'پیغام لکھیں…'},'Bhejein':{en:'Send',ur:'بھیجیں'},'Koi paighaam nahi — baat shuru karein.':{en:'No messages yet — say salaam.',ur:'کوئی پیغام نہیں — بات شروع کریں۔'},'Paighaam ke liye internet chahiye — internet on kar ke dobara kholein.':{en:'Internet is needed for messages — turn it on and reopen.',ur:'پیغاموں کے لیے انٹرنیٹ چاہیے — آن کر کے دوبارہ کھولیں۔'},'💬 Malik ka naya paighaam':{en:'💬 New message from owner',ur:'💬 مالک کا نیا پیغام'},'💬 Kisan ka naya paighaam':{en:'💬 New message from farmer',ur:'💬 کسان کا نیا پیغام'},'Paighaam ke liye pehle apne malik se khata link karein. Upar kisan code likh kar request bhejein — link hone par yahan se malik se seedha baat ho sakegi.':{en:'Link your khata with the owner first. Send a link request with the code above — once linked you can chat with the owner here.',ur:'پیغام کے لیے پہلے اپنے مالک سے کھاتہ لنک کریں۔ اوپر کسان کوڈ لکھ کر درخواست بھیجیں — لنک ہونے پر یہاں سے مالک سے سیدھی بات ہو سکے گی۔'},'Yahan aap ke kisanon se guftagu nazar aayegi. Kisan apna kisan code aap ke sath share karein — link hone ke baad dono paighaam bhej saken ge.':{en:'Your farmer conversations will appear here. The farmer shares their code with you — once linked, you both can message each other.',ur:'یہاں آپ کے کسانوں سے گفتگو نظر آئے گی۔ کسان اپنا کوڈ آپ کے ساتھ شیئر کرے — لنک ہونے کے بعد دونوں پیغام بھیج سکیں گے۔'},'Aaj':{en:'Today',ur:'آج'},'Kal':{en:'Yesterday',ur:'کل'},'offline':{en:'offline',ur:'آف لائن'},'Malik':{en:'Owner',ur:'مالک'}});
-let CHATS={},MSGQ=[],MSGS=[],chatOpenId='',chatName='',chatFrId='',chatPeer={o:'',f:''},mUnsub=null,mmUnsub=null,mqBusy=0,recMR=null,recStream=null,recChunks=[],recT0=0,recTimer=null,recSend=0,recMime='',curAU=null,LUN={},LSEEN={},LRD={},METAOK=0,MSUBS={};
+let CHATS={},MSGQ=[],MSGF=[],MSGS=[],chatOpenId='',chatName='',chatFrId='',chatPeer={o:'',f:''},mUnsub=null,mmUnsub=null,mqBusy=0,recMR=null,recStream=null,recChunks=[],recT0=0,recTimer=null,recSend=0,recMime='',recBytes=0,curAU=null,LUN={},LSEEN={},LRD={},METAOK=0,MSUBS={};
 try{const _q=JSON.parse(localStorage.getItem('aslam_msgq')||'[]');if(Array.isArray(_q))MSGQ=_q}catch(e){}
 const msgSaveQ=()=>{try{localStorage.setItem('aslam_msgq',JSON.stringify(MSGQ))}catch(e){}};
+/* v1.3.7: fail ho chuki paighaamat ki alag queue — bubble par tap karne se dobara bhejti hai */
+try{const _mf=JSON.parse(localStorage.getItem('aslam_msgfail')||'[]');if(Array.isArray(_mf))MSGF=_mf}catch(e){}
+const fSaveQ=()=>{try{localStorage.setItem('aslam_msgfail',JSON.stringify(MSGF))}catch(e){}};
 /* v1.3.6: badges rules-proof — local unread (LUN) + per-thread mini listeners; voice/mic robustness */
 try{const _lu=JSON.parse(localStorage.getItem('aslam_lun')||'{}');if(_lu&&typeof _lu==='object')LUN=_lu}catch(e){}
 try{const _ls=JSON.parse(localStorage.getItem('aslam_lseen')||'{}');if(_ls&&typeof _ls==='object')LSEEN=_ls}catch(e){}
@@ -1926,7 +1939,7 @@ try{const _lr=JSON.parse(localStorage.getItem('aslam_lrd')||'{}');if(_lr&&typeof
 const lunSave=()=>{try{localStorage.setItem('aslam_lun',JSON.stringify(LUN))}catch(e){}try{localStorage.setItem('aslam_lseen',JSON.stringify(LSEEN))}catch(e){}try{localStorage.setItem('aslam_lrd',JSON.stringify(LRD))}catch(e){}};
 const lunTotal=()=>{let n=0;Object.keys(LUN).forEach(k=>{n+=+LUN[k]||0});return n};
 const micHad=()=>{try{return localStorage.getItem('aslam_micok')==='1'}catch(e){return false}};
-function miniSub(cid){if(!cid||MSUBS[cid]||!FS||!U)return;try{MSUBS[cid]=FS.collection('mch').doc(cid).collection('m').orderBy('at','desc').limit(1).onSnapshot(sn=>{sn.docChanges().forEach(c=>{if(c.type==='removed')return;const d=c.doc.data()||{},at=+d.at||0,my=mySide();if(!at||d.s===my)return;const base=Math.max(LSEEN[cid]||0,LRD[cid]||0);if(at<=base)return;LSEEN[cid]=at;if(chatOpenId!==cid){if(!METAOK){LUN[cid]=(LUN[cid]||0)+1}ding();try{toast(BT(my==='f'?'💬 Malik ka naya paighaam':'💬 Kisan ka naya paighaam'))}catch(e){}}lunSave();chatBadge();if(view==='msg'&&!chatOpenId)msgV();else if(view==='fhome')fChatPaint();if(MSGQ.length)flushMsgQ()})},()=>{try{if(MSUBS[cid]){MSUBS[cid]();delete MSUBS[cid]}}catch(e){}setTimeout(()=>{try{if(chatOpenId!==cid&&U&&FS)miniSub(cid)}catch(e){}},12000)})}catch(e){}}
+function miniSub(cid){if(!cid||MSUBS[cid]||!FS||!U)return;try{MSUBS[cid]=FS.collection('mch').doc(cid).collection('m').orderBy('at','desc').limit(1).onSnapshot(sn=>{sn.docChanges().forEach(c=>{if(c.type==='removed')return;const d=c.doc.data()||{},at=+d.at||0,my=mySide();if(!at||d.s===my)return;const base=Math.max(LSEEN[cid]||0,LRD[cid]||0);if(at<=base)return;LSEEN[cid]=at;if(chatOpenId!==cid){if(!METAOK){LUN[cid]=(LUN[cid]||0)+1}ding();try{toast(BT(my==='f'?'💬 Malik ka naya paighaam':'💬 Kisan ka naya paighaam'))}catch(e){}}lunSave();chatBadge();if(MSGQ.length)flushMsgQ()})},()=>{try{if(MSUBS[cid]){MSUBS[cid]();delete MSUBS[cid]}}catch(e){}setTimeout(()=>{try{if(chatOpenId!==cid&&U&&FS)miniSub(cid)}catch(e){}},12000)})}catch(e){}}
 function miniHalt(){Object.keys(MSUBS).forEach(k=>{try{MSUBS[k]()}catch(e){}delete MSUBS[k]})}
 function ownMiniSync(){if(ST.role!=='owner'||!U||!FS)return;try{db.farmers.filter(f=>f.linkedUid).forEach(f=>miniSub(chatCid(U.uid,f.linkedUid)))}catch(e){}}
 function badgeN(){return METAOK?chatTotalUn():lunTotal()}
@@ -1938,9 +1951,15 @@ const chatCacheGet=cid=>{try{const v=JSON.parse(localStorage.getItem(chatCacheK(
 const chatCacheSet=(cid,M)=>{const L=M.slice(-60);try{localStorage.setItem(chatCacheK(cid),JSON.stringify(L))}catch(e){try{localStorage.setItem(chatCacheK(cid),JSON.stringify(L.map(m=>m&&m.ty==='v'?Object.assign({},m,{au:''}):m)))}catch(e2){}}};
 const frOwnerUid=()=>{const D=FDATA||FDMAP[fkCur]||null;if(D&&D.ownerUid)return D.ownerUid;try{const x=flsGet().find(z=>z.frId===(fkCur||''));return (x&&x.ownerUid)||''}catch(e){return''}};
 function chatTotalUn(){let n=0;const f=mySide()==='o'?'uo':'uf';Object.keys(CHATS).forEach(k=>{n+=+CHATS[k][f]||0});return n}
-function chatBadge(){const b=document.querySelector('.nb[data-v="msg"]')||document.querySelector('.nb[aria-label="Paighaam"]');if(!b)return;const n=badgeN();let d=b.querySelector('.mbdg');
-if(n>0){if(!d){d=document.createElement('i');d.className='mbdg';b.appendChild(d)}d.textContent=n>9?'9+':''+n}else if(d)d.remove()}
-function msgMetaUI(){chatBadge();if(view==='msg'&&!chatOpenId)msgV();else if(view==='fhome')fChatPaint()}
+/* v1.3.8: badge ab bottom nav ke bajaye har khata ke apne chat icon par — unFor(per-thread), bdgSet, band + khata-header + list-row icons */
+function unFor(cid){if(METAOK){const m=CHATS[cid];return m?(+m[mySide()==='o'?'uo':'uf']||0):0}return +LUN[cid]||0}
+function bdgSet(el,n){if(!el)return;let d=el.querySelector('.mbdg');if(n>0){if(!d){d=document.createElement('i');d.className='mbdg';el.appendChild(d)}d.textContent=n>9?'9+':''+n}else if(d)d.remove()}
+function chatBadge(){const fb=document.getElementById('fchatb');
+if(fb){const ou2=frOwnerUid(),on=!!(ou2&&U);fb.style.display=on?'':'none';if(on)bdgSet(fb,unFor(chatCid(ou2,U.uid)))}
+const ob=document.getElementById('ochatb');
+if(ob){const f=cur?db.farmers.find(x=>x.id===cur):null,on=!!(f&&f.linkedUid&&U);ob.style.display=on?'':'none';if(on&&f)bdgSet(ob,unFor(chatCid(U.uid,f.linkedUid)))}
+document.querySelectorAll('.cbtn[data-cid]').forEach(el=>bdgSet(el,unFor(el.getAttribute('data-cid'))))}
+function msgMetaUI(){chatBadge()}
 function chatDay(ts){const d=wxYmd(ts),n=Date.now();if(d===wxYmd(n))return BT('Aaj');if(d===wxYmd(n-864e5))return BT('Kal');return fmtD(d)}
 const chatT=ts=>{const d=new Date(ts||0);return pad(d.getHours()%12||12)+':'+pad(d.getMinutes())+' '+(d.getHours()>=12?'PM':'AM')};
 function msgFarmerTry(){if(ST.role!=='farmer'||!U||!FS||mUnsub)return;const ou=frOwnerUid();if(!ou)return;const cid=chatCid(ou,U.uid);
@@ -1969,9 +1988,9 @@ return '<button class="fm" onclick="chatV(\''+cid+'\',\''+f.id+'\')"><div style=
 $('v').innerHTML=h+'</div></div>'}
 function chatFarmerGo(){const ou=frOwnerUid();if(ou)chatV(chatCid(ou,U.uid),'');else msgV()}
 function chatRepaint(){if(chatOpenId&&view==='chat')chatPaintMsgs();else HG()}
-function msgBack(){try{voiceHalt()}catch(e){}if(mmUnsub){try{mmUnsub();mmUnsub=null}catch(e){}}chatOpenId='';MSGS=[];if(ST.role==='farmer')HG();else msgV()}
+function msgBack(){try{voiceHalt()}catch(e){}if(mmUnsub){try{mmUnsub();mmUnsub=null}catch(e){}}chatOpenId='';MSGS=[];HG()}
 function chatV(cid,frId){if(ST.role==='owner'){const f=db.farmers.find(x=>x.id===frId);if(!f||!f.linkedUid){HG();return}cid=chatCid(U.uid,f.linkedUid);chatName=f.name||'Kisan';chatPeer={o:U.uid,f:f.linkedUid}}
-else{const ou=frOwnerUid();if(!ou){HG();return}cid=chatCid(ou,U.uid);chatName=(FDATA&&FDATA.oname)||ST.name||BT('Malik');chatPeer={o:ou,f:U.uid}}
+else{const fx='f'+U.uid,p=cid?cid.lastIndexOf(fx):-1;let ou=(p>1)?cid.slice(1,p):frOwnerUid();if(!ou){HG();return}cid=chatCid(ou,U.uid);const D=frId?(FDMAP[frId]||FDATA):FDATA;chatName=(D&&D.oname)||ST.name||BT('Malik');chatPeer={o:ou,f:U.uid}}
 chatFrId=frId||'';view='chat';chatOpenId=cid;navR();MSGS=chatCacheGet(cid);
 const sub=ST.role==='owner'?BT('Kisan'):BT('Malik');
 $('v').innerHTML='<div class="nt chatw"><div class="mhd"><button class="mbk" onclick="msgBack()" aria-label="Back">'+(document.documentElement.dir==='rtl'?'→':'←')+'</button><div style="min-width:0;flex:1"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(chatName)+'</b><small class="mut">'+sub+(navigator.onLine?'':' • '+BT('offline'))+'</small></div></div>'
@@ -1992,8 +2011,8 @@ function chatPaintMsgs(){const w=$('mbub');if(!w)return;const my=mySide();
 MSGS.sort((a,b)=>(a.at||0)-(b.at||0));
 let h='',ld='';
 MSGS.forEach(m=>{const d=wxYmd(m.at||0);if(d!==ld){ld=d;h+='<div class="mday">'+chatDay(m.at||0)+'</div>'}
-if(m.ty==='v')h+='<div class="mrowb '+(m.s===my?'me':'ta')+' mvb"><button class="vpl" onclick="voiceTap(\''+m.id+'\',this)" aria-label="'+BT('Voice sunne ke liye tap karein')+'">▶</button><b class="vdur" dir="ltr">'+fmtDur(m.ad||0)+'</b><small class="mtm">'+(m.pend?'⏳ ':'')+chatT(m.at)+'</small></div>';
-else h+='<div class="mrowb '+(m.s===my?'me':'ta')+'"><span class="mbub1">'+esc(m.t)+'</span><small class="mtm">'+(m.pend?'⏳ ':'')+chatT(m.at)+'</small></div>'});
+if(m.ty==='v')h+='<div class="mrowb '+(m.s===my?'me':'ta')+' mvb"><button class="vpl" onclick="voiceTap(\''+m.id+'\',this)" aria-label="'+BT('Voice sunne ke liye tap karein')+'">▶</button><b class="vdur" dir="ltr">'+fmtDur(m.ad||0)+'</b><small class="mtm">'+(m.err?'⚠️ ':(m.pend?'⏳ ':''))+chatT(m.at)+'</small></div>';
+else h+='<div class="mrowb '+(m.s===my?'me':'ta')+'"'+(m.err?' onclick="retryMsg(\''+m.id+'\')"':'')+'><span class="mbub1">'+esc(m.t)+'</span><small class="mtm">'+(m.err?'⚠️ ':(m.pend?'⏳ ':''))+chatT(m.at)+'</small></div>'});
 if(!MSGS.length)h='<div class="empty" style="margin:auto">'+BT('Koi paighaam nahi — baat shuru karein.')+'</div>';
 w.innerHTML=h;try{w.scrollTop=w.scrollHeight}catch(e){}}
 function chatSend(){const e=$('mvin');if(!e)return;const t=(e.value||'').replace(/\s+/g,' ').trim().slice(0,500);if(!t||!chatOpenId)return;e.value='';
@@ -2004,14 +2023,33 @@ const fn=ST.role==='owner'?chatName:(ST.fname||(U&&U.displayName)||'Kisan');
 MSGQ.push({t:'msg',cid:cid,mid:mid,d:{s:my,t:t,at:at,o:chatPeer.o,f:chatPeer.f},meta:{o:chatPeer.o,f:chatPeer.f,on:on,fn:fn,lt:t.slice(0,60),la:at,inc:my==='o'?'uf':'uo',upAt:at}});
 msgSaveQ();flushMsgQ();
 const c=CHATS[cid];if(c){c.lt=t.slice(0,60);c.la=at}}
+/* v1.3.7: fail ho chuki message ko ⚠️ karo (cache + khula thread dono) */
+function msgFailMark(mid,cid){if(!mid)return;const mk=m=>{if(m){m.pend=0;m.err=1}};
+try{const c=chatCacheGet(cid),cm=c.find(x=>x.id===mid);if(cm){mk(cm);chatCacheSet(cid,c)}}catch(e){}
+if(chatOpenId===cid){const m=MSGS.find(x=>x.id===mid);if(m){mk(m);if(view==='chat')chatPaintMsgs()}}}
+/* v1.3.7: ⚠️ bubble par tap — failed queue se wapas MSGQ, phir bhejna */
+function retryMsg(mid){const i=MSGF.findIndex(x=>x.mid===mid);
+if(i<0){const m0=MSGS.find(x=>x.id===mid);if(m0){m0.err=0;try{if(chatOpenId){chatCacheSet(chatOpenId,MSGS);if(view==='chat')chatPaintMsgs()}}catch(e){}}return}
+const q=MSGF[i];MSGF.splice(i,1);fSaveQ();try{delete q.tr}catch(e){}
+const cl=ms=>{const m=ms.find(x=>x.id===mid);if(m){m.err=0;m.pend=1}};
+if(chatOpenId===q.cid){cl(MSGS);chatCacheSet(q.cid,MSGS);if(view==='chat')chatPaintMsgs()}
+else{try{const c=chatCacheGet(q.cid);cl(c);chatCacheSet(q.cid,c)}catch(e){}}
+MSGQ.unshift(q);msgSaveQ();flushMsgQ()}
+/* v1.3.7: har message ki apni koshish (3) — fail par ⚠️ + MSGF + queue aage barhti hai (khamoshi se deadlock khatam) */
 function flushMsgQ(){if(!U||!FS||!navigator.onLine||!MSGQ.length||mqBusy)return;mqBusy=1;
 (async()=>{try{while(MSGQ.length){const q=MSGQ[0];
+try{
 if(q.t==='read'){await FS.collection('mch').doc(q.cid).set(q.side==='o'?{uo:0}:{uf:0},{merge:true})}
 else{const meta={o:q.meta.o,f:q.meta.f,on:q.meta.on,fn:q.meta.fn,lt:q.meta.lt,la:q.meta.la,upAt:q.meta.upAt};
 if(!q.ms){try{meta[q.meta.inc]=firebase.firestore.FieldValue.increment(1)}catch(e){meta[q.meta.inc]=1}}
 await FS.collection('mch').doc(q.cid).collection('m').doc(q.mid).set(q.d);
 await FS.collection('mch').doc(q.cid).set(meta,{merge:true});q.ms=1;msgSaveQ()}
-MSGQ.shift();msgSaveQ()}}catch(e){}finally{mqBusy=0}})()}
+MSGQ.shift();msgSaveQ()}
+catch(e){q.tr=(q.tr||0)+1;
+if(q.tr>=3){MSGQ.shift();msgSaveQ();MSGF.push(q);MSGF=MSGF.slice(-30);fSaveQ();msgFailMark(q.mid,q.cid);try{toast(BT('Paighaam nahi gaya — is par tap kar ke dobara bhejein'))}catch(_){}}
+else break}}
+}catch(e){}finally{mqBusy=0}})()}
+
 function chatMarkRead(){const cid=chatOpenId;if(!cid||view!=='chat')return;const m=CHATS[cid],my=mySide(),fld=my==='o'?'uo':'uf';
 if(m&&+m[fld]>0){CHATS[cid][fld]=0;chatBadge();
 if(navigator.onLine){try{FS.collection('mch').doc(cid).set(fld==='o'?{uo:0}:{uf:0},{merge:true}).catch(()=>{})}catch(e){}}
@@ -2019,31 +2057,31 @@ else{MSGQ.push({t:'read',cid:cid,side:my});msgSaveQ()}}
 try{if(LUN[cid]){LUN[cid]=0;lunSave();chatBadge()}}catch(e){}
 try{LRD[cid]=Date.now();lunSave()}catch(e){}}
 
-function fChatUn(){const ou=frOwnerUid();if(!ou||!U)return 0;if(!METAOK)return +LUN[chatCid(ou,U.uid)]||0;const m=CHATS[chatCid(ou,U.uid)];return m?(+m.uf||0):0}
-function fChatCardH(){if(ST.role!=='farmer')return'';const ou=frOwnerUid();if(!ou)return'';const un=fChatUn();
-return '<div class="card sblue band"><div class="cband cb-blue"><span class="bi">💬</span>'+BH('Malik ko paighaam bhejein','مالک کو پیغام بھیجیں')+(un?'<span class="pill r">'+un+'</span>':'')+'</div><div class="cbody"><button class="p" style="width:100%" onclick="go(\'msg\')">'+BT('💬 Chat kholein — malik se seedha baat karein')+'</button><div class="mut sm" style="margin-top:8px">'+BT('Kisi cheez par etraz ho ya baat karni ho — paighaam seedha malik ko jayega (internet zaroori).')+'</div></div></div>'}
-function fChatPaint(){const w=$('fchatwrap');if(w)w.innerHTML=fChatCardH()}
+/* v1.3.8: fChatUn/fChatCardH/fChatPaint hata — chat ka entry ab khata band (cband) ke chat icon par hai; badges unFor/chatBadge sambhalte hain */
 window.addEventListener('online',()=>setTimeout(flushMsgQ,700));
 setInterval(()=>{if(MSGQ.length&&navigator.onLine)flushMsgQ()},30000);
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.id==='mvin'){e.preventDefault();chatSend()}});
 /* v1.3.5: voice message — mic record (MediaRecorder), max 60s, base64 Firestore doc mein, offline queue, tap-to-play */
 Object.assign(NB,{'🎤 Voice':{en:'🎤 Voice message',ur:'🎤 آوازی پیغام'},'Voice paighaam':{en:'Voice message',ur:'آوازی پیغام'},'Recording…':{en:'Recording…',ur:'ریکارڈنگ…'},'Voice sunne ke liye tap karein':{en:'Tap to play voice',ur:'سننے کے لیے دبائیں'},'Rad karein':{en:'Cancel',ur:'منسوخ کریں'},'Mic ki ijazat nahi mili — phone ki settings se mic on karein':{en:'Microphone permission denied — allow mic in phone settings',ur:'مائیک کی اجازت نہیں ملی — فون کی سیٹنگز سے مائیک آن کریں'},'Is phone par voice recording nahi hoti':{en:'Voice recording is not supported on this phone',ur:'اس فون پر آواز ریکارڈ نہیں ہو سکتی'},'Voice 60 second tak hi ho sakti hai':{en:'Voice message can be up to 60 seconds',ur:'آوازی پیغام زیادہ سے زیادہ 60 سیکنڈ کا ہو سکتا ہے'},'Yeh voice is phone par nahi chal sakti':{en:'This voice message cannot play on this phone',ur:'یہ آوازی پیغام اس فون پر نہیں چل سکتا'},'Voice sunne ke liye internet chahiye':{en:'Internet is needed to play voice',ur:'آواز سننے کے لیے انٹرنیٹ چاہیے'}});
-Object.assign(NB,{'Mic ki ijazat pehle mil chuki thi — dobara nahi mil rahi, phone ki settings se is browser ko mic Allow karein':{en:'Mic was allowed before — if it asks again, allow the microphone for this browser in phone settings',ur:'مائیک کی اجازت پہلے مل چکی تھی — دوبارہ نہیں مل رہی، فون کی سیٹنگز سے اس براؤزر کو مائیک Allow کریں'},'Yeh voice abhi load nahi hui — thori dair baad try karein':{en:'This voice has not loaded yet — try again in a moment',ur:'یہ آوازی ابھی لوڈ نہیں ہوئی — تھوڑی دیر بعد دوبارہ کوشش کریں'}});
+Object.assign(NB,{'Mic ki ijazat pehle mil chuki thi — dobara nahi mil rahi, phone ki settings se is browser ko mic Allow karein':{en:'Mic was allowed before — if it asks again, allow the microphone for this browser in phone settings',ur:'مائیک کی اجازت پہلے مل چکی تھی — دوبارہ نہیں مل رہی، فون کی سیٹنگز سے اس براؤزر کو مائیک Allow کریں'},'Yeh voice abhi load nahi hui — thori dair baad try karein':{en:'This voice has not loaded yet — try again in a moment',ur:'یہ آوازی ابھی لوڈ نہیں ہوئی — تھوڑی دیر بعد دوبارہ کوشش کریں'},'Paighaam nahi gaya — is par tap kar ke dobara bhejein':{en:'Message not sent — tap it to send again',ur:'پیغام نہیں گیا — اس پر دبانے سے دوبارہ بھیجیں'},'Voice bohat lambi ho gayi — jo record hui wo bhej rahe hain':{en:'Voice got too long — sending what was recorded',ur:'آواز بہت لمبی ہو گئی — جو ریکارڈ ہوئی وہ بھیجی جا رہی ہے'},'Yeh voice bohat bari hai — thora chhota voice bhejein':{en:'This voice is too big — send a shorter one',ur:'یہ آواز بہت بڑی ہے — مختصر آواز بھیجیں'}});
 const MIC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v4"/></svg>';
 const fmtDur=s=>{s=Math.max(0,Math.round(s||0));return Math.floor(s/60)+':'+pad(s%60)};
+/* v1.3.7: size budget — har phone par upload pakka (base64 Firestore doc 1MB had ke andar) */
+const VCAP=620*1024,VSFT=560*1024;
 const voiceMime=()=>{if(!window.MediaRecorder)return'';const L=['audio/mp4;codecs=mp4a.40.2','audio/mp4','audio/aac','audio/webm;codecs=opus','audio/webm'];for(let i=0;i<L.length;i++){try{if(MediaRecorder.isTypeSupported(L[i]))return L[i]}catch(e){}}return''};
 function recUI(on){const a=$('mrow'),b=$('mrec');if(a)a.style.display=on?'none':'';if(b)b.style.display=on?'flex':'none'}
-function voiceHalt(){try{if(recMR&&recMR.state==='recording'){recSend=0;recMR.stop()}}catch(e){}recMR=null;try{if(recTimer){clearInterval(recTimer)}}catch(e){}recTimer=null;try{if(recStream){recStream.getTracks().forEach(t=>t.stop())}}catch(e){}recStream=null;recChunks=[];recSend=0;try{recUI(0)}catch(e){}try{if(curAU){curAU.pause();curAU=null}}catch(e){}}
-function voiceTick(){const s=Math.floor((Date.now()-recT0)/1000),e=$('mrt');if(e)e.textContent=fmtDur(s);if(s>=60){try{toast(BT('Voice 60 second tak hi ho sakti hai'))}catch(_){}voiceStop()}}
+function voiceHalt(){try{if(recMR&&recMR.state==='recording'){recSend=0;recMR.stop()}}catch(e){}recMR=null;try{if(recTimer){clearInterval(recTimer)}}catch(e){}recTimer=null;try{if(recStream){recStream.getTracks().forEach(t=>t.stop())}}catch(e){}recStream=null;recChunks=[];recBytes=0;recSend=0;try{recUI(0)}catch(e){}try{if(curAU){curAU.pause();curAU=null}}catch(e){}}
+function voiceTick(){const s=Math.floor((Date.now()-recT0)/1000),e=$('mrt');if(e)e.textContent=fmtDur(s);if(s>=60){try{toast(BT('Voice 60 second tak hi ho sakti hai'))}catch(_){}voiceStop();return}
+if(recBytes>=VSFT){try{toast(BT('Voice bohat lambi ho gayi — jo record hui wo bhej rahe hain'))}catch(_){}voiceStop()}}
 function voiceStart(){if(!chatOpenId)return;if(!navigator.mediaDevices||!window.MediaRecorder){toast(BT('Is phone par voice recording nahi hoti'));return}if(recMR&&recMR.state==='recording')return;
 const arm=st=>{if(!chatOpenId){try{st.getTracks().forEach(t=>t.stop())}catch(e){}return}
-recSend=0;recChunks=[];recMime=voiceMime();
+recSend=0;recChunks=[];recBytes=0;recMime=voiceMime();
 try{recMR=recMime?new MediaRecorder(st,{mimeType:recMime,audioBitsPerSecond:24000}):new MediaRecorder(st)}catch(e){try{recMR=new MediaRecorder(st);recMime=''}catch(e2){toast(BT('Is phone par voice recording nahi hoti'));try{st.getTracks().forEach(t=>t.stop())}catch(_){}recMR=null;if(recStream===st)recStream=null;return}}
-recMR.ondataavailable=ev=>{if(ev.data&&ev.data.size)recChunks.push(ev.data)};
+recMR.ondataavailable=ev=>{if(ev.data&&ev.data.size){recChunks.push(ev.data);recBytes+=ev.data.size}};
 recMR.onstop=voiceDone;
 recMR.onerror=()=>{try{if(recMR&&recMR.state==='recording'){recSend=0;recMR.stop()}}catch(e){}};
 recT0=Date.now();
-try{recMR.start()}catch(e){try{if(recStream){recStream.getTracks().forEach(t=>t.stop())}}catch(_){}recStream=null;recMR=null;if(!voiceStart._fb){voiceStart._fb=1;setTimeout(()=>{try{voiceStart()}catch(_){}},60);return}voiceStart._fb=0;toast(BT('Is phone par voice recording nahi hoti'));return}
+try{recMR.start(1000)}catch(e){try{if(recStream){recStream.getTracks().forEach(t=>t.stop())}}catch(_){}recStream=null;recMR=null;if(!voiceStart._fb){voiceStart._fb=1;setTimeout(()=>{try{voiceStart()}catch(_){}},60);return}voiceStart._fb=0;toast(BT('Is phone par voice recording nahi hoti'));return}
 voiceStart._fb=0;recUI(1);recTimer=setInterval(voiceTick,500)};
 if(recStream&&recStream.getTracks().length&&recStream.getTracks().every(t=>t.readyState==='live')){arm(recStream);return}
 if(recStream){try{recStream.getTracks().forEach(t=>t.stop())}catch(e){}recStream=null}
@@ -2054,11 +2092,11 @@ function voiceStop(){if(!recMR||recMR.state!=='recording'){try{recUI(0)}catch(e)
 function voiceCancel(){recSend=0;if(recMR&&recMR.state==='recording'){try{recMR.stop()}catch(e){}}else{try{voiceHalt()}catch(e){}}}
 function voiceDone(){try{if(recTimer){clearInterval(recTimer)}}catch(e){}recTimer=null;try{recUI(0)}catch(e){}
 const chunks=recChunks,mime=(recMR&&recMR.mimeType)||recMime||'',send=recSend,dur=Math.min(60,Math.max(1,Math.round((Date.now()-recT0)/1000)));
-recMR=null;recChunks=[];recMime='';recSend=0;const st=recStream;recStream=null;try{if(st){if(chatOpenId)recStream=st;else st.getTracks().forEach(t=>t.stop())}}catch(e){recStream=null}
+recMR=null;recChunks=[];recBytes=0;recMime='';recSend=0;const st=recStream;recStream=null;try{if(st){if(chatOpenId)recStream=st;else st.getTracks().forEach(t=>t.stop())}}catch(e){recStream=null}
 if(!send||!chunks.length)return;try{voiceSend(new Blob(chunks,{type:mime||'audio/webm'}),dur,mime)}catch(e){}}
 
 function voiceSend(blob,dur,mime){if(!chatOpenId||!blob||!blob.size)return;
-if(blob.size>700*1024){toast(BT('Voice 60 second tak hi ho sakti hai'));return}
+if(blob.size>VCAP){toast(BT('Yeh voice bohat bari hai — thora chhota voice bhejein'));return}
 const cid=chatOpenId,mid='m'+Date.now().toString(36)+Math.random().toString(36).slice(2,7),at=Date.now(),my=mySide();
 const fin=du=>{const au=(String(du||'').split(',')[1]||'').trim();if(!au)return;
 MSGS.push({id:mid,s:my,ty:'v',au:au,am:mime||'audio/webm',ad:dur,at:at,pend:1});chatCacheSet(cid,MSGS);chatPaintMsgs();
@@ -2069,6 +2107,7 @@ msgSaveQ();flushMsgQ();
 const c=CHATS[cid];if(c){c.lt='🎤 Voice';c.la=at}};
 try{const r=new FileReader();r.onload=()=>fin(r.result);r.onerror=()=>toast(BT('Is phone par voice recording nahi hoti'));r.readAsDataURL(blob)}catch(e){toast(BT('Is phone par voice recording nahi hoti'))}}
 function voiceTap(mid,btn){const m=MSGS.find(x=>x.id===mid)||(chatOpenId?(chatCacheGet(chatOpenId)||[]).find(x=>x.id===mid):null);if(!m||m.ty!=='v')return;
+if(m.err){try{retryMsg(mid)}catch(e){}return}
 try{if(curAU){curAU.pause();curAU=null}}catch(e){}
 const play=(au,am)=>{if(!au){try{if(btn)btn.textContent='▶'}catch(e){}return}
 let a=null,u='';const ty=String(am||m.am||'audio/webm').split(';')[0]||'audio/webm';
@@ -2088,7 +2127,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.6';
+const APPV='1.3.8';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
