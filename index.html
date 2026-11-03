@@ -344,15 +344,34 @@ html[data-th=raat] img.plc{border-color:rgba(255,255,255,.3)}
 .kinfo .kl{display:block;font-size:calc(11px*var(--fs));color:var(--mut);font-weight:700}
 .kinfo .kv{display:block;font-size:calc(13.5px*var(--fs));font-weight:700;line-height:1.3;word-break:break-word;margin-top:1px}
 .kinfo .ks{display:block;font-size:calc(10.5px*var(--fs));color:var(--mut);margin-top:1px}
-.ktww{border:1px solid var(--line);border-radius:12px;overflow-x:auto}
-.ktw{width:100%;border-collapse:collapse;font-size:calc(11.5px*var(--fs))}
-.ktw thead th{background:var(--g);color:var(--pt);font-weight:700;padding:7px 5px;font-size:calc(10.5px*var(--fs));text-align:start;white-space:nowrap}
-.ktw tbody td{padding:6px 4px;border-top:1px solid var(--line);vertical-align:top;white-space:nowrap}
-.ktw tbody tr:nth-child(even) td{background:var(--g2)}
-.ktw tfoot td{padding:7px 4px;background:var(--g2);font-weight:800;border-top:2px solid var(--g);white-space:nowrap}
-.ktw .kn{white-space:nowrap;text-align:end;font-variant-numeric:tabular-nums}
-.ktw .kwn{white-space:nowrap}
 .knt{display:block;font-size:calc(10.5px*var(--fs));color:var(--mut);font-weight:400;white-space:normal}
+/* v1.3.10: pani ki entry + wasooli ke ALAG ALAG halka rangi boxes — har entry apne box mein, spine + chip + amount sab usi rang ke */
+.wboxes{display:flex;flex-direction:column;gap:7px}
+.we{position:relative;background:var(--wbg);border:1px solid var(--wbr);border-radius:13px;padding:8px 11px;padding-inline-start:15px;overflow:hidden}
+.we::before{content:'';position:absolute;inset-inline-start:0;top:0;bottom:0;width:4px;background:var(--wsp)}
+.weB{--wbg:rgba(21,128,184,.10);--wbr:rgba(21,128,184,.33);--wsp:#1580B8;--wtx:#0C5F8C}
+.weG{--wbg:rgba(31,175,85,.10);--wbr:rgba(31,175,85,.33);--wsp:#1FAF55;--wtx:#0F7A40}
+.weA{--wbg:rgba(224,160,48,.14);--wbr:rgba(224,160,48,.40);--wsp:#D89A22;--wtx:#8F6710}
+.weV{--wbg:rgba(124,77,255,.09);--wbr:rgba(124,77,255,.30);--wsp:#7C4DFF;--wtx:#5B3EC8}
+html[data-th=raat] .weB{--wtx:#8FD2F5}
+html[data-th=raat] .weG{--wtx:#7FDCA4}
+html[data-th=raat] .weA{--wtx:#F0C977}
+html[data-th=raat] .weV{--wtx:#C3B2FF}
+html[data-th=raat] .weM{background:var(--bg)}
+.weR1{display:flex;align-items:center;gap:8px;min-width:0}
+.weD{flex:none;background:var(--wsp);color:#fff;border-radius:8px;padding:2.5px 8px;font-weight:800;font-size:calc(11px*var(--fs));font-variant-numeric:tabular-nums}
+.weN{color:var(--mut);font-size:calc(11px*var(--fs));min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.weAmt{margin-inline-start:auto;flex:none;font-weight:800;font-size:calc(14.5px*var(--fs));color:var(--wtx);font-variant-numeric:tabular-nums}
+.weR2{display:flex;align-items:center;gap:8px;margin-top:5px;min-width:0}
+.weT{font-weight:700;font-size:calc(12.5px*var(--fs));font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:5px;min-width:0;white-space:nowrap}
+.weAr{font-style:normal;color:var(--wtx);font-weight:800}
+.weM{margin-inline-start:auto;flex:none;background:var(--card);border:1px solid var(--wbr);color:var(--mut);border-radius:99px;padding:2px 8px;font-weight:700;font-size:calc(10.5px*var(--fs));white-space:nowrap}
+.weTot{display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,var(--h2),var(--h1));color:#fff;border-radius:12px;padding:9px 12px;font-weight:800;box-shadow:0 3px 10px rgba(11,60,107,.16)}
+html[data-th=raat] .weTot{box-shadow:none}
+.weTot .wtl{font-size:calc(13px*var(--fs))}
+.weTot .wtm{font-size:calc(11.5px*var(--fs));opacity:.92;font-variant-numeric:tabular-nums;white-space:nowrap}
+.weTot b{margin-inline-start:auto;font-size:calc(15px*var(--fs));font-variant-numeric:tabular-nums}
+.weTotG{background:linear-gradient(180deg,#27C468,#128A44)}
 .kempty{text-align:center;color:var(--mut);padding:14px 8px;font-size:calc(13px*var(--fs))}
 .kempty.it{font-style:italic}
 .ksum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -735,17 +754,8 @@ const THd=[['⏱',IC.clk,'Total time',dur(a.mins||0)],['💧',IC.coin,'Pani ke p
 .map(x=>'<div class="stt"><i class="ci">'+x[1]+'</i><div><span>'+BT(x[2])+'</span><b>'+x[3]+'</b></div></div>').join('');
 let h='<div class="fh" data-d="🧺"><i class="ic">🧺</i><div><h2>'+esc(archLabel(a))+'</h2><small>'+BT('Fasal ka record — sirf parne ke liye')+'</small></div></div><div class="fb"><div class="stg">'+THd+'</div>';
 const E=[...(a.entries||[])].sort((x,y)=>(x.date+x.start).localeCompare(y.date+y.start)),P=[...(a.pays||[])].sort((x,y)=>x.date.localeCompare(y.date));
-if(E.length){h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💧 '+BT('Pani ka Hisab')+'</div><div class="ktww">';
-if(UR){h+='<table class="ktw" dir="rtl"><thead><tr><th>تاریخ</th><th>شروع</th><th>ختم</th><th>گھنٹے</th><th class="kn">رقم</th></tr></thead><tbody>';
-E.forEach(o=>{h+='<tr><td>'+fmtD(o.date)+'</td><td class="kwn">'+urT(o.start)+'</td><td class="kwn">'+urT(o.end)+'</td><td>'+durU(o.mins)+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
-h+='</tbody><tfoot><tr><td>کل</td><td colspan="3" style="text-align:center">'+durU(a.mins||0)+'</td><td class="kn">'+rs(a.bill||0)+'</td></tr></tfoot></table>'}
-else{h+='<table class="ktw"><thead><tr><th>'+BT('Tareekh')+'</th><th>'+BT('Shuru')+'</th><th>'+BT('Khatm')+'</th><th>'+BT('Ghantay')+'</th><th class="kn">'+BT('Raqam')+'</th></tr></thead><tbody>';
-E.forEach(o=>{h+='<tr><td>'+fmtD(o.date)+'</td><td>'+t12(o.start)+'</td><td>'+t12(o.end)+'</td><td>'+durE(o.mins)+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
-h+='</tbody><tfoot><tr><td>'+BT('Kul')+'</td><td colspan="3" style="text-align:center">'+durE(a.mins||0)+'</td><td class="kn">'+rs(a.bill||0)+'</td></tr></tfoot></table>'}
-h+='</div>'}
-if(P.length){h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💰 '+BT('Wasoolian')+'</div><div class="ktww"><table class="ktw"><thead><tr><th>'+BT('Tareekh')+'</th><th>'+BT('Tareeqa')+'</th><th class="kn">'+BT('Raqam')+'</th></tr></thead><tbody>';
-P.forEach(o=>{h+='<tr><td>'+fmtD(o.date)+'</td><td>'+hwIc(o.how)+esc(o.how||'Cash')+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
-h+='</tbody><tfoot><tr><td>'+BT('Kul jama')+'</td><td></td><td class="kn">'+rs(a.paid||0)+'</td></tr></tfoot></table></div>'}
+if(E.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💧 '+BT('Pani ka Hisab')+'</div>'+wbWater(E,a.mins||0,a.bill||0,UR,fmtD);
+if(P.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💰 '+BT('Wasoolian')+'</div>'+wbPays(P,a.paid||0,fmtD);
 h+='<button class="s" style="width:100%;margin-top:10px" onclick="$(\'em\').remove()">'+BT('Band karein')+'</button></div>';
 modal(h)}
 function settleAsk(){const f=F();if(!f)return;
@@ -1468,6 +1478,17 @@ if(!confirm(BT('Kya ye link request wapas lein? Malik is ko ab qabool nahi kar s
 if(!FS){alert(BT('Internet nahi hai.'));return}
 try{await FS.collection('lreq').doc(id).delete()}catch(e){try{await FS.collection('lreq').doc(id).update({status:'cancelled',upAt:Date.now()})}catch(e2){alert(BT('Request wapas nahi le saki — internet check karein ya malik se kahen ye request reject kar dein.'));return}}
 FLREQ=FLREQ.filter(x=>x.id!==id);try{fkSoft()}catch(e){}try{notifPaint()}catch(e){}toast(BT('Request wapas le li gayi'))}
+/* v1.3.10: pani ki entries + wasoolian ke rangi boxes — farmer khata aur purane khate (archive) dono isi se bante hain */
+const WBC=['weB','weG','weA','weV'];
+function wbWater(E,tm,bill,UR,dfmt){let h='<div class="wboxes">';
+E.forEach((o,i)=>{const nt=o.note==='Pichle saal ka baqaya'?(UR?'\u067E\u0631\u0627\u0646\u0627 \u0628\u0627\u0642\u06CC\u06C1':BT('Purana baqaya')):esc(o.note||'');
+h+='<div class="we '+WBC[i%4]+'"><div class="weR1"><span class="weD"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></span>'+(nt?'<span class="weN">'+nt+'</span>':'')+'<b class="weAmt">'+rs(o.amt)+'</b></div>'
++'<div class="weR2"><span class="weT">'+(UR?urT(o.start):t12(o.start))+'<i class="weAr">→</i>'+(UR?urT(o.end):t12(o.end))+'</span><span class="weM">⏱ '+(UR?durU(o.mins):durE(o.mins))+'</span></div></div>'});
+h+='<div class="weTot"><span class="wtl">'+BT('Kul')+'</span><span class="wtm">⏱ '+(UR?durU(tm):durE(tm))+'</span><b>'+rs(bill)+'</b></div></div>';return h}
+function wbPays(P,paid,dfmt){let h='<div class="wboxes">';
+P.forEach((o,i)=>{h+='<div class="we '+WBC[(i+1)%4]+'"><div class="weR1"><span class="weD"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></span><b class="weAmt">'+rs(o.amt)+'</b></div>'
++'<div class="weR2"><span class="weT">'+hwIc(o.how)+esc(o.how||'Cash')+'</span></div></div>'});
+h+='<div class="weTot weTotG"><span class="wtl">'+BT('Kul jama')+'</span><b>'+rs(paid)+'</b></div></div>';return h}
 function fKhataBox(){const L=flsGet();if(!fkCLd){fkCLd=1;FKC=fkcLoad()}L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});let h='';
 if(L.length){const cur=(fkCur&&L.some(x=>x.frId===fkCur))?fkCur:L[0].frId;
 if(fkCur!==cur){fkCur=cur;try{localStorage.setItem('aslam_fkc',cur)}catch(e){}}
@@ -1499,18 +1520,9 @@ k+=payBoxH();
 const any=E.length||P.length||t.old||t.bill;
 if(!any)k+='<div class="ksec"><div class="kempty it">'+BT('Abhi koi hisaab nahi \u2014 malik entry kare ga to yahan nazar aaye ga.')+'</div></div>';
 if(any){if(E.length){const UR=ST.lang!=='en';
-k+='<div class="ksec'+(UR?' nt':'')+'"><div class="kst">\ud83d\udca7 '+(UR?'پانی کا حساب':BT('Pani ka Hisab'))+'</div><div class="ktww">';
-if(UR){k+='<table class="ktw" dir="rtl"><thead><tr><th>تاریخ</th><th>شروع</th><th>ختم</th><th>گھنٹے</th><th class="kn">رقم</th></tr></thead><tbody>';
-E.forEach(o=>{k+='<tr><td>'+dmy(o.date)+(o.note?'<span class="knt">'+(o.note==='Pichle saal ka baqaya'?'پرانا باقیہ':esc(o.note))+'</span>':'')+'</td><td class="kwn">'+urT(o.start)+'</td><td class="kwn">'+urT(o.end)+'</td><td>'+durU(o.mins)+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
-k+='</tbody><tfoot><tr><td>کل</td><td colspan="3" style="text-align:center">'+durU(tm)+'</td><td class="kn">'+rs(t.bill)+'</td></tr></tfoot></table>'}
-else{k+='<table class="ktw"><thead><tr><th>'+BT('Tareekh')+'</th><th>'+BT('Shuru')+'</th><th>'+BT('Khatm')+'</th><th>'+BT('Ghantay')+'</th><th class="kn">'+BT('Raqam')+'</th></tr></thead><tbody>';
-E.forEach(o=>{k+='<tr><td>'+dmy(o.date)+(o.note?'<span class="knt nt">'+(o.note==='Pichle saal ka baqaya'?BT('Purana baqaya'):esc(o.note))+'</span>':'')+'</td><td>'+t12(o.start)+'</td><td>'+t12(o.end)+'</td><td>'+durE(o.mins)+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
-k+='</tbody><tfoot><tr><td>'+BT('Kul')+'</td><td colspan="3" style="text-align:center">'+durE(tm)+'</td><td class="kn">'+rs(t.bill)+'</td></tr></tfoot></table>'}
-k+='</div></div>'}
+k+='<div class="ksec'+(UR?' nt':'')+'"><div class="kst">\ud83d\udca7 '+(UR?'پانی کا حساب':BT('Pani ka Hisab'))+'</div>'+wbWater(E,tm,t.bill,UR,dmy)+'</div>'}
 k+='<div class="ksec nt"><div class="kst">\ud83d\udcb5 '+BT('Wasoolian')+'</div>';
-if(P.length){k+='<div class="ktww"><table class="ktw"><thead><tr><th>'+BT('Tareekh')+'</th><th>'+BT('Tareeqa')+'</th><th class="kn">'+BT('Raqam')+'</th></tr></thead><tbody>';
-P.forEach(o=>{k+='<tr><td>'+dmy(o.date)+'</td><td>'+hwIc(o.how)+esc(o.how||'Cash')+'</td><td class="kn">'+rs(o.amt)+'</td></tr>'});
-k+='</tbody><tfoot><tr><td>'+BT('Kul jama')+'</td><td></td><td class="kn">'+rs(t.paid)+'</td></tr></tfoot></table></div>'}
+if(P.length)k+=wbPays(P,t.paid,dmy);
 else k+='<div class="kempty it">'+BT('Abhi koi adayigi nahin')+'</div>';
 if(t.old)k+='<div class="koldmut">\ud83d\udcdc '+BT('Purana baqaya')+': <b>+ '+rs(t.old)+'</b></div>';
 k+='</div>'}
@@ -2180,7 +2192,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.9';
+const APPV='1.3.10';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
