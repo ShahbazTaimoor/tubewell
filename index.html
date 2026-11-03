@@ -102,6 +102,12 @@ html[lang=ur] .tlChip{line-height:1.9;padding-top:0;padding-bottom:0}
 html[lang=ur] .tlD span{font-size:calc(10.5px*var(--fs));letter-spacing:0;line-height:1.9}
 html[lang=ur] .tlM b{line-height:1.9}
 html[data-th=raat] .tlC,:root:not([data-theme="light"]) .tlC{box-shadow:none}
+/* v1.3.12: phone notification opt-in banner (farmer) */
+.ntban{display:flex;align-items:center;gap:8px;background:rgba(21,128,184,.08);border:1px solid rgba(21,128,184,.28);border-radius:12px;padding:9px 10px;margin:0 0 10px;font-size:calc(12px*var(--fs))}
+.ntban .nbi{font-size:calc(19px*var(--fs));flex:none}
+.ntban .nbt{flex:1;min-width:0;line-height:1.55;font-weight:600;color:var(--ink)}
+.ntban .nbanx{flex:none;border:0;background:none;color:var(--mut);font-size:calc(14px*var(--fs));padding:6px 4px;cursor:pointer;line-height:1}
+html[data-th=raat] .ntban{background:rgba(21,128,184,.13)}
 .bi{border-top:1px solid var(--line);padding:12px 0}
 /* v1.1.0: kisan link request intezar card — bhejne ke foran baad badi animated waiting card */
 .fwait{text-align:center;background:var(--card);border:1.5px dashed var(--g);border-radius:16px;padding:16px 14px 14px;margin:2px 0 12px;box-shadow:0 6px 18px rgba(11,60,107,.08)}
@@ -1415,7 +1421,7 @@ if(was&&!quiet){try{toast(BT('Malik ne link khatam kar diya — naya code le kar
 if(fkCur===frId){fkCur=L.length?L[0].frId:null;try{localStorage.setItem('aslam_fkc',fkCur||'')}catch(e){}FDATA=fkCur?(FDMAP[fkCur]||null):null;FDATAF=fkCur||''}
 flChk()}
 function fdListen(fl){const frId=(fl||{}).frId;if(!frId||!FS)return;fdUnOne(frId);delete FDMAP[frId];
-fdUn[frId]=FS.collection('fd').doc(frId).onSnapshot(sn=>{if(sn.exists){FDMAP[frId]=Object.assign({id:sn.id},sn.data());FKC[frId]=FDMAP[frId];fkcSave();FDHAD[frId]=true;fdHad=true;fdErr='';delete FDMISS[frId];delete FD_OFF[frId];fdMissSave();if(ST.role==='farmer')msgFarmerTry();else if(ST.role==='owner')ownMiniSync();
+fdUn[frId]=FS.collection('fd').doc(frId).onSnapshot(sn=>{if(sn.exists){FDMAP[frId]=Object.assign({id:sn.id},sn.data());FKC[frId]=FDMAP[frId];fkcSave();FDHAD[frId]=true;fdHad=true;fdErr='';delete FDMISS[frId];delete FD_OFF[frId];fdMissSave();if(ST.role==='farmer'){msgFarmerTry();try{ntDiff(frId,FDMAP[frId])}catch(e){}}else if(ST.role==='owner')ownMiniSync();
 if(!fkCur||fkCur===frId){if(!fkCur){fkCur=frId;try{localStorage.setItem('aslam_fkc',frId)}catch(e){}}FDATA=FDMAP[frId];FDATAF=frId}}
 else{fdGone(frId);return}
 fkSoft()},e=>{const c=(e&&e.code)||'net';fdErr=c;
@@ -1485,7 +1491,43 @@ function wbPays(P,paid,dfmt){let h='<div class="wboxes">';
 P.forEach((o,i)=>{h+='<div class="we '+WBC[(i+1)%4]+'"><div class="weR1"><span class="weD"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></span><b class="weAmt">'+rs(o.amt)+'</b></div>'
 +'<div class="weR2"><span class="weT">'+hwIc(o.how)+esc(o.how||'Cash')+'</span></div></div>'});
 h+='<div class="weTot weTotG"><span class="wtl">'+BT('Kul jama')+'</span><b>'+rs(paid)+'</b></div></div>';return h}
-function fKhataBox(){const L=flsGet();if(!fkCLd){fkCLd=1;FKC=fkcLoad()}L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});let h='';
+/* ===== v1.3.12: Phone notification — app khula/background ho to nayi entry/wasooli par ===== */
+const NTSEEN={},NTKEY='aslam_ntst';
+const ntPerm=()=>{try{return ('Notification' in window)?Notification.permission:'na'}catch(e){return 'na'}};
+const ntDis=()=>{try{const v=JSON.parse(localStorage.getItem(NTKEY)||'{}');return !!(v.dis&&Date.now()-v.dis<6048e5)}catch(e){return false}};
+function ntDismiss(){try{localStorage.setItem(NTKEY,JSON.stringify({dis:Date.now()}))}catch(e){}try{fkSoft()}catch(e){}}
+function ntShow(t,b,tag){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const o={body:b,tag:tag||'twk',icon:'icon-192.png',badge:'icon-192.png',renotify:true};
+try{navigator.serviceWorker.ready.then(r=>{try{r.showNotification(t,o)}catch(e){try{new Notification(t,o)}catch(e2){}}}).catch(()=>{try{new Notification(t,o)}catch(e2){}})}catch(e){try{new Notification(t,o)}catch(e2){}}}catch(e){}}
+function ntTest(){const UR=BL()==='ur';ntShow(UR?'\u{1F514} \u0679\u06CC\u0648\u0628 \u0648\u06CC\u0644 \u06A9\u06BE\u0627\u062A\u06C1':'\u{1F514} Tubewell Khata',UR?'\u0679\u06CC\u0633\u0679 \u2014 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u0644\u06A9\u0644 \u0679\u06BE\u06CC\u06A9 \u0686\u0644 \u0631\u06C1\u06CC \u06C1\u06D2':'Test — notifications are working fine','test');try{toast(UR?'Notification bhej di — phone ki bar mein dekhein':'Notification sent — check your phone bar')}catch(e){}}
+function ntHelp(){const UR=BL()==='ur';modal('<div class="fh" data-d="\u{1F514}"><i class="ic">\u{1F514}</i><div>'+BH('Notification allow kaise karein','\u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u06A9\u06CC \u0627\u062C\u0627\u0632\u062A \u06A9\u06CC\u0633\u06D2 \u062F\u06CC\u06BA')+'</div></div><div class="fb"><div class="mut sm" style="line-height:1.9">'+RB('1. Chrome address bar mein tala (lock) par tap karein.<br>2. Permissions \u2192 Notifications \u2192 Allow karein.<br>3. App band karke dobara kholein.','1. Chrome \u0627\u06CC\u0688\u0631\u06CC\u0633 \u0628\u0627\u0631 \u0645\u06CC\u06BA \u062A\u0627\u0644\u0627 (lock) \u067E\u0631 \u0679\u06CC\u067E \u06A9\u0631\u06CC\u06BA\u06D4<br>2. Permissions \u2192 Notifications \u2192 Allow \u06A9\u0631\u06CC\u06BA\u06D4<br>3. \u0627\u06CC\u067E \u0628\u0646\u062F \u06A9\u0631 \u06A9\u06D2 \u062F\u0648\u0628\u0627\u0631\u06C1 \u06A9\u06BE\u0648\u0644\u06CC\u06BA\u06D4')+'</div><button class="p" style="width:100%;margin-top:10px" onclick="document.getElementById(\'em\').remove()">'+BT('Band karein')+'</button></div>')}
+function ntAsk(){const p=ntPerm();
+if(p==='granted'){ntTest();return}
+if(p==='denied'){ntHelp();return}
+try{Notification.requestPermission().then(r=>{try{fkSoft()}catch(e){}try{fSetV&&fSetV()}catch(e){}if(r==='granted')ntTest();else if(r==='denied')ntHelp()}).catch(()=>{})}catch(e){}}
+function ntBanner(){if(ST.role!=='farmer')return '';const p=ntPerm();if(p!=='default'||ntDis())return '';
+return '<div class="ntban"><span class="nbi">\u{1F514}</span><div class="nbt">'+RB('Malik ki nayi entry ya wasooli phone ki notification bar mein paana chahte hain?','\u0645\u0627\u0644\u06A9 \u06A9\u06CC \u0646\u0626\u06CC \u0627\u0646\u0679\u0631\u06CC \u06CC\u0627 \u0648\u0635\u0648\u0644\u06CC \u0641\u0648\u0646 \u06A9\u06CC \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u0627\u0631 \u0645\u06CC\u06BA \u067E\u0627\u0646\u0627 \u0686\u0627\u06C1\u062A\u06D2 \u06C1\u06CC\u06BA\u061F')+'</div><button class="p mini" onclick="ntAsk()">'+RB('On karein','\u0686\u0627\u0644\u0648 \u06A9\u0631\u06CC\u06BA')+'</button><button class="nbanx" aria-label="Close" onclick="ntDismiss()">\u2715</button></div>'}
+function ntCardH(){if(ST.role!=='farmer')return '';const p=ntPerm();let st,lb,fn,bt;
+if(p==='granted'){st=RB('Phone notifications are ON. Tap to send a test notification.','\u0641\u0648\u0646 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0686\u0627\u0644\u0648 \u06C1\u06CC\u06BA\u06D4 \u0679\u06CC\u067E \u06A9\u0631\u06CC\u06BA \u062A\u0648 \u0627\u06CC\u06A9 \u0679\u06CC\u0633\u0679 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0622\u0626\u06D2 \u06AF\u06CC\u06D4');lb=RB('\u{1F514} Send test notification','\u{1F514} \u0679\u06CC\u0633\u0679 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u06BE\u062C\u06CC\u06BA');fn='ntTest()';bt='p'}
+else if(p==='denied'){st=RB('Blocked by the browser — open Chrome site settings (lock icon in address bar) and allow Notifications.','\u0628\u0631\u0627\u0624\u0632\u0631 \u0646\u06D2 \u0628\u0646\u062F \u06A9\u0631 \u062F\u06CC\u0627 \u2014 Chrome \u06A9\u06CC \u0633\u0627\u0626\u0679 \u0633\u06CC\u0679\u0646\u06AF\u0632 (\u062A\u0627\u0644\u0627 \u0648\u0627\u0644\u0627 \u0646\u0634\u0627\u0646) \u06A9\u06BE\u0648\u0644 \u06A9\u0631 Notification allow \u06A9\u0631\u06CC\u06BA\u06D4');lb=RB('Blocked — how to allow','\u0628\u0646\u062F \u06C1\u06D2 \u2014 \u0627\u062C\u0627\u0632\u062A \u06A9\u06CC\u0633\u06D2 \u062F\u06CC\u06BA');fn='ntHelp()';bt='s'}
+else{st=RB('Get a phone notification whenever the owner adds a new water entry or payment — works while the app is open or in background.','\u0645\u0627\u0644\u06A9 \u0646\u0626\u06CC \u067E\u0627\u0646\u06CC \u06A9\u06CC \u0627\u0646\u0679\u0631\u06CC \u06CC\u0627 \u0648\u0635\u0648\u0644\u06CC \u062F\u0631\u062C \u06A9\u0631\u06D2 \u062A\u0648 \u0641\u0648\u0646 \u0645\u06CC\u06BA \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0622\u0626\u06D2 \u2014 \u0627\u06CC\u067E \u06A9\u06BE\u0644\u06CC \u06CC\u0627 \u0628\u06CC\u06A9 \u06AF\u0631\u0627\u0624\u0646\u0688 \u0645\u06CC\u06BA \u06C1\u0648 \u062A\u0648 \u0686\u0644\u062A\u06CC \u06C1\u06D2\u06D4');lb=RB('\u{1F514} Turn on','\u{1F514} \u0686\u0627\u0644\u0648 \u06A9\u0631\u06CC\u06BA');fn='ntAsk()';bt='p'}
+return '<div class="card">'+BH('\u{1F514} Phone notification','\u{1F514} \u0641\u0648\u0646 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646')+'<div class="mut sm" style="margin-bottom:8px">'+st+'</div><button class="'+bt+'" style="width:100%" onclick="'+fn+'">'+lb+'</button></div>'}
+function ntDiff(frId,d){try{
+if(ST.role!=='farmer'||!d)return;
+const ek=(d.entries||[]).map(x=>x.id||'').join(','),pk=(d.pays||[]).map(x=>x.id||'').join(',');
+const s=NTSEEN[frId];NTSEEN[frId]={e:ek,p:pk};
+if(!s)return;
+const ne=(d.entries||[]).filter(x=>x.id&&(','+s.e+',').indexOf(','+x.id+',')<0);
+const np=(d.pays||[]).filter(x=>x.id&&(','+s.p+',').indexOf(','+x.id+',')<0);
+if(!ne.length&&!np.length)return;
+const UR=BL()==='ur',tw=d.twName||'';
+if(ne.length){const e=ne[ne.length-1],bd=(tw?tw+' \u2022 ':'')+(e.mins?dur(e.mins)+' \u2022 ':'')+rs(e.amt);
+if(document.hidden)ntShow(UR?'\u{1F4A7} \u0646\u0626\u06CC \u067E\u0627\u0646\u06CC \u06A9\u06CC \u0627\u0646\u0679\u0631\u06CC':'\u{1F4A7} New water entry',bd,'e'+frId);
+else try{toast((UR?'\u{1F4A7} Malik ne nayi pani entry dali \u2014 ':'\u{1F4A7} New water entry \u2014 ')+rs(e.amt))}catch(e2){}}
+if(np.length){const p2=np[np.length-1],bd=(tw?tw+' \u2022 ':'')+rs(p2.amt)+(p2.how?' \u2022 '+p2.how:'');
+if(document.hidden)ntShow(UR?'\u{1F4B0} \u0648\u0635\u0648\u0644\u06CC \u062F\u0631\u062C \u06C1\u0648 \u06AF\u0626\u06CC':'\u{1F4B0} Payment received',bd,'p'+frId);
+else try{toast((UR?'\u{1F4B0} Malik ne wasooli darj ki \u2014 ':'\u{1F4B0} Payment received \u2014 ')+rs(p2.amt))}catch(e2){}}
+}catch(e){}}
+function fKhataBox(){const L=flsGet();if(!fkCLd){fkCLd=1;FKC=fkcLoad()}L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});let h='';h+=ntBanner();
 if(L.length){const cur=(fkCur&&L.some(x=>x.frId===fkCur))?fkCur:L[0].frId;
 if(fkCur!==cur){fkCur=cur;try{localStorage.setItem('aslam_fkc',cur)}catch(e){}}
 const D=FDMAP[cur]||FDATA||null;
@@ -1557,7 +1599,7 @@ $('v').innerHTML='<div class="nt"><div class="card">'+BH('My profile','میری 
 +'<button class="p" style="width:100%" onclick="fSaveP()">'+BT('Save karein')+'</button><div class="mut sm" style="margin-top:6px">'+BT('Ye number malik ko nazar aata hai taake wo zaroorat par rabta kar saken.')+'</div><div class="mut sm" style="margin-top:6px">'+(flsGet().length>1?'🔗 '+BT('Aap ka khata')+' '+flsGet().length+' '+BT('tubewell se link hai — Home par chips se badal kar sab ke khatay dekhein.'):(flsGet().length?'🔗 '+BT('Aap ka khata link ho chuka hai — malik ke qabool karne ke baad Home par nazar aayega.'):BT('Abhi aap ka khata kisi malik se link nahi hai. Home par kisan code daal kar request bhejein.')))+'</div></div>'
 +'<div class="card">'+BH('Language','زبان')+'<div class="row"><button class="'+(ST.lang==='ur'?'p':'s')+'" onclick="setLang(\'ur\')">اردو</button><button class="'+(ST.lang==='en'?'p':'s')+'" onclick="setLang(\'en\')">English</button></div><button class="s" style="width:100%;margin-top:8px" onclick="fontDiag()">'+BT('Urdu font check')+'</button></div>'
 +'<div class="card">'+BH('🔔 Sound','🔔 آواز')+'<div class="mut sm" style="margin-bottom:8px">'+RB('A soft sound plays on confirmations and new notifications.','تصدیق یا نئی اطلاع پر ہلکی سی آواز آتی ہے۔')+'</div><button class="'+(ST.snd===false?'s':'p')+'" style="width:100%" onclick="tgSnd()">'+(ST.snd===false?RB('Sound is off — tap to turn on','آواز بند ہے — چالو کریں'):RB('Sound is on — tap to turn off','آواز چالو ہے — بند کریں'))+'</button></div>'
-+'<div class="card">'+BH('Theme','تھیم')+'<div class="mut sm" style="margin-bottom:8px">'+RB('Tap a theme — the whole app changes color.','کسی تھیم پر ٹیپ کریں — پوری ایپ کا رنگ بدل جائے گا۔')+'</div>'+Object.keys(TH).map(k=>'<button class="to'+(k===th?' on':'')+'" onclick="applyTh(\''+k+'\');fSetV()"><span class="sw" style="background:linear-gradient(135deg,'+TH[k].h1+','+TH[k].h2+')"><i style="background:'+TH[k].g+'"></i><i style="background:'+TH[k].bg+'"></i></span><b>'+BT(TH[k].n)+'</b><span>'+(k===th?'✓':'')+'</span></button>').join('')+'</div>'
++ntCardH()+'<div class="card">'+BH('Theme','تھیم')+'<div class="mut sm" style="margin-bottom:8px">'+RB('Tap a theme — the whole app changes color.','کسی تھیم پر ٹیپ کریں — پوری ایپ کا رنگ بدل جائے گا۔')+'</div>'+Object.keys(TH).map(k=>'<button class="to'+(k===th?' on':'')+'" onclick="applyTh(\''+k+'\');fSetV()"><span class="sw" style="background:linear-gradient(135deg,'+TH[k].h1+','+TH[k].h2+')"><i style="background:'+TH[k].g+'"></i><i style="background:'+TH[k].bg+'"></i></span><b>'+BT(TH[k].n)+'</b><span>'+(k===th?'✓':'')+'</span></button>').join('')+'</div>'
 +'<div class="card">'+BH('Switch role','کام بدلیں')+'<div class="mut sm" style="margin-bottom:8px">'+BT('Aap abhi Pani lagane wale (Farmer) hain. Agar aap apne tubewell ka hisab bhi rakhte hain to Owner mode par jayein — kisan, entries aur wasooli wahan milegi. Aap ka farmer khata mehfooz rahega.')+'</div><button class="s" style="width:100%" onclick="swRoleAsk(\'owner\')">🚰 '+BT('Tubewell Owner (Kitab wale) mode par jayein')+'</button><div class="mut sm" style="margin-top:8px">⚡ '+BT('Ya neeche nav bar ke Settings par do dafa tap karein (1 second ke andar)')+'</div></div>'+'<div class="card">'+BH('Account','اکاؤنٹ')+'<div style="margin-bottom:10px"><b><bdi>'+esc((U&&U.displayName)||'')+'</bdi></b><div class="mut sm"><bdi dir="ltr">'+esc(U?U.email:BT('Login nahi'))+'</bdi></div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>'
 +'<div class="card">'+BH('About the app','ایپ کے بارے میں')+'<div class="mut sm">'+esc(ST.name)+' App • '+BT('Version')+' v'+APPV+'</div></div></div>'}
 async function fSaveP(){const n=$('fpn').value.trim(),p=$('fpp').value.trim();if(!n){alert(BT('Naam likhein'));return}
@@ -2188,7 +2230,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.11';
+const APPV='1.3.12';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
