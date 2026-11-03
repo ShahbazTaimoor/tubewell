@@ -64,7 +64,7 @@ html[data-th=raat] .nav>div{background:rgba(42,51,56,.94);border-color:rgba(242,
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:#222;color:#fff;padding:10px 18px;border-radius:99px;z-index:40;font-size:calc(14px*var(--fs))}
 .call{display:flex;align-items:center;justify-content:center;gap:8px}.wa{background:#1FAF55;color:#fff}
 html,body{touch-action:pan-x pan-y}input,select,textarea{font-size:16px}
-/* v1.3.9: Poori kitab naya design — compact rows, type rang, mahine ke totals */
+/* v1.3.9+11: Poori kitab — compact rows + mahine ke totals + tap Edit/Delete; v11: har entry rangi box (weB/weG/weA vars — 1.3.10 jaisa) */
 .tlM{display:flex;align-items:center;gap:10px;margin:16px 2px 8px}
 .tlM b{font-size:calc(13.5px*var(--fs));font-weight:800;color:var(--ink);white-space:nowrap}
 .tlM::after{content:'';flex:1;height:1px;background:var(--line)}
@@ -72,27 +72,23 @@ html,body{touch-action:pan-x pan-y}input,select,textarea{font-size:16px}
 .tlMT i{font-style:normal;font-weight:700;font-size:calc(10.5px*var(--fs));color:var(--mut)}
 .tlR{display:flex;gap:10px;margin-bottom:8px}
 .tlD{width:44px;flex:none;text-align:center;padding-top:9px}
-.tlD b{display:block;font-size:calc(16px*var(--fs));font-weight:800;line-height:1.25;color:var(--ink)}
+.tlD b{display:block;font-size:calc(16px*var(--fs));font-weight:800;line-height:1.25;color:var(--wtx,var(--ink))}
 .tlD span{display:block;font-size:calc(9.5px*var(--fs));color:var(--mut);font-weight:800;letter-spacing:.5px;text-transform:uppercase}
 .tlD.tlDs{visibility:hidden}
-.tlC{position:relative;flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-inline-start:3px solid #2D7D9A;border-radius:13px;padding:9px 10px;padding-inline-end:34px;box-shadow:0 1px 2px rgba(15,45,80,.06);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:box-shadow .15s ease}
+.tlC{position:relative;flex:1;min-width:0;background:var(--wbg,var(--card));border:1px solid var(--wbr,var(--line));border-inline-start:4px solid var(--wsp,#2D7D9A);border-radius:13px;padding:9px 10px;padding-inline-end:34px;box-shadow:0 1px 2px rgba(15,45,80,.06);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:box-shadow .15s ease}
 .tlC:active{transform:scale(.992)}
 .tlC:focus{outline:none}
-.tlC.tlP{border-inline-start-color:#1FAF55}
-.tlC.tlO{border-inline-start-color:#E0A030}
-.tlC.on{border-color:var(--g);box-shadow:0 5px 16px rgba(14,106,153,.15)}
+.tlC.on{border-color:var(--wsp,var(--g));box-shadow:0 5px 16px rgba(14,106,153,.15)}
 .tlr2{display:flex;align-items:center;gap:8px}
-.tlI{width:30px;height:30px;flex:none;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:calc(15px*var(--fs));background:rgba(45,125,154,.13)}
-.tlP .tlI{background:rgba(31,175,85,.16)}
-.tlO .tlI{background:rgba(224,160,48,.18)}
+.tlI{width:30px;height:30px;flex:none;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:calc(15px*var(--fs));background:var(--wbr,rgba(45,125,154,.13))}
 .tlT{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .tlT>b{font-size:calc(13px*var(--fs));font-weight:800;line-height:1.35;color:var(--ink)}
 .tlS{font-size:calc(11px*var(--fs));color:var(--mut);display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0}
-.tlChip{background:var(--g2);color:var(--g);border-radius:99px;padding:1.5px 8px;font-weight:800;font-size:calc(10px*var(--fs));white-space:nowrap}
+.tlChip{background:var(--card);border:1px solid var(--wbr,rgba(45,125,154,.33));color:var(--wtx,var(--g));border-radius:99px;padding:.5px 8px;font-weight:800;font-size:calc(10px*var(--fs));white-space:nowrap}
 .tlNote{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .tlA{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
-.tlAmt{font-size:calc(14px*var(--fs));font-weight:800;color:var(--ink);white-space:nowrap;line-height:1.25}
-.tlAmt.pos{color:#1FAF55}
+.tlAmt{font-size:calc(14px*var(--fs));font-weight:800;color:var(--wtx,var(--ink));white-space:nowrap;line-height:1.25}
+.tlAmt.pos{color:var(--wtx,#1FAF55)}
 .tlBal{font-size:calc(10px*var(--fs));color:var(--mut);font-weight:700;white-space:nowrap}
 .tlBal.neg{color:var(--red);font-weight:800}
 .tlX{position:absolute;top:50%;inset-inline-end:6px;transform:translateY(-50%);width:26px;height:26px;border:0;background:transparent;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5px;cursor:pointer;padding:0}
@@ -692,7 +688,7 @@ function dpCut(file){return new Promise((res,rej)=>{const fr=new FileReader();fr
 async function pickDP(el,nw){const fl=el.files[0];if(!fl)return;try{const d=await dpCut(fl);if(nw){window._dp=d;$('dpv').outerHTML='<img id="dpv" class="av" style="width:76px;height:76px" src="'+d+'" alt="">'}else{F().dp=d;save();open_(cur)}}catch(e){alert('Tasveer nahi khuli')}el.value=''}
 function delDP(){delete F().dp;save();open_(cur)}
 const dbx=d=>{const[y,m,dd]=d.split('-');return`<div class="db"><b>${+dd}</b><span>${MN[m-1]}</span><span>${y}</span></div>`};
-/* v1.3.9: Poori kitab naya design — compact rows + mahine ke totals + tap par Edit/Delete */
+/* v1.3.11: Poori kitab — har entry APNE rang ke halke box mein (pani=neela, wasooli=sabz, purana baqaya=peela), wahi 1.3.10 wbox tokens */
 const UMN=['جنوری','فروری','مارچ','اپریل','مئی','جون','جولائی','اگست','ستمبر','اکتوبر','نومبر','دسمبر'];
 /* same period par pehla AM/PM/دوپہر drop — lambla time range row mein poora samaeta */
 const tlT12=(s,e)=>{const a=t12(s),b=t12(e);return a.slice(-2)===b.slice(-2)?a.slice(0,-3)+' → '+b:a+' → '+b};
@@ -710,7 +706,7 @@ if(p){ic='💰';cls='tlP';tit=BT('Wasooli');alt=tit;sub=(hwIc(o.how)||'')+'<b cl
 else if(od){ic='📜';cls='tlO';tit=BT('Purana baqaya');alt=tit;sub=(o.note&&o.note!=='Pichle saal ka baqaya')?'<span class="tlNote">'+esc(o.note)+'</span>':''}
 else{ic='💧';cls='tlE';tit='<bdi>'+(UR?tlTur(o.start,o.end):tlT12(o.start,o.end))+'</bdi>';alt=(UR?tlTur(o.start,o.end):tlT12(o.start,o.end));sub='<b class="tlChip">⏱ '+dur(o.mins)+'</b>'+(o.note?'<span class="tlNote">'+esc(o.note)+'</span>':'')}
 const eo=p?`editP('${o.id}')`:od?`editO('${o.id}')`:`open_('${f.id}','${o.id}');window.scrollTo(0,0)`,dx=`${p?'delP':od?'delO':'delE'}('${o.id}')`;
-h+=`<div class="tlR"><div class="tlD${first?'':' tlDs'}"><b>${d}</b><span>${mnm(+o.date.slice(5,7)-1)}</span></div><div class="tlC ${cls}" role="button" tabindex="0" aria-label="${esc(alt)}" onclick="tlTog(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tlTog(this)}"><div class="tlr2"><span class="tlI">${ic}</span><div class="tlT"><b>${tit}</b>${sub?'<span class="tlS">'+sub+'</span>':''}</div><div class="tlA"><b class="tlAmt${p?' pos':''}"><bdi>${p?'− ':''}${rs(o.amt)}</bdi></b><span class="tlBal${r.run>0?' neg':''}">${BT('Baqaya ')}<bdi>${rs(r.run)}</bdi></span></div></div><button class="tlX" aria-label="${esc(alt)} — ${BT('Edit')} / ${BT('Delete')}" onclick="event.stopPropagation();tlTog(this.parentElement)"><i></i><i></i><i></i></button>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="event.stopPropagation();viewPh(this)">':''}<div class="ac"><button class="s mini" onclick="event.stopPropagation();${eo}">✎ ${BT('Edit')}</button><button class="d mini" onclick="event.stopPropagation();${dx}">🗑 ${BT('Delete')}</button></div></div></div>`});return h}
+h+=`<div class="tlR ${p?'weG':od?'weA':'weB'}"><div class="tlD${first?'':' tlDs'}"><b>${d}</b><span>${mnm(+o.date.slice(5,7)-1)}</span></div><div class="tlC ${cls}" role="button" tabindex="0" aria-label="${esc(alt)}" onclick="tlTog(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tlTog(this)}"><div class="tlr2"><span class="tlI">${ic}</span><div class="tlT"><b>${tit}</b>${sub?'<span class="tlS">'+sub+'</span>':''}</div><div class="tlA"><b class="tlAmt${p?' pos':''}"><bdi>${p?'− ':''}${rs(o.amt)}</bdi></b><span class="tlBal${r.run>0?' neg':''}">${BT('Baqaya ')}<bdi>${rs(r.run)}</bdi></span></div></div><button class="tlX" aria-label="${esc(alt)} — ${BT('Edit')} / ${BT('Delete')}" onclick="event.stopPropagation();tlTog(this.parentElement)"><i></i><i></i><i></i></button>${p&&o.img?'<img class="ph" data-pid="'+o.img+'" onclick="event.stopPropagation();viewPh(this)">':''}<div class="ac"><button class="s mini" onclick="event.stopPropagation();${eo}">✎ ${BT('Edit')}</button><button class="d mini" onclick="event.stopPropagation();${dx}">🗑 ${BT('Delete')}</button></div></div></div>`});return h}
 function open_(id,ed){const nv=cur!==id||view!=='home';cur=id;eid=ed||null;view='home';navR();pushS('k');const f=db.farmers.find(x=>x.id===id);if(!f){if(nv)try{window.scrollTo(0,0)}catch(e){}return home()}const t=tot(f),E=eid?f.entries.find(x=>x.id===eid):null,oc=(U&&f.linkedUid)?chatCid(U.uid,f.linkedUid):'',ou=oc?unFor(oc):0;
 const tb=t.bill+t.old,pct=tb>0?Math.min(100,Math.round(t.paid/tb*100)):0;
 const L=[...f.entries.map(o=>({k:'e',d:o.date,s:o.start,o})),...f.pays.map(o=>({k:'p',d:o.date,s:'99',o})),...(f.olds||[]).map(o=>({k:'o',d:o.date,s:'00',o}))].sort((a,b)=>(a.d+a.s).localeCompare(b.d+b.s));
@@ -2192,7 +2188,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.10';
+const APPV='1.3.11';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
