@@ -441,6 +441,13 @@ html[data-th=raat] .kbox{background:rgba(224,160,48,.08);border-color:rgba(224,1
 .ksum>div.gn2{background:rgba(31,175,85,.12);border-color:rgba(31,175,85,.45)}
 .ksum>div.gn2 .kv{color:#0A6B3C}
 .koldmut{margin-top:10px;font-size:calc(12.5px*var(--fs));color:var(--mut)}
+/* v1.3.18: notification text chooser */
+.ntxs{margin:13px 0 2px;font-size:calc(13.5px*var(--fs));color:var(--mut)}
+.ntxr{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1.5px solid var(--line);border-radius:13px;margin:7px 0;cursor:pointer}
+.ntxr.on{border-color:var(--g);box-shadow:0 0 0 1px var(--g) inset}
+.ntdot{flex:0 0 auto;width:17px;height:17px;border-radius:50%;border:2px solid var(--mut);margin-top:3px;background:transparent}
+.ntxr.on .ntdot{border-color:var(--g);background:var(--g);box-shadow:inset 0 0 0 3px var(--card)}
+.nttx{flex:1;line-height:1.95;font-family:var(--uf);font-size:calc(15px*var(--fs))}
 .koldmut b{color:var(--ink)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .ksum>div.gn2 .kv{color:#8FE3BC}}
 :root[data-theme="dark"] .ksum>div.gn2 .kv{color:#8FE3BC}
@@ -829,29 +836,29 @@ const t=tot(f),dates=[...f.entries.map(o=>o.date),...(f.olds||[]).map(o=>o.date)
 const a={id:uid(),on:today(),label:(($('stl')||{}).value||'').trim().slice(0,40),from:dates[0]||today(),to:dates[dates.length-1]||today(),nE:f.entries.length,nP:f.pays.length,mins:t.mn,bill:t.bill,old:t.old,paid:t.paid,due:t.due,entries:f.entries,pays:f.pays,olds:f.olds||[]};
 (f.arch=f.arch||[]).unshift(a);
 f.entries=[];f.pays=[];
-if(t.due>0)f.olds=[{id:uid(),date:today(),amt:t.due,note:''}];else f.olds=[];
+if(t.due>0){const ob={id:uid(),date:today(),amt:t.due,note:''};f.olds=[ob];ntPushF(f,'o',ob)}else f.olds=[];
 if(t.due<0)f.pays=[{id:uid(),date:today(),amt:-t.due,how:'Aur'}];
-$('em').remove();save();ding();toast(BT('Khata band ho gaya — naya khata shuru ho gaya'));open_(cur)}
+try{$('em').remove()}catch(e){}save();ding();toast(BT('Khata band ho gaya — naya khata shuru ho gaya'));open_(cur)}
 
 function pv(){const m=mins($('es').value,$('ee').value);$('pt').textContent=m?dur(m):'—';$('pa').textContent=rs(m/60*RATE)}
 const F=()=>db.farmers.find(x=>x.id===cur);
 function addE(){const s=$('es').value,e=$('ee').value,d=$('ed').value;if(!d||!s||!e){alert('Date, shuru aur khatam time likhein');return}
 const m=mins(s,e);if(!m){alert('Shuru aur khatam time ek jaisa hai');return}
 const o={date:d,start:s,end:e,mins:m,amt:Math.round(m/60*RATE),note:$('en').value.trim()},f=F();
-const ex=eid&&f.entries.find(z=>z.id===eid);if(ex)Object.assign(ex,o);else{f.entries.push({id:uid(),...o});ntPushF(f,'e',o)}save();ding();open_(cur)}
+const ex=eid&&f.entries.find(z=>z.id===eid);if(ex)Object.assign(ex,o);else{ntPushF(f,'e',o);f.entries.push({id:uid(),...o})}save();ding();open_(cur)}
 let payBusy=false;
 async function addP(){if(payBusy)return;payBusy=true;try{await addP_()}finally{payBusy=false}}
 async function addP_(){const a=Math.round(+$('pm').value);if(!(a>0)){alert('Sahi rakam likhein');return}
 const o={id:uid(),date:$('pd').value||today(),amt:a,how:$('ph').value},fl=$('pimg').files[0];
 if(fl){try{const d=await compress(fl);o.img=o.id;await phPut(o.id,d);if(U&&FS)FS.collection('users').doc(U.uid).collection('photos').doc(o.id).set({d}).catch(()=>{})}catch(e){alert('Tasveer save nahi hui')}}
-const f2=F();f2.pays.push(o);save();ding();ntPushF(f2,'p',o);open_(cur)}
+const f2=F();f2.pays.push(o);ntPushF(f2,'p',o);save();ding();open_(cur)}
 function delE(id){if(!confirm('Yeh entry Delete karein?\n(Deleted Box mein 30 din rahegi, wahan se wapas la sakte hain)'))return;const f=F(),e=f.entries.find(x=>x.id===id);
 if(e){BIN.unshift({id:uid(),type:'entry',fid:f.id,fname:f.name,data:e,del:Date.now()});saveBin()}f.entries=f.entries.filter(x=>x.id!==id);save();open_(cur)}
 function delP(id){if(!confirm('Yeh wasooli Delete karein?\n(Deleted Box mein 30 din rahegi, wahan se wapas la sakte hain)'))return;const f=F(),p=f.pays.find(x=>x.id===id);
 if(p){BIN.unshift({id:uid(),type:'wasooli',fid:f.id,fname:f.name,data:p,del:Date.now()});saveBin()}f.pays=f.pays.filter(x=>x.id!==id);save();open_(cur)}
 function delF(){if(!confirm('Yeh kisan aur uska saara hisab Delete ho jayega.\n(Deleted Box mein 30 din rahega, wahan se wapas la sakte hain). Pakka?'))return;const f=F();
 BIN.unshift({id:uid(),type:'kisan',fid:f.id,fname:f.name,data:f,del:Date.now()});saveBin();delete lastFC[f.id];delete lastFD[f.id];if(U&&FS){if(f.fcode)FS.collection('fcode').doc(f.fcode).delete().catch(()=>{});FS.collection('fd').doc(f.id).delete().catch(()=>{})}lreqRejFr(f.id);db.farmers=db.farmers.filter(x=>x.id!==cur);save();home()}
-function addO(){const a=Math.round(+$('orm').value);if(!(a>0)){alert('Sahi rakam likhein');return}const f=F();(f.olds=f.olds||[]).push({id:uid(),date:$('od').value||today(),amt:a,note:$('on').value.trim()});save();ding();open_(cur)}
+function addO(){const a=Math.round(+$('orm').value);if(!(a>0)){alert('Sahi rakam likhein');return}const f=F(),ob={id:uid(),date:$('od').value||today(),amt:a,note:$('on').value.trim()};(f.olds=f.olds||[]).push(ob);ntPushF(f,'o',ob);save();ding();open_(cur)}
 function delO(id){if(!confirm('Yeh purana baqaya Delete karein?\n(Deleted Box mein 30 din rahega, wahan se wapas la sakte hain)'))return;const f=F(),p=(f.olds||[]).find(x=>x.id===id);if(p){BIN.unshift({id:uid(),type:'purana',fid:f.id,fname:f.name,data:p,del:Date.now()});saveBin()}f.olds=(f.olds||[]).filter(x=>x.id!==id);save();open_(cur)}
 function modal(h,c){const o=document.createElement('div');o.className='ov';o.id='em';o.onclick=e=>{if(e.target===o)o.remove()};o.innerHTML='<div class="sh fc '+(c||'')+'" style="border-radius:24px 24px 0 0">'+h+'</div>';document.body.appendChild(o)}
 const mcx=(id,t)=>'<button class="s" style="width:100%;margin-top:8px" onclick="$(\'em\').remove()">Cancel</button>';
@@ -1188,6 +1195,9 @@ async function netChk(){if(!navigator.onLine){netSet(false);return}const c=new A
 window.addEventListener('online',netChk);window.addEventListener('offline',()=>netSet(false));setInterval(netChk,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)netChk()});
 let AC=null;const acI=()=>{try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}};document.addEventListener('pointerdown',acI,{passive:true});
 function ding(){if(ST.snd===false)return;try{acI();if(!AC)return;const t=AC.currentTime;[[880,0],[1318.5,.11]].forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t+d);g.gain.exponentialRampToValueAtTime(.22,t+d+.015);g.gain.exponentialRampToValueAtTime(.0001,t+d+.3);o.connect(g);g.connect(AC.destination);o.start(t+d);o.stop(t+d+.32)})}catch(e){}}
+/* v1.3.18: WhatsApp jaisi tone — kisan ko nayi entry/wasooli/purana baqaya par (app khuli ho to) */
+function ntTone(){try{if(ST.snd===false)return;acI();if(!AC)return;try{if(AC.state==='suspended')AC.resume()}catch(e){}const t=AC.currentTime;
+[[1046.5,0,.34],[783.99,.17,.52]].forEach(nd=>{[[nd[0],'triangle',.26],[nd[0]/2,'sine',.1]].forEach(v=>{const o=AC.createOscillator(),g=AC.createGain();o.type=v[1];o.frequency.value=v[0];g.gain.setValueAtTime(.0001,t+nd[1]);g.gain.exponentialRampToValueAtTime(v[2],t+nd[1]+.02);g.gain.exponentialRampToValueAtTime(.0001,t+nd[1]+nd[2]);o.connect(g);g.connect(AC.destination);o.start(t+nd[1]);o.stop(t+nd[1]+nd[2]+.06)})})}catch(e){}}
 function tgSnd(){ST.snd=ST.snd===false;saveST();if(ST.snd!==false)ding();(ST.role==='farmer'?fSetV:setV)()}
 /* v83+v86+v87: Settings nav par double-tap = mode switch (1 second window; pehle tap par feedback toast + vibrate). v87: same-tab tap par re-render NAHI — sirf scroll-top, aur navR buttons ka DOM dobara nahi banata (taps lost nahi hote) */
 let nbT=0,nbK='';
@@ -1231,7 +1241,7 @@ ${wxSetCard()}<div class="card"><h2>🌐 ${BT('Zuban / Language')}</h2><div clas
 ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()">Face ID band karein</button>':'<button class="s" style="width:100%;margin-top:8px" onclick="onBio()">Face ID chalu karein</button>'}${ST.pin&&!ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offPin()">PIN hatayein</button>':''}</div>
 <div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,.txt,application/json,text/plain" class="hide" onchange="imp(this)"><div class="row" style="margin-top:8px"><button class="s" onclick="bkCopy()">📋 Backup copy karein</button><button class="s" onclick="bkPaste()">📥 Backup paste karein</button></div><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
 <div class="card"><h2>${BT('🔁 Kaam badlein')}</h2><div class="mut sm" style="margin-bottom:8px">${BT('Aap abhi Tubewell Owner hain (kitab wale). Agar aap kisi doosre malik ke yahan pani lagwate hain to Farmer mode par jayein — wahan apna khata dekh sakte hain. Aap ka apna poora khata (kisan, entries, wasooli) mehfooz rahega.')}</div><button class="s" style="width:100%" onclick="swRoleAsk('farmer')">${BT('🌱 Pani lagane wale (Farmer) mode par jayein')}</button><div class="mut sm" style="margin-top:8px">⚡ ${BT('Ya neeche nav bar ke Settings par do dafa tap karein (1 second ke andar)')}</div></div>${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b><bdi>${esc((U&&U.displayName)||'')}</bdi></b><div class="mut sm"><bdi dir="ltr">${esc(U?U.email:BT('Login nahi'))}</bdi></div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
-<div class="card"><h2>🔔 Awaaz</h2><div class="mut sm" style="margin-bottom:8px">Entry, wasooli ya baqaya save karne par chhoti si awaaz.</div><button class="${ST.snd===false?'s':'p'}" style="width:100%" onclick="tgSnd()">${ST.snd===false?'Awaaz band hai, chalu karein':'Awaaz chalu hai, band karein'}</button></div>
+${ntxCard()}<div class="card"><h2>🔔 Awaaz</h2><div class="mut sm" style="margin-bottom:8px">Entry, wasooli ya baqaya save karne par chhoti si awaaz.</div><button class="${ST.snd===false?'s':'p'}" style="width:100%" onclick="tgSnd()">${ST.snd===false?'Awaaz band hai, chalu karein':'Awaaz chalu hai, band karein'}</button></div>
 <div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} • ${BT('Version')} v${APPV}<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}curTW().rate=r;saveST();twPush();toast('Rate save ho gaya');setV()}
@@ -1551,9 +1561,30 @@ h+='<div class="wtr wtot wtotG2"><span class="wtl">کل جمع</span><span></spa
 /* ===== v1.3.14: Level-2 push — app band ho tab bhi (Cloudflare Worker relay + FCM token) ===== */
 const NWRK='https://aslam-notify.shahbaztaimoor0055.workers.dev/',NSEC='aslam-TR7k-m2Qv-9xLd-Pn4W-8cJh-5bFs-3gZq-6vRt',NVAP='BMFWh2-zfNwAxopMupdeGZ10E-zqjtXaC0SVPrjFP_M-JFFXFWR-fe3IFoi7T63jfrN6M2u_rRfrhBNJsDoi6Eo';
 function ntPushSend(fUid,t,b){try{if(!fUid||!NWRK)return;fetch(NWRK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:NSEC,farmerId:fUid,title:t,body:b,link:location.origin+location.pathname})}).catch(()=>{})}catch(e){}}
+/* ===== v1.3.18: Notification ka text — Settings mein har qisam ke 3 suggested Urdu text + apna text ===== */
+function ntxGet(){try{const v=JSON.parse(localStorage.getItem('aslam_ntx')||'{}');return v&&typeof v==='object'?v:{}}catch(e){return{}}}
+function ntxSet(v){try{localStorage.setItem('aslam_ntx',JSON.stringify(v))}catch(e){}}
+const NTXS={e:['آج پانی {min} منٹ چلا، خرچہ {rs} روپے ہوا۔','انٹری درج: {tar}، {shuru} تا {khatm} — کل {rs} روپے۔','السلام علیکم! آج آپ کے کھیت میں پانی لگا، خرچہ {rs} روپے درج ہوا۔'],p:['آپ کی ادائیگی {rs} روپے موصول ہو گئی، شکریہ!','ادائیگی موصول: {rs} روپے ({tar}) — باقی {baqi} روپے۔','السلام علیکم! آپ کی {rs} روپے کی ادائیگی مل گئی، باقی {baqi} روپے ہیں۔'],o:['یاد دہانی: پرانا حساب {rs} روپے باقی ہے۔','پرانے حساب کی {rs} روپے باقی ہیں، براہ کرم جلد ادائیگی کر دیں۔','السلام علیکم! آپ کے خاتے میں پرانے واجبات {rs} روپے ہیں۔']};
+function ntBody(k,f,o){try{const c=ntxGet(),sel=c[k]||'d',tt=tot(f),tw=twOf(f),HW={Cash:'نقد',JazzCash:'جاز کیش',Easypaisa:'ایزی پیسہ',Bank:'بینک',Aur:'دیگر'};
+const tpl=sel==='x'?String(c[k+'x']||'').slice(0,150):((NTXS[k]||[])[+String(sel).slice(1)-1]||'');
+if(!tpl)return '';
+const V={'{tub}':(tw&&tw.name)||'','{kh}':(f&&f.name)||'','{tar}':fmtD(o.date||today()),'{rs}':rs(o.amt||0),'{min}':String(o.mins||0),'{shuru}':o.start?urT(o.start):'','{khatm}':o.end?urT(o.end):'','{baqi}':rs(tt?tt.due:0),'{tareeq}':HW[o.how]||o.how||'','{note}':o.note||''};
+let b=tpl;for(const w in V)b=b.split(w).join(V[w]);return b}catch(e){return ''}}
 function ntPushF(f,k,o){try{if(ST.role!=='owner'||!f||!f.linkedUid)return;const tw=twOf(f),UR=BL()==='ur';
-if(k==='e')ntPushSend(f.linkedUid,UR?'💧 نئی پانی کی انٹری':'💧 New water entry',(tw&&tw.name?tw.name+' • ':'')+(o.mins?dur(o.mins)+' • ':'')+rs(o.amt));
-else ntPushSend(f.linkedUid,UR?'💰 وصولی درج ہو گئی':'💰 Payment received',(tw&&tw.name?tw.name+' • ':'')+rs(o.amt)+(o.how?' • '+o.how:''))}catch(e){}}
+if(k==='e'){const b=ntBody('e',f,o)||((tw&&tw.name?tw.name+' • ':'')+(o.mins?dur(o.mins)+' • ':'')+rs(o.amt));try{o.ntx=b}catch(e2){}ntPushSend(f.linkedUid,UR?'💧 نئی پانی کی انٹری':'💧 New water entry',b)}
+else if(k==='p'){const b=ntBody('p',f,o)||((tw&&tw.name?tw.name+' • ':'')+rs(o.amt)+(o.how?' • '+o.how:''));try{o.ntx=b}catch(e2){}ntPushSend(f.linkedUid,UR?'💰 وصولی درج ہو گئی':'💰 Payment received',b)}
+else{const b=ntBody('o',f,o)||((tw&&tw.name?tw.name+' • ':'')+'پرانا باقیہ: '+rs(o.amt));try{o.ntx=b}catch(e2){}ntPushSend(f.linkedUid,UR?'📜 پرانا باقیہ':'📜 Old balance added',b)}}catch(e){}}
+function ntxCard(){const C=ntxGet(),T=(en,ur)=>BL()==='ur'?ur:en,opt=(k,v,tx)=>'<div class="ntxr'+((C[k]||'d')===v?' on':'')+'" onclick="ntxPick(\''+k+'\',\''+v+'\')"><span class="ntdot"></span><span class="nttx" dir="rtl">'+esc(tx)+'</span></div>';
+const sec=(k,ic,lb)=>{let h='<div class="ntxs"><b>'+ic+' '+lb+'</b></div>'+opt(k,'d',T('Default text (pehle jaisa)','سسٹم کا متن — پہلے جیسا'));
+(NTXS[k]||[]).forEach((tx,i)=>{h+=opt(k,'t'+(i+1),tx)});
+h+=opt(k,'x',T('✏️ Apna likha hua text','✏️ اپنا لکھا ہوا متن'))+'<div id="ntxcw'+k+'" class="'+((C[k]||'d')==='x'?'':'hide')+'" style="margin:2px 0 10px"><textarea id="ntxta'+k+'" rows="2" dir="rtl" maxlength="150" style="width:100%;box-sizing:border-box;font-family:var(--uf);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-size:calc(15px*var(--fs));background:var(--bg);line-height:1.9" placeholder="'+T('Apna text likhein…','اپنا متن لکھیں…')+'">'+esc(C[k+'x']||'')+'</textarea><button class="p" style="width:100%;margin-top:6px" onclick="ntxCx(\''+k+'\')">'+RB('Custom text save karein','اپنا متن محفوظ کریں')+'</button></div>';
+return h};
+return '<div class="card">'+BH('🔔 Notification text','🔔 نوٹیفکیشن کا متن')+'<div class="mut sm" style="margin:0 0 4px">'+RB('Jab aap entry, wasooli ya purana baqaya darj karte hain to kisan ko notification jati hai — har qisam ka text yahan chunein. Kuch na chunein to default text jayega. {rs} ki jagah raqam, {tar} ki jagah tareekh khud aa jati hai.','جب آپ انٹری، وصولی یا پرانا باقیہ درج کرتے ہیں تو کسان کو اطلاع جاتی ہے — ہر قسم کا متن یہاں سے چنیں۔ کچھ نہ چنا ہو تو ڈیفالٹ متن جائے گا۔ {rs} کی جگہ رقم، {tar} کی جگہ تاریخ خود آ جائے گی۔')+'</div>'
++sec('e','💧',RB('Nayi pani entry ka text','پانی کی نئی انٹری کا متن'))
++sec('p','💰',RB('Wasooli ka text','ادائیگی (وصولی) کا متن'))
++sec('o','📜',RB('Purana baqaya ka text','پرانے باقیے کا متن'))+'</div>'}
+function ntxPick(k,v){try{const c=ntxGet();c[k]=v;ntxSet(c)}catch(e){}try{toast(BL()==='ur'?'ہو گیا — اب یہی متن اطلاع میں جائے گا':'Ho gaya — ab yehi text notification mein jaye ga')}catch(e){}if(view==='set')setV()}
+function ntxCx(k){try{const c=ntxGet(),el=$('ntxta'+k),v=((el&&el.value)||'').trim();if(!v){toast(BL()==='ur'?'پہلے اپنا متن لکھیں':'Pehle apna text likhein');return}c[k]='x';c[k+'x']=v.slice(0,150);ntxSet(c);toast(BL()==='ur'?'اپنا متن محفوظ ہو گیا':'Apna text save ho gaya');if(view==='set')setV()}catch(e){}}
 let ntpS=0;
 function ntPushReg(quiet){try{if(!U||ntpS)return;if(!('serviceWorker' in navigator)||!('Notification' in window))return;if(ntPerm()!=='granted')return;if(!(window.firebase&&firebase.messaging&&firebase.messaging.isSupported&&firebase.messaging.isSupported()))return;ntpS=1;
 try{navigator.serviceWorker.ready.then(r=>{try{firebase.messaging().getToken({vapidKey:NVAP,serviceWorkerRegistration:r}).then(tok=>{if(tok){try{FS.collection('ftok').doc(U.uid).set({tokens:firebase.firestore.FieldValue.arrayUnion(tok),upAt:Date.now()},{merge:true})}catch(e){}try{if(!quiet)toast(BL()==='ur'?'🔔 Push chalu — app band ho to bhi notification aayegi':'🔔 Push on — works even when the app is closed')}catch(e2){}}else ntpS=0}).catch(()=>{ntpS=0})}catch(e){ntpS=0}}).catch(()=>{ntpS=0})}catch(e){ntpS=0}}catch(e){}}
@@ -1572,7 +1603,7 @@ function ntGateSkip(){try{sessionStorage.setItem(NTSK,'1')}catch(e){}ntGateSync(
 function ntGateAsk(){try{const p=ntPerm();if(p!=='default'){ntGateSync();return}
 try{Notification.requestPermission().then(r=>{try{fkSoft()}catch(e){}if(r==='granted'){ntTest();try{ntPushReg(false)}catch(e){}}try{ntGateSync()}catch(e2){}}).catch(()=>{try{ntGateSync()}catch(e3){}})}catch(e){ntGateSync()}}catch(e){}}
 try{document.addEventListener('visibilitychange',()=>{try{if(!document.hidden)ntGateSync()}catch(e){}})}catch(e){}
-function ntShow(t,b,tag){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const o={body:b,tag:tag||'twk',icon:'icon-192.png',badge:'icon-192.png',renotify:true};
+function ntShow(t,b,tag){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const o={body:b,tag:tag||'twk',icon:'icon-192.png',badge:'icon-192.png',renotify:true,vibrate:[100,60,100,60,220]};
 try{navigator.serviceWorker.ready.then(r=>{try{const pr=r.showNotification(t,o);if(pr&&pr.catch)pr.catch(()=>{})}catch(e){try{new Notification(t,o)}catch(e2){}}}).catch(()=>{try{new Notification(t,o)}catch(e2){}})}catch(e){try{new Notification(t,o)}catch(e2){}}}catch(e){}}
 function ntTest(){const UR=BL()==='ur';ntShow(UR?'\u{1F514} \u0679\u06CC\u0648\u0628 \u0648\u06CC\u0644 \u06A9\u06BE\u0627\u062A\u06C1':'\u{1F514} ٹیوب ویل کھاتہ',UR?'\u0679\u06CC\u0633\u0679 \u2014 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u0644\u06A9\u0644 \u0679\u06BE\u06CC\u06A9 \u0686\u0644 \u0631\u06C1\u06CC \u06C1\u06D2':'Test — notifications are working fine','test');try{toast(UR?'Notification bhej di — phone ki bar mein dekhein':'Notification sent — check your phone bar')}catch(e){}}
 function ntHelp(){const UR=BL()==='ur';modal('<div class="fh" data-d="\u{1F514}"><i class="ic">\u{1F514}</i><div>'+BH('Notification allow kaise karein','\u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u06A9\u06CC \u0627\u062C\u0627\u0632\u062A \u06A9\u06CC\u0633\u06D2 \u062F\u06CC\u06BA')+'</div></div><div class="fb"><div class="mut sm" style="line-height:1.9">'+RB('1. Chrome address bar mein tala (lock) par tap karein.<br>2. Permissions \u2192 Notifications \u2192 Allow karein.<br>3. App band karke dobara kholein.','1. Chrome \u0627\u06CC\u0688\u0631\u06CC\u0633 \u0628\u0627\u0631 \u0645\u06CC\u06BA \u062A\u0627\u0644\u0627 (lock) \u067E\u0631 \u0679\u06CC\u067E \u06A9\u0631\u06CC\u06BA\u06D4<br>2. Permissions \u2192 Notifications \u2192 Allow \u06A9\u0631\u06CC\u06BA\u06D4<br>3. \u0627\u06CC\u067E \u0628\u0646\u062F \u06A9\u0631 \u06A9\u06D2 \u062F\u0648\u0628\u0627\u0631\u06C1 \u06A9\u06BE\u0648\u0644\u06CC\u06BA\u06D4')+'</div><button class="p" style="width:100%;margin-top:10px" onclick="document.getElementById(\'em\').remove()">'+BT('Band karein')+'</button></div>')}
@@ -1597,19 +1628,24 @@ else{st=RB('Get a phone notification whenever the owner adds a new water entry o
 return '<div class="card">'+BH('\u{1F514} Phone notification','\u{1F514} \u0641\u0648\u0646 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646')+'<div class="mut sm" style="margin-bottom:8px">'+st+'</div><button class="'+bt+'" style="width:100%" onclick="'+fn+'">'+lb+'</button></div>'}
 function ntDiff(frId,d){try{
 if(ST.role!=='farmer'||!d)return;
-const ek=(d.entries||[]).map(x=>x.id||'').join(','),pk=(d.pays||[]).map(x=>x.id||'').join(',');
-const s=NTSEEN[frId];NTSEEN[frId]={e:ek,p:pk};
+const ek=(d.entries||[]).map(x=>x.id||'').join(','),pk=(d.pays||[]).map(x=>x.id||'').join(','),ok=(d.olds||[]).map(x=>x.id||'').join(',');
+const s=NTSEEN[frId];NTSEEN[frId]={e:ek,p:pk,o:ok};
 if(!s)return;
 const ne=(d.entries||[]).filter(x=>x.id&&(','+s.e+',').indexOf(','+x.id+',')<0);
 const np=(d.pays||[]).filter(x=>x.id&&(','+s.p+',').indexOf(','+x.id+',')<0);
-if(!ne.length&&!np.length)return;
+const no=(d.olds||[]).filter(x=>x.id&&(','+(s.o||'')+',').indexOf(','+x.id+',')<0);
+if(!ne.length&&!np.length&&!no.length)return;
 const UR=BL()==='ur',tw=d.twName||'';
-if(ne.length){const e=ne[ne.length-1],bd=(tw?tw+' \u2022 ':'')+(e.mins?dur(e.mins)+' \u2022 ':'')+rs(e.amt);
+try{ntTone()}catch(tE){}
+if(ne.length){const e=ne[ne.length-1],bd=e.ntx||((tw?tw+' \u2022 ':'')+(e.mins?dur(e.mins)+' \u2022 ':'')+rs(e.amt));
 if(document.hidden)ntShow(UR?'\u{1F4A7} \u0646\u0626\u06CC \u067E\u0627\u0646\u06CC \u06A9\u06CC \u0627\u0646\u0679\u0631\u06CC':'\u{1F4A7} New water entry',bd,'e'+frId);
 else try{toast((UR?'\u{1F4A7} Malik ne nayi pani entry dali \u2014 ':'\u{1F4A7} New water entry \u2014 ')+rs(e.amt))}catch(e2){}}
-if(np.length){const p2=np[np.length-1],bd=(tw?tw+' \u2022 ':'')+rs(p2.amt)+(p2.how?' \u2022 '+p2.how:'');
+if(np.length){const p2=np[np.length-1],bd=p2.ntx||((tw?tw+' \u2022 ':'')+rs(p2.amt)+(p2.how?' \u2022 '+p2.how:''));
 if(document.hidden)ntShow(UR?'\u{1F4B0} \u0648\u0635\u0648\u0644\u06CC \u062F\u0631\u062C \u06C1\u0648 \u06AF\u0626\u06CC':'\u{1F4B0} Payment received',bd,'p'+frId);
 else try{toast((UR?'\u{1F4B0} Malik ne wasooli darj ki \u2014 ':'\u{1F4B0} Payment received \u2014 ')+rs(p2.amt))}catch(e2){}}
+if(no.length){const x2=no[no.length-1],bd=x2.ntx||((tw?tw+' \u2022 ':'')+'پرانا باقیہ: '+rs(x2.amt));
+if(document.hidden)ntShow(UR?'📜 پرانا باقیہ':'📜 Old balance added',bd,'o'+frId);
+else try{toast((UR?'📜 پرانا باقیہ درج ہوا — ':'📜 Old balance added — ')+rs(x2.amt))}catch(e3){}}
 }catch(e){}}
 function fKhataBox(){const L=flsGet();if(!fkCLd){fkCLd=1;FKC=fkcLoad()}L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});let h='';
 if(L.length){const cur=(fkCur&&L.some(x=>x.frId===fkCur))?fkCur:L[0].frId;
@@ -2314,7 +2350,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.17';
+const APPV='1.3.18';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
