@@ -1,9 +1,9 @@
 {
  "id": "./",
- "name": "Tubewell Khata",
- "short_name": "Tubewell Khata",
- "description": "Tubewell ke pani ka hisab: kisan, entries, wasooli aur baqaya.",
- "lang": "en",
+ "name": "ٹیوب ویل کھاتہ",
+ "short_name": "ٹیوب ویل کھاتہ",
+ "description": "ٹیوب ویل کے پانی کا حساب: کسان، انٹریاں، وصولی اور باقیہ۔",
+ "lang": "ur",
  "dir": "auto",
  "start_url": "./",
  "scope": "./",
@@ -11,7 +11,11 @@
  "orientation": "portrait",
  "background_color": "#0B3C6B",
  "theme_color": "#0B3C6B",
- "categories": ["business", "finance", "productivity"],
+ "categories": [
+  "business",
+  "finance",
+  "productivity"
+ ],
  "icons": [
   {
    "src": "icon-192.png",

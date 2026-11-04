@@ -2,9 +2,9 @@
 <html translate="no"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="google" content="notranslate"><!-- Chrome ka Translate popup band (v72) -->
-<meta name="apple-mobile-web-app-title" content="Tubewell Khata"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ٹیوب ویل کھاتہ"><meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" id="ati" href="icon-180.png"><link rel="icon" id="fav" href="icon-192.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0B3C6B">
-<title>Tubewell Khata App</title>
+<title>ٹیوب ویل کھاتہ</title>
 <style>
 :root{--fs:1;--rb:#DCF8E9;--rc:#0A6B3C;--h1:#0B3C6B;--h2:#1580B8;--pt:#fff;--g:#0E6A99;--g2:#E1F1FA;--ink:#12283D;--mut:#5F7487;--line:#D9E6EF;--bg:#F2F7FB;--card:#fff;--red:#B4373F;--redbg:#FDEBEC;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g:#4FB3E8;--g2:#16303F;--ink:#E4EFF7;--mut:#8FA6B8;--line:#25404F;--bg:#0E1A24;--card:#14232F;--red:#ff8a8a;--redbg:#3A2124}}
@@ -155,7 +155,7 @@ button{transition:transform .12s ease,background .25s,color .25s,opacity .2s}but
 .top{overflow:hidden;padding:32px 18px 24px;background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(233,242,249,.72) 14%,rgba(168,194,216,.36) 30%,rgba(110,151,186,0) 46%),linear-gradient(135deg,var(--h1),var(--h2))}
 .wv{position:absolute;left:0;right:0;bottom:0;width:100%;height:48px;fill:rgba(255,255,255,.1)}
 .hr{display:flex;align-items:center;gap:13px;position:relative}.hr img{width:54px;height:54px;border-radius:15px;border:2px solid rgba(255,255,255,.9)}
-.hn h1{margin:0;font-size:calc(21px*var(--fs));letter-spacing:.2px}.hs{font-size:calc(12px*var(--fs));opacity:.95;margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hn h1{margin:0;font-size:calc(21px*var(--fs));letter-spacing:.2px}#appn,.lgnm{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,'AlviNastaleeq','Noto Nastaliq Urdu','Noto Naskh Arabic',sans-serif}.hs{font-size:calc(12px*var(--fs));opacity:.95;margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .nbtn{margin-inline-start:auto;flex:none;position:relative;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s ease}
 .nbtn svg{width:21px;height:21px;display:block}.nbtn:active{transform:scale(.9)}
 .nbdg{position:absolute;top:-5px;inset-inline-end:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:#E5484D;color:#fff;font-size:calc(11px*var(--fs));font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1;box-shadow:none}
@@ -375,7 +375,8 @@ html[data-th=raat] .weTot{box-shadow:none}
 .weTot b{margin-inline-start:auto;font-size:calc(15px*var(--fs));font-variant-numeric:tabular-nums}
 .weTotG{background:linear-gradient(180deg,#27C468,#128A44)}
 /* v1.3.15: farmer khata table — image jaisa: header pani=neela / wasooli=sabz, pani ki har line ka alag light rang, kul light purple */
-.wtab{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.wtab{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);margin-inline:-7px}
+html[lang=en] .wtab,html[lang=en] .ksec.nt .kst,html[lang=en] .ksec.nt .kempty,html[lang=en] .koldmut{font-family:var(--uf)}
 .wtr{display:grid;align-items:center;gap:6px;padding:7px 9px;font-size:calc(10.5px*var(--fs));font-variant-numeric:tabular-nums;min-width:0}
 .wbW>.wtr{grid-template-columns:auto auto auto minmax(0,1fr) auto}
 .wbG>.wtr{grid-template-columns:auto minmax(0,1fr) auto}
@@ -383,20 +384,20 @@ html[data-th=raat] .weTot{box-shadow:none}
 .wbG>.wth{background:#D5F0E0;color:#0F7A40}
 .wtr+.wtr{border-top:1px solid var(--line)}
 .wda{display:flex;flex-direction:column;gap:3px;min-width:0}
-.wchip{display:inline-block;align-self:flex-start;background:var(--wc,#1580B8);color:#fff;border-radius:7px;padding:2px 6px;font-weight:800;font-size:calc(9.5px*var(--fs));font-style:normal;white-space:nowrap}
-.wchipG{background:#1FAF55}
+.wchip{display:inline-block;align-self:flex-start;background:var(--wcb,#DCEBF8);color:var(--wcc,#0C5F8C);border-radius:7px;padding:2px 6px;font-weight:800;font-size:calc(9.5px*var(--fs));font-style:normal;white-space:nowrap}
+.wchipG{background:#D8F2E2;color:#0F7A40}
 .wnote{font-style:normal;color:var(--mut);font-size:calc(9px*var(--fs));max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wnote.wol{color:#8F6710;font-weight:700}
 .wtc{font-weight:600;white-space:nowrap}
 .wdur{color:var(--mut);font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .whow{color:var(--mut);font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wam{text-align:end;font-weight:800;font-size:calc(11.5px*var(--fs));white-space:nowrap}
-.wc0{background:#F2F8FD;--wc:#1580B8}.wc0 .wam{color:#0C5F8C}
-.wc1{background:#F0FAF3;--wc:#1FAF55}.wc1 .wam{color:#0F7A40}
-.wc2{background:#FEF9EC;--wc:#D89A22}.wc2 .wam{color:#8F6710}
-.wc3{background:#F5F1FC;--wc:#7C4DFF}.wc3 .wam{color:#5B3EC8}
-.wc4{background:#FCF0F4;--wc:#D66086}.wc4 .wam{color:#A03258}
-.wold{background:#FCF5E1;--wc:#D89A22}.wold .wam{color:#8F6710}
+.wc0{background:#F2F8FD;--wcb:#DCEBF8;--wcc:#0C5F8C}.wc0 .wam{color:#0C5F8C}
+.wc1{background:#F0FAF3;--wcb:#D8F2E2;--wcc:#0F7A40}.wc1 .wam{color:#0F7A40}
+.wc2{background:#FEF9EC;--wcb:#FBF0D8;--wcc:#8F6710}.wc2 .wam{color:#8F6710}
+.wc3{background:#F5F1FC;--wcb:#E8E2FA;--wcc:#5B3EC8}.wc3 .wam{color:#5B3EC8}
+.wc4{background:#FCF0F4;--wcb:#F9E2EB;--wcc:#A03258}.wc4 .wam{color:#A03258}
+.wold{background:#FCF5E1;--wcb:#FBF0D8;--wcc:#8F6710}.wold .wam{color:#8F6710}
 .wpg{background:#F0FAF3}.wpg:nth-child(odd){background:#fff}
 .wpg .wam{color:#0F7A40}
 .wtot{background:#EFE6FA;color:#5B3EC8;font-weight:800}
@@ -414,6 +415,7 @@ html[data-th=raat] .wc2{background:rgba(224,160,48,.10)}html[data-th=raat] .wc2 
 html[data-th=raat] .wc3{background:rgba(124,77,255,.12)}html[data-th=raat] .wc3 .wam{color:#C3B2FF}
 html[data-th=raat] .wc4{background:rgba(214,96,134,.10)}html[data-th=raat] .wc4 .wam{color:#F2A9C4}
 html[data-th=raat] .wold{background:rgba(224,160,48,.12)}html[data-th=raat] .wold .wam{color:#F0C977}
+html[data-th=raat] .wchip{background:rgba(255,255,255,.09);color:#BFE0F2}html[data-th=raat] .wc0 .wchip{color:#8FD2F5}html[data-th=raat] .wc1 .wchip,html[data-th=raat] .wchipG{color:#7FDCA4}html[data-th=raat] .wc2 .wchip,html[data-th=raat] .wold .wchip{color:#F0C977}html[data-th=raat] .wc3 .wchip{color:#C3B2FF}html[data-th=raat] .wc4 .wchip{color:#F2A9C4}
 html[data-th=raat] .wpg{background:rgba(31,175,85,.08)}html[data-th=raat] .wpg:nth-child(odd){background:transparent}
 html[data-th=raat] .wpg .wam{color:#7FDCA4}
 html[data-th=raat] .wtot{background:rgba(124,77,255,.16);color:#C3B2FF}html[data-th=raat] .wtot .wam{color:#C3B2FF}
@@ -656,9 +658,9 @@ html[data-th=raat] #q::placeholder{color:#8FA6B8}
 </style><script>document.documentElement.classList.add('authwait','spboot');try{var _t=localStorage.getItem('aslam_theme');if(_t)document.documentElement.setAttribute('data-th',_t)}catch(e){}try{var _sl=JSON.parse(localStorage.getItem('aslam_st')||'{}').lang;if(_sl==='en'){document.documentElement.classList.add('spen');document.documentElement.lang='en';document.documentElement.dir='ltr'}else{document.documentElement.lang='ur';document.documentElement.dir='rtl'}}catch(e){}try{var _fw=document.documentElement.clientWidth||window.innerWidth||390;_fw=Math.min(1,Math.max(.78,_fw/390));_fw=Math.round(_fw*1000)/1000;document.documentElement.style.setProperty('--fs',String(_fw))}catch(e){}</script></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
-<div class="hr"><img class="lg" src="icon-192.png" alt=""><div class="hn"><h1 id="appn" class="nt">Tubewell Khata App</h1><div class="net" id="net"><i></i><span>Online</span></div></div><button id="nbtn" class="nbtn" type="button" aria-label="Notifications" onclick="notifToggle()" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span id="nbdg" class="nbdg" style="display:none">0</span></button></div>
+<div class="hr"><img class="lg" src="icon-192.png" alt=""><div class="hn"><h1 id="appn" class="nt">ٹیوب ویل کھاتہ</h1><div class="net" id="net"><i></i><span>Online</span></div></div><button id="nbtn" class="nbtn" type="button" aria-label="Notifications" onclick="notifToggle()" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span id="nbdg" class="nbdg" style="display:none">0</span></button></div>
 <div class="cr"><div class="chip"><i></i><span id="sync">Check ho raha hai…</span></div><span class="rate" id="rt">💧 Rs 500 / hour</span></div></header>
-<div id="splash"><img src="icon-192.png" width="92" height="92" alt="" style="border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.3)" onerror="this.replaceWith(document.createTextNode('💧'))"><div class="spn1 nt" id="spn1">Tubewell Khata</div><div class="spn2 nt" id="spn2">ٹیوب ویل کھاتہ</div><i></i></div><script>try{var _st=JSON.parse(localStorage.getItem('aslam_st')||'{}');if(_st.lang==='en')document.documentElement.classList.add('spen');var _s1=document.getElementById('spn1'),_s2=document.getElementById('spn2');if(_s1&&_st.name)_s1.textContent=_st.name;if(_s2)_s2.textContent=_st.urdu||_st.name||'ٹیوب ویل کھاتہ'}catch(e){}</script><div id="v"></div>
+<div id="splash"><img src="icon-192.png" width="92" height="92" alt="" style="border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.3)" onerror="this.replaceWith(document.createTextNode('💧'))"><div class="spn1 nt" id="spn1">ٹیوب ویل کھاتہ</div><div class="spn2 nt" id="spn2">ٹیوب ویل کھاتہ</div><i></i></div><script>try{var _st=JSON.parse(localStorage.getItem('aslam_st')||'{}');if(_st.lang==='en')document.documentElement.classList.add('spen');var _s1=document.getElementById('spn1'),_s2=document.getElementById('spn2');if(_s1){var _nm=_st.name;if(_nm==='Tubewell Khata'||_nm==='Aslam Tubewell')_nm='ٹیوب ویل کھاتہ';if(_nm){_s1.textContent=_nm;if(/[\u0600-\u06FF]/.test(_nm))_s1.style.fontFamily='var(--uf)'}if(_s2)_s2.textContent=_st.urdu||_nm||'ٹیوب ویل کھاتہ'}}catch(e){}</script><div id="v"></div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -801,8 +803,8 @@ const THd=[['⏱',IC.clk,'Total time',dur(a.mins||0)],['💧',IC.coin,'Pani ke p
 .map(x=>'<div class="stt"><i class="ci">'+x[1]+'</i><div><span>'+BT(x[2])+'</span><b>'+x[3]+'</b></div></div>').join('');
 let h='<div class="fh" data-d="🧺"><i class="ic">🧺</i><div><h2>'+esc(archLabel(a))+'</h2><small>'+BT('Fasal ka record — sirf parne ke liye')+'</small></div></div><div class="fb"><div class="stg">'+THd+'</div>';
 const E=[...(a.entries||[])].sort((x,y)=>(x.date+x.start).localeCompare(y.date+y.start)),P=[...(a.pays||[])].sort((x,y)=>x.date.localeCompare(y.date));
-if(E.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💧 '+BT('Pani ka Hisab')+'</div>'+wbWater(E,a.mins||0,a.bill||0,UR,fmtD);
-if(P.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💰 '+BT('Wasoolian')+'</div>'+wbPays(P,a.paid||0,fmtD);
+if(E.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💧 پانی کا حساب</div>'+wbWater(E,a.mins||0,a.bill||0,true,fmtD);
+if(P.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💰 وصولیاں</div>'+wbPays(P,a.paid||0,fmtD);
 h+='<button class="s" style="width:100%;margin-top:10px" onclick="$(\'em\').remove()">'+BT('Band karein')+'</button></div>';
 modal(h)}
 function settleAsk(){const f=F();if(!f)return;
@@ -1119,7 +1121,7 @@ try{Object.keys(localStorage).filter(k=>k.indexOf('aslam')===0&&k!=='aslam_theme
 try{indexedDB.deleteDatabase('aslam_ph')}catch(e){}
 if(full){try{if(FS){await FS.terminate();await FS.clearPersistence()}}catch(e){}
 try{if(window.caches){const k=await caches.keys();await Promise.all(k.map(x=>caches.delete(x)))}}catch(e){}}
-const lang=ST.lang;Object.keys(ST).forEach(k=>delete ST[k]);Object.assign(ST,{name:'Tubewell Khata',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''});if(lang)ST.lang=lang;twInit();
+const lang=ST.lang;Object.keys(ST).forEach(k=>delete ST[k]);Object.assign(ST,{name:'ٹیوب ویل کھاتہ',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''});if(lang)ST.lang=lang;twInit();
 db={farmers:[],ts:0};BIN=[];lastP={};lastB={};cur=null;eid=null;LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;lastFC={};lastFD={};try{localStorage.removeItem('aslam_fl')}catch(e){}try{localStorage.removeItem('aslam_fls')}catch(e){}try{localStorage.removeItem('aslam_fkc')}catch(e){}try{localStorage.removeItem('aslam_fdmap')}catch(e){}try{localStorage.removeItem('aslam_twl')}catch(e){}FKC={};FD_OFF={};try{applySt()}catch(e){}}
 async function logout(){if(!navigator.onLine){alert(trT('Logout ke liye internet chahiye, taake is phone ka sara data aur cache saaf ho sake.'));return}
 if(!confirm(trT('Logout karne se is phone ka sara data aur cache saaf ho jayega (online save hai, dobara login par wapas aa jayega). Logout karein?')))return;
@@ -1137,12 +1139,12 @@ if(last&&last!==u.uid){db={farmers:[],ts:0};ST.tws=null;twInit();saveST();lastP=
 try{localStorage.setItem('aslam_uid',u.uid)}catch(e){}
 lgM='in';const o=$('lg');if(o)o.remove();document.documentElement.classList.remove('lgshow');FORCE_LANG=null;applyDir();relang();routeUser();if(justLogged){justLogged=false;showWelcome(u.displayName||u.email)}st('☁️ Sync ho raha hai…');listen();listenBin();pushBin();listenProf();try{ntPushReg(true)}catch(e){}}
 else{U=null;if(unsub){unsub();unsub=null}chatUnsubAll();if(!loggingOut){try{if(localStorage.getItem('aslam_uid'))wipeLocal(false)}catch(e){}}home();if(!$('lg'))showLogin()}})}catch(e){let f=false;try{f=!!localStorage.getItem('aslam_uid')}catch(_){}if(f){document.documentElement.classList.remove('authwait');st('⚠️ Offline: data phone mein save hai')}else showLogin('<b>Online service did not load. Check your internet.</b>')}}
-let ST={name:'Tubewell Khata',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
-try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}try{if(ST.name==='Aslam Tubewell'){ST.name='Tubewell Khata';ST.urdu='ٹیوب ویل کھاتہ';localStorage.setItem('aslam_st',JSON.stringify(ST))}}catch(e){}twInit();
+let ST={name:'ٹیوب ویل کھاتہ',urdu:'ٹیوب ویل کھاتہ',rate:500,cred:'',pin:''},view='home',calM=today().slice(0,7),locked=false,hid=0;
+try{Object.assign(ST,JSON.parse(localStorage.getItem('aslam_st')||'{}'))}catch(e){}try{if(ST.name==='Aslam Tubewell'||ST.name==='Tubewell Khata'){ST.name='ٹیوب ویل کھاتہ';ST.urdu='ٹیوب ویل کھاتہ';localStorage.setItem('aslam_st',JSON.stringify(ST))}}catch(e){}twInit();
 if(ST.lang!=='en'&&ST.lang!=='ur'){ST.lang='ur';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}
 /* v1.3.3: Urdu pehle — ye update lagne par ek dafa sab ke zuban Urdu hogi (purana 'en' bhi); iske baad Settings (owner aur farmer dono) ka intekhab hi chalta rahega */
 try{if(!localStorage.getItem('aslam_urdef')){localStorage.setItem('aslam_urdef','1');if(ST.lang==='en'){ST.lang='ur';try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}}}}catch(e){}
-function applySt(){const a=$('appn');if(a)a.textContent=ST.name+' App';const r=$('rt');if(r){if(ST.role!=='owner')r.style.display='none';else{r.style.display='';r.textContent=(ST.tws.length>1?curTW().name+' • ':'')+'💧 Rs '+RATE+' '+BT('fi ghanta')}}document.title=ST.name+' App'}
+function applySt(){const a=$('appn');if(a)a.textContent=ST.name;const r=$('rt');if(r){if(ST.role!=='owner')r.style.display='none';else{r.style.display='';r.textContent=(ST.tws.length>1?curTW().name+' • ':'')+'💧 Rs '+RATE+' '+BT('fi ghanta')}}document.title=ST.name}
 const saveST=()=>{RATE=curTW().rate;ST.rate=RATE;try{localStorage.setItem('aslam_st',JSON.stringify(ST))}catch(e){}applySt()};
 /* ===== Tubewell switch: har kisan par tw (tubewell id) laga hota hai ===== */
 function curTW(){return ST.tws.find(t=>t.id===ST.tw)||ST.tws[0]}
@@ -1226,7 +1228,7 @@ ${ST.cred?'<button class="d" style="width:100%;margin-top:8px" onclick="offBio()
 <div class="card"><h2>💾 Data</h2><div class="row"><button class="s" onclick="bk()">⬇ Backup download</button><button class="s" onclick="$('imp').click()">⬆ Backup wapas</button></div><input id="imp" type="file" accept=".json,.txt,application/json,text/plain" class="hide" onchange="imp(this)"><div class="row" style="margin-top:8px"><button class="s" onclick="bkCopy()">📋 Backup copy karein</button><button class="s" onclick="bkPaste()">📥 Backup paste karein</button></div><div class="mut sm" style="margin-top:8px">Backup mein tasveerein shamil nahi hotin.</div></div>
 <div class="card"><h2>${BT('🔁 Kaam badlein')}</h2><div class="mut sm" style="margin-bottom:8px">${BT('Aap abhi Tubewell Owner hain (kitab wale). Agar aap kisi doosre malik ke yahan pani lagwate hain to Farmer mode par jayein — wahan apna khata dekh sakte hain. Aap ka apna poora khata (kisan, entries, wasooli) mehfooz rahega.')}</div><button class="s" style="width:100%" onclick="swRoleAsk('farmer')">${BT('🌱 Pani lagane wale (Farmer) mode par jayein')}</button><div class="mut sm" style="margin-top:8px">⚡ ${BT('Ya neeche nav bar ke Settings par do dafa tap karein (1 second ke andar)')}</div></div>${binH()}<div class="card"><h2>☁️ Account</h2><div style="margin-bottom:10px"><b><bdi>${esc((U&&U.displayName)||'')}</bdi></b><div class="mut sm"><bdi dir="ltr">${esc(U?U.email:BT('Login nahi'))}</bdi></div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>
 <div class="card"><h2>🔔 Awaaz</h2><div class="mut sm" style="margin-bottom:8px">Entry, wasooli ya baqaya save karne par chhoti si awaaz.</div><button class="${ST.snd===false?'s':'p'}" style="width:100%" onclick="tgSnd()">${ST.snd===false?'Awaaz band hai, chalu karein':'Awaaz chalu hai, band karein'}</button></div>
-<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} App • ${BT('Version')} v${APPV}<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
+<div class="card"><h2>ℹ️ App ke baare mein</h2><div class="mut sm">${esc(ST.name)} • ${BT('Version')} v${APPV}<br>Rate aur lock sirf is phone ke liye hain.</div></div>`}
 function svP(){ST.name=$('sn').value.trim()||ST.name;ST.urdu=$('su').value.trim()||ST.urdu;saveST();toast('Save ho gaya')}
 function svR(){const r=Math.round(+$('sr').value);if(!(r>0)){alert('Sahi rate likhein');return}curTW().rate=r;saveST();twPush();toast('Rate save ho gaya');setV()}
 function svPayN(){const jc=($('pjc').value||'').replace(/[^\d+]/g,''),ep=($('pep').value||'').replace(/[^\d+]/g,'');ST.pay={jc:jc,ep:ep};saveST();try{if(U&&FS)profDoc().set({pay:{jc:jc,ep:ep},payAt:Date.now()},{merge:true}).catch(()=>{})}catch(e){}try{db.farmers.forEach(f=>{if(f.linkedUid){lastFD[f.id]='';fdSet(f)}})}catch(e){}toast(BT('Number save ho gaya — kisan ke khate mein nazar aa jayen ge'));setV()}
@@ -1235,11 +1237,11 @@ const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-')
 const unb64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
 async function svPin(){const v=$('npin').value;if(!/^\d{4,6}$/.test(v)){alert('PIN 4 se 6 ankon ka hona chahiye');return}ST.pin=await hx(v);saveST();toast('PIN save ho gaya');setV()}
 async function onBio(){if(!ST.pin){alert('Pehle backup PIN set karein');return}if(!window.PublicKeyCredential){alert('Is phone ya browser mein Face ID support nahi');return}
-try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'Tubewell Khata'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:ST.name+' App',displayName:ST.name+' App'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
+try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'ٹیوب ویل کھاتہ'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:ST.name,displayName:ST.name},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
 function offBio(){ST.cred='';saveST();setV()}
 function offPin(){ST.pin='';saveST();setV()}
 function lockNow(){if(!ST.cred&&!ST.pin)return;locked=true;let o=$('lk');if(!o){o=document.createElement('div');o.id='lk';o.className='ov';o.style.cssText='align-items:center;background:var(--bg);z-index:30';document.body.appendChild(o)}
-o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:calc(44px*var(--fs))">🔒</div><h2>'+esc(ST.name)+' App</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button><div class="mut sm" style="margin-top:6px">Agar neeche sheet aaye to "Use Passkey" dabayein</div>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
+o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:calc(44px*var(--fs))">🔒</div><h2>'+esc(ST.name)+'</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button><div class="mut sm" style="margin-top:6px">Agar neeche sheet aaye to "Use Passkey" dabayein</div>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
 async function tryBio(){try{await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id:unb64(ST.cred)}],userVerification:'required',timeout:60000}});unlock()}catch(e){const m=$('lkm');if(m)m.textContent='Face ID nahi hui. Dobara dabayein ya PIN likhein'}}
 async function tryPin(){const v=$('lkp').value;if(await hx(v)===ST.pin)unlock();else{$('lkm').textContent='PIN galat hai';$('lkp').value=''}}
 function unlock(){const o=$('lk');locked=false;if(o){o.classList.add('out');setTimeout(()=>o.remove(),300)}}
@@ -1528,17 +1530,17 @@ if(!FS){alert(BT('Internet nahi hai.'));return}
 try{await FS.collection('lreq').doc(id).delete()}catch(e){try{await FS.collection('lreq').doc(id).update({status:'cancelled',upAt:Date.now()})}catch(e2){alert(BT('Request wapas nahi le saki — internet check karein ya malik se kahen ye request reject kar dein.'));return}}
 FLREQ=FLREQ.filter(x=>x.id!==id);try{fkSoft()}catch(e){}try{notifPaint()}catch(e){}toast(BT('Request wapas le li gayi'))}
 /* v1.3.10: pani ki entries + wasoolian ke rangi boxes — farmer khata aur purane khate (archive) dono isi se bante hain. v1.3.13: rang semantic (pani=neela, wasooli=sabz, purana baqaya=peela). v1.3.15: image wali TABLE — header (tarih/shuroo/khatam/doraniya/raqam), pani ki har line ka alag light rang (wc0..wc4), purana baqaya peela row, kul light purple (image jaisa); wasooli table sabz header + sabz kul */
-function wbWater(E,tm,bill,UR,dfmt){const HD=UR?['تاریخ','شروع','ختم','دورانیہ','رقم']:['Date','Start','End','Duration','Amount'];
+function wbWater(E,tm,bill,UR,dfmt){const HD=['تاریخ','شروع','ختم','دورانیہ','رقم'];
 let h='<div class="wtab wbW"><div class="wtr wth"><span>'+HD[0]+'</span><span>'+HD[1]+'</span><span>'+HD[2]+'</span><span>'+HD[3]+'</span><span class="wam">'+HD[4]+'</span></div>';
-let k=0;E.forEach(o=>{const old=o.note==='Pichle saal ka baqaya',nt=old?BT('Purana baqaya'):esc(o.note||'');
+let k=0;E.forEach(o=>{const old=o.note==='Pichle saal ka baqaya',nt=old?'پرانا باقیہ':esc(o.note||'');
 h+='<div class="wtr '+(old?'wold':'wc'+(k++%5))+'"><span class="wda"><i class="wchip"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></i>'+(nt?'<em class="wnote'+(old?' wol':'')+'">'+nt+'</em>':'')+'</span>'
-+(o.start?'<span class="wtc"><bdi dir="ltr">'+(UR?urT(o.start):t12(o.start))+'</bdi></span><span class="wtc"><bdi dir="ltr">'+(UR?urT(o.end):t12(o.end))+'</bdi></span><span class="wdur">'+(UR?durU(o.mins):durE(o.mins))+'</span>':'<span class="wtc">—</span><span class="wtc">—</span><span class="wdur">—</span>')
++(o.start?'<span class="wtc"><bdi dir="ltr">'+urT(o.start)+'</bdi></span><span class="wtc"><bdi dir="ltr">'+urT(o.end)+'</bdi></span><span class="wdur">'+durU(o.mins)+'</span>':'<span class="wtc">—</span><span class="wtc">—</span><span class="wdur">—</span>')
 +'<b class="wam">'+rs(o.amt)+'</b></div>'});
-h+='<div class="wtr wtot"><span class="wtl">'+BT('Kul')+'</span><span></span><span></span><span class="wtm">'+(UR?durU(tm):durE(tm))+'</span><b class="wam">'+rs(bill)+'</b></div></div>';return h}
-function wbPays(P,paid,dfmt){const UR=ST.lang!=='en',HD=UR?['تاریخ','طریقہ','رقم']:['Date','Method','Amount'];
+h+='<div class="wtr wtot"><span class="wtl">کل</span><span></span><span></span><span class="wtm">'+durU(tm)+'</span><b class="wam">'+rs(bill)+'</b></div></div>';return h}
+function wbPays(P,paid,dfmt){const HD=['تاریخ','طریقہ','رقم'];
 let h='<div class="wtab wbG"><div class="wtr wth"><span>'+HD[0]+'</span><span>'+HD[1]+'</span><span class="wam">'+HD[2]+'</span></div>';
 P.forEach(o=>{h+='<div class="wtr wpg"><span class="wda"><i class="wchip wchipG"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></i></span><span class="whow">'+hwIc(o.how)+esc(o.how||'Cash')+'</span><b class="wam">'+rs(o.amt)+'</b></div>'});
-h+='<div class="wtr wtot wtotG2"><span class="wtl">'+BT('Kul jama')+'</span><span></span><b class="wam">'+rs(paid)+'</b></div></div>';return h}
+h+='<div class="wtr wtot wtotG2"><span class="wtl">کل جمع</span><span></span><b class="wam">'+rs(paid)+'</b></div></div>';return h}
 /* ===== v1.3.12: Phone notification — app khula/background ho to nayi entry/wasooli par ===== */
 /* ===== v1.3.14: Level-2 push — app band ho tab bhi (Cloudflare Worker relay + FCM token) ===== */
 const NWRK='https://aslam-notify.shahbaztaimoor0055.workers.dev/',NSEC='aslam-TR7k-m2Qv-9xLd-Pn4W-8cJh-5bFs-3gZq-6vRt',NVAP='BMFWh2-zfNwAxopMupdeGZ10E-zqjtXaC0SVPrjFP_M-JFFXFWR-fe3IFoi7T63jfrN6M2u_rRfrhBNJsDoi6Eo';
@@ -1614,12 +1616,11 @@ let k='<div class="ksec kinfo nt"><div><i class="ki">\ud83d\udc64</i><span style
 k+=payBoxH();
 const any=E.length||P.length||t.old||t.bill;
 if(!any)k+='<div class="ksec"><div class="kempty it">'+BT('Abhi koi hisaab nahi \u2014 malik entry kare ga to yahan nazar aaye ga.')+'</div></div>';
-if(any){if(E.length){const UR=ST.lang!=='en';
-k+='<div class="ksec'+(UR?' nt':'')+'"><div class="kst">\ud83d\udca7 '+(UR?'پانی کا حساب':BT('Pani ka Hisab'))+'</div>'+wbWater(E,tm,t.bill,UR,dmy)+'</div>'}
-k+='<div class="ksec nt"><div class="kst">\ud83d\udcb5 '+BT('Wasoolian')+'</div>';
+if(any){if(E.length){k+='<div class="ksec nt"><div class="kst">\ud83d\udca7 پانی کا حساب</div>'+wbWater(E,tm,t.bill,true,dmy)+'</div>'}
+k+='<div class="ksec nt"><div class="kst">\ud83d\udcb5 وصولیاں</div>';
 if(P.length)k+=wbPays(P,t.paid,dmy);
-else k+='<div class="kempty it">'+BT('Abhi koi adayigi nahin')+'</div>';
-if(t.old)k+='<div class="koldmut">\ud83d\udcdc '+BT('Purana baqaya')+': <b>+ '+rs(t.old)+'</b></div>';
+else k+='<div class="kempty it">ابھی کوئی ادائیگی نہیں</div>';
+if(t.old)k+='<div class="koldmut">\ud83d\udcdc پرانا باقیہ: <b>+ '+rs(t.old)+'</b></div>';
 k+='</div>'}
 k+='<div class="ksec nt"><div class="kst">\ud83e\uddee '+BT('Khulasa-e-Hisab')+'</div><div class="ksum">'
 +'<div><i class="ki">\u23f1</i><span class="kl">'+BT('Kul Waqt')+'</span><b class="kv">'+DUR()+'</b><span class="ks">'+nc+' '+BT('dafa pani diya')+'</span></div>'
@@ -1658,7 +1659,7 @@ $('v').innerHTML='<div class="nt"><div class="card">'+BH('My profile','میری 
 +'<div class="card">'+BH('🔔 Sound','🔔 آواز')+'<div class="mut sm" style="margin-bottom:8px">'+RB('A soft sound plays on confirmations and new notifications.','تصدیق یا نئی اطلاع پر ہلکی سی آواز آتی ہے۔')+'</div><button class="'+(ST.snd===false?'s':'p')+'" style="width:100%" onclick="tgSnd()">'+(ST.snd===false?RB('Sound is off — tap to turn on','آواز بند ہے — چالو کریں'):RB('Sound is on — tap to turn off','آواز چالو ہے — بند کریں'))+'</button></div>'
 +ntCardH()+'<div class="card">'+BH('Theme','تھیم')+'<div class="mut sm" style="margin-bottom:8px">'+RB('Tap a theme — the whole app changes color.','کسی تھیم پر ٹیپ کریں — پوری ایپ کا رنگ بدل جائے گا۔')+'</div>'+Object.keys(TH).map(k=>'<button class="to'+(k===th?' on':'')+'" onclick="applyTh(\''+k+'\');fSetV()"><span class="sw" style="background:linear-gradient(135deg,'+TH[k].h1+','+TH[k].h2+')"><i style="background:'+TH[k].g+'"></i><i style="background:'+TH[k].bg+'"></i></span><b>'+BT(TH[k].n)+'</b><span>'+(k===th?'✓':'')+'</span></button>').join('')+'</div>'
 +'<div class="card">'+BH('Switch role','کام بدلیں')+'<div class="mut sm" style="margin-bottom:8px">'+BT('Aap abhi Pani lagane wale (Farmer) hain. Agar aap apne tubewell ka hisab bhi rakhte hain to Owner mode par jayein — kisan, entries aur wasooli wahan milegi. Aap ka farmer khata mehfooz rahega.')+'</div><button class="s" style="width:100%" onclick="swRoleAsk(\'owner\')">🚰 '+BT('Tubewell Owner (Kitab wale) mode par jayein')+'</button><div class="mut sm" style="margin-top:8px">⚡ '+BT('Ya neeche nav bar ke Settings par do dafa tap karein (1 second ke andar)')+'</div></div>'+'<div class="card">'+BH('Account','اکاؤنٹ')+'<div style="margin-bottom:10px"><b><bdi>'+esc((U&&U.displayName)||'')+'</bdi></b><div class="mut sm"><bdi dir="ltr">'+esc(U?U.email:BT('Login nahi'))+'</bdi></div></div><button class="d" style="width:100%" onclick="logout()">Logout</button></div>'
-+'<div class="card">'+BH('About the app','ایپ کے بارے میں')+'<div class="mut sm">'+esc(ST.name)+' App • '+BT('Version')+' v'+APPV+'</div></div></div>'}
++'<div class="card">'+BH('About the app','ایپ کے بارے میں')+'<div class="mut sm">'+esc(ST.name)+' • '+BT('Version')+' v'+APPV+'</div></div></div>'}
 async function fSaveP(){const n=$('fpn').value.trim(),p=$('fpp').value.trim();if(!n){alert(BT('Naam likhein'));return}
 ST.fname=n;ST.fphone=p;saveST();
 try{profDoc().set({fname:n,fphone:p},{merge:true})}catch(e){}
@@ -2287,7 +2288,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.15';
+const APPV='1.3.17';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
