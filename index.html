@@ -374,6 +374,50 @@ html[data-th=raat] .weTot{box-shadow:none}
 .weTot .wtm{font-size:calc(11.5px*var(--fs));opacity:.92;font-variant-numeric:tabular-nums;white-space:nowrap}
 .weTot b{margin-inline-start:auto;font-size:calc(15px*var(--fs));font-variant-numeric:tabular-nums}
 .weTotG{background:linear-gradient(180deg,#27C468,#128A44)}
+/* v1.3.15: farmer khata table — image jaisa: header pani=neela / wasooli=sabz, pani ki har line ka alag light rang, kul light purple */
+.wtab{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.wtr{display:grid;align-items:center;gap:6px;padding:7px 9px;font-size:calc(10.5px*var(--fs));font-variant-numeric:tabular-nums;min-width:0}
+.wbW>.wtr{grid-template-columns:auto auto auto minmax(0,1fr) auto}
+.wbG>.wtr{grid-template-columns:auto minmax(0,1fr) auto}
+.wth{background:#D7E9F7;color:#0C5F8C;font-weight:800;font-size:calc(9.5px*var(--fs));white-space:nowrap}
+.wbG>.wth{background:#D5F0E0;color:#0F7A40}
+.wtr+.wtr{border-top:1px solid var(--line)}
+.wda{display:flex;flex-direction:column;gap:3px;min-width:0}
+.wchip{display:inline-block;align-self:flex-start;background:var(--wc,#1580B8);color:#fff;border-radius:7px;padding:2px 6px;font-weight:800;font-size:calc(9.5px*var(--fs));font-style:normal;white-space:nowrap}
+.wchipG{background:#1FAF55}
+.wnote{font-style:normal;color:var(--mut);font-size:calc(9px*var(--fs));max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wnote.wol{color:#8F6710;font-weight:700}
+.wtc{font-weight:600;white-space:nowrap}
+.wdur{color:var(--mut);font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.whow{color:var(--mut);font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wam{text-align:end;font-weight:800;font-size:calc(11.5px*var(--fs));white-space:nowrap}
+.wc0{background:#F2F8FD;--wc:#1580B8}.wc0 .wam{color:#0C5F8C}
+.wc1{background:#F0FAF3;--wc:#1FAF55}.wc1 .wam{color:#0F7A40}
+.wc2{background:#FEF9EC;--wc:#D89A22}.wc2 .wam{color:#8F6710}
+.wc3{background:#F5F1FC;--wc:#7C4DFF}.wc3 .wam{color:#5B3EC8}
+.wc4{background:#FCF0F4;--wc:#D66086}.wc4 .wam{color:#A03258}
+.wold{background:#FCF5E1;--wc:#D89A22}.wold .wam{color:#8F6710}
+.wpg{background:#F0FAF3}.wpg:nth-child(odd){background:#fff}
+.wpg .wam{color:#0F7A40}
+.wtot{background:#EFE6FA;color:#5B3EC8;font-weight:800}
+.wtot .wam{color:#5B3EC8;font-size:calc(12.5px*var(--fs))}
+.wtotG2{background:#D5F0E0;color:#0F7A40}
+.wtotG2 .wam{color:#0F7A40}
+@media(max-width:350px){.wtr{gap:4px;padding:6px 7px}}
+html[data-th=raat] .wtab{border-color:rgba(255,255,255,.10)}
+html[data-th=raat] .wth{background:rgba(21,128,184,.20);color:#8FD2F5}
+html[data-th=raat] .wbG>.wth{background:rgba(31,175,85,.18);color:#7FDCA4}
+html[data-th=raat] .wtr+.wtr{border-top-color:rgba(255,255,255,.07)}
+html[data-th=raat] .wc0{background:rgba(21,128,184,.10)}html[data-th=raat] .wc0 .wam{color:#8FD2F5}
+html[data-th=raat] .wc1{background:rgba(31,175,85,.10)}html[data-th=raat] .wc1 .wam{color:#7FDCA4}
+html[data-th=raat] .wc2{background:rgba(224,160,48,.10)}html[data-th=raat] .wc2 .wam{color:#F0C977}
+html[data-th=raat] .wc3{background:rgba(124,77,255,.12)}html[data-th=raat] .wc3 .wam{color:#C3B2FF}
+html[data-th=raat] .wc4{background:rgba(214,96,134,.10)}html[data-th=raat] .wc4 .wam{color:#F2A9C4}
+html[data-th=raat] .wold{background:rgba(224,160,48,.12)}html[data-th=raat] .wold .wam{color:#F0C977}
+html[data-th=raat] .wpg{background:rgba(31,175,85,.08)}html[data-th=raat] .wpg:nth-child(odd){background:transparent}
+html[data-th=raat] .wpg .wam{color:#7FDCA4}
+html[data-th=raat] .wtot{background:rgba(124,77,255,.16);color:#C3B2FF}html[data-th=raat] .wtot .wam{color:#C3B2FF}
+html[data-th=raat] .wtotG2{background:rgba(31,175,85,.16);color:#7FDCA4}html[data-th=raat] .wtotG2 .wam{color:#7FDCA4}
 .kempty{text-align:center;color:var(--mut);padding:14px 8px;font-size:calc(13px*var(--fs))}
 .kempty.it{font-style:italic}
 .ksum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -1483,16 +1527,18 @@ if(!confirm(BT('Kya ye link request wapas lein? Malik is ko ab qabool nahi kar s
 if(!FS){alert(BT('Internet nahi hai.'));return}
 try{await FS.collection('lreq').doc(id).delete()}catch(e){try{await FS.collection('lreq').doc(id).update({status:'cancelled',upAt:Date.now()})}catch(e2){alert(BT('Request wapas nahi le saki — internet check karein ya malik se kahen ye request reject kar dein.'));return}}
 FLREQ=FLREQ.filter(x=>x.id!==id);try{fkSoft()}catch(e){}try{notifPaint()}catch(e){}toast(BT('Request wapas le li gayi'))}
-/* v1.3.10: pani ki entries + wasoolian ke rangi boxes — farmer khata aur purane khate (archive) dono isi se bante hain. v1.3.13: rang Poori Kitab jaise semantic — pani=weB (neela), wasooli=weG (sabz), purana baqaya=weA (peela) */
-function wbWater(E,tm,bill,UR,dfmt){let h='<div class="wboxes">';
-E.forEach((o,i)=>{const nt=o.note==='Pichle saal ka baqaya'?(UR?'\u067E\u0631\u0627\u0646\u0627 \u0628\u0627\u0642\u06CC\u06C1':BT('Purana baqaya')):esc(o.note||'');
-h+='<div class="we '+(o.note==='Pichle saal ka baqaya'?'weA':'weB')+'"><div class="weR1"><span class="weD"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></span>'+(nt?'<span class="weN">'+nt+'</span>':'')+'<b class="weAmt">'+rs(o.amt)+'</b></div>'
-+'<div class="weR2"><span class="weT">'+(UR?urT(o.start):t12(o.start))+'<i class="weAr">→</i>'+(UR?urT(o.end):t12(o.end))+'</span><span class="weM">⏱ '+(UR?durU(o.mins):durE(o.mins))+'</span></div></div>'});
-h+='<div class="weTot"><span class="wtl">'+BT('Kul')+'</span><span class="wtm">⏱ '+(UR?durU(tm):durE(tm))+'</span><b>'+rs(bill)+'</b></div></div>';return h}
-function wbPays(P,paid,dfmt){let h='<div class="wboxes">';
-P.forEach(o=>{h+='<div class="we weG"><div class="weR1"><span class="weD"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></span><b class="weAmt">'+rs(o.amt)+'</b></div>'
-+'<div class="weR2"><span class="weT">'+hwIc(o.how)+esc(o.how||'Cash')+'</span></div></div>'});
-h+='<div class="weTot weTotG"><span class="wtl">'+BT('Kul jama')+'</span><b>'+rs(paid)+'</b></div></div>';return h}
+/* v1.3.10: pani ki entries + wasoolian ke rangi boxes — farmer khata aur purane khate (archive) dono isi se bante hain. v1.3.13: rang semantic (pani=neela, wasooli=sabz, purana baqaya=peela). v1.3.15: image wali TABLE — header (tarih/shuroo/khatam/doraniya/raqam), pani ki har line ka alag light rang (wc0..wc4), purana baqaya peela row, kul light purple (image jaisa); wasooli table sabz header + sabz kul */
+function wbWater(E,tm,bill,UR,dfmt){const HD=UR?['تاریخ','شروع','ختم','دورانیہ','رقم']:['Date','Start','End','Duration','Amount'];
+let h='<div class="wtab wbW"><div class="wtr wth"><span>'+HD[0]+'</span><span>'+HD[1]+'</span><span>'+HD[2]+'</span><span>'+HD[3]+'</span><span class="wam">'+HD[4]+'</span></div>';
+let k=0;E.forEach(o=>{const old=o.note==='Pichle saal ka baqaya',nt=old?BT('Purana baqaya'):esc(o.note||'');
+h+='<div class="wtr '+(old?'wold':'wc'+(k++%5))+'"><span class="wda"><i class="wchip"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></i>'+(nt?'<em class="wnote'+(old?' wol':'')+'">'+nt+'</em>':'')+'</span>'
++(o.start?'<span class="wtc"><bdi dir="ltr">'+(UR?urT(o.start):t12(o.start))+'</bdi></span><span class="wtc"><bdi dir="ltr">'+(UR?urT(o.end):t12(o.end))+'</bdi></span><span class="wdur">'+(UR?durU(o.mins):durE(o.mins))+'</span>':'<span class="wtc">—</span><span class="wtc">—</span><span class="wdur">—</span>')
++'<b class="wam">'+rs(o.amt)+'</b></div>'});
+h+='<div class="wtr wtot"><span class="wtl">'+BT('Kul')+'</span><span></span><span></span><span class="wtm">'+(UR?durU(tm):durE(tm))+'</span><b class="wam">'+rs(bill)+'</b></div></div>';return h}
+function wbPays(P,paid,dfmt){const UR=ST.lang!=='en',HD=UR?['تاریخ','طریقہ','رقم']:['Date','Method','Amount'];
+let h='<div class="wtab wbG"><div class="wtr wth"><span>'+HD[0]+'</span><span>'+HD[1]+'</span><span class="wam">'+HD[2]+'</span></div>';
+P.forEach(o=>{h+='<div class="wtr wpg"><span class="wda"><i class="wchip wchipG"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></i></span><span class="whow">'+hwIc(o.how)+esc(o.how||'Cash')+'</span><b class="wam">'+rs(o.amt)+'</b></div>'});
+h+='<div class="wtr wtot wtotG2"><span class="wtl">'+BT('Kul jama')+'</span><span></span><b class="wam">'+rs(paid)+'</b></div></div>';return h}
 /* ===== v1.3.12: Phone notification — app khula/background ho to nayi entry/wasooli par ===== */
 /* ===== v1.3.14: Level-2 push — app band ho tab bhi (Cloudflare Worker relay + FCM token) ===== */
 const NWRK='https://aslam-notify.shahbaztaimoor0055.workers.dev/',NSEC='aslam-TR7k-m2Qv-9xLd-Pn4W-8cJh-5bFs-3gZq-6vRt',NVAP='BMFWh2-zfNwAxopMupdeGZ10E-zqjtXaC0SVPrjFP_M-JFFXFWR-fe3IFoi7T63jfrN6M2u_rRfrhBNJsDoi6Eo';
@@ -2241,7 +2287,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.14';
+const APPV='1.3.15';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
