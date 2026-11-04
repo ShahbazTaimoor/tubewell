@@ -1,39 +1,32 @@
 {
- "id": "./",
- "name": "ٹیوب ویل کھاتہ",
- "short_name": "ٹیوب ویل کھاتہ",
- "description": "ٹیوب ویل کے پانی کا حساب: کسان، انٹریاں، وصولی اور باقیہ۔",
- "lang": "ur",
- "dir": "auto",
- "start_url": "./",
- "scope": "./",
- "display": "standalone",
- "orientation": "portrait",
- "background_color": "#0B3C6B",
- "theme_color": "#0B3C6B",
- "categories": [
-  "business",
-  "finance",
-  "productivity"
- ],
- "icons": [
-  {
-   "src": "icon-192.png",
-   "sizes": "192x192",
-   "type": "image/png",
-   "purpose": "any"
-  },
-  {
-   "src": "icon-512.png",
-   "sizes": "512x512",
-   "type": "image/png",
-   "purpose": "any"
-  },
-  {
-   "src": "icon-512.png",
-   "sizes": "512x512",
-   "type": "image/png",
-   "purpose": "maskable"
-  }
- ]
+  "id": "./",
+  "name": "ٹیوب ویل کھاتہ",
+  "short_name": "ٹیوب ویل کھاتہ",
+  "description": "ٹیوب ویل کے پانی کا حساب: کسان، انٹریاں، وصولی اور باقیہ۔",
+  "lang": "ur",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#0B3C6B",
+  "background_color": "#0B3C6B",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }

@@ -102,12 +102,22 @@ html[lang=ur] .tlChip{line-height:1.9;padding-top:0;padding-bottom:0}
 html[lang=ur] .tlD span{font-size:calc(10.5px*var(--fs));letter-spacing:0;line-height:1.9}
 html[lang=ur] .tlM b{line-height:1.9}
 html[data-th=raat] .tlC,:root:not([data-theme="light"]) .tlC{box-shadow:none}
-/* v1.3.12: phone notification opt-in banner (farmer) */
-.ntban{display:flex;align-items:center;gap:8px;background:rgba(21,128,184,.08);border:1px solid rgba(21,128,184,.28);border-radius:12px;padding:9px 10px;margin:0 0 10px;font-size:calc(12px*var(--fs))}
-.ntban .nbi{font-size:calc(19px*var(--fs));flex:none}
-.ntban .nbt{flex:1;min-width:0;line-height:1.55;font-weight:600;color:var(--ink)}
-.ntban .nbanx{flex:none;border:0;background:none;color:var(--mut);font-size:calc(14px*var(--fs));padding:6px 4px;cursor:pointer;line-height:1}
-html[data-th=raat] .ntban{background:rgba(21,128,184,.13)}
+/* v1.3.17: notification FULL-SCREEN gate (farmer) — jab tak ON na dabaye khata nazar nahi aata */
+#ntgate{position:fixed;inset:0;z-index:26;background:linear-gradient(160deg,#0B3C6B,#1478b0);display:flex;align-items:center;justify-content:center;padding:22px 18px;overflow-y:auto;animation:fade .3s ease;direction:ltr}
+html[data-th=indigo] #ntgate{background:linear-gradient(160deg,#202B68,#3949AB)}
+#ntgate .ngc{width:100%;max-width:350px;text-align:center;color:#fff;display:flex;flex-direction:column;align-items:center;gap:9px}
+#ntgate .ngur{font-family:var(--uf),system-ui,sans-serif}
+#ntgate .ngur .ngt{line-height:2}#ntgate .ngur .ngx{line-height:2.3}#ntgate .ngur .ngf{line-height:2.1}#ntgate .ngur .ngwarn{line-height:2.5}
+#ntgate .ngic{width:62px;height:62px;border-radius:15px;box-shadow:0 8px 22px rgba(0,0,0,.35);animation:spicon .75s cubic-bezier(.2,.9,.3,1.35) both}
+#ntgate .ngbell{font-size:42px;line-height:1.15;animation:spup .6s .12s cubic-bezier(.2,.9,.3,1) both}
+#ntgate .ngt{margin:2px 0 0;font-size:calc(19px*var(--fs));font-weight:800;line-height:1.6}
+#ntgate .ngx{margin:0;font-size:calc(14px*var(--fs));line-height:1.95;color:rgba(255,255,255,.94)}
+#ntgate .ngb{margin-top:9px;width:100%;border:0;border-radius:14px;padding:13px 10px;font-size:calc(16px*var(--fs));font-weight:800;color:#0B3C6B;background:#fff;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.3);font-family:inherit;animation:spup .6s .26s cubic-bezier(.2,.9,.3,1) both}
+#ntgate .ngb:active{transform:scale(.97)}
+#ntgate .ngf{margin:3px 0 0;font-size:calc(11.5px*var(--fs));line-height:1.85;color:rgba(255,255,255,.78)}
+#ntgate .ngwarn{width:100%;box-sizing:border-box;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.32);border-radius:12px;padding:10px 12px;font-size:calc(12.5px*var(--fs));line-height:2.1;text-align:start}
+#ntgate .ngl{margin-top:3px;border:0;background:none;color:rgba(255,255,255,.88);font-size:calc(13px*var(--fs));text-decoration:underline;cursor:pointer;font-family:inherit;padding:8px 6px}
+@media(prefers-reduced-motion:reduce){#ntgate .ngic,#ntgate .ngbell,#ntgate .ngb{animation-duration:.01s;animation-delay:0s}}
 .bi{border-top:1px solid var(--line);padding:12px 0}
 /* v1.1.0: kisan link request intezar card — bhejne ke foran baad badi animated waiting card */
 .fwait{text-align:center;background:var(--card);border:1.5px dashed var(--g);border-radius:16px;padding:16px 14px 14px;margin:2px 0 12px;box-shadow:0 6px 18px rgba(11,60,107,.08)}
@@ -155,7 +165,7 @@ button{transition:transform .12s ease,background .25s,color .25s,opacity .2s}but
 .top{overflow:hidden;padding:32px 18px 24px;background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(233,242,249,.72) 14%,rgba(168,194,216,.36) 30%,rgba(110,151,186,0) 46%),linear-gradient(135deg,var(--h1),var(--h2))}
 .wv{position:absolute;left:0;right:0;bottom:0;width:100%;height:48px;fill:rgba(255,255,255,.1)}
 .hr{display:flex;align-items:center;gap:13px;position:relative}.hr img{width:54px;height:54px;border-radius:15px;border:2px solid rgba(255,255,255,.9)}
-.hn h1{margin:0;font-size:calc(21px*var(--fs));letter-spacing:.2px}#appn,.lgnm{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,'AlviNastaleeq','Noto Nastaliq Urdu','Noto Naskh Arabic',sans-serif}.hs{font-size:calc(12px*var(--fs));opacity:.95;margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hn h1{margin:0;font-size:calc(21px*var(--fs));letter-spacing:.2px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,'AlviNastaleeq','Noto Nastaliq Urdu','Noto Naskh Arabic',sans-serif}.hs{font-size:calc(12px*var(--fs));opacity:.95;margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .nbtn{margin-inline-start:auto;flex:none;position:relative;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .15s ease}
 .nbtn svg{width:21px;height:21px;display:block}.nbtn:active{transform:scale(.9)}
 .nbdg{position:absolute;top:-5px;inset-inline-end:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:#E5484D;color:#fff;font-size:calc(11px*var(--fs));font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1;box-shadow:none}
@@ -375,51 +385,49 @@ html[data-th=raat] .weTot{box-shadow:none}
 .weTot b{margin-inline-start:auto;font-size:calc(15px*var(--fs));font-variant-numeric:tabular-nums}
 .weTotG{background:linear-gradient(180deg,#27C468,#128A44)}
 /* v1.3.15: farmer khata table — image jaisa: header pani=neela / wasooli=sabz, pani ki har line ka alag light rang, kul light purple */
-.wtab{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card);margin-inline:-7px}
-html[lang=en] .wtab,html[lang=en] .ksec.nt .kst,html[lang=en] .ksec.nt .kempty,html[lang=en] .koldmut{font-family:var(--uf)}
+.wtab{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+/* v1.3.16: farmer hisab list box thora chauro — ksec padding me se 8px bahar har taraf */
+.ksec .wtab{margin-left:-8px;margin-right:-8px;width:calc(100% + 16px)}
 .wtr{display:grid;align-items:center;gap:6px;padding:7px 9px;font-size:calc(10.5px*var(--fs));font-variant-numeric:tabular-nums;min-width:0}
 .wbW>.wtr{grid-template-columns:auto auto auto minmax(0,1fr) auto}
 .wbG>.wtr{grid-template-columns:auto minmax(0,1fr) auto}
-.wth{background:#D7E9F7;color:#0C5F8C;font-weight:800;font-size:calc(9.5px*var(--fs));white-space:nowrap}
-.wbG>.wth{background:#D5F0E0;color:#0F7A40}
+.wth{background:#1580B8;color:#fff;font-weight:800;font-size:calc(9.5px*var(--fs));white-space:nowrap}
+.wbG>.wth{background:#128A44;color:#fff}
 .wtr+.wtr{border-top:1px solid var(--line)}
 .wda{display:flex;flex-direction:column;gap:3px;min-width:0}
-.wchip{display:inline-block;align-self:flex-start;background:var(--wcb,#DCEBF8);color:var(--wcc,#0C5F8C);border-radius:7px;padding:2px 6px;font-weight:800;font-size:calc(9.5px*var(--fs));font-style:normal;white-space:nowrap}
-.wchipG{background:#D8F2E2;color:#0F7A40}
+.wchip{display:inline-block;align-self:flex-start;background:#D7E9F7;color:#0C5F8C;border:1px solid #BFDBEC;border-radius:7px;padding:1px 5px;font-weight:800;font-size:calc(9.5px*var(--fs));font-style:normal;white-space:nowrap}
+.wchipG{background:#D5F0E0;color:#0F7A40;border-color:#BFE3CE}
 .wnote{font-style:normal;color:var(--mut);font-size:calc(9px*var(--fs));max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wnote.wol{color:#8F6710;font-weight:700}
 .wtc{font-weight:600;white-space:nowrap}
 .wdur{color:var(--mut);font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .whow{color:var(--mut);font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wam{text-align:end;font-weight:800;font-size:calc(11.5px*var(--fs));white-space:nowrap}
-.wc0{background:#F2F8FD;--wcb:#DCEBF8;--wcc:#0C5F8C}.wc0 .wam{color:#0C5F8C}
-.wc1{background:#F0FAF3;--wcb:#D8F2E2;--wcc:#0F7A40}.wc1 .wam{color:#0F7A40}
-.wc2{background:#FEF9EC;--wcb:#FBF0D8;--wcc:#8F6710}.wc2 .wam{color:#8F6710}
-.wc3{background:#F5F1FC;--wcb:#E8E2FA;--wcc:#5B3EC8}.wc3 .wam{color:#5B3EC8}
-.wc4{background:#FCF0F4;--wcb:#F9E2EB;--wcc:#A03258}.wc4 .wam{color:#A03258}
-.wold{background:#FCF5E1;--wcb:#FBF0D8;--wcc:#8F6710}.wold .wam{color:#8F6710}
-.wpg{background:#F0FAF3}.wpg:nth-child(odd){background:#fff}
+.wcA{background:#EAF4FB}.wcA .wam{color:#0C5F8C}
+.wcB{background:#F5FAFD}.wcB .wam{color:#0C5F8C}
+.wold{background:#FCF5E1}.wold .wam{color:#8F6710}.wold .wchip{background:#F7EAC9;color:#8F6710;border-color:#E5D3A0}
+.wpg{background:#F4FBF7}.wpg:nth-child(odd){background:#E9F7EE}
 .wpg .wam{color:#0F7A40}
-.wtot{background:#EFE6FA;color:#5B3EC8;font-weight:800}
-.wtot .wam{color:#5B3EC8;font-size:calc(12.5px*var(--fs))}
+.wtot{background:#D7E9F7;color:#0C5F8C;font-weight:800}
+.wtot .wam{color:#0C5F8C;font-size:calc(12.5px*var(--fs))}
 .wtotG2{background:#D5F0E0;color:#0F7A40}
 .wtotG2 .wam{color:#0F7A40}
 @media(max-width:350px){.wtr{gap:4px;padding:6px 7px}}
 html[data-th=raat] .wtab{border-color:rgba(255,255,255,.10)}
-html[data-th=raat] .wth{background:rgba(21,128,184,.20);color:#8FD2F5}
-html[data-th=raat] .wbG>.wth{background:rgba(31,175,85,.18);color:#7FDCA4}
+html[data-th=raat] .wth{background:rgba(21,128,184,.32);color:#BFE3F7}
+html[data-th=raat] .wbG>.wth{background:rgba(31,175,85,.28);color:#9FE8BC}
 html[data-th=raat] .wtr+.wtr{border-top-color:rgba(255,255,255,.07)}
-html[data-th=raat] .wc0{background:rgba(21,128,184,.10)}html[data-th=raat] .wc0 .wam{color:#8FD2F5}
-html[data-th=raat] .wc1{background:rgba(31,175,85,.10)}html[data-th=raat] .wc1 .wam{color:#7FDCA4}
-html[data-th=raat] .wc2{background:rgba(224,160,48,.10)}html[data-th=raat] .wc2 .wam{color:#F0C977}
-html[data-th=raat] .wc3{background:rgba(124,77,255,.12)}html[data-th=raat] .wc3 .wam{color:#C3B2FF}
-html[data-th=raat] .wc4{background:rgba(214,96,134,.10)}html[data-th=raat] .wc4 .wam{color:#F2A9C4}
+html[data-th=raat] .wcA{background:rgba(21,128,184,.10)}html[data-th=raat] .wcA .wam{color:#8FD2F5}
+html[data-th=raat] .wcB{background:rgba(21,128,184,.05)}html[data-th=raat] .wcB .wam{color:#8FD2F5}
+html[data-th=raat] .wchip{background:rgba(21,128,184,.30);color:#8FD2F5;border-color:transparent}
+html[data-th=raat] .wchipG{background:rgba(31,175,85,.26);color:#7FDCA4;border-color:transparent}
+html[data-th=raat] .wold .wchip{background:rgba(224,160,48,.25);color:#F0C977;border-color:transparent}
 html[data-th=raat] .wold{background:rgba(224,160,48,.12)}html[data-th=raat] .wold .wam{color:#F0C977}
-html[data-th=raat] .wchip{background:rgba(255,255,255,.09);color:#BFE0F2}html[data-th=raat] .wc0 .wchip{color:#8FD2F5}html[data-th=raat] .wc1 .wchip,html[data-th=raat] .wchipG{color:#7FDCA4}html[data-th=raat] .wc2 .wchip,html[data-th=raat] .wold .wchip{color:#F0C977}html[data-th=raat] .wc3 .wchip{color:#C3B2FF}html[data-th=raat] .wc4 .wchip{color:#F2A9C4}
 html[data-th=raat] .wpg{background:rgba(31,175,85,.08)}html[data-th=raat] .wpg:nth-child(odd){background:transparent}
 html[data-th=raat] .wpg .wam{color:#7FDCA4}
-html[data-th=raat] .wtot{background:rgba(124,77,255,.16);color:#C3B2FF}html[data-th=raat] .wtot .wam{color:#C3B2FF}
+html[data-th=raat] .wtot{background:rgba(21,128,184,.18);color:#8FD2F5}html[data-th=raat] .wtot .wam{color:#8FD2F5}
 html[data-th=raat] .wtotG2{background:rgba(31,175,85,.16);color:#7FDCA4}html[data-th=raat] .wtotG2 .wam{color:#7FDCA4}
+html[data-th=raat] .kbox{background:rgba(224,160,48,.08);border-color:rgba(224,160,48,.28)}
 .kempty{text-align:center;color:var(--mut);padding:14px 8px;font-size:calc(13px*var(--fs))}
 .kempty.it{font-style:italic}
 .ksum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -437,7 +445,7 @@ html[data-th=raat] .wtotG2{background:rgba(31,175,85,.16);color:#7FDCA4}html[dat
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .ksum>div.gn2 .kv{color:#8FE3BC}}
 :root[data-theme="dark"] .ksum>div.gn2 .kv{color:#8FE3BC}
 @media(min-width:520px){.ksum{grid-template-columns:repeat(4,1fr)}}
-.kbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 14px 9px;margin-top:10px}
+.kbox{background:#FCF5E1;border:1px solid #E5D3A0;border-radius:14px;padding:11px 14px 9px;margin-top:10px}
 .kbox .kt{font-weight:700;font-size:calc(14px*var(--fs));margin-bottom:4px}
 .krow{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;font-size:calc(14px*var(--fs))}
 .krow+.krow{border-top:1px dashed var(--line)}
@@ -486,18 +494,14 @@ html.authwait body{visibility:hidden}html.authwait #lg,html.authwait #splash{vis
 #splash{display:none;position:fixed;inset:0;z-index:60;flex-direction:column;align-items:center;justify-content:center;gap:13px;background:linear-gradient(160deg,#0B3C6B,#1478b0);color:#fff;font:700 20px system-ui,sans-serif;animation:spvis 9s forwards}html.authwait #splash,html.spboot #splash{display:flex}
 #splash.spout{opacity:0;transform:scale(1.06);pointer-events:none;transition:opacity .55s ease,transform .55s ease}#splash.gone{display:none!important}
 #splash img{animation:spicon .75s cubic-bezier(.2,.9,.3,1.35) both}
-#splash .spn1{font-size:calc(27px*var(--fs));font-weight:900;letter-spacing:-.3px;line-height:1.35;animation:spup .6s .25s cubic-bezier(.2,.9,.3,1) both}
-#splash .spn2{font-size:calc(19px*var(--fs));font-weight:700;color:rgba(255,255,255,.88);line-height:2;animation:spup .6s .42s cubic-bezier(.2,.9,.3,1) both}
-/* v96: splash par sirf EK naam — zaban ke mutabiq (dono zubanein sath sath sirf login/signup page par) */
-html:not(.spen) #splash .spn1{display:none}
-html.spen #splash .spn2{display:none}
-html:not(.spen) #splash .spn2{font-family:var(--uf);font-size:calc(26px*var(--fs));font-weight:800;color:#fff}
+#splash .spn1{font-family:var(--uf);font-size:calc(26px*var(--fs));font-weight:800;line-height:1.9;animation:spup .6s .25s cubic-bezier(.2,.9,.3,1) both}
+/* v1.3.16: splash par sirf Urdu naam — do naam wala spen system hata diya */
 #splash i{width:30px;height:30px;margin-top:8px;border-radius:50%;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spn .8s linear infinite}
 @keyframes spn{to{transform:rotate(360deg)}}
 @keyframes spicon{from{opacity:0;transform:scale(.45) rotate(-10deg)}62%{opacity:1}to{opacity:1;transform:none}}
 @keyframes spup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 @keyframes spvis{0%,93%{visibility:visible}100%{visibility:hidden}}
-@media(prefers-reduced-motion:reduce){#splash img,#splash .spn1,#splash .spn2{animation-duration:.01s;animation-delay:0s}}
+@media(prefers-reduced-motion:reduce){#splash img,#splash .spn1{animation-duration:.01s;animation-delay:0s}}
 html,body{max-width:100%;overflow-x:hidden}
 .cb b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 html[lang=ur] .cb>svg{transform:scaleX(-1)}
@@ -655,12 +659,12 @@ html[data-th=raat] #q::placeholder{color:#8FA6B8}
 .mrowb.ta .vpl{background:var(--g2);color:var(--g)}
 .vdur{font-size:calc(12.5px*var(--fs));opacity:.85;white-space:nowrap}
 .mvb .mtm{margin-inline-start:auto;flex:none}
-</style><script>document.documentElement.classList.add('authwait','spboot');try{var _t=localStorage.getItem('aslam_theme');if(_t)document.documentElement.setAttribute('data-th',_t)}catch(e){}try{var _sl=JSON.parse(localStorage.getItem('aslam_st')||'{}').lang;if(_sl==='en'){document.documentElement.classList.add('spen');document.documentElement.lang='en';document.documentElement.dir='ltr'}else{document.documentElement.lang='ur';document.documentElement.dir='rtl'}}catch(e){}try{var _fw=document.documentElement.clientWidth||window.innerWidth||390;_fw=Math.min(1,Math.max(.78,_fw/390));_fw=Math.round(_fw*1000)/1000;document.documentElement.style.setProperty('--fs',String(_fw))}catch(e){}</script></head>
+</style><script>document.documentElement.classList.add('authwait','spboot');try{var _t=localStorage.getItem('aslam_theme');if(_t)document.documentElement.setAttribute('data-th',_t)}catch(e){}try{var _sl=JSON.parse(localStorage.getItem('aslam_st')||'{}').lang;if(_sl==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr'}else{document.documentElement.lang='ur';document.documentElement.dir='rtl'}}catch(e){}try{var _fw=document.documentElement.clientWidth||window.innerWidth||390;_fw=Math.min(1,Math.max(.78,_fw/390));_fw=Math.round(_fw*1000)/1000;document.documentElement.style.setProperty('--fs',String(_fw))}catch(e){}</script></head>
 <body><div class="app">
 <header class="top"><svg class="wv" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30Q50 5 100 30T200 30T300 30T400 30V60H0Z"/></svg>
 <div class="hr"><img class="lg" src="icon-192.png" alt=""><div class="hn"><h1 id="appn" class="nt">ٹیوب ویل کھاتہ</h1><div class="net" id="net"><i></i><span>Online</span></div></div><button id="nbtn" class="nbtn" type="button" aria-label="Notifications" onclick="notifToggle()" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span id="nbdg" class="nbdg" style="display:none">0</span></button></div>
 <div class="cr"><div class="chip"><i></i><span id="sync">Check ho raha hai…</span></div><span class="rate" id="rt">💧 Rs 500 / hour</span></div></header>
-<div id="splash"><img src="icon-192.png" width="92" height="92" alt="" style="border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.3)" onerror="this.replaceWith(document.createTextNode('💧'))"><div class="spn1 nt" id="spn1">ٹیوب ویل کھاتہ</div><div class="spn2 nt" id="spn2">ٹیوب ویل کھاتہ</div><i></i></div><script>try{var _st=JSON.parse(localStorage.getItem('aslam_st')||'{}');if(_st.lang==='en')document.documentElement.classList.add('spen');var _s1=document.getElementById('spn1'),_s2=document.getElementById('spn2');if(_s1){var _nm=_st.name;if(_nm==='Tubewell Khata'||_nm==='Aslam Tubewell')_nm='ٹیوب ویل کھاتہ';if(_nm){_s1.textContent=_nm;if(/[\u0600-\u06FF]/.test(_nm))_s1.style.fontFamily='var(--uf)'}if(_s2)_s2.textContent=_st.urdu||_nm||'ٹیوب ویل کھاتہ'}}catch(e){}</script><div id="v"></div>
+<div id="splash"><img src="icon-192.png" width="92" height="92" alt="" style="border-radius:22px;box-shadow:0 6px 22px rgba(0,0,0,.3)" onerror="this.replaceWith(document.createTextNode('💧'))"><div class="spn1 nt" id="spn1">ٹیوب ویل کھاتہ</div><i></i></div><script>try{var _s1=document.getElementById('spn1'),_st=JSON.parse(localStorage.getItem('aslam_st')||'{}');if(_s1&&_st.name&&/[\u0600-\u06FF]/.test(_st.name))_s1.textContent=_st.name}catch(e){}</script><div id="v"></div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -803,8 +807,8 @@ const THd=[['⏱',IC.clk,'Total time',dur(a.mins||0)],['💧',IC.coin,'Pani ke p
 .map(x=>'<div class="stt"><i class="ci">'+x[1]+'</i><div><span>'+BT(x[2])+'</span><b>'+x[3]+'</b></div></div>').join('');
 let h='<div class="fh" data-d="🧺"><i class="ic">🧺</i><div><h2>'+esc(archLabel(a))+'</h2><small>'+BT('Fasal ka record — sirf parne ke liye')+'</small></div></div><div class="fb"><div class="stg">'+THd+'</div>';
 const E=[...(a.entries||[])].sort((x,y)=>(x.date+x.start).localeCompare(y.date+y.start)),P=[...(a.pays||[])].sort((x,y)=>x.date.localeCompare(y.date));
-if(E.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💧 پانی کا حساب</div>'+wbWater(E,a.mins||0,a.bill||0,true,fmtD);
-if(P.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💰 وصولیاں</div>'+wbPays(P,a.paid||0,fmtD);
+if(E.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💧 پانی کا حساب</div>'+wbWater(E,a.mins||0,a.bill||0,UR,fmtD);
+if(P.length)h+='<div class="mut sm" style="margin:10px 0 6px;font-weight:700">💰 ادائیگیاں (جمع کی گئی رقم)</div>'+wbPays(P,a.paid||0,fmtD);
 h+='<button class="s" style="width:100%;margin-top:10px" onclick="$(\'em\').remove()">'+BT('Band karein')+'</button></div>';
 modal(h)}
 function settleAsk(){const f=F();if(!f)return;
@@ -1237,11 +1241,11 @@ const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-')
 const unb64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
 async function svPin(){const v=$('npin').value;if(!/^\d{4,6}$/.test(v)){alert('PIN 4 se 6 ankon ka hona chahiye');return}ST.pin=await hx(v);saveST();toast('PIN save ho gaya');setV()}
 async function onBio(){if(!ST.pin){alert('Pehle backup PIN set karein');return}if(!window.PublicKeyCredential){alert('Is phone ya browser mein Face ID support nahi');return}
-try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'ٹیوب ویل کھاتہ'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:ST.name,displayName:ST.name},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
+try{const c=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'ٹیوب ویل کھاتہ'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:'ٹیوب ویل کھاتہ',displayName:'ٹیوب ویل کھاتہ'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});ST.cred=b64u(c.rawId);saveST();toast('Face ID chalu ho gaya');setV()}catch(e){alert('Face ID chalu nahi hui. Dobara koshish karein.')}}
 function offBio(){ST.cred='';saveST();setV()}
 function offPin(){ST.pin='';saveST();setV()}
 function lockNow(){if(!ST.cred&&!ST.pin)return;locked=true;let o=$('lk');if(!o){o=document.createElement('div');o.id='lk';o.className='ov';o.style.cssText='align-items:center;background:var(--bg);z-index:30';document.body.appendChild(o)}
-o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:calc(44px*var(--fs))">🔒</div><h2>'+esc(ST.name)+'</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button><div class="mut sm" style="margin-top:6px">Agar neeche sheet aaye to "Use Passkey" dabayein</div>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
+o.innerHTML='<div class="sh" style="border-radius:22px;max-width:380px;margin:16px;text-align:center"><div style="font-size:calc(44px*var(--fs))">🔒</div><h2 style="font-family:var(--uf)">'+esc(ST.name)+'</h2><div class="mut sm" style="margin-bottom:14px">App lock laga hua hai</div>'+(ST.cred?'<button class="p" style="width:100%" onclick="tryBio()">🔓 Face ID se kholein</button><div class="mut sm" style="margin-top:6px">Agar neeche sheet aaye to "Use Passkey" dabayein</div>':'')+(ST.pin?'<div class="f" style="margin-top:12px"><input id="lkp" type="password" inputmode="numeric" maxlength="6" placeholder="PIN likhein" style="text-align:center"></div><button class="s" style="width:100%" onclick="tryPin()">PIN se kholein</button><button class="mini" style="background:none;color:var(--g);margin-top:8px" onclick="forgotPin()">PIN bhool gaye?</button>':'')+'<div id="lkm" class="sm" style="color:var(--red);min-height:18px;margin-top:8px"></div></div>';if(ST.cred)setTimeout(tryBio,350)}
 async function tryBio(){try{await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id:unb64(ST.cred)}],userVerification:'required',timeout:60000}});unlock()}catch(e){const m=$('lkm');if(m)m.textContent='Face ID nahi hui. Dobara dabayein ya PIN likhein'}}
 async function tryPin(){const v=$('lkp').value;if(await hx(v)===ST.pin)unlock();else{$('lkm').textContent='PIN galat hai';$('lkp').value=''}}
 function unlock(){const o=$('lk');locked=false;if(o){o.classList.add('out');setTimeout(()=>o.remove(),300)}}
@@ -1317,7 +1321,7 @@ try{if(lrUnsub){lrUnsub();lrUnsub=null}}catch(e){}
 try{if(flUnsub){flUnsub();flUnsub=null}}catch(e){}
 try{fdUnAll()}catch(e){}try{chatUnsubAll()}catch(e){}
 LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;FKC={};FD_OFF={};lastFC={};lastFD={};lrSig='';lrT=0;cur=null;eid=null;
-(to==='owner'?ownerBoot:farmerBoot)();msgBoot();
+(to==='owner'?ownerBoot:farmerBoot)();msgBoot();try{ntGateSync()}catch(e){}
 ding();toast(BT(to==='owner'?'Owner mode chalu — khush aamdeed!':'Farmer mode chalu — khush aamdeed!'))}
 async function routeUser(){let role=null,had=false,tcode=null,tws=false,rok=false;
 try{const sn=await profDoc().get();rok=true;if(sn.exists()){const d=sn.data();role=d.role||null;if(d.tcode){tcode=d.tcode;ST.tcode=d.tcode}tws=!!d.tws}}catch(e){}
@@ -1334,7 +1338,7 @@ $('v').innerHTML='<div class="nt"><div class="card">'+BH('Farmer link requests',
 function cpTxt(s){try{navigator.clipboard.writeText(s);toast(BT('Copy ho gaya'))}catch(e){toast('Copy nahi hua')}}
 /* ===== Farmer: kisan khata (booking/talaash v81 mein hata) ===== */
 function fHome(){view='fhome';cur=null;navR();
-$('v').innerHTML='<div class="nt"><div class="card slav band"><div class="cband cb-lav"><span class="bi">🌾</span>'+BH('My Farmer Khata','میرا کسان کھاتا')+'<span class="cbtn" id="fchatb" role="button" aria-label="'+BT('Paighaam')+'" onclick="chatFarmerGo()" style="display:none">'+IMSG+'</span></div><div class="cbody"><div id="fkdata">'+fKhataBox()+'</div></div></div></div>';chatBadge()}
+$('v').innerHTML='<div class="nt"><div class="card slav band"><div class="cband cb-lav"><span class="bi">🌾</span>'+BH('My Farmer Khata','میرا کسان کھاتا')+'<span class="cbtn" id="fchatb" role="button" aria-label="'+BT('Paighaam')+'" onclick="chatFarmerGo()" style="display:none">'+IMSG+'</span></div><div class="cbody"><div id="fkdata">'+fKhataBox()+'</div></div></div></div>';chatBadge();ntGateSync()}
 /* ===== v63: Kisan Code Based Account Linking ===== */
 let LREQ=[],FLREQ=[],FDATA=null,FDATAF='',lrUnsub=null,flUnsub=null,lastFC={},lastFD={},lrT=0,lrSig='',fdRetry={},fdBT=0,fdHad=false,fdErr='',fdRT={},flBusy=false,flSentC='',flSentT=0,FDMAP={},FDHAD={},FDMISS={},fdUn={},fkCur=null,flLoaded=false,FKC={},FD_OFF={},fkCLd=0;
 const genFCode=()=>{const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=A[Math.floor(Math.random()*A.length)];return 'FR-'+s};
@@ -1420,7 +1424,7 @@ if(fkCur&&!L.some(x=>x.frId===fkCur))fkCur=null;
 if(!fkCur&&L.length){fkCur=L[0].frId;try{localStorage.setItem('aslam_fkc',fkCur)}catch(e){}}
 if(fkCur&&fkCur!==prev){FDATA=FDMAP[fkCur]||null;FDATAF=fkCur}else if(fkCur&&FDMAP[fkCur]&&FDATAF===fkCur)FDATA=FDMAP[fkCur];
 fdListenAll();fkSoft()}
-function fkSoft(){if(view!=='fhome')return;const m=$('fkdata');if(m&&!$('em')){m.innerHTML=fKhataBox();chatBadge()}else if(!m)fHome()}
+function fkSoft(){if(view!=='fhome')return;const m=$('fkdata');if(m&&!$('em')){m.innerHTML=fKhataBox();chatBadge();ntGateSync()}else if(!m)fHome()}
 /* ===== v69: Notification bell (header) ===== */
 let nPrev={};
 const nSeen=()=>{try{return +localStorage.getItem('aslam_nseen')||0}catch(e){return 0}};
@@ -1530,17 +1534,19 @@ if(!FS){alert(BT('Internet nahi hai.'));return}
 try{await FS.collection('lreq').doc(id).delete()}catch(e){try{await FS.collection('lreq').doc(id).update({status:'cancelled',upAt:Date.now()})}catch(e2){alert(BT('Request wapas nahi le saki — internet check karein ya malik se kahen ye request reject kar dein.'));return}}
 FLREQ=FLREQ.filter(x=>x.id!==id);try{fkSoft()}catch(e){}try{notifPaint()}catch(e){}toast(BT('Request wapas le li gayi'))}
 /* v1.3.10: pani ki entries + wasoolian ke rangi boxes — farmer khata aur purane khate (archive) dono isi se bante hain. v1.3.13: rang semantic (pani=neela, wasooli=sabz, purana baqaya=peela). v1.3.15: image wali TABLE — header (tarih/shuroo/khatam/doraniya/raqam), pani ki har line ka alag light rang (wc0..wc4), purana baqaya peela row, kul light purple (image jaisa); wasooli table sabz header + sabz kul */
-function wbWater(E,tm,bill,UR,dfmt){const HD=['تاریخ','شروع','ختم','دورانیہ','رقم'];
+function wbWater(E,tm,bill,UR,dfmt){/* v1.3.16: hisab ki tasveer jaisa — hamesha Urdu, gehra neela header, light rows, light date chip, urdu raqam */
+const HD=['تاریخ','شروع','ختم','گھنٹے','پیسے'];
 let h='<div class="wtab wbW"><div class="wtr wth"><span>'+HD[0]+'</span><span>'+HD[1]+'</span><span>'+HD[2]+'</span><span>'+HD[3]+'</span><span class="wam">'+HD[4]+'</span></div>';
 let k=0;E.forEach(o=>{const old=o.note==='Pichle saal ka baqaya',nt=old?'پرانا باقیہ':esc(o.note||'');
-h+='<div class="wtr '+(old?'wold':'wc'+(k++%5))+'"><span class="wda"><i class="wchip"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></i>'+(nt?'<em class="wnote'+(old?' wol':'')+'">'+nt+'</em>':'')+'</span>'
+h+='<div class="wtr '+(old?'wold':(k++%2?'wcB':'wcA'))+'"><span class="wda"><i class="wchip"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></i>'+(nt?'<em class="wnote'+(old?' wol':'')+'">'+nt+'</em>':'')+'</span>'
 +(o.start?'<span class="wtc"><bdi dir="ltr">'+urT(o.start)+'</bdi></span><span class="wtc"><bdi dir="ltr">'+urT(o.end)+'</bdi></span><span class="wdur">'+durU(o.mins)+'</span>':'<span class="wtc">—</span><span class="wtc">—</span><span class="wdur">—</span>')
-+'<b class="wam">'+rs(o.amt)+'</b></div>'});
-h+='<div class="wtr wtot"><span class="wtl">کل</span><span></span><span></span><span class="wtm">'+durU(tm)+'</span><b class="wam">'+rs(bill)+'</b></div></div>';return h}
-function wbPays(P,paid,dfmt){const HD=['تاریخ','طریقہ','رقم'];
++'<b class="wam">'+rs0(o.amt)+'</b></div>'});
+h+='<div class="wtr wtot"><span class="wtl">کل</span><span></span><span></span><span class="wtm">'+durU(tm)+'</span><b class="wam">'+rs0(bill)+'</b></div></div>';return h}
+function wbPays(P,paid,dfmt){/* v1.3.16: hamesha Urdu — نقد/جاز کیش/ایزی پیسہ/بینک/دیگر */
+const HD=['تاریخ','طریقہ','رقم'],HW={Cash:'نقد',JazzCash:'جاز کیش',Easypaisa:'ایزی پیسہ',Bank:'بینک',Aur:'دیگر'};
 let h='<div class="wtab wbG"><div class="wtr wth"><span>'+HD[0]+'</span><span>'+HD[1]+'</span><span class="wam">'+HD[2]+'</span></div>';
-P.forEach(o=>{h+='<div class="wtr wpg"><span class="wda"><i class="wchip wchipG"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></i></span><span class="whow">'+hwIc(o.how)+esc(o.how||'Cash')+'</span><b class="wam">'+rs(o.amt)+'</b></div>'});
-h+='<div class="wtr wtot wtotG2"><span class="wtl">کل جمع</span><span></span><b class="wam">'+rs(paid)+'</b></div></div>';return h}
+P.forEach(o=>{h+='<div class="wtr wpg"><span class="wda"><i class="wchip wchipG"><bdi dir="ltr">'+dfmt(o.date)+'</bdi></i></span><span class="whow">'+hwIc(o.how)+(HW[o.how]||'نقد')+'</span><b class="wam">'+rs0(o.amt)+'</b></div>'});
+h+='<div class="wtr wtot wtotG2"><span class="wtl">کل جمع</span><span></span><b class="wam">'+rs0(paid)+'</b></div></div>';return h}
 /* ===== v1.3.12: Phone notification — app khula/background ho to nayi entry/wasooli par ===== */
 /* ===== v1.3.14: Level-2 push — app band ho tab bhi (Cloudflare Worker relay + FCM token) ===== */
 const NWRK='https://aslam-notify.shahbaztaimoor0055.workers.dev/',NSEC='aslam-TR7k-m2Qv-9xLd-Pn4W-8cJh-5bFs-3gZq-6vRt',NVAP='BMFWh2-zfNwAxopMupdeGZ10E-zqjtXaC0SVPrjFP_M-JFFXFWR-fe3IFoi7T63jfrN6M2u_rRfrhBNJsDoi6Eo';
@@ -1551,20 +1557,39 @@ else ntPushSend(f.linkedUid,UR?'💰 وصولی درج ہو گئی':'💰 Paymen
 let ntpS=0;
 function ntPushReg(quiet){try{if(!U||ntpS)return;if(!('serviceWorker' in navigator)||!('Notification' in window))return;if(ntPerm()!=='granted')return;if(!(window.firebase&&firebase.messaging&&firebase.messaging.isSupported&&firebase.messaging.isSupported()))return;ntpS=1;
 try{navigator.serviceWorker.ready.then(r=>{try{firebase.messaging().getToken({vapidKey:NVAP,serviceWorkerRegistration:r}).then(tok=>{if(tok){try{FS.collection('ftok').doc(U.uid).set({tokens:firebase.firestore.FieldValue.arrayUnion(tok),upAt:Date.now()},{merge:true})}catch(e){}try{if(!quiet)toast(BL()==='ur'?'🔔 Push chalu — app band ho to bhi notification aayegi':'🔔 Push on — works even when the app is closed')}catch(e2){}}else ntpS=0}).catch(()=>{ntpS=0})}catch(e){ntpS=0}}).catch(()=>{ntpS=0})}catch(e){ntpS=0}}catch(e){}}
-const NTSEEN={},NTKEY='aslam_ntst';
+const NTSEEN={};
 const ntPerm=()=>{try{return ('Notification' in window)?Notification.permission:'na'}catch(e){return 'na'}};
-const ntDis=()=>{try{const v=JSON.parse(localStorage.getItem(NTKEY)||'{}');return !!(v.dis&&Date.now()-v.dis<6048e5)}catch(e){return false}};
-function ntDismiss(){try{localStorage.setItem(NTKEY,JSON.stringify({dis:Date.now()}))}catch(e){}try{fkSoft()}catch(e){}}
+/* ===== v1.3.17: FULL-SCREEN notification gate — farmer jab tak ON nahi dabata, us ka khata nazar nahi aata ===== */
+const NTSK='aslam_ntsk';
+function ntGateOn(){try{if(ST.role!=='farmer'||!U)return 0;if(!('Notification' in window))return 0;const p=ntPerm();if(p==='granted'||p==='na')return 0;
+if(p==='denied'){try{if(sessionStorage.getItem(NTSK))return 0}catch(e){}}
+try{const L=flsGet();if(!L||!L.length)return 0}catch(e){return 0}
+return 1}catch(e){return 0}}
+function ntGateSync(){try{let g=$('ntgate');if(!ntGateOn()){if(g)g.remove();return}
+if(!g){g=document.createElement('div');g.id='ntgate';document.body.appendChild(g)}
+g.innerHTML=ntGateHTML()}catch(e){}}
+function ntGateSkip(){try{sessionStorage.setItem(NTSK,'1')}catch(e){}ntGateSync();try{fkSoft()}catch(e){}}
+function ntGateAsk(){try{const p=ntPerm();if(p!=='default'){ntGateSync();return}
+try{Notification.requestPermission().then(r=>{try{fkSoft()}catch(e){}if(r==='granted'){ntTest();try{ntPushReg(false)}catch(e){}}try{ntGateSync()}catch(e2){}}).catch(()=>{try{ntGateSync()}catch(e3){}})}catch(e){ntGateSync()}}catch(e){}}
+try{document.addEventListener('visibilitychange',()=>{try{if(!document.hidden)ntGateSync()}catch(e){}})}catch(e){}
 function ntShow(t,b,tag){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const o={body:b,tag:tag||'twk',icon:'icon-192.png',badge:'icon-192.png',renotify:true};
 try{navigator.serviceWorker.ready.then(r=>{try{const pr=r.showNotification(t,o);if(pr&&pr.catch)pr.catch(()=>{})}catch(e){try{new Notification(t,o)}catch(e2){}}}).catch(()=>{try{new Notification(t,o)}catch(e2){}})}catch(e){try{new Notification(t,o)}catch(e2){}}}catch(e){}}
-function ntTest(){const UR=BL()==='ur';ntShow(UR?'\u{1F514} \u0679\u06CC\u0648\u0628 \u0648\u06CC\u0644 \u06A9\u06BE\u0627\u062A\u06C1':'\u{1F514} Tubewell Khata',UR?'\u0679\u06CC\u0633\u0679 \u2014 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u0644\u06A9\u0644 \u0679\u06BE\u06CC\u06A9 \u0686\u0644 \u0631\u06C1\u06CC \u06C1\u06D2':'Test — notifications are working fine','test');try{toast(UR?'Notification bhej di — phone ki bar mein dekhein':'Notification sent — check your phone bar')}catch(e){}}
+function ntTest(){const UR=BL()==='ur';ntShow(UR?'\u{1F514} \u0679\u06CC\u0648\u0628 \u0648\u06CC\u0644 \u06A9\u06BE\u0627\u062A\u06C1':'\u{1F514} ٹیوب ویل کھاتہ',UR?'\u0679\u06CC\u0633\u0679 \u2014 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u0644\u06A9\u0644 \u0679\u06BE\u06CC\u06A9 \u0686\u0644 \u0631\u06C1\u06CC \u06C1\u06D2':'Test — notifications are working fine','test');try{toast(UR?'Notification bhej di — phone ki bar mein dekhein':'Notification sent — check your phone bar')}catch(e){}}
 function ntHelp(){const UR=BL()==='ur';modal('<div class="fh" data-d="\u{1F514}"><i class="ic">\u{1F514}</i><div>'+BH('Notification allow kaise karein','\u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u06A9\u06CC \u0627\u062C\u0627\u0632\u062A \u06A9\u06CC\u0633\u06D2 \u062F\u06CC\u06BA')+'</div></div><div class="fb"><div class="mut sm" style="line-height:1.9">'+RB('1. Chrome address bar mein tala (lock) par tap karein.<br>2. Permissions \u2192 Notifications \u2192 Allow karein.<br>3. App band karke dobara kholein.','1. Chrome \u0627\u06CC\u0688\u0631\u06CC\u0633 \u0628\u0627\u0631 \u0645\u06CC\u06BA \u062A\u0627\u0644\u0627 (lock) \u067E\u0631 \u0679\u06CC\u067E \u06A9\u0631\u06CC\u06BA\u06D4<br>2. Permissions \u2192 Notifications \u2192 Allow \u06A9\u0631\u06CC\u06BA\u06D4<br>3. \u0627\u06CC\u067E \u0628\u0646\u062F \u06A9\u0631 \u06A9\u06D2 \u062F\u0648\u0628\u0627\u0631\u06C1 \u06A9\u06BE\u0648\u0644\u06CC\u06BA\u06D4')+'</div><button class="p" style="width:100%;margin-top:10px" onclick="document.getElementById(\'em\').remove()">'+BT('Band karein')+'</button></div>')}
 function ntAsk(){const p=ntPerm();
 if(p==='granted'){ntTest();return}
 if(p==='denied'){ntHelp();return}
-try{Notification.requestPermission().then(r=>{try{fkSoft()}catch(e){}try{fSetV&&fSetV()}catch(e){}if(r==='granted'){ntTest();try{ntPushReg(false)}catch(e){}}else if(r==='denied')ntHelp()}).catch(()=>{})}catch(e){}}
-function ntBanner(){if(ST.role!=='farmer')return '';const p=ntPerm();if(p!=='default'||ntDis())return '';
-return '<div class="ntban"><span class="nbi">\u{1F514}</span><div class="nbt">'+RB('Malik ki nayi entry ya wasooli phone ki notification bar mein paana chahte hain?','\u0645\u0627\u0644\u06A9 \u06A9\u06CC \u0646\u0626\u06CC \u0627\u0646\u0679\u0631\u06CC \u06CC\u0627 \u0648\u0635\u0648\u0644\u06CC \u0641\u0648\u0646 \u06A9\u06CC \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u0627\u0631 \u0645\u06CC\u06BA \u067E\u0627\u0646\u0627 \u0686\u0627\u06C1\u062A\u06D2 \u06C1\u06CC\u06BA\u061F')+'</div><button class="p mini" onclick="ntAsk()">'+RB('On karein','\u0686\u0627\u0644\u0648 \u06A9\u0631\u06CC\u06BA')+'</button><button class="nbanx" aria-label="Close" onclick="ntDismiss()">\u2715</button></div>'}
+try{Notification.requestPermission().then(r=>{try{fkSoft()}catch(e){}try{fSetV&&fSetV()}catch(e){}if(r==='granted'){ntTest();try{ntPushReg(false)}catch(e){}}else if(r==='denied')ntHelp();try{ntGateSync()}catch(e2){}}).catch(()=>{try{ntGateSync()}catch(e3){}})}catch(e){}}
+function ntGateHTML(){const UR=BL()==='ur',den=ntPerm()==='denied';
+let h='<div class="ngc'+(UR?' ngur':'')+'"'+(UR?' dir="rtl"':'')+'><img class="ngic" src="icon-192.png" alt=""><div class="ngbell">🔔</div>'
++'<h2 class="ngt">'+RB('Notification chalu karein','اطلاعات چالو کریں')+'</h2>'
++'<p class="ngx">'+RB('Malik jab bhi nayi pani ki entry ya wasooli darj kare ga, aap ke phone par foran notification aa jaye ga — chahe app band ho.','مالک جب بھی نئی پانی کی انٹری یا وصولی درج کرے گا، آپ کے فون پر فوراً اطلاع آ جائے گی — چاہے ایپ بند ہو۔')+'</p>';
+if(den)h+='<div class="ngwarn"><b>'+RB('Notification block ho gayi hai','اطلاع بند کر دی گئی ہے')+'</b><br>'+RB('1. Chrome address bar mein tala (🔒) par tap karein.<br>2. Permissions \u2192 Notifications \u2192 Allow karein.<br>3. Wapas is app par aakar neeche wala button dabayein.','1. کروم ایڈریس بار میں تالا (🔒) پر ٹیپ کریں۔<br>2. Permissions → Notifications → Allow کریں۔<br>3. واپس اس ایپ پر آ کر نیچے والا بٹن دبائیں۔')+'</div>'
++'<button class="ngb" onclick="ntGateAsk()">🔄 '+RB('Dobara koshish karein','دوبارہ کوشش کریں')+'</button>'
++'<button class="ngl" onclick="ntGateSkip()">'+RB('Filhaal bina notification ke khata dekhein','فی الحال بغیر اطلاع کے کھاتہ دیکھ لیں')+'</button>';
+else h+='<button class="ngb" onclick="ntGateAsk()">🔔 '+RB('ON karein','چالو کریں')+'</button>'
++'<p class="ngf">'+RB('Ye ijazat sirf ek dafa maangi jaye gi — sirf is app ki ittila ke liye.','یہ اجازت صرف ایک بار مانگی جائے گی — صرف اس ایپ کی اطلاع کے لیے۔')+'</p>';
+return h+'</div>'}
 function ntCardH(){if(ST.role!=='farmer')return '';const p=ntPerm();let st,lb,fn,bt;
 if(p==='granted'){st=RB('Phone notifications are ON — alerts come even when the app is closed. Tap to send a test notification.','فون نوٹیفکیشن چالو ہیں — ایپ بند ہو تو بھی نئی انٹری یا وصولی کی اطلاع آئے گی۔ ٹیپ کریں تو ٹیسٹ نوٹیفکیشن آئے گی۔');lb=RB('\u{1F514} Send test notification','\u{1F514} \u0679\u06CC\u0633\u0679 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u06BE\u062C\u06CC\u06BA');fn='ntTest()';bt='p'}
 else if(p==='denied'){st=RB('Blocked by the browser — open Chrome site settings (lock icon in address bar) and allow Notifications.','\u0628\u0631\u0627\u0624\u0632\u0631 \u0646\u06D2 \u0628\u0646\u062F \u06A9\u0631 \u062F\u06CC\u0627 \u2014 Chrome \u06A9\u06CC \u0633\u0627\u0626\u0679 \u0633\u06CC\u0679\u0646\u06AF\u0632 (\u062A\u0627\u0644\u0627 \u0648\u0627\u0644\u0627 \u0646\u0634\u0627\u0646) \u06A9\u06BE\u0648\u0644 \u06A9\u0631 Notification allow \u06A9\u0631\u06CC\u06BA\u06D4');lb=RB('Blocked — how to allow','\u0628\u0646\u062F \u06C1\u06D2 \u2014 \u0627\u062C\u0627\u0632\u062A \u06A9\u06CC\u0633\u06D2 \u062F\u06CC\u06BA');fn='ntHelp()';bt='s'}
@@ -1586,7 +1611,7 @@ if(np.length){const p2=np[np.length-1],bd=(tw?tw+' \u2022 ':'')+rs(p2.amt)+(p2.h
 if(document.hidden)ntShow(UR?'\u{1F4B0} \u0648\u0635\u0648\u0644\u06CC \u062F\u0631\u062C \u06C1\u0648 \u06AF\u0626\u06CC':'\u{1F4B0} Payment received',bd,'p'+frId);
 else try{toast((UR?'\u{1F4B0} Malik ne wasooli darj ki \u2014 ':'\u{1F4B0} Payment received \u2014 ')+rs(p2.amt))}catch(e2){}}
 }catch(e){}}
-function fKhataBox(){const L=flsGet();if(!fkCLd){fkCLd=1;FKC=fkcLoad()}L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});let h='';h+=ntBanner();
+function fKhataBox(){const L=flsGet();if(!fkCLd){fkCLd=1;FKC=fkcLoad()}L.forEach(x=>{if(x.frId&&FKC[x.frId]&&!FDMAP[x.frId])FDMAP[x.frId]=FKC[x.frId]});let h='';
 if(L.length){const cur=(fkCur&&L.some(x=>x.frId===fkCur))?fkCur:L[0].frId;
 if(fkCur!==cur){fkCur=cur;try{localStorage.setItem('aslam_fkc',cur)}catch(e){}}
 const D=FDMAP[cur]||FDATA||null;
@@ -1609,30 +1634,31 @@ function fKhataH(){const t={bill:FDATA.bill||0,old:FDATA.old||0,paid:FDATA.paid|
 const E=[...(FDATA.entries||[])].sort((a,b)=>((a.date||'')+(a.start||'')).localeCompare((b.date||'')+(b.start||'')));
 const P=[...(FDATA.pays||[])].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
 const tm=E.reduce((m,o)=>m+(+o.mins||0),0),nc=E.length,tb=t.bill+t.old,pct=tb>0?Math.min(100,Math.round(t.paid/tb*100)):0;
-const dmy=d=>{const s=String(d||'');return s.length>=10?s.slice(8,10)+'-'+s.slice(5,7)+'-'+s.slice(0,4):esc(s)},DUR=()=>dur(tm);
+const dmy=d=>{const s=String(d||'');return s.length>=10?s.slice(8,10)+'-'+s.slice(5,7)+'-'+s.slice(0,4):esc(s)};
 let k='<div class="ksec kinfo nt"><div><i class="ki">\ud83d\udc64</i><span style="min-width:0"><span class="kl">'+BT('Kisan ka naam')+'</span><span class="kv">'+esc(FDATA.name||'\u2014')+'</span><span class="ks"><bdi dir="ltr">'+esc(FDATA.fcode||'')+'</bdi></span></span></div>'
 +'<div><i class="ki">\ud83d\udeb0</i><span style="min-width:0"><span class="kl">'+BT('Tubewell ka naam')+'</span><span class="kv">'+esc(FDATA.twName||'\u2014')+'</span><span class="ks">'+(FDATA.rate?'💧 '+BT('Water Rate')+': <bdi dir="ltr">Rs '+(+FDATA.rate||0)+' '+BT('fi ghanta')+'</bdi>':'&nbsp;')+'</span></span></div>'
 +'<div><i class="ki">\ud83d\udcc5</i><span style="min-width:0"><span class="kl">'+BT('Aakhri update')+'</span><span class="kv">'+(FDATA.upAt?fmtDTU(FDATA.upAt):'\u2014')+'</span><span class="ks">&nbsp;</span></span></div></div>';
 k+=payBoxH();
 const any=E.length||P.length||t.old||t.bill;
 if(!any)k+='<div class="ksec"><div class="kempty it">'+BT('Abhi koi hisaab nahi \u2014 malik entry kare ga to yahan nazar aaye ga.')+'</div></div>';
-if(any){if(E.length){k+='<div class="ksec nt"><div class="kst">\ud83d\udca7 پانی کا حساب</div>'+wbWater(E,tm,t.bill,true,dmy)+'</div>'}
-k+='<div class="ksec nt"><div class="kst">\ud83d\udcb5 وصولیاں</div>';
+if(any){if(E.length){
+k+='<div class="ksec nt"><div class="kst">\ud83d\udca7 پانی کا حساب</div>'+wbWater(E,tm,t.bill,1,dmy)+'</div>'}
+k+='<div class="ksec nt"><div class="kst">\ud83d\udcb5 ادائیگیاں (جمع کی گئی رقم)</div>';
 if(P.length)k+=wbPays(P,t.paid,dmy);
 else k+='<div class="kempty it">ابھی کوئی ادائیگی نہیں</div>';
-if(t.old)k+='<div class="koldmut">\ud83d\udcdc پرانا باقیہ: <b>+ '+rs(t.old)+'</b></div>';
+if(t.old)k+='<div class="koldmut">\ud83d\udcdc پرانا باقیہ: <b>+ '+rs0(t.old)+'</b></div>';
 k+='</div>'}
-k+='<div class="ksec nt"><div class="kst">\ud83e\uddee '+BT('Khulasa-e-Hisab')+'</div><div class="ksum">'
-+'<div><i class="ki">\u23f1</i><span class="kl">'+BT('Kul Waqt')+'</span><b class="kv">'+DUR()+'</b><span class="ks">'+nc+' '+BT('dafa pani diya')+'</span></div>'
-+'<div><i class="ki">\ud83d\udcb0</i><span class="kl">'+BT('Kul Raqam')+'</span><b class="kv">'+rs(tb)+'</b><span class="ks">'+(t.old?BT('Purana baqaya shamil'):BT('Pani ke paisay'))+'</span></div>'
-+'<div><i class="ki">\u2705</i><span class="kl">'+BT('Jama Shuda')+'</span><b class="kv pos">'+rs(t.paid)+'</b><span class="ks">'+P.length+' '+BT('wasoolian')+'</span></div>'
-+'<div class="'+(t.due>0?'rd':'gn2')+'"><i class="ki">\ud83d\udcb8</i><span class="kl">'+BT('Baqi Raqam')+'</span><b class="kv">'+rs(t.due)+'</b><span class="ks">'+(t.due>0?BT('Ye aap ne malik ko dene hain'):BT('Hisaab saaf \u2014 aap ka koi paisa baqi nahi'))+'</span></div></div>';
-if(any){k+='<div class="kbox"><div class="kt">'+BT('Ye hisaab kaise bana?')+'</div>'
-+(t.old?'<div class="krow"><span>\ud83d\udcdc '+BT('Purana baqaya')+'</span><b>+ '+rs(t.old)+'</b></div>':'')
-+'<div class="krow"><span>\ud83d\udca7 '+BT('Pani ke paisay')+'</span><b>+ '+rs(t.bill)+'</b></div>'
-+'<div class="krow"><span>\u2705 '+BT('Diye hue (wasooli)')+'</span><b class="pos">\u2212 '+rs(t.paid)+'</b></div>'
-+'<div class="krow tot"><span>'+BT('Kul rehte hain')+'</span><b class="'+(t.due>0?'neg':'pos')+'">= '+rs(t.due)+'</b></div>'
-+'<div class="bar"><i style="width:'+pct+'%"></i></div><div class="mut sm">'+pct+'% '+BT('wasool')+' \u2014 '+rs(t.paid)+' '+BT('diye')+' \u2022 '+rs(t.due)+' '+BT('rehte hain')+'</div></div>'}
+k+='<div class="ksec nt"><div class="kst">\ud83e\uddee خلاصہ حساب</div><div class="ksum">'
++'<div><i class="ki">\u23f1</i><span class="kl">کل وقت</span><b class="kv">'+durU(tm)+'</b><span class="ks">'+nc+' مرتبہ پانی دیا</span></div>'
++'<div><i class="ki">\ud83d\udcb0</i><span class="kl">کل رقم</span><b class="kv">'+rs0(tb)+'</b><span class="ks">'+(t.old?'پرانا باقیہ شامل':'پانی کے پیسے')+'</span></div>'
++'<div><i class="ki">\u2705</i><span class="kl">جمع شدہ رقم</span><b class="kv pos">'+rs0(t.paid)+'</b><span class="ks">'+P.length+' وصولیاں</span></div>'
++'<div class="'+(t.due>0?'rd':'gn2')+'"><i class="ki">\ud83d\udcb8</i><span class="kl">باقی رقم</span><b class="kv">'+rs0(t.due)+'</b><span class="ks">'+(t.due>0?'یہ آپ نے مالک کو دینے ہیں':'حساب صاف \u2014 آپ کا کوئی پیسہ باقی نہیں')+'</span></div></div>';
+if(any){k+='<div class="kbox"><div class="kt">یہ حساب کیسے بنا؟</div>'
++(t.old?'<div class="krow"><span>\ud83d\udcdc پرانا باقیہ</span><b>+ '+rs0(t.old)+'</b></div>':'')
++'<div class="krow"><span>\ud83d\udca7 پانی کے پیسے</span><b>+ '+rs0(t.bill)+'</b></div>'
++'<div class="krow"><span>\u2705 دئیے ہوئے (وصولی)</span><b class="pos">\u2212 '+rs0(t.paid)+'</b></div>'
++'<div class="krow tot"><span>کل رہتے ہیں</span><b class="'+(t.due>0?'neg':'pos')+'">= '+rs0(t.due)+'</b></div>'
++'<div class="bar"><i style="width:'+pct+'%"></i></div><div class="mut sm">'+pct+'% وصول \u2014 '+rs0(t.paid)+' دئیے \u2022 '+rs0(t.due)+' رہتے ہیں</div></div>'}
 const AR=FDATA.arch||[];if(AR.length){k+='<div class="ksec nt"><div class="kst">\ud83e\udfae '+BT('Purane khatay')+'</div>'+AR.map(a=>'<div class="arow2"><div class="h2d" style="margin:0;min-height:0"><b>'+esc(a.label||(a.from&&a.to&&a.from!==a.to?dmy(a.from)+' \u2014 '+dmy(a.to):dmy(a.on||'')))+'</b>'+(a.due>0?'<span class="pill r">'+BT('Baqaya ')+rs(a.due)+'</span>':'<span class="pill">'+BT('Hisab saaf')+'</span>')+'</div><div class="mut sm" style="margin-top:4px">'+BT('Kul')+' '+rs((a.bill||0)+(a.old||0))+' \u2022 '+BT('Wasool hua')+' '+rs(a.paid||0)+' \u2022 '+(a.nE||0)+' '+BT('entries')+'</div></div>').join('')+'<div class="mut sm" style="margin-top:6px">'+BT('Ye fasal ke khatay band ho chuke hain \u2014 poori tafseel malik ke paas mehfooz hai.')+'</div></div>'}
 k+='</div>';
 return k}
