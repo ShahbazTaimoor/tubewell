@@ -448,12 +448,12 @@ html[data-th=raat] .kbox{background:rgba(224,160,48,.08);border-color:rgba(224,1
 .wvsec{margin:4px 0 10px;font-family:var(--uf),system-ui,sans-serif}
 .wvsec .kst{margin:0 2px 8px}
 .wvlist{border-radius:18px;overflow:hidden}
-.wvr{--wvbg:#D3E3FA;--wvink:#1F2937;--wvtm:#3D4C63;--wvdt:#77839B;--wvmut:#6B7280;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px 8px;background:var(--wvbg);color:var(--wvink);min-width:0}
+.wvr{--wvbg:#D3E3FA;--wvink:#1F2937;--wvtm:#3D4C63;--wvdt:#77839B;--wvmut:#6B7280;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px 8px;background:var(--wvbg);color:var(--wvink);min-width:0;position:relative}
 .wvc1{--wvbg:#CDEAD4}.wvc2{--wvbg:#FDF3D8}.wvc3{--wvbg:#F8E7EF}.wvc4{--wvbg:#EBE7F8}
 .wvri{min-width:0;text-align:right}
 .wvtop{display:flex;align-items:center;gap:8px}
 .wvd{font-size:calc(15.5px*var(--fs));font-weight:800;line-height:1.9}
-.wvaj{flex:none;background:#295EA2;color:#fff;border-radius:99px;padding:0 10px;font-size:calc(11px*var(--fs));font-weight:700;line-height:1.8}
+.wvaj{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;background:#295EA2;color:#fff;border-radius:99px;padding:0 14px;font-size:calc(12.5px*var(--fs));font-weight:700;line-height:2;box-shadow:0 2px 7px rgba(41,94,162,.35);white-space:nowrap}
 .wvtm{font-size:calc(12.5px*var(--fs));font-weight:600;color:var(--wvtm);line-height:1.9;white-space:nowrap}
 .wvdt{font-size:calc(11px*var(--fs));color:var(--wvdt);font-weight:600;line-height:1.7}
 .wvnt{font-size:calc(10.5px*var(--fs));color:var(--wvmut);font-weight:600;line-height:1.7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -1721,7 +1721,7 @@ h+='<div class="f"><label>'+BT('Kisan code (misal: FR-A2B4C6)')+'</label><input 
 +'<div class="mut sm" style="margin-top:6px">'+BT('Apne malik se apna kisan code (FR-...) lein aur yahan likhein. Malik request qabool kare ga to aap ka poora khata yahan nazar aaye ga. Sirf code kaafi nahi — malik ki qabooliyat zaroori hai. Aap alag alag malikon ke kai codes daal kar sab ke khatay ek hi jagah dekh sakte hain.')+'</div>';
 return h}
 function fKhataH(){const t={bill:FDATA.bill||0,old:FDATA.old||0,paid:FDATA.paid||0,due:FDATA.due||0};
-const E=[...(FDATA.entries||[])].sort((a,b)=>((a.date||'')+(a.start||'')).localeCompare((b.date||'')+(b.start||'')));
+const E=[...(FDATA.entries||[])].sort((a,b)=>((b.date||'')+(b.start||'')).localeCompare((a.date||'')+(a.start||''))); /* v1.3.21: nayi/aaj wali entry sab say uper */
 const P=[...(FDATA.pays||[])].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
 const tm=E.reduce((m,o)=>m+(+o.mins||0),0);
 const dmy=d=>{const s=String(d||'');return s.length>=10?s.slice(8,10)+'-'+s.slice(5,7)+'-'+s.slice(0,4):esc(s)};
@@ -2404,7 +2404,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.20';
+const APPV='1.3.21';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
