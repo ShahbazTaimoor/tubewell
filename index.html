@@ -462,24 +462,35 @@ html[data-th=raat] .kbox{background:rgba(224,160,48,.08);border-color:rgba(224,1
 .wvam b{font-size:calc(16.5px*var(--fs));font-weight:800;font-variant-numeric:tabular-nums;line-height:1.7}
 .wvam i{font-style:normal;font-size:calc(11.5px*var(--fs));color:var(--wvmut);font-weight:600;margin-inline-start:5px}
 @media(max-width:350px){.wvst3{gap:7px}.wvr{gap:8px;padding:9px 11px 7px}.wvd{font-size:calc(14px*var(--fs))}.wvsv{font-size:calc(12.5px*var(--fs))}}
+/* v1.3.22: kisan code pop-up (ghalat/ghair-maujood code) */
+:root{--cpbg:#FDF1F0;--cpbd:rgba(214,69,69,.55);--cplb:#8C3A34;--cpcd:#B3261E}
+.cpfh{background:linear-gradient(135deg,#B3261E,#D64545)}
+.cpbox{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px dashed var(--cpbd);background:var(--cpbg);border-radius:12px;padding:9px 12px;margin:0 0 10px}
+.cplb{font-size:calc(12px*var(--fs));color:var(--cplb);font-weight:700}
+.cpcd{font-weight:800;font-size:calc(16px*var(--fs));letter-spacing:1.2px;color:var(--cpcd)}
+.cpmsg{font-size:calc(14px*var(--fs));line-height:1.75;font-weight:600;margin:2px 0 10px}
+.cphint{font-size:calc(12.5px*var(--fs));color:var(--mut);font-weight:600;margin:-4px 0 12px;line-height:1.7}
 html[data-th=raat] .wvr{--wvbg:rgba(64,140,220,.20);--wvink:#E8F1FA;--wvtm:#C2D2E4;--wvdt:#8C9AAB;--wvmut:#93A3B5}
 html[data-th=raat] .wvc1{--wvbg:rgba(52,199,110,.16)}
 html[data-th=raat] .wvc2{--wvbg:rgba(240,200,90,.14)}
 html[data-th=raat] .wvc3{--wvbg:rgba(240,120,180,.14)}
 html[data-th=raat] .wvc4{--wvbg:rgba(150,130,240,.16)}
 html[data-th=raat] .wvnt.wol{color:#F0C977}
+html[data-th=raat]{--cpbg:rgba(214,69,69,.14);--cpbd:rgba(214,69,69,.45);--cplb:#F2B4B0;--cpcd:#F2938F}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .wvr{--wvbg:rgba(64,140,220,.20);--wvink:#E8F1FA;--wvtm:#C2D2E4;--wvdt:#8C9AAB;--wvmut:#93A3B5}
 :root:not([data-theme="light"]) .wvc1{--wvbg:rgba(52,199,110,.16)}
 :root:not([data-theme="light"]) .wvc2{--wvbg:rgba(240,200,90,.14)}
 :root:not([data-theme="light"]) .wvc3{--wvbg:rgba(240,120,180,.14)}
 :root:not([data-theme="light"]) .wvc4{--wvbg:rgba(150,130,240,.16)}
-:root:not([data-theme="light"]) .wvnt.wol{color:#F0C977}}
+:root:not([data-theme="light"]) .wvnt.wol{color:#F0C977}
+:root:not([data-theme="light"]){--cpbg:rgba(214,69,69,.14);--cpbd:rgba(214,69,69,.45);--cplb:#F2B4B0;--cpcd:#F2938F}}
 :root[data-theme="dark"] .wvr{--wvbg:rgba(64,140,220,.20);--wvink:#E8F1FA;--wvtm:#C2D2E4;--wvdt:#8C9AAB;--wvmut:#93A3B5}
 :root[data-theme="dark"] .wvc1{--wvbg:rgba(52,199,110,.16)}
 :root[data-theme="dark"] .wvc2{--wvbg:rgba(240,200,90,.14)}
 :root[data-theme="dark"] .wvc3{--wvbg:rgba(240,120,180,.14)}
 :root[data-theme="dark"] .wvc4{--wvbg:rgba(150,130,240,.16)}
 :root[data-theme="dark"] .wvnt.wol{color:#F0C977}
+:root[data-theme="dark"]{--cpbg:rgba(214,69,69,.14);--cpbd:rgba(214,69,69,.45);--cplb:#F2B4B0;--cpcd:#F2938F}
 .kempty{text-align:center;color:var(--mut);padding:14px 8px;font-size:calc(13px*var(--fs))}
 .kempty.it{font-style:italic}
 .ksum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -1544,18 +1555,31 @@ if(c==='permission-denied'){delete fdRT[frId];fdGone(frId);return}
 if(FKC[frId]){FDMAP[frId]=FKC[frId];FD_OFF[frId]=1;if(fkCur===frId){FDATA=FDMAP[frId];FDATAF=frId}}else{delete FDMAP[frId];if(fkCur===frId)FDATA=null}
 fkSoft();
 if(fdRT[frId])clearTimeout(fdRT[frId]);fdRT[frId]=setTimeout(()=>{delete fdRT[frId];if(ST.role==='farmer'&&flsGet().some(x=>x.frId===frId))fdListen(fl)},15000)})}
+/* v1.3.22: kisan code pop-up — ghalat/ghair-maujood code par professional paighaam (plain alert ki jagah) */
+function codePop(kind,code){const c=String(code||'').trim();
+let ic,ti='',msg='',btn='',hint=false;
+if(kind==='nf'){ic='🔍';ti=BT('Khata nahi mila');msg=BT('Ye code kisi khate se nahi mila. Malik se code dobara lein aur bilkul waisa hi likhein jaisa us ne bheja hai.');btn=BT('Code dobara likhein');hint=true}
+else if(kind==='net'){ic='📡';ti=BT('Internet masla');msg=BT('Code check nahi ho saka — internet on kar ke dobara koshish karein.');btn=BT('Dobara koshish karein')}
+else{ic='⏰';ti=BT('Code likhein');msg=BT('Pehle malik ka diya hua kisan code likhein — misal FR-A2B4C6.');btn=BT('Theek hai')}
+modal('<div class="fh cpfh" data-d="'+ic+'"><i class="ic">'+ic+'</i><div><h2>'+ti+'</h2></div></div>'
++'<div class="fb">'+(c?'<div class="cpbox"><span class="cplb">'+BT('Aap ne likha')+'</span><bdi dir="ltr" class="cpcd">'+esc(c)+'</bdi></div>':'')
++'<div class="cpmsg">'+msg+'</div>'
++(hint?'<div class="cphint">'+BT('Code ki misal')+': <bdi dir="ltr"><b>FR-A2B4C6</b></bdi></div>':'')
++'<button class="sb" onclick="codePopRetry()"><i style="font-style:normal;font-size:22px">🔄</i><span>'+btn+'</span></button>'
++'<button class="s" style="width:100%;margin-top:8px" onclick="$(\'em\').remove()">'+BT('Band karein')+'</button></div>')}
+function codePopRetry(){try{$('em').remove()}catch(e){}const i=$('flc');if(i)setTimeout(()=>{try{i.focus();if(i.value)i.select()}catch(e){}},320)}
 async function flSend(btn){if(flBusy)return;flBusy=true;const b=btn||$('flgo');if(b){b.disabled=true;b.style.opacity='.55'}
 const un=()=>{flBusy=false;if(b){b.disabled=false;b.style.opacity=''}};
-Object.assign(NB,{'Mere khatay — alag alag malik':{en:'My khatas — separate owners',ur:'میرے کھاتے — الگ الگ مالک'},'Update: ':{en:'Updated: ',ur:'اپ ڈیٹ: '},'Record abhi nahi aaya':{en:'Record not received yet',ur:'ریکارڈ ابھی نہیں آیا'},'Internet band hai — aakhri save kiya hua khata dikha raha hoon. Internet aane par khud update ho jaye ga.':{en:'Internet is off — showing your last saved khata. It updates by itself when internet returns.',ur:'انٹرنیٹ بند ہے — آخری محفوظ شدہ کھاتہ دکھا رہے ہیں۔ انٹرنیٹ آنے پر خود اپ ڈیٹ ہو جائے گا۔'},'Internet nahi — pichli tubewell list dikha raha hoon.':{en:'No internet — showing the last saved tubewell list.',ur:'انٹرنیٹ نہیں — ٹیوب ویل کی پچھلی فہرست دکھا رہے ہیں۔'},'dekh rahe hain':{en:'viewing',ur:'دیکھ رہے ہیں'}});try{
+Object.assign(NB,{'Mere khatay — alag alag malik':{en:'My khatas — separate owners',ur:'میرے کھاتے — الگ الگ مالک'},'Update: ':{en:'Updated: ',ur:'اپ ڈیٹ: '},'Record abhi nahi aaya':{en:'Record not received yet',ur:'ریکارڈ ابھی نہیں آیا'},'Internet band hai — aakhri save kiya hua khata dikha raha hoon. Internet aane par khud update ho jaye ga.':{en:'Internet is off — showing your last saved khata. It updates by itself when internet returns.',ur:'انٹرنیٹ بند ہے — آخری محفوظ شدہ کھاتہ دکھا رہے ہیں۔ انٹرنیٹ آنے پر خود اپ ڈیٹ ہو جائے گا۔'},'Internet nahi — pichli tubewell list dikha raha hoon.':{en:'No internet — showing the last saved tubewell list.',ur:'انٹرنیٹ نہیں — ٹیوب ویل کی پچھلی فہرست دکھا رہے ہیں۔'},'Khata nahi mila':{en:'Account not found',ur:'کھاتہ نہیں ملا'},'Ye code kisi khate se nahi mila. Malik se code dobara lein aur bilkul waisa hi likhein jaisa us ne bheja hai.':{en:'This code does not match any account. Get the code again from your owner and type it exactly as he sent it.',ur:'یہ کوڈ کسی کھاتے سے نہیں ملا۔ مالک سے کوڈ دوبارہ لیں اور بالکل ویسا ہی لکھیں جیسا اُس نے بھیجا ہے۔'},'Aap ne likha':{en:'You entered',ur:'آپ نے لکھا'},'Code ki misal':{en:'Example code',ur:'کوڈ کی مثال'},'Code dobara likhein':{en:'Re-enter the code',ur:'کوڈ دوبارہ لکھیں'},'Internet masla':{en:'Connection problem',ur:'انٹرنیٹ نہیں چل رہا'},'Code check nahi ho saka — internet on kar ke dobara koshish karein.':{en:'The code could not be checked — turn on internet and try again.',ur:'کوڈ چیک نہیں ہو سکا — انٹرنیٹ کھول کر دوبارہ کوشش کریں۔'},'Dobara koshish karein':{en:'Try again',ur:'دوبارہ کوشش کریں'},'Code likhein':{en:'Enter the code',ur:'کوڈ لکھیں'},'Pehle malik ka diya hua kisan code likhein — misal FR-A2B4C6.':{en:'First enter the kisan code your owner gave you — e.g. FR-A2B4C6.',ur:'پہلے مالک کا دیا ہوا کسان کوڈ لکھیں — مثال: FR-A2B4C6۔'},'Theek hai':{en:'OK',ur:'ٹھیک ہے'},'Band karein':{en:'Close',ur:'بند کریں'},'dekh rahe hain':{en:'viewing',ur:'دیکھ رہے ہیں'}});try{
 const v=(($('flc')||{}).value||'').trim().toUpperCase();
-if(!v){alert(BT('Pehle kisan code likhein'));return}
+if(!v){codePop('fmt','');return}
 const code=/^FR-/.test(v)?v:'FR-'+v;
 if(flSentC===code&&Date.now()-flSentT<90000){toast(BT('Ye request abhi bheji ja chuki hai — thora intezar karein'));return}
-if(!FS){alert(BT('Internet nahi hai.'));return}
+if(!FS){codePop('net',v);return}
 if(FLREQ.some(r=>r.code===code&&r.status==='pending')){toast(BT('Ye code pehle se request ho chuka hai — malik ke qabool karne ka intezar karein'));return}
 if(flsGet().length&&!confirm('Aap ka khata pehle se link hai. Phir bhi is code ke liye naya request bhejein?'))return;
-let dir=null;try{dir=await FS.collection('fcode').doc(code).get()}catch(e){alert(BT('Talash nahi ho saki. Internet check karein.'));return}
-if(!dir.exists){alert(BT('Is code ka koi kisan record nahi mila. Code malik se check karein.'));return}
+let dir=null;try{dir=await FS.collection('fcode').doc(code).get()}catch(e){codePop('net',code);return}
+if(!dir.exists){codePop('nf',code);return}
 const dd=dir.data();
 if(dd.frId&&FDMISS[dd.frId]){delete FDMISS[dd.frId];fdMissSave()}
 const rec={code:code,ownerUid:dd.ownerUid||'',frId:dd.frId||'',uid:U.uid,email:(U.email||''),name:((U.displayName||ST.fname||'Kisan')+'').trim(),status:'pending',ts:Date.now(),upAt:Date.now()};
@@ -2404,7 +2428,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.21';
+const APPV='1.3.22';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
