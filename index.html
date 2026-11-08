@@ -462,35 +462,24 @@ html[data-th=raat] .kbox{background:rgba(224,160,48,.08);border-color:rgba(224,1
 .wvam b{font-size:calc(16.5px*var(--fs));font-weight:800;font-variant-numeric:tabular-nums;line-height:1.7}
 .wvam i{font-style:normal;font-size:calc(11.5px*var(--fs));color:var(--wvmut);font-weight:600;margin-inline-start:5px}
 @media(max-width:350px){.wvst3{gap:7px}.wvr{gap:8px;padding:9px 11px 7px}.wvd{font-size:calc(14px*var(--fs))}.wvsv{font-size:calc(12.5px*var(--fs))}}
-/* v1.3.22: kisan code pop-up (ghalat/ghair-maujood code) */
-:root{--cpbg:#FDF1F0;--cpbd:rgba(214,69,69,.55);--cplb:#8C3A34;--cpcd:#B3261E}
-.cpfh{background:linear-gradient(135deg,#B3261E,#D64545)}
-.cpbox{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px dashed var(--cpbd);background:var(--cpbg);border-radius:12px;padding:9px 12px;margin:0 0 10px}
-.cplb{font-size:calc(12px*var(--fs));color:var(--cplb);font-weight:700}
-.cpcd{font-weight:800;font-size:calc(16px*var(--fs));letter-spacing:1.2px;color:var(--cpcd)}
-.cpmsg{font-size:calc(14px*var(--fs));line-height:1.75;font-weight:600;margin:2px 0 10px}
-.cphint{font-size:calc(12.5px*var(--fs));color:var(--mut);font-weight:600;margin:-4px 0 12px;line-height:1.7}
 html[data-th=raat] .wvr{--wvbg:rgba(64,140,220,.20);--wvink:#E8F1FA;--wvtm:#C2D2E4;--wvdt:#8C9AAB;--wvmut:#93A3B5}
 html[data-th=raat] .wvc1{--wvbg:rgba(52,199,110,.16)}
 html[data-th=raat] .wvc2{--wvbg:rgba(240,200,90,.14)}
 html[data-th=raat] .wvc3{--wvbg:rgba(240,120,180,.14)}
 html[data-th=raat] .wvc4{--wvbg:rgba(150,130,240,.16)}
 html[data-th=raat] .wvnt.wol{color:#F0C977}
-html[data-th=raat]{--cpbg:rgba(214,69,69,.14);--cpbd:rgba(214,69,69,.45);--cplb:#F2B4B0;--cpcd:#F2938F}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .wvr{--wvbg:rgba(64,140,220,.20);--wvink:#E8F1FA;--wvtm:#C2D2E4;--wvdt:#8C9AAB;--wvmut:#93A3B5}
 :root:not([data-theme="light"]) .wvc1{--wvbg:rgba(52,199,110,.16)}
 :root:not([data-theme="light"]) .wvc2{--wvbg:rgba(240,200,90,.14)}
 :root:not([data-theme="light"]) .wvc3{--wvbg:rgba(240,120,180,.14)}
 :root:not([data-theme="light"]) .wvc4{--wvbg:rgba(150,130,240,.16)}
-:root:not([data-theme="light"]) .wvnt.wol{color:#F0C977}
-:root:not([data-theme="light"]){--cpbg:rgba(214,69,69,.14);--cpbd:rgba(214,69,69,.45);--cplb:#F2B4B0;--cpcd:#F2938F}}
+:root:not([data-theme="light"]) .wvnt.wol{color:#F0C977}}
 :root[data-theme="dark"] .wvr{--wvbg:rgba(64,140,220,.20);--wvink:#E8F1FA;--wvtm:#C2D2E4;--wvdt:#8C9AAB;--wvmut:#93A3B5}
 :root[data-theme="dark"] .wvc1{--wvbg:rgba(52,199,110,.16)}
 :root[data-theme="dark"] .wvc2{--wvbg:rgba(240,200,90,.14)}
 :root[data-theme="dark"] .wvc3{--wvbg:rgba(240,120,180,.14)}
 :root[data-theme="dark"] .wvc4{--wvbg:rgba(150,130,240,.16)}
 :root[data-theme="dark"] .wvnt.wol{color:#F0C977}
-:root[data-theme="dark"]{--cpbg:rgba(214,69,69,.14);--cpbd:rgba(214,69,69,.45);--cplb:#F2B4B0;--cpcd:#F2938F}
 .kempty{text-align:center;color:var(--mut);padding:14px 8px;font-size:calc(13px*var(--fs))}
 .kempty.it{font-style:italic}
 .ksum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -642,6 +631,12 @@ input[type=search]{background:linear-gradient(180deg,#F2F7FB,#EAF2F8);box-shadow
 .cb-rose{background:linear-gradient(135deg,#8E3138,#AC4650)}
 .cb-aqua{background:linear-gradient(135deg,#1E7168,#2E8F86)}
 .cb-lav{background:linear-gradient(135deg,#55468A,#6E5CA8)}
+.kco{position:fixed;inset:0;z-index:46;background:rgba(7,26,44,.55);display:flex;align-items:center;justify-content:center;padding:20px;animation:fade .22s ease}
+.kcoc{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 44px rgba(4,20,38,.35);max-width:340px;width:100%;padding:20px 18px 16px;text-align:center;animation:pop .24s ease}
+.kcoi{width:62px;height:62px;margin:0 auto 10px;border-radius:50%;background:rgba(220,38,38,.13);display:flex;align-items:center;justify-content:center;font-size:30px}
+.kcot{display:block;font-family:var(--uf);font-size:calc(18px*var(--fs));color:var(--ink);line-height:1.7}
+.kcob{margin-top:5px;color:var(--mut);font-size:calc(13.5px*var(--fs));line-height:1.85;font-family:var(--uf)}
+.kcocode{margin-top:10px;background:var(--g2);border:1px dashed var(--line);border-radius:12px;padding:6px 10px;font-size:calc(12.5px*var(--fs));color:var(--mut);display:inline-block}
 /* form cards (.fc): .fh header hi band hai — pani neela, purana baqaya gehra sabz, wasooli sabz */
 .card.fc{padding:0;overflow:hidden}
 .card.fc>.fh{background:linear-gradient(135deg,#275D91,#3E7FB4);padding:8px 12px;min-height:46px;gap:10px}
@@ -1394,7 +1389,7 @@ try{if(lrUnsub){lrUnsub();lrUnsub=null}}catch(e){}
 try{if(flUnsub){flUnsub();flUnsub=null}}catch(e){}
 try{fdUnAll()}catch(e){}try{chatUnsubAll()}catch(e){}
 LREQ=[];FLREQ=[];FDATA=null;FDATAF='';fdHad=false;fdErr='';fdRetry={};FDMAP={};FDHAD={};FDMISS={};fdUn={};fkCur=null;flLoaded=false;FKC={};FD_OFF={};lastFC={};lastFD={};lrSig='';lrT=0;cur=null;eid=null;
-(to==='owner'?ownerBoot:farmerBoot)();msgBoot();try{ntGateSync()}catch(e){}
+(to==='owner'?ownerBoot:farmerBoot)();msgBoot();try{ntGateSync()}catch(e){};try{ntAuto()}catch(e){}
 ding();toast(BT(to==='owner'?'Owner mode chalu — khush aamdeed!':'Farmer mode chalu — khush aamdeed!'))}
 async function routeUser(){let role=null,had=false,tcode=null,tws=false,rok=false;
 try{const sn=await profDoc().get();rok=true;if(sn.exists()){const d=sn.data();role=d.role||null;if(d.tcode){tcode=d.tcode;ST.tcode=d.tcode}tws=!!d.tws}}catch(e){}
@@ -1411,7 +1406,7 @@ $('v').innerHTML='<div class="nt"><div class="card">'+BH('Farmer link requests',
 function cpTxt(s){try{navigator.clipboard.writeText(s);toast(BT('Copy ho gaya'))}catch(e){toast('Copy nahi hua')}}
 /* ===== Farmer: kisan khata (booking/talaash v81 mein hata) ===== */
 function fHome(){view='fhome';cur=null;navR();
-$('v').innerHTML='<div class="nt"><div class="card slav band"><div class="cband cb-lav"><span class="bi">🌾</span>'+BH('My Farmer Khata','میرا کسان کھاتا')+'<span class="cbtn" id="fchatb" role="button" aria-label="'+BT('Paighaam')+'" onclick="chatFarmerGo()" style="display:none">'+IMSG+'</span></div><div class="cbody"><div id="fkdata">'+fKhataBox()+'</div></div></div></div>';chatBadge();ntGateSync()}
+$('v').innerHTML='<div class="nt"><div class="card slav band"><div class="cband cb-lav"><span class="bi">🌾</span>'+BH('My Farmer Khata','میرا کسان کھاتا')+'<span class="cbtn" id="fchatb" role="button" aria-label="'+BT('Paighaam')+'" onclick="chatFarmerGo()" style="display:none">'+IMSG+'</span></div><div class="cbody"><div id="fkdata">'+fKhataBox()+'</div></div></div></div>';chatBadge();ntGateSync();try{ntAuto()}catch(e){}}
 /* ===== v63: Kisan Code Based Account Linking ===== */
 let LREQ=[],FLREQ=[],FDATA=null,FDATAF='',lrUnsub=null,flUnsub=null,lastFC={},lastFD={},lrT=0,lrSig='',fdRetry={},fdBT=0,fdHad=false,fdErr='',fdRT={},flBusy=false,flSentC='',flSentT=0,FDMAP={},FDHAD={},FDMISS={},fdUn={},fkCur=null,flLoaded=false,FKC={},FD_OFF={},fkCLd=0;
 const genFCode=()=>{const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=A[Math.floor(Math.random()*A.length)];return 'FR-'+s};
@@ -1497,7 +1492,7 @@ if(fkCur&&!L.some(x=>x.frId===fkCur))fkCur=null;
 if(!fkCur&&L.length){fkCur=L[0].frId;try{localStorage.setItem('aslam_fkc',fkCur)}catch(e){}}
 if(fkCur&&fkCur!==prev){FDATA=FDMAP[fkCur]||null;FDATAF=fkCur}else if(fkCur&&FDMAP[fkCur]&&FDATAF===fkCur)FDATA=FDMAP[fkCur];
 fdListenAll();fkSoft()}
-function fkSoft(){if(view!=='fhome')return;const m=$('fkdata');if(m&&!$('em')){m.innerHTML=fKhataBox();chatBadge();ntGateSync()}else if(!m)fHome()}
+function fkSoft(){if(view!=='fhome')return;const m=$('fkdata');if(m&&!$('em')){m.innerHTML=fKhataBox();chatBadge();ntGateSync()}else if(!m)fHome();try{ntAuto()}catch(e){}}
 /* ===== v69: Notification bell (header) ===== */
 let nPrev={};
 const nSeen=()=>{try{return +localStorage.getItem('aslam_nseen')||0}catch(e){return 0}};
@@ -1555,31 +1550,24 @@ if(c==='permission-denied'){delete fdRT[frId];fdGone(frId);return}
 if(FKC[frId]){FDMAP[frId]=FKC[frId];FD_OFF[frId]=1;if(fkCur===frId){FDATA=FDMAP[frId];FDATAF=frId}}else{delete FDMAP[frId];if(fkCur===frId)FDATA=null}
 fkSoft();
 if(fdRT[frId])clearTimeout(fdRT[frId]);fdRT[frId]=setTimeout(()=>{delete fdRT[frId];if(ST.role==='farmer'&&flsGet().some(x=>x.frId===frId))fdListen(fl)},15000)})}
-/* v1.3.22: kisan code pop-up — ghalat/ghair-maujood code par professional paighaam (plain alert ki jagah) */
-function codePop(kind,code){const c=String(code||'').trim();
-let ic,ti='',msg='',btn='',hint=false;
-if(kind==='nf'){ic='🔍';ti=BT('Khata nahi mila');msg=BT('Ye code kisi khate se nahi mila. Malik se code dobara lein aur bilkul waisa hi likhein jaisa us ne bheja hai.');btn=BT('Code dobara likhein');hint=true}
-else if(kind==='net'){ic='📡';ti=BT('Internet masla');msg=BT('Code check nahi ho saka — internet on kar ke dobara koshish karein.');btn=BT('Dobara koshish karein')}
-else{ic='⏰';ti=BT('Code likhein');msg=BT('Pehle malik ka diya hua kisan code likhein — misal FR-A2B4C6.');btn=BT('Theek hai')}
-modal('<div class="fh cpfh" data-d="'+ic+'"><i class="ic">'+ic+'</i><div><h2>'+ti+'</h2></div></div>'
-+'<div class="fb">'+(c?'<div class="cpbox"><span class="cplb">'+BT('Aap ne likha')+'</span><bdi dir="ltr" class="cpcd">'+esc(c)+'</bdi></div>':'')
-+'<div class="cpmsg">'+msg+'</div>'
-+(hint?'<div class="cphint">'+BT('Code ki misal')+': <bdi dir="ltr"><b>FR-A2B4C6</b></bdi></div>':'')
-+'<button class="sb" onclick="codePopRetry()"><i style="font-style:normal;font-size:22px">🔄</i><span>'+btn+'</span></button>'
-+'<button class="s" style="width:100%;margin-top:8px" onclick="$(\'em\').remove()">'+BT('Band karein')+'</button></div>')}
-function codePopRetry(){try{$('em').remove()}catch(e){}const i=$('flc');if(i)setTimeout(()=>{try{i.focus();if(i.value)i.select()}catch(e){}},320)}
+/* v1.3.23: ghalat ya ghair-maujood kisan code par professional pop-up (alert ki jagah) */
+Object.assign(NB,{'Code galat lag gaya':{en:'Wrong code',ur:'کود غلط لگا ہے'},'Code mukammal likhein — misal: FR-A2B4C6. Malik say code check kar lein.':{en:'Write the full code — e.g. FR-A2B4C6. Check the code with the owner.',ur:'کود مکمل لکھیں — مثال: FR-A2B4C6۔ مالک سے کود چیک کر لیں۔'},'Khata nahi mila':{en:'Khata not found',ur:'کھاتہ نہیں ملا'},'Ye code kisi khata say nahi mila — malik say code dobara check karein.':{en:'This code does not match any khata — check the code with the owner again.',ur:'یہ کود کسی کھاتے سے نہیں ملا — مالک سے کود دوبارہ چیک کریں۔'},'Aap ne likha:':{en:'You wrote:',ur:'آپ نے لکھا:'},'Dobara koshish karein':{en:'Try again',ur:'دوبارہ کوشش کریں'},'Theek hai':{en:'OK',ur:'ٹھیک ہے'}});
+function kcPop(kind,code){const o=$('kcov');if(o)o.remove();const nf=kind==='nf';const ov=document.createElement('div');ov.id='kcov';ov.className='kco';ov.innerHTML='<div class="kcoc" role="alertdialog" aria-modal="true"><div class="kcoi">'+(nf?'🔍':'❌')+'</div><b class="kcot">'+BT(nf?'Khata nahi mila':'Code galat lag gaya')+'</b><div class="kcob">'+BT(nf?'Ye code kisi khata say nahi mila — malik say code dobara check karein.':'Code mukammal likhein — misal: FR-A2B4C6. Malik say code check kar lein.')+'</div>'+(code?'<div class="kcocode">'+BT('Aap ne likha:')+' <bdi dir="ltr">'+esc(code)+'</bdi></div>':'')+'<div class="row" style="margin-top:14px"><button class="p" onclick="kcTry()">'+BT('Dobara koshish karein')+'</button><button class="s" onclick="kcOk()">'+BT('Theek hai')+'</button></div></div>';ov.addEventListener('click',e=>{if(e.target===ov)kcOk()});document.body.appendChild(ov)}
+function kcTry(){kcOk();const a=$('fladd');if(a&&a.classList.contains('hide'))fkAddOpen();const i=$('flc');if(i)setTimeout(()=>{try{i.focus()}catch(e){}},80)}
+function kcOk(){const o=$('kcov');if(o)o.remove()}
 async function flSend(btn){if(flBusy)return;flBusy=true;const b=btn||$('flgo');if(b){b.disabled=true;b.style.opacity='.55'}
 const un=()=>{flBusy=false;if(b){b.disabled=false;b.style.opacity=''}};
-Object.assign(NB,{'Mere khatay — alag alag malik':{en:'My khatas — separate owners',ur:'میرے کھاتے — الگ الگ مالک'},'Update: ':{en:'Updated: ',ur:'اپ ڈیٹ: '},'Record abhi nahi aaya':{en:'Record not received yet',ur:'ریکارڈ ابھی نہیں آیا'},'Internet band hai — aakhri save kiya hua khata dikha raha hoon. Internet aane par khud update ho jaye ga.':{en:'Internet is off — showing your last saved khata. It updates by itself when internet returns.',ur:'انٹرنیٹ بند ہے — آخری محفوظ شدہ کھاتہ دکھا رہے ہیں۔ انٹرنیٹ آنے پر خود اپ ڈیٹ ہو جائے گا۔'},'Internet nahi — pichli tubewell list dikha raha hoon.':{en:'No internet — showing the last saved tubewell list.',ur:'انٹرنیٹ نہیں — ٹیوب ویل کی پچھلی فہرست دکھا رہے ہیں۔'},'Khata nahi mila':{en:'Account not found',ur:'کھاتہ نہیں ملا'},'Ye code kisi khate se nahi mila. Malik se code dobara lein aur bilkul waisa hi likhein jaisa us ne bheja hai.':{en:'This code does not match any account. Get the code again from your owner and type it exactly as he sent it.',ur:'یہ کوڈ کسی کھاتے سے نہیں ملا۔ مالک سے کوڈ دوبارہ لیں اور بالکل ویسا ہی لکھیں جیسا اُس نے بھیجا ہے۔'},'Aap ne likha':{en:'You entered',ur:'آپ نے لکھا'},'Code ki misal':{en:'Example code',ur:'کوڈ کی مثال'},'Code dobara likhein':{en:'Re-enter the code',ur:'کوڈ دوبارہ لکھیں'},'Internet masla':{en:'Connection problem',ur:'انٹرنیٹ نہیں چل رہا'},'Code check nahi ho saka — internet on kar ke dobara koshish karein.':{en:'The code could not be checked — turn on internet and try again.',ur:'کوڈ چیک نہیں ہو سکا — انٹرنیٹ کھول کر دوبارہ کوشش کریں۔'},'Dobara koshish karein':{en:'Try again',ur:'دوبارہ کوشش کریں'},'Code likhein':{en:'Enter the code',ur:'کوڈ لکھیں'},'Pehle malik ka diya hua kisan code likhein — misal FR-A2B4C6.':{en:'First enter the kisan code your owner gave you — e.g. FR-A2B4C6.',ur:'پہلے مالک کا دیا ہوا کسان کوڈ لکھیں — مثال: FR-A2B4C6۔'},'Theek hai':{en:'OK',ur:'ٹھیک ہے'},'Band karein':{en:'Close',ur:'بند کریں'},'dekh rahe hain':{en:'viewing',ur:'دیکھ رہے ہیں'}});try{
+Object.assign(NB,{'Mere khatay — alag alag malik':{en:'My khatas — separate owners',ur:'میرے کھاتے — الگ الگ مالک'},'Update: ':{en:'Updated: ',ur:'اپ ڈیٹ: '},'Record abhi nahi aaya':{en:'Record not received yet',ur:'ریکارڈ ابھی نہیں آیا'},'Internet band hai — aakhri save kiya hua khata dikha raha hoon. Internet aane par khud update ho jaye ga.':{en:'Internet is off — showing your last saved khata. It updates by itself when internet returns.',ur:'انٹرنیٹ بند ہے — آخری محفوظ شدہ کھاتہ دکھا رہے ہیں۔ انٹرنیٹ آنے پر خود اپ ڈیٹ ہو جائے گا۔'},'Internet nahi — pichli tubewell list dikha raha hoon.':{en:'No internet — showing the last saved tubewell list.',ur:'انٹرنیٹ نہیں — ٹیوب ویل کی پچھلی فہرست دکھا رہے ہیں۔'},'dekh rahe hain':{en:'viewing',ur:'دیکھ رہے ہیں'}});try{
 const v=(($('flc')||{}).value||'').trim().toUpperCase();
-if(!v){codePop('fmt','');return}
+if(!v){kcPop('fmt','');return}
 const code=/^FR-/.test(v)?v:'FR-'+v;
+if(!/^FR-[A-Z0-9]{6}$/.test(code)){kcPop('fmt',v);return}
 if(flSentC===code&&Date.now()-flSentT<90000){toast(BT('Ye request abhi bheji ja chuki hai — thora intezar karein'));return}
-if(!FS){codePop('net',v);return}
+if(!FS){alert(BT('Internet nahi hai.'));return}
 if(FLREQ.some(r=>r.code===code&&r.status==='pending')){toast(BT('Ye code pehle se request ho chuka hai — malik ke qabool karne ka intezar karein'));return}
 if(flsGet().length&&!confirm('Aap ka khata pehle se link hai. Phir bhi is code ke liye naya request bhejein?'))return;
-let dir=null;try{dir=await FS.collection('fcode').doc(code).get()}catch(e){codePop('net',code);return}
-if(!dir.exists){codePop('nf',code);return}
+let dir=null;try{dir=await FS.collection('fcode').doc(code).get()}catch(e){alert(BT('Talash nahi ho saki. Internet check karein.'));return}
+if(!dir.exists){kcPop('nf',code);return}
 const dd=dir.data();
 if(dd.frId&&FDMISS[dd.frId]){delete FDMISS[dd.frId];fdMissSave()}
 const rec={code:code,ownerUid:dd.ownerUid||'',frId:dd.frId||'',uid:U.uid,email:(U.email||''),name:((U.displayName||ST.fname||'Kisan')+'').trim(),status:'pending',ts:Date.now(),upAt:Date.now()};
@@ -1665,7 +1653,7 @@ function ntxPick(k,v){try{const c=ntxGet();c[k]=v;ntxSet(c)}catch(e){}try{toast(
 function ntxCx(k){try{const c=ntxGet(),el=$('ntxta'+k),v=((el&&el.value)||'').trim();if(!v){toast(BL()==='ur'?'پہلے اپنا متن لکھیں':'Pehle apna text likhein');return}c[k]='x';c[k+'x']=v.slice(0,150);ntxSet(c);toast(BL()==='ur'?'اپنا متن محفوظ ہو گیا':'Apna text save ho gaya');if(view==='set')setV()}catch(e){}}
 let ntpS=0;
 function ntPushReg(quiet){try{if(!U||ntpS)return;if(!('serviceWorker' in navigator)||!('Notification' in window))return;if(ntPerm()!=='granted')return;if(!(window.firebase&&firebase.messaging&&firebase.messaging.isSupported&&firebase.messaging.isSupported()))return;ntpS=1;
-try{navigator.serviceWorker.ready.then(r=>{try{firebase.messaging().getToken({vapidKey:NVAP,serviceWorkerRegistration:r}).then(tok=>{if(tok){try{FS.collection('ftok').doc(U.uid).set({tokens:firebase.firestore.FieldValue.arrayUnion(tok),upAt:Date.now()},{merge:true})}catch(e){}try{if(!quiet)toast(BL()==='ur'?'🔔 Push chalu — app band ho to bhi notification aayegi':'🔔 Push on — works even when the app is closed')}catch(e2){}}else ntpS=0}).catch(()=>{ntpS=0})}catch(e){ntpS=0}}).catch(()=>{ntpS=0})}catch(e){ntpS=0}}catch(e){}}
+try{navigator.serviceWorker.ready.then(r=>{try{firebase.messaging().getToken({vapidKey:NVAP,serviceWorkerRegistration:r}).then(tok=>{if(tok){try{FS.collection('ftok').doc(U.uid).set({tokens:firebase.firestore.FieldValue.arrayUnion(tok),upAt:Date.now()},{merge:true});try{const ntFst=!localStorage.getItem('aslam_ntdone');try{localStorage.setItem('aslam_ntdone','1')}catch(e6){}if(quiet&&ntFst)toast(BL()==='ur'?'🔔 Notification chalu ho gayi — ab har nayi entry ya wasooli ki ittila aaye gi':'🔔 Notifications on — you will now get an alert for every new entry or payment')}catch(e5){}}catch(e){}try{if(!quiet)toast(BL()==='ur'?'🔔 Push chalu — app band ho to bhi notification aayegi':'🔔 Push on — works even when the app is closed')}catch(e2){}}else ntpS=0}).catch(()=>{ntpS=0})}catch(e){ntpS=0}}).catch(()=>{ntpS=0})}catch(e){ntpS=0}}catch(e){}}
 const NTSEEN={};
 const ntPerm=()=>{try{return ('Notification' in window)?Notification.permission:'na'}catch(e){return 'na'}};
 /* ===== v1.3.17: FULL-SCREEN notification gate — farmer jab tak ON nahi dabata, us ka khata nazar nahi aata ===== */
@@ -1674,13 +1662,16 @@ function ntGateOn(){try{if(ST.role!=='farmer'||!U)return 0;if(!('Notification' i
 if(p==='denied'){try{if(sessionStorage.getItem(NTSK))return 0}catch(e){}}
 try{const L=flsGet();if(!L||!L.length)return 0}catch(e){return 0}
 return 1}catch(e){return 0}}
-function ntGateSync(){try{let g=$('ntgate');if(!ntGateOn()){if(g)g.remove();return}
+function ntGateSync(){try{try{if(U&&ntPerm()==='granted')ntPushReg(true)}catch(e5){}let g=$('ntgate');if(!ntGateOn()){if(g)g.remove();return}
 if(!g){g=document.createElement('div');g.id='ntgate';document.body.appendChild(g)}
 g.innerHTML=ntGateHTML()}catch(e){}}
 function ntGateSkip(){try{sessionStorage.setItem(NTSK,'1')}catch(e){}ntGateSync();try{fkSoft()}catch(e){}}
 function ntGateAsk(){try{const p=ntPerm();if(p!=='default'){ntGateSync();return}
 try{Notification.requestPermission().then(r=>{try{fkSoft()}catch(e){}if(r==='granted'){ntTest();try{ntPushReg(false)}catch(e){}}try{ntGateSync()}catch(e2){}}).catch(()=>{try{ntGateSync()}catch(e3){}})}catch(e){ntGateSync()}}catch(e){}}
 try{document.addEventListener('visibilitychange',()=>{try{if(!document.hidden)ntGateSync()}catch(e){}})}catch(e){}
+/* v1.3.23: notification AUTOMATIC ON — purane aur naye dono users: app khultay hi ijazat khud maango (jahan browser day sake) aur token khud register karo; granted ho to har render par registration ki koshish */
+var ntAxB=0;
+function ntAuto(){try{if(ntAxB||ST.role!=='farmer'||!U)return;if(!('Notification' in window))return;const p=ntPerm();if(p==='granted'){ntAxB=1;try{ntPushReg(true)}catch(e){}return}if(p!=='default')return;try{const L=flsGet();if(!L||!L.length)return}catch(e){return}ntAxB=1;try{Notification.requestPermission().then(r=>{if(r==='granted'){try{ntPushReg(true)}catch(e){}try{fkSoft()}catch(e2){}}try{ntGateSync()}catch(e3){}}).catch(()=>{})}catch(e){}}catch(e){}}
 function ntShow(t,b,tag){try{if(!('Notification' in window)||Notification.permission!=='granted')return;const o={body:b,tag:tag||'twk',icon:'icon-192.png',badge:'icon-192.png',renotify:true,vibrate:[100,60,100,60,220]};
 try{navigator.serviceWorker.ready.then(r=>{try{const pr=r.showNotification(t,o);if(pr&&pr.catch)pr.catch(()=>{})}catch(e){try{new Notification(t,o)}catch(e2){}}}).catch(()=>{try{new Notification(t,o)}catch(e2){}})}catch(e){try{new Notification(t,o)}catch(e2){}}}catch(e){}}
 function ntTest(){const UR=BL()==='ur';ntShow(UR?'\u{1F514} \u0679\u06CC\u0648\u0628 \u0648\u06CC\u0644 \u06A9\u06BE\u0627\u062A\u06C1':'\u{1F514} ٹیوب ویل کھاتہ',UR?'\u0679\u06CC\u0633\u0679 \u2014 \u0646\u0648\u0679\u06CC\u0641\u06A9\u06CC\u0634\u0646 \u0628\u0644\u06A9\u0644 \u0679\u06BE\u06CC\u06A9 \u0686\u0644 \u0631\u06C1\u06CC \u06C1\u06D2':'Test — notifications are working fine','test');try{toast(UR?'Notification bhej di — phone ki bar mein dekhein':'Notification sent — check your phone bar')}catch(e){}}
@@ -1745,7 +1736,7 @@ h+='<div class="f"><label>'+BT('Kisan code (misal: FR-A2B4C6)')+'</label><input 
 +'<div class="mut sm" style="margin-top:6px">'+BT('Apne malik se apna kisan code (FR-...) lein aur yahan likhein. Malik request qabool kare ga to aap ka poora khata yahan nazar aaye ga. Sirf code kaafi nahi — malik ki qabooliyat zaroori hai. Aap alag alag malikon ke kai codes daal kar sab ke khatay ek hi jagah dekh sakte hain.')+'</div>';
 return h}
 function fKhataH(){const t={bill:FDATA.bill||0,old:FDATA.old||0,paid:FDATA.paid||0,due:FDATA.due||0};
-const E=[...(FDATA.entries||[])].sort((a,b)=>((b.date||'')+(b.start||'')).localeCompare((a.date||'')+(a.start||''))); /* v1.3.21: nayi/aaj wali entry sab say uper */
+const E=[...(FDATA.entries||[])].sort((a,b)=>((b.date||'')+(b.start||'')).localeCompare((a.date||'')+(a.start||'')));/* v1.3.21: nayi/aaj wali entry sab say uper */
 const P=[...(FDATA.pays||[])].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
 const tm=E.reduce((m,o)=>m+(+o.mins||0),0);
 const dmy=d=>{const s=String(d||'');return s.length>=10?s.slice(8,10)+'-'+s.slice(5,7)+'-'+s.slice(0,4):esc(s)};
@@ -2428,7 +2419,7 @@ const fail=()=>{try{if(btn)btn.textContent='▶'}catch(e){}toast(BT(navigator.on
 gv().then(got).catch(()=>gv({source:'server'}).then(got).catch(fail))}catch(e){try{if(btn)btn.textContent='▶'}catch(e){}}}}
 
 /* Version number (Settings ke "Version v__" ke liye). v1.1.0 se version scheme badal gayi: ab semver-style (1.1.0, 1.1.1, 1.2.0 …). Feature-announcement popup v62 se mukammal band — ab koi update popup nahi aata. */
-const APPV='1.3.22';
+const APPV='1.3.23';
 
 /* Long-press par text-selection aur context-menu band (v62) — input/textarea mein paste ka menu chalta rehta hai */
 document.addEventListener('contextmenu',function(e){var t=e.target;try{if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable]'))return}catch(_){}e.preventDefault()},false);
